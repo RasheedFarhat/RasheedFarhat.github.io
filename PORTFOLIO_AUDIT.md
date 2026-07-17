@@ -94,7 +94,7 @@ Baseline checks:
 ## Prioritized recommendations
 
 1. Build a clear multi-page information architecture with detailed project case studies.
-2. Adopt a restrained dark system with one blue accent and no third-party fonts.
+2. Adopt a restrained dark system with controlled functional accents and no third-party fonts.
 3. Use a shared "claim / evidence / boundary" pattern across project pages.
 4. Add an accessible mobile menu with current-page state and Escape handling.
 5. Add a verified resume asset and dedicated resume route.

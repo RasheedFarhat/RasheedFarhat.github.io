@@ -5,13 +5,13 @@
 1. Evidence before adjectives. Claims are paired with a source, validation method, or stated boundary.
 2. Technical depth through structure. Architecture, decisions, and limitations carry the visual hierarchy.
 3. Calm over theatrical. The site avoids simulated terminals, neon hacker motifs, gradients, particles, and decorative dashboards.
-4. One accent. Blue identifies links, focus, and selected states. Status is also expressed in text, never by color alone.
+4. Two disciplined color roles. Patina identifies interaction. Copper identifies evidence, dates, and declared boundaries. Status is also expressed in text, never by color alone.
 5. Fast by default. The production site uses system fonts, static HTML, one CSS file, one small script, and no tracking.
 6. Progressive enhancement. All content and links work without JavaScript. JavaScript only manages the mobile menu and copyright year.
 
 ## Visual direction
 
-The site uses a dark technical-dossier direction. The signature pattern is a three-part project evidence rail:
+The site uses a dark forensic-material direction based on carbon, oxidized metal, and evidence labels. The signature pattern is a three-part project evidence rail:
 
 1. Claim
 2. Evidence
@@ -23,16 +23,17 @@ This structure is specific to security work. It shows what was built, how it was
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `--color-canvas` | `#0b1016` | Page background |
-| `--color-surface` | `#111923` | Primary surfaces |
-| `--color-surface-raised` | `#16212d` | Raised controls and diagrams |
-| `--color-text` | `#f2f6f9` | Primary text |
-| `--color-text-muted` | `#a8b4c0` | Secondary text |
-| `--color-line` | `#2b3948` | Rules and component borders |
-| `--color-accent` | `#6db7ff` | Links, selected states, and focus |
-| `--color-accent-strong` | `#9bd0ff` | Accent text on dark surfaces |
+| `--color-canvas` | `#0c1112` | Carbon page background |
+| `--color-surface` | `#121b1b` | Oxidized primary surfaces |
+| `--color-surface-raised` | `#192626` | Raised controls and diagrams |
+| `--color-text` | `#f2f5f1` | Pale mineral primary text |
+| `--color-text-muted` | `#aabab6` | Secondary text |
+| `--color-line` | `#30413f` | Rules and component borders |
+| `--color-accent` | `#71d8c0` | Patina links, selected states, and focus |
+| `--color-accent-strong` | `#a4ead9` | Patina text on dark surfaces |
+| `--color-signal` | `#e7aa68` | Copper evidence, dates, and boundary labels |
 
-Accent-filled controls use dark text to preserve contrast. No additional decorative accent colors are introduced.
+Accent-filled controls use dark text to preserve contrast. Patina and copper have separate semantic jobs and are not alternated for decoration.
 
 ## Typography
 
@@ -97,7 +98,7 @@ The base spacing unit is 4px.
 
 ### Buttons
 
-- Primary: accent fill, dark label.
+- Primary: patina fill, dark label.
 - Secondary: transparent surface, visible border.
 - Text link: underlined on hover and focus.
 - Minimum interactive height: 44px.
@@ -125,7 +126,7 @@ The base spacing unit is 4px.
 ### Status label
 
 - Text always names the status, such as "Active open source" or "Research lab".
-- Color is supportive only.
+- Patina is supportive only. Evidence and boundary states may use copper with explicit text.
 
 ### Footer
 

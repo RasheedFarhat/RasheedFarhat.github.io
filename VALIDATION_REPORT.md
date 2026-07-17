@@ -38,7 +38,7 @@ The HTML validator uses the recommended ruleset. Doctype capitalization and void
 
 - axe-core CLI 4.12.1 ran against all 10 HTML routes with WCAG 2 A, AA, 2.1 AA, and 2.2 AA tags: zero automated violations.
 - Lighthouse accessibility score on the homepage: 100.
-- Primary color-pair contrast ratios ranged from 8.31:1 to 17.57:1.
+- Primary color-pair contrast ratios ranged from 8.64:1 to 17.30:1 after the forensic-material palette update.
 - Mobile menu: opens with an updated `aria-expanded` state, closes on Escape, and returns focus to its button.
 - Case-study sidebar links: measured at 44px high after a mobile touch-target correction.
 - Skip link, heading hierarchy, landmarks, current-page state, external-link context, visible focus, and reduced-motion CSS were inspected.
@@ -56,7 +56,7 @@ Final homepage scores:
 - First Contentful Paint: 0.9 seconds.
 - Largest Contentful Paint: 1.2 seconds.
 - Speed Index: 0.9 seconds.
-- Total Blocking Time: 40 milliseconds.
+- Total Blocking Time: 0 milliseconds.
 - Cumulative Layout Shift: 0.
 
 These results came from a local, headless, simulated Lighthouse run. Production network conditions and GitHub Pages caching can change field performance.
@@ -115,15 +115,15 @@ An unknown local route returned HTTP 404. After deployment, an unknown GitHub Pa
 - The repository validator found no missing local route, asset, or fragment targets.
 - All tested GitHub repository and documentation links returned HTTP 200.
 - The MIT license destination returned HTTP 200.
-- Medium returned HTTP 403 to command-line requests and LinkedIn returned HTTP 999, both consistent with automated-request blocking. The destinations were corroborated from the source resume and published page evidence.
+- Medium returned HTTP 403 to direct command-line requests and LinkedIn returned HTTP 999, both consistent with automated-request blocking. The destinations were corroborated from the source resume and published page evidence. The Chromium Simple Cache article title, author, publication date, reading time, technical contents, and supporting repository link were also checked through a readable rendering of the published page.
 - All `target="_blank"` destinations include `noopener noreferrer`.
 
 ### Asset size check
 
-- Homepage HTML: 18,165 bytes raw, 4,577 bytes gzipped.
-- CSS: 26,690 bytes raw, 5,074 bytes gzipped.
+- Homepage HTML: 18,119 bytes raw, 4,537 bytes gzipped.
+- CSS: 27,216 bytes raw, 5,182 bytes gzipped.
 - JavaScript: 1,407 bytes raw, 527 bytes gzipped.
-- Social preview PNG: 93,769 bytes.
+- Social preview PNG: 94,184 bytes.
 - Resume PDF: 139,289 bytes.
 
 ## Known warnings and unverified items

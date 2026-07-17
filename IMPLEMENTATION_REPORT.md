@@ -45,6 +45,7 @@ The shared HTML is intentionally repeated across pages because the repository ha
 ### Writing
 
 - Added the published Android malware investigation.
+- Added the published Chromium Simple Cache browser-forensics analysis.
 - Added direct routes to the compiler trace and synthetic MCP assessment report.
 - Labeled the synthetic report clearly so it cannot be mistaken for a client engagement.
 
@@ -57,7 +58,7 @@ The shared HTML is intentionally repeated across pages because the repository ha
 
 ## Visual direction
 
-The site uses a restrained dark technical-dossier system with one blue accent. System fonts eliminate third-party font requests. Monospace type is limited to labels, metadata, and code. Subtle grid lines provide structure without adopting hacker, terminal, neon, or cyberpunk conventions.
+The site uses a restrained dark forensic-material system. Carbon and oxidized surfaces carry the layout, patina marks interaction, and copper marks evidence and declared boundaries. System fonts eliminate third-party font requests. Monospace type is limited to labels, metadata, and code. A faint cache-index grid provides structure without adopting hacker, terminal, neon, or cyberpunk conventions.
 
 Existing screenshots were not reused when they exposed a token URL, local paths, or a visual style that conflicted with the final direction. Architecture is presented through responsive HTML and CSS diagrams instead.
 
