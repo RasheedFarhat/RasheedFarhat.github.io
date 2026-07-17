@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Technical writing by Rasheed Farhat on Android malware analysis, Sigma-to-Wazuh compilation, and MCP security assessment methodology."
+    />
+    <meta name="theme-color" content="#0b1016" />
+    <meta property="og:title" content="Technical Writing | Rasheed Farhat" />
+    <meta
+      property="og:description"
+      content="Investigations, compiler notes, and security assessment reports with evidence and stated limits."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://rasheedfarhat.github.io/writing/"
+    />
+    <meta
+      property="og:image"
+      content="https://rasheedfarhat.github.io/assets/social-card.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/writing/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles.css?v=20260717c" />
+    <script src="/script.js" defer></script>
+    <title>Technical Writing | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/"
+          ><span class="brand__mark" aria-hidden="true">RF</span
+          ><span class="brand__text"
+            ><strong>Rasheed Farhat</strong
+            ><span class="brand__alias"
+              >ZerOne / Security engineering</span
+            ></span
+          ></a
+        ><button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-menu-toggle
+        >
+          <span class="menu-toggle__icon" aria-hidden="true"></span
+          ><span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav
+          class="site-nav"
+          id="site-nav"
+          aria-label="Primary navigation"
+          data-menu
+          data-open="false"
+        >
+          <a href="/">Home</a><a href="/projects/">Projects</a
+          ><a href="/writing/" aria-current="page">Writing</a
+          ><a href="/about/">About</a><a href="/contact/">Contact</a
+          ><a class="nav-resume" href="/resume/">Resume</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="page-hero shell" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Technical writing</p>
+          <h1 id="page-title">Evidence should survive the explanation.</h1>
+          <p class="hero-copy">
+            These investigations and reports show the path from observation to
+            conclusion. They include the commands, assumptions, validation, and
+            limits needed for another person to challenge the result.
+          </p>
+        </div>
+        <div class="page-hero__meta">
+          <p>
+            <strong>Topics:</strong> Malware analysis, detection compilation,
+            MCP security, technical reporting.
+          </p>
+          <p>
+            <strong>Formats:</strong> Published article, engineering trace,
+            synthetic assessment report.
+          </p>
+        </div>
+      </section>
+      <section
+        class="section-compact shell"
+        aria-labelledby="writing-list-title"
+      >
+        <h2 class="sr-only" id="writing-list-title">Writing and reports</h2>
+        <div class="article-list">
+          <article class="article-row" id="android-investigation">
+            <div>
+              <time datetime="2025-09-08">September 8, 2025</time
+              ><span class="article-row__type">Published investigation</span>
+            </div>
+            <div>
+              <h2>
+                How I Turned My Mom's Infected Phone Into a Cybersecurity Lab
+              </h2>
+              <p>
+                An eight-minute account of isolating an adware-infected Android
+                device, using ADB and package timestamps to identify the
+                application, pulling the APK into an isolated Kali environment,
+                inspecting it with APKTool and JADX, and correlating indicators
+                through VirusTotal and OSINT. The package, identifiers, and
+                sample remain redacted.
+              </p>
+              <ul class="tag-list">
+                <li class="tag">Android</li>
+                <li class="tag">ADB</li>
+                <li class="tag">Malware analysis</li>
+                <li class="tag">OSINT</li>
+              </ul>
+            </div>
+            <a
+              class="text-link article-row__link"
+              href="https://medium.com/@rasheed-farhat/how-i-turned-my-moms-infected-phone-into-a-cybersecurity-lab-57f08174981f"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Read on Medium<span class="sr-only">
+                (opens in a new tab)</span
+              ></a
+            >
+          </article>
+          <article class="article-row">
+            <div><span class="article-row__type">Engineering trace</span></div>
+            <div>
+              <h2>
+                Inside the Compiler: How a Sigma Rule Becomes Wazuh PCRE2 XML
+              </h2>
+              <p>
+                A stage-by-stage trace through pySigma parsing, AST traversal,
+                field mapping, wildcard translation, same-field lookahead
+                merging, DNF fan-out, stable rule IDs, Jinja2 rendering, and
+                unsupported constructs.
+              </p>
+              <ul class="tag-list">
+                <li class="tag">Sigma</li>
+                <li class="tag">Wazuh</li>
+                <li class="tag">Python</li>
+                <li class="tag">PCRE2</li>
+              </ul>
+            </div>
+            <a
+              class="text-link article-row__link"
+              href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Read on GitHub<span class="sr-only">
+                (opens in a new tab)</span
+              ></a
+            >
+          </article>
+          <article class="article-row">
+            <div>
+              <span class="article-row__type">Synthetic sample report</span>
+            </div>
+            <div>
+              <h2>Agentic Detection Readiness Assessment</h2>
+              <p>
+                A sample deliverable for a fictional organization. It
+                demonstrates how observed MCP servers, trust boundaries,
+                findings, detection coverage, remediation, redaction, and blind
+                spots can be communicated to a human reviewer. The environment
+                and events are synthetic.
+              </p>
+              <ul class="tag-list">
+                <li class="tag">MCP</li>
+                <li class="tag">Security assessment</li>
+                <li class="tag">AI Bill of Materials</li>
+                <li class="tag">Detection coverage</li>
+              </ul>
+            </div>
+            <a
+              class="text-link article-row__link"
+              href="https://github.com/RasheedFarhat/mcp-detect/blob/main/samples/NorthwindPay-Agentic-Detection-Readiness-Assessment/REPORT.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Read on GitHub<span class="sr-only">
+                (opens in a new tab)</span
+              ></a
+            >
+          </article>
+        </div>
+      </section>
+      <section class="section shell" aria-labelledby="writing-approach-title">
+        <div class="contact-panel">
+          <div>
+            <p class="eyebrow">Writing approach</p>
+            <h2 id="writing-approach-title">Make the reasoning reviewable.</h2>
+            <p>
+              I write to preserve the chain between evidence and conclusion.
+              That means naming what was observed, separating tool output from
+              interpretation, and stating when the available evidence cannot
+              support attribution or a broader claim.
+            </p>
+          </div>
+          <div class="action-row">
+            <a class="button button-primary" href="/contact/"
+              >Start a technical conversation</a
+            ><a class="button button-secondary" href="/projects/"
+              >View project case studies</a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner shell">
+        <div class="site-footer__identity">
+          <strong>Rasheed Farhat</strong
+          ><span
+            >Detection engineering, security automation, and AI attack-surface
+            review.</span
+          >
+        </div>
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a href="/projects/">Projects</a><a href="/writing/">Writing</a
+          ><a href="/resume/">Resume</a
+          ><a
+            href="https://github.com/RasheedFarhat"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub<span class="sr-only"> (opens in a new tab)</span></a
+          ><a
+            href="https://www.linkedin.com/in/rasheed-farhat010"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
+          ><a
+            href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
+            >Email</a
+          >
+        </nav>
+        <p class="footer-meta">
+          Copyright <span data-year></span> Rasheed Farhat. ZerOne is a
+          technical alias.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

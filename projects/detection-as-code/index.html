@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Case study of Rasheed Farhat's Python Detection-as-Code pipeline that compiles Sigma logic into validated Wazuh XML and deploys through controlled CI/CD."
+    />
+    <meta name="theme-color" content="#0b1016" />
+    <meta
+      property="og:title"
+      content="Detection-as-Code Pipeline | Rasheed Farhat"
+    />
+    <meta
+      property="og:description"
+      content="Sigma AST traversal, Wazuh XML generation, validation gates, stable rule IDs, and controlled deployment."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://rasheedfarhat.github.io/projects/detection-as-code/"
+    />
+    <meta
+      property="og:image"
+      content="https://rasheedfarhat.github.io/assets/social-card.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="canonical"
+      href="https://rasheedfarhat.github.io/projects/detection-as-code/"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles.css?v=20260717c" />
+    <script src="/script.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Detection-as-Code Pipeline: Sigma to Wazuh",
+        "description": "A Python compiler and CI/CD pipeline that translates supported Sigma detection logic into Wazuh XML and deploys validated rules through the Wazuh REST API.",
+        "codeRepository": "https://github.com/RasheedFarhat/DaC-Pipeline",
+        "programmingLanguage": "Python",
+        "author": {
+          "@type": "Person",
+          "name": "Rasheed Farhat",
+          "url": "https://rasheedfarhat.github.io/"
+        },
+        "license": "https://opensource.org/license/mit"
+      }
+    </script>
+    <title>Detection-as-Code Pipeline | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/"
+          ><span class="brand__mark" aria-hidden="true">RF</span
+          ><span class="brand__text"
+            ><strong>Rasheed Farhat</strong
+            ><span class="brand__alias"
+              >ZerOne / Security engineering</span
+            ></span
+          ></a
+        ><button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-menu-toggle
+        >
+          <span class="menu-toggle__icon" aria-hidden="true"></span
+          ><span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav
+          class="site-nav"
+          id="site-nav"
+          aria-label="Primary navigation"
+          data-menu
+          data-open="false"
+        >
+          <a href="/">Home</a
+          ><a href="/projects/" aria-current="page">Projects</a
+          ><a href="/writing/">Writing</a><a href="/about/">About</a
+          ><a href="/contact/">Contact</a
+          ><a class="nav-resume" href="/resume/">Resume</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <article>
+        <header class="case-hero shell">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/projects/">Projects</a><span aria-hidden="true">/</span
+            ><span>Detection-as-Code Pipeline</span>
+          </nav>
+          <div class="case-hero__grid">
+            <div>
+              <p class="eyebrow">Detection engineering / Security automation</p>
+              <h1>Detection-as-Code Pipeline</h1>
+              <p class="case-hero__summary">
+                A from-scratch Python compiler and delivery workflow that turns
+                supported Sigma detection logic into Wazuh-compatible XML,
+                verifies the result, preserves rule identity, and deploys
+                through controlled CI/CD.
+              </p>
+              <div class="action-row">
+                <a
+                  class="button button-primary"
+                  href="https://github.com/RasheedFarhat/DaC-Pipeline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View repository<span class="sr-only">
+                    (opens in a new tab)</span
+                  ></a
+                ><a
+                  class="button button-secondary"
+                  href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Read compiler trace<span class="sr-only">
+                    (opens in a new tab)</span
+                  ></a
+                >
+              </div>
+            </div>
+            <dl class="case-meta">
+              <div>
+                <dt>Status</dt>
+                <dd>Active open-source project</dd>
+              </div>
+              <div>
+                <dt>Ownership</dt>
+                <dd>Independent architecture and implementation</dd>
+              </div>
+              <div>
+                <dt>Stack</dt>
+                <dd>
+                  Python, pySigma, Jinja2, PCRE2, Wazuh REST API, GitHub Actions
+                </dd>
+              </div>
+              <div>
+                <dt>Deployment</dt>
+                <dd>Manual dispatch on a self-hosted runner, dry run first</dd>
+              </div>
+            </dl>
+          </div>
+        </header>
+
+        <section class="evidence-rail shell" aria-labelledby="evidence-heading">
+          <h2 class="sr-only" id="evidence-heading">
+            Claim, evidence, and boundary
+          </h2>
+          <div class="evidence-rail__item">
+            <h2>Claim</h2>
+            <p>
+              The pipeline can translate its supported Sigma subset into
+              traceable Wazuh rules and deliver them through a controlled
+              workflow.
+            </p>
+          </div>
+          <div class="evidence-rail__item">
+            <h2>Evidence</h2>
+            <p>
+              58 Sigma rules compile to 216 Wazuh rules across 119 ATT&amp;CK
+              techniques, backed by 87 automated tests.
+            </p>
+          </div>
+          <div class="evidence-rail__item">
+            <h2>Boundary</h2>
+            <p>
+              It is not a complete Sigma backend. Unsupported value types and
+              oversized DNF expansions fail the build instead of producing
+              uncertain output.
+            </p>
+          </div>
+        </section>
+
+        <div class="case-layout shell">
+          <div class="case-content">
+            <section id="problem" aria-labelledby="problem-title">
+              <p class="eyebrow">The problem</p>
+              <h2 id="problem-title">
+                Wazuh needed more than a format converter.
+              </h2>
+              <p>
+                Wazuh 4.x did not provide an official pySigma backend and could
+                not directly express every boolean structure used by Sigma
+                detections. A useful workflow had to do more than convert YAML
+                to XML. It had to preserve supported logic, reject unsupported
+                logic, keep generated rule IDs stable, validate artifacts, and
+                avoid treating deployment as a blind file copy.
+              </p>
+              <p>
+                The security relevance is operational. A detection that compiles
+                incorrectly can look deployed while silently missing the
+                behavior it was meant to catch. The project treats translation
+                errors, identity drift, and unsafe deployment as security
+                failures.
+              </p>
+            </section>
+
+            <section id="architecture" aria-labelledby="architecture-title">
+              <p class="eyebrow">Architecture</p>
+              <h2 id="architecture-title">
+                From source rule to controlled deployment.
+              </h2>
+              <ol class="flow-diagram">
+                <li>
+                  <span class="flow-node__step">01 / Author</span
+                  ><strong>Sigma YAML</strong
+                  ><small
+                    >Single source of truth with UUID and ATT&amp;CK
+                    tags.</small
+                  >
+                </li>
+                <li>
+                  <span class="flow-node__step">02 / Parse</span
+                  ><strong>pySigma AST</strong
+                  ><small>Syntax validation and expression tree input.</small>
+                </li>
+                <li>
+                  <span class="flow-node__step">03 / Compile</span
+                  ><strong>DNF and PCRE2</strong
+                  ><small
+                    >Field mapping, De Morgan handling, and Jinja2 XML.</small
+                  >
+                </li>
+                <li>
+                  <span class="flow-node__step">04 / Gate</span
+                  ><strong>CI validation</strong
+                  ><small
+                    >Tests, ID checks, syntax checks, and security scans.</small
+                  >
+                </li>
+                <li>
+                  <span class="flow-node__step">05 / Deliver</span
+                  ><strong>Wazuh API</strong
+                  ><small
+                    >Dry run, authenticated upload, reconciliation, and
+                    restart.</small
+                  >
+                </li>
+              </ol>
+            </section>
+
+            <section id="implementation" aria-labelledby="implementation-title">
+              <p class="eyebrow">Implementation detail</p>
+              <h2 id="implementation-title">
+                The compiler walks logic, not strings.
+              </h2>
+              <p>
+                For a rule that requires `certutil.exe` and both `urlcache` and
+                `split` in the command line, pySigma expands the source into an
+                expression tree. The compiler maps Sigma fields to Wazuh decoder
+                fields, translates wildcards into PCRE2, merges same-field
+                positive clauses with lookaheads, and renders the result through
+                Jinja2.
+              </p>
+              <pre><code>detection:
+    selection:
+        Image|endswith: '\certutil.exe'
+        CommandLine|contains|all:
+            - 'urlcache'
+            - 'split'
+    condition: selection</code></pre>
+              <p>
+                The generated XML keeps the Sigma UUID in a comment so the ID
+                validator can prove which source rule produced each artifact.
+                Wazuh rule IDs are stored in `id_registry.json` to prevent
+                unrelated ID changes across builds.
+              </p>
+            </section>
+
+            <section id="decisions" aria-labelledby="decisions-title">
+              <p class="eyebrow">Engineering decisions</p>
+              <h2 id="decisions-title">Decisions made around failure modes.</h2>
+              <div class="decision-list">
+                <div class="decision">
+                  <h3>Fail loud</h3>
+                  <p>
+                    Numeric comparisons, regex modifiers, CIDR values, base64
+                    modifiers, field-less keywords, null values, and other
+                    unsupported constructs stop the build with a reason. They do
+                    not emit a rule that looks valid.
+                  </p>
+                </div>
+                <div class="decision">
+                  <h3>Cap DNF growth</h3>
+                  <p>
+                    AND distribution is capped at 500 clauses. This prevents
+                    pathological boolean expansion from hanging a build or
+                    exhausting memory.
+                  </p>
+                </div>
+                <div class="decision">
+                  <h3>Keep IDs stable</h3>
+                  <p>
+                    A committed UUID-to-ID registry separates detection identity
+                    from generation order. CI checks for collisions and missing
+                    linkage.
+                  </p>
+                </div>
+                <div class="decision">
+                  <h3>Deploy by diff</h3>
+                  <p>
+                    Pull requests receive a dry-run deployment diff. Manual
+                    deployment authenticates to the Wazuh API, uploads a bundle,
+                    and reconciles stale rules behind a blast-radius safeguard.
+                  </p>
+                </div>
+                <div class="decision">
+                  <h3>Secure the pipeline</h3>
+                  <p>
+                    GitHub Actions are SHA-pinned. Gitleaks, CodeQL, Bandit,
+                    pip-audit, Dependabot, and a threat model address the supply
+                    chain around the detection pipeline itself.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section id="validation" aria-labelledby="validation-title">
+              <p class="eyebrow">Validation</p>
+              <h2 id="validation-title">What has been checked.</h2>
+              <div class="metric-list">
+                <div class="metric">
+                  <strong>58</strong><span>Sigma source rules</span>
+                </div>
+                <div class="metric">
+                  <strong>216</strong><span>Generated Wazuh rules</span>
+                </div>
+                <div class="metric">
+                  <strong>87</strong><span>Automated tests</span>
+                </div>
+                <div class="metric">
+                  <strong>119</strong
+                  ><span>Distinct ATT&amp;CK techniques</span>
+                </div>
+                <div class="metric">
+                  <strong>14</strong><span>ATT&amp;CK tactics represented</span>
+                </div>
+                <div class="metric">
+                  <strong>500</strong><span>Maximum DNF clause product</span>
+                </div>
+              </div>
+              <p>
+                The deployment path was checked against a live Wazuh 4.9
+                manager. That verification exposed a real reconciliation bug:
+                the API response used `relative_dirname`, while the original
+                parser expected `path`. The parser and regression tests were
+                updated after the mismatch was observed.
+              </p>
+            </section>
+
+            <section id="limitations" aria-labelledby="limitations-title">
+              <p class="eyebrow">Known limits</p>
+              <h2 id="limitations-title">What the pipeline does not solve.</h2>
+              <ul>
+                <li>
+                  <strong>Incomplete Sigma coverage:</strong> Some modifiers and
+                  value types are intentionally rejected.
+                </li>
+                <li>
+                  <strong>Field mapping risk:</strong> An unmapped field passes
+                  through unchanged. The result may compile but never fire if no
+                  Wazuh decoder populates that field.
+                </li>
+                <li>
+                  <strong>Combinatorial logic:</strong> Rules that exceed the
+                  DNF cap must be simplified or supported through a different
+                  backend strategy.
+                </li>
+                <li>
+                  <strong>Platform change:</strong> Wazuh 5 adds native Sigma
+                  support and YAML rules. That reduces the value of the syntax
+                  converter, but not the need for validation, testing, safe
+                  deployment, and state reconciliation.
+                </li>
+                <li>
+                  <strong>Dependency exception:</strong> The project documents a
+                  time-boxed pip-audit exception for a transitive `diskcache`
+                  CVE while upstream compatibility is constrained.
+                </li>
+              </ul>
+            </section>
+
+            <section id="ownership" aria-labelledby="ownership-title">
+              <p class="eyebrow">What I implemented</p>
+              <h2 id="ownership-title">Independent engineering ownership.</h2>
+              <p>
+                I designed and implemented the compiler, field mapping, XML
+                templates, stable ID registry, validation scripts, tests,
+                deployment workflow, dry-run reporting, API reconciliation
+                logic, security checks, contributor guidance, compiler trace,
+                coverage report, and threat model.
+              </p>
+              <div class="action-row">
+                <a
+                  class="button button-primary"
+                  href="https://github.com/RasheedFarhat/DaC-Pipeline"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Inspect the source<span class="sr-only">
+                    (opens in a new tab)</span
+                  ></a
+                ><a class="button button-secondary" href="/contact/"
+                  >Discuss this project</a
+                >
+              </div>
+            </section>
+          </div>
+          <aside class="case-sidebar" aria-labelledby="case-nav-title">
+            <h2 id="case-nav-title">Case study contents</h2>
+            <ul>
+              <li><a href="#problem">Problem</a></li>
+              <li><a href="#architecture">Architecture</a></li>
+              <li><a href="#implementation">Implementation detail</a></li>
+              <li><a href="#decisions">Engineering decisions</a></li>
+              <li><a href="#validation">Validation</a></li>
+              <li><a href="#limitations">Known limits</a></li>
+              <li><a href="#ownership">Ownership</a></li>
+            </ul>
+            <ul class="tag-list">
+              <li class="tag">Python</li>
+              <li class="tag">pySigma</li>
+              <li class="tag">Jinja2</li>
+              <li class="tag">Wazuh</li>
+              <li class="tag">GitHub Actions</li>
+              <li class="tag">PCRE2</li>
+            </ul>
+          </aside>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner shell">
+        <div class="site-footer__identity">
+          <strong>Rasheed Farhat</strong
+          ><span
+            >Detection engineering, security automation, and AI attack-surface
+            review.</span
+          >
+        </div>
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a href="/projects/">Projects</a><a href="/writing/">Writing</a
+          ><a href="/resume/">Resume</a
+          ><a
+            href="https://github.com/RasheedFarhat"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub<span class="sr-only"> (opens in a new tab)</span></a
+          ><a
+            href="https://www.linkedin.com/in/rasheed-farhat010"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
+          ><a
+            href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
+            >Email</a
+          >
+        </nav>
+        <p class="footer-meta">
+          Copyright <span data-year></span> Rasheed Farhat. ZerOne is a
+          technical alias.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -5,357 +5,488 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Rasheed Farhat builds measurable detection engineering systems for SIEM, identity, and agentic AI security."
+      content="Rasheed Farhat builds detection pipelines, security automation, and review tooling for AI and identity attack surfaces."
     />
-    <meta name="theme-color" content="#f3f7f8" />
-    <meta property="og:title" content="Rasheed Farhat — Detection Engineering" />
+    <meta name="theme-color" content="#0b1016" />
+    <meta name="color-scheme" content="dark" />
+    <meta
+      property="og:title"
+      content="Rasheed Farhat | Security Engineering Portfolio"
+    />
     <meta
       property="og:description"
-      content="Detection systems that show their work: measurable coverage, reproducible results, and explicit blind spots."
+      content="Detection engineering, security automation, and practical tooling with evidence, tradeoffs, and stated limits."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rasheedfarhat.github.io/" />
-    <link rel="canonical" href="https://rasheedfarhat.github.io/" />
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Source+Sans+3:ital,wght@0,400;0,500;0,600;1,400&amp;family=Spline+Sans:wght@500;600;700&amp;display=swap"
-      rel="stylesheet"
+    <meta
+      property="og:image"
+      content="https://rasheedfarhat.github.io/assets/social-card.png"
     />
-    <link rel="stylesheet" href="styles.css" />
-    <script src="script.js" defer></script>
-    <title>Rasheed Farhat — Detection Engineering</title>
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Rasheed Farhat, security engineering portfolio"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Rasheed Farhat | Security Engineering Portfolio"
+    />
+    <meta
+      name="twitter:description"
+      content="Detection engineering, security automation, and practical tooling with evidence and stated limits."
+    />
+    <meta
+      name="twitter:image"
+      content="https://rasheedfarhat.github.io/assets/social-card.png"
+    />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles.css?v=20260717c" />
+    <script src="/script.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://rasheedfarhat.github.io/#person",
+            "name": "Rasheed Farhat",
+            "url": "https://rasheedfarhat.github.io/",
+            "sameAs": [
+              "https://github.com/RasheedFarhat",
+              "https://www.linkedin.com/in/rasheed-farhat010",
+              "https://medium.com/@rasheed-farhat"
+            ],
+            "knowsAbout": [
+              "Detection engineering",
+              "Security automation",
+              "Model Context Protocol security",
+              "Security information and event management",
+              "Identity security"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://rasheedfarhat.github.io/#website",
+            "url": "https://rasheedfarhat.github.io/",
+            "name": "Rasheed Farhat Security Engineering Portfolio",
+            "publisher": { "@id": "https://rasheedfarhat.github.io/#person" }
+          }
+        ]
+      }
+    </script>
+    <title>Rasheed Farhat | Security Engineering Portfolio</title>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to content</a>
-
-    <header class="site-header" data-header>
-      <a class="wordmark" href="#top" aria-label="Rasheed Farhat, home">
-        <span class="wordmark-mark" aria-hidden="true">RF</span>
-        <span>Rasheed Farhat</span>
-      </a>
-      <nav class="site-nav" aria-label="Primary navigation">
-        <a href="#work">Work</a>
-        <a href="#profile">Profile</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <a class="header-cta" href="mailto:rasheedfrht@gmail.com">Let’s talk</a>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/">
+          <span class="brand__mark" aria-hidden="true">RF</span>
+          <span class="brand__text">
+            <strong>Rasheed Farhat</strong>
+            <span class="brand__alias">ZerOne / Security engineering</span>
+          </span>
+        </a>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-menu-toggle
+        >
+          <span class="menu-toggle__icon" aria-hidden="true"></span>
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav
+          class="site-nav"
+          id="site-nav"
+          aria-label="Primary navigation"
+          data-menu
+          data-open="false"
+        >
+          <a href="/" aria-current="page">Home</a>
+          <a href="/projects/">Projects</a>
+          <a href="/writing/">Writing</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          <a class="nav-resume" href="/resume/">Resume</a>
+        </nav>
+      </div>
     </header>
 
     <main id="main">
-      <section class="hero section-shell" id="top" aria-labelledby="hero-title">
-        <div class="hero-copy reveal">
-          <div class="availability">
-            <span class="availability-dot" aria-hidden="true"></span>
-            Open to junior security &amp; detection roles
-          </div>
-          <p class="eyebrow">Cybersecurity analyst · Detection engineering</p>
-          <h1 id="hero-title">I build detection systems that <em>show their work.</em></h1>
-          <p class="hero-intro">
-            I’m Rasheed Farhat. I turn security ideas into testable systems—from
-            Sigma-to-Wazuh automation to detection for AI agent workflows—then measure
-            what they catch and document what they miss.
+      <section class="home-hero shell" aria-labelledby="hero-title">
+        <div>
+          <p class="eyebrow">Security engineering portfolio</p>
+          <h1 id="hero-title">
+            I build detection pipelines, security automation, and review tooling
+            for <span>emerging attack surfaces.</span>
+          </h1>
+          <p class="hero-copy">
+            I'm Rasheed Farhat, an early-career cybersecurity engineer focused
+            on work where detection logic, software behavior, and operational
+            constraints have to function together. My projects show the
+            implementation, the validation, and the point where the evidence
+            stops.
           </p>
           <div class="hero-actions">
-            <a class="button button-primary" href="#work">Explore my work</a>
+            <a class="button button-primary" href="/projects/"
+              >View technical work</a
+            >
+            <a
+              class="button button-secondary"
+              href="/assets/rasheed-farhat-resume.pdf"
+              >View resume PDF</a
+            >
             <a
               class="text-link"
               href="https://github.com/RasheedFarhat"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
+              >GitHub profile<span class="sr-only">
+                (opens in a new tab)</span
+              ></a
             >
-              GitHub profile
-              <span aria-hidden="true">↗</span>
-            </a>
           </div>
         </div>
-
-        <aside class="evidence-console reveal" aria-label="Project evidence summary">
-          <div class="console-topline">
-            <span>evidence.trace</span>
-            <span class="console-status"><i aria-hidden="true"></i> verified</span>
-          </div>
-          <ol class="trace-list">
-            <li>
-              <span class="trace-time">00:01</span>
-              <div><strong>capture</strong><span>MCP tool traffic → JSONL</span></div>
-              <span class="trace-state">pass</span>
+        <aside class="focus-map" aria-labelledby="focus-title">
+          <h2 id="focus-title">Current engineering focus</h2>
+          <ol>
+            <li data-index="01">
+              <div>
+                <strong>Detection logic</strong
+                ><span
+                  >Sigma, Wazuh, telemetry schemas, and measurable rule
+                  behavior.</span
+                >
+              </div>
             </li>
-            <li>
-              <span class="trace-time">00:02</span>
-              <div><strong>detect</strong><span>10 Wazuh rules · 5 techniques</span></div>
-              <span class="trace-state">pass</span>
+            <li data-index="02">
+              <div>
+                <strong>Delivery controls</strong
+                ><span
+                  >Validation gates, CI/CD, stable identifiers, and dry-run
+                  deployment.</span
+                >
+              </div>
             </li>
-            <li>
-              <span class="trace-time">00:03</span>
-              <div><strong>measure</strong><span>4,727 benign records replayed</span></div>
-              <span class="trace-state">pass</span>
-            </li>
-            <li class="trace-highlight">
-              <span class="trace-time">00:04</span>
-              <div><strong>report</strong><span>0 false positives · blind spots disclosed</span></div>
-              <span class="trace-state">honest</span>
+            <li data-index="03">
+              <div>
+                <strong>New attack surfaces</strong
+                ><span
+                  >MCP tool calls, identity boundaries, deception, and evidence
+                  integrity.</span
+                >
+              </div>
             </li>
           </ol>
-          <div class="console-proof">
-            <span>Not a dashboard.</span>
-            <strong>Reproducible evidence.</strong>
-          </div>
         </aside>
       </section>
 
-      <section class="proof-strip" aria-label="Selected results">
-        <div class="proof-item">
-          <strong>4,727</strong>
-          <span>benign records evaluated</span>
-        </div>
-        <div class="proof-item">
-          <strong>119</strong>
-          <span>MITRE ATT&amp;CK techniques covered</span>
-        </div>
-        <div class="proof-item">
-          <strong>87</strong>
-          <span>automated compiler tests</span>
-        </div>
-        <div class="proof-item">
-          <strong>12</strong>
-          <span>adversarial evasion classes tested</span>
+      <section class="evidence-band" aria-labelledby="evidence-title">
+        <h2 class="sr-only" id="evidence-title">Selected project evidence</h2>
+        <div class="evidence-band__inner shell">
+          <div class="evidence-point">
+            <strong>58 Sigma rules to 216 Wazuh rules</strong
+            ><span
+              >Compiled through a custom Python translation and validation
+              pipeline.</span
+            >
+          </div>
+          <div class="evidence-point">
+            <strong>4,727 benign records</strong
+            ><span
+              >Used to measure MCP rule false positives, with self-authored data
+              disclosed as a boundary.</span
+            >
+          </div>
+          <div class="evidence-point">
+            <strong>Security+ and CySA+</strong
+            ><span
+              >Active CompTIA credentials supported by independent engineering
+              projects.</span
+            >
+          </div>
         </div>
       </section>
 
-      <section class="work section-shell" id="work" aria-labelledby="work-title">
-        <div class="section-heading reveal">
+      <section class="section shell" aria-labelledby="featured-work-title">
+        <div class="section-heading">
           <div>
-            <p class="eyebrow">Selected work</p>
-            <h2 id="work-title">Security projects with receipts.</h2>
+            <p class="eyebrow">Featured work</p>
+            <h2 id="featured-work-title">Systems built to be inspected.</h2>
           </div>
           <p>
-            Each project is open source, documented, and built around a concrete security
-            constraint—not a tutorial checklist.
+            Each case study explains the problem, the architecture, what I
+            implemented, how I checked it, and what remains unresolved.
           </p>
         </div>
+        <div class="project-list">
+          <article class="project-row">
+            <span class="project-index">01</span>
+            <div>
+              <h3>
+                <a href="/projects/detection-as-code/"
+                  >Detection-as-Code Pipeline</a
+                >
+              </h3>
+              <p>
+                A Python compiler and controlled delivery path that maps
+                supported Sigma detection logic into Wazuh XML, validates
+                generated artifacts, preserves rule IDs, and deploys through the
+                Wazuh REST API.
+              </p>
+            </div>
+            <div class="project-row__aside">
+              <span class="status">Active open source</span>
+              <p class="project-fact">
+                <strong>Evidence:</strong> 87 automated tests, 119 ATT&amp;CK
+                techniques, fail-loud handling for unsupported constructs.
+              </p>
+              <a class="text-link" href="/projects/detection-as-code/"
+                >Read case study</a
+              >
+            </div>
+          </article>
+          <article class="project-row">
+            <span class="project-index">02</span>
+            <div>
+              <h3>
+                <a href="/projects/mcp-security/"
+                  >MCP Security Review Framework</a
+                >
+              </h3>
+              <p>
+                A supervised review framework that captures MCP tool traffic,
+                runs bounded structural and stateful detections, inventories
+                trust boundaries, and produces evidence for a human security
+                reviewer.
+              </p>
+            </div>
+            <div class="project-row__aside">
+              <span class="status">Research lab</span>
+              <p class="project-fact">
+                <strong>Boundary:</strong> Five implemented techniques,
+                self-authored corpora, and no semantic detection backend.
+              </p>
+              <a class="text-link" href="/projects/mcp-security/"
+                >Read case study</a
+              >
+            </div>
+          </article>
+          <article class="project-row">
+            <span class="project-index">03</span>
+            <div>
+              <h3>
+                <a href="/projects/identity-deception/"
+                  >Deceptive Identity Architecture</a
+                >
+              </h3>
+              <p>
+                A lab architecture that combines Authentik SSO, Canarytokens, a
+                Python webhook processor, and IP reputation enrichment to study
+                high-signal identity tripwires.
+              </p>
+            </div>
+            <div class="project-row__aside">
+              <span class="status">Lab proof of concept</span>
+              <p class="project-fact">
+                <strong>Constraint:</strong> ARM64 virtualization,
+                proxy-obscured source IPs, and no production availability
+                testing.
+              </p>
+              <a class="text-link" href="/projects/identity-deception/"
+                >Read case study</a
+              >
+            </div>
+          </article>
+        </div>
+        <div class="action-row">
+          <a class="button button-secondary" href="/projects/"
+            >View all project work</a
+          >
+        </div>
+      </section>
 
-        <article class="project project-featured reveal">
-          <div class="project-content">
-            <div class="project-meta">
-              <span>Agentic AI security</span>
-              <span>Python · Wazuh · MCP</span>
-            </div>
-            <h3>MCP-DETECT</h3>
-            <p class="project-lede">
-              A research lab that captures Model Context Protocol traffic, detects abuse,
-              measures efficacy against labeled data, and names the attacks its telemetry
-              cannot see.
-            </p>
-            <ul class="project-points">
-              <li>10 detection rules across five MCP abuse techniques</li>
-              <li>Zero false positives across 4,727 benign records and 541 sessions</li>
-              <li>Red-team coverage across 12 adversarial evasion classes</li>
-            </ul>
-            <a
-              class="project-link"
-              href="https://github.com/RasheedFarhat/mcp-detect"
-              target="_blank"
-              rel="noreferrer"
-            >
-              View repository <span aria-hidden="true">↗</span>
-            </a>
+      <section
+        class="section section-rule shell"
+        aria-labelledby="capabilities-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Technical capabilities</p>
+            <h2 id="capabilities-title">
+              A working toolkit, not a keyword wall.
+            </h2>
           </div>
-          <div class="project-visual mcp-visual" aria-label="MCP detection flow diagram">
-            <div class="visual-label">live method trace</div>
-            <div class="mcp-flow">
-              <div class="flow-node">
-                <span class="node-kicker">input</span>
-                <strong>Agent traffic</strong>
-                <small>JSON-RPC</small>
-              </div>
-              <span class="flow-line" aria-hidden="true"></span>
-              <div class="flow-node flow-node-active">
-                <span class="node-kicker">observe</span>
-                <strong>Proxy</strong>
-                <small>byte-transparent</small>
-              </div>
-              <span class="flow-line" aria-hidden="true"></span>
-              <div class="flow-node">
-                <span class="node-kicker">output</span>
-                <strong>Telemetry</strong>
-                <small>one event / line</small>
-              </div>
-            </div>
-            <div class="visual-readout">
-              <span>technique</span><strong>credential_exfiltration</strong>
-              <span>decision</span><strong class="readout-alert">detected</strong>
-              <span>confidence</span><strong>measured</strong>
-            </div>
+          <p>
+            Capabilities are grouped by how they appear in the projects, with no
+            proficiency percentages or unsupported claims.
+          </p>
+        </div>
+        <div class="capability-grid">
+          <article class="capability">
+            <h3>Detection engineering</h3>
+            <p>
+              Sigma rule authoring, Wazuh XML, MITRE ATT&amp;CK mapping,
+              false-positive analysis, recall measurement, and rule limitations.
+            </p>
+          </article>
+          <article class="capability">
+            <h3>Security automation</h3>
+            <p>
+              Python, Bash, PowerShell, GitHub Actions, test gates, artifact
+              validation, REST API integration, and safe deployment workflows.
+            </p>
+          </article>
+          <article class="capability">
+            <h3>Security operations</h3>
+            <p>
+              Wazuh, Splunk, Falcon EDR, Wireshark, alert triage, incident
+              escalation, network analysis, and evidence handling in simulated
+              environments.
+            </p>
+          </article>
+          <article class="capability">
+            <h3>Agentic AI security</h3>
+            <p>
+              MCP telemetry, tool poisoning, credential exfiltration patterns,
+              trust-boundary inventories, schema drift, and rug-pull review.
+            </p>
+          </article>
+          <article class="capability">
+            <h3>Identity and deception</h3>
+            <p>
+              Authentik SSO, Canarytokens, Docker-based services, webhook
+              processing, and AbuseIPDB enrichment in a lab architecture.
+            </p>
+          </article>
+          <article class="capability">
+            <h3>Systems foundations</h3>
+            <p>
+              Linux, Windows, TCP/IP, Cisco networking fundamentals, Docker,
+              Python, Golang, C++, and cloud fundamentals in progress.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="section section-rule shell"
+        aria-labelledby="writing-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Technical writing</p>
+            <h2 id="writing-title">
+              Investigation notes and engineering reports.
+            </h2>
+          </div>
+          <p>
+            Writing is part of the work: explain the evidence, preserve
+            uncertainty, and give another person a path to verify the result.
+          </p>
+        </div>
+        <article class="writing-feature">
+          <div class="investigation-flow" aria-hidden="true">
+            <span>Isolate device</span><span>Enumerate packages</span
+            ><span>Analyze APK</span><span>Correlate indicators</span>
+          </div>
+          <div>
+            <p class="eyebrow">Android malware investigation</p>
+            <h3>
+              How I Turned My Mom's Infected Phone Into a Cybersecurity Lab
+            </h3>
+            <p>
+              A documented investigation using Android Safe Mode, ADB, APKTool,
+              JADX, VirusTotal, and OSINT to isolate and examine a HiddenAds
+              sample without publishing the sample or unredacted identifiers.
+            </p>
+            <a
+              class="text-link"
+              href="https://medium.com/@rasheed-farhat/how-i-turned-my-moms-infected-phone-into-a-cybersecurity-lab-57f08174981f"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Read on Medium<span class="sr-only">
+                (opens in a new tab)</span
+              ></a
+            >
           </div>
         </article>
-
-        <div class="project-grid">
-          <article class="project project-card reveal">
-            <div class="project-content">
-              <div class="project-meta">
-                <span>Detection-as-Code</span>
-                <span>Python · Sigma · CI/CD</span>
-              </div>
-              <h3>Sigma → Wazuh Pipeline</h3>
-              <p>
-                A from-scratch compiler and delivery pipeline that translates vendor-neutral
-                Sigma detections into Wazuh rules, validates them, and deploys safely.
-              </p>
-              <div class="metric-row" aria-label="Project metrics">
-                <span><strong>58</strong> Sigma rules</span>
-                <span><strong>216</strong> Wazuh rules</span>
-                <span><strong>87</strong> tests</span>
-              </div>
-              <a
-                class="project-link"
-                href="https://github.com/RasheedFarhat/DaC-Pipeline"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View repository <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-            <div class="mini-pipeline" aria-hidden="true">
-              <span>SIGMA</span><i></i><span>AST</span><i></i><span>DNF</span><i></i><span>PCRE2</span><i></i><span>WAZUH</span>
-            </div>
-          </article>
-
-          <article class="project project-card reveal">
-            <div class="project-content">
-              <div class="project-meta">
-                <span>Identity defense</span>
-                <span>Authentik · Python · Docker</span>
-              </div>
-              <h3>Deceptive Identity Architecture</h3>
-              <p>
-                A self-hosted identity deception system combining SSO, Canarytokens, and
-                automated IP enrichment to turn unauthorized access into high-signal telemetry.
-              </p>
-              <div class="architecture-mini" aria-label="Identity deception architecture">
-                <span>Authentik SSO</span>
-                <i aria-hidden="true">→</i>
-                <span>Canarytoken</span>
-                <i aria-hidden="true">→</i>
-                <span>Enriched alert</span>
-              </div>
-              <a
-                class="project-link"
-                href="https://github.com/RasheedFarhat/Deceptive-Identity-Architecture"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View repository <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="profile section-shell" id="profile" aria-labelledby="profile-title">
-        <div class="profile-intro reveal">
-          <p class="eyebrow">Profile</p>
-          <h2 id="profile-title">Built from the lab outward.</h2>
-          <p>
-            I’m an early-career cybersecurity professional focused on detection engineering,
-            security operations, and emerging AI attack surfaces. I care about operational
-            rigor: clear assumptions, safe deployment paths, and claims someone else can
-            reproduce.
-          </p>
-          <a
-            class="text-link"
-            href="https://www.linkedin.com/in/rasheed-farhat010"
-            target="_blank"
-            rel="noreferrer"
+        <div class="action-row">
+          <a class="button button-secondary" href="/writing/"
+            >View technical writing</a
           >
-            Connect on LinkedIn <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-
-        <div class="profile-details">
-          <article class="profile-block reveal">
-            <p class="block-label">Experience</p>
-            <div class="timeline-item">
-              <div>
-                <strong>Cybersecurity Mentorship Program</strong>
-                <span>CrowdStrike · Remote</span>
-              </div>
-              <time>2024–2025</time>
-              <p>
-                Practiced incident detection, containment, and escalation using Falcon EDR,
-                Splunk, and Wireshark in simulated environments.
-              </p>
-            </div>
-            <div class="timeline-item">
-              <div>
-                <strong>National Cyber League</strong>
-                <span>Competitor</span>
-              </div>
-              <time>2024</time>
-              <p>
-                Ranked in the top percentile nationally across timed OSINT, traffic analysis,
-                and log-review challenges.
-              </p>
-            </div>
-          </article>
-
-          <article class="profile-block reveal">
-            <p class="block-label">Education &amp; credentials</p>
-            <div class="education-item">
-              <strong>A.S. Cybersecurity &amp; Information Assurance</strong>
-              <span>Butte College · 2024</span>
-              <small>Dean’s List, 4.0 GPA · ISACA Foundation NCL Games Scholarship</small>
-            </div>
-            <ul class="credential-list" aria-label="Certifications">
-              <li>CompTIA CySA+</li>
-              <li>CompTIA Security+</li>
-              <li>Cisco CCNA: SRWE</li>
-              <li>Linux Professional Certificate</li>
-            </ul>
-          </article>
-
-          <article class="profile-block skills-block reveal">
-            <p class="block-label">Working toolkit</p>
-            <div class="skills-list">
-              <span>Python</span><span>Bash</span><span>PowerShell</span><span>Wazuh</span>
-              <span>Splunk</span><span>Sigma</span><span>Falcon EDR</span><span>Wireshark</span>
-              <span>Linux</span><span>Docker</span><span>MITRE ATT&amp;CK</span><span>Authentik</span>
-            </div>
-          </article>
         </div>
       </section>
 
-      <section class="contact section-shell" id="contact" aria-labelledby="contact-title">
-        <div class="contact-card reveal">
-          <p class="eyebrow">Next signal</p>
-          <h2 id="contact-title">Looking for someone who tests the claim?</h2>
-          <p>
-            I’m open to junior SOC, cybersecurity analyst, and detection engineering
-            opportunities—remote or in the Chico, California area.
-          </p>
-          <div class="contact-actions">
-            <a class="button button-light" href="mailto:rasheedfrht@gmail.com">Email me</a>
+      <section class="section shell" aria-labelledby="contact-title">
+        <div class="contact-panel">
+          <div>
+            <p class="eyebrow">Open to opportunities</p>
+            <h2 id="contact-title">
+              Security engineering work with a clear owner.
+            </h2>
+            <p>
+              I'm seeking junior cybersecurity engineering, detection
+              engineering, security automation, SOC engineering, and adjacent
+              roles. I'm also open to serious conversations about scoped MCP or
+              detection-readiness reviews.
+            </p>
+          </div>
+          <div class="action-row">
             <a
-              class="contact-link"
-              href="https://github.com/RasheedFarhat"
-              target="_blank"
-              rel="noreferrer"
-            >GitHub ↗</a>
-            <a
-              class="contact-link"
-              href="https://www.linkedin.com/in/rasheed-farhat010"
-              target="_blank"
-              rel="noreferrer"
-            >LinkedIn ↗</a>
+              class="button button-primary"
+              href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
+              >Email Rasheed</a
+            >
+            <a class="button button-secondary" href="/contact/"
+              >Contact options</a
+            >
           </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <p>Designed and built by Rasheed Farhat.</p>
-      <p><span data-year></span> · Detection with evidence.</p>
+      <div class="site-footer__inner shell">
+        <div class="site-footer__identity">
+          <strong>Rasheed Farhat</strong
+          ><span
+            >Detection engineering, security automation, and AI attack-surface
+            review.</span
+          >
+        </div>
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a href="/projects/">Projects</a><a href="/writing/">Writing</a
+          ><a href="/resume/">Resume</a>
+          <a
+            href="https://github.com/RasheedFarhat"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub<span class="sr-only"> (opens in a new tab)</span></a
+          >
+          <a
+            href="https://www.linkedin.com/in/rasheed-farhat010"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
+          >
+          <a
+            href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
+            >Email</a
+          >
+        </nav>
+        <p class="footer-meta">
+          Copyright <span data-year></span> Rasheed Farhat. ZerOne is a
+          technical alias.
+        </p>
+      </div>
     </footer>
   </body>
 </html>

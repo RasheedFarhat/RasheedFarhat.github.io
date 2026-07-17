@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Case study of Rasheed Farhat's lab identity deception architecture using Authentik, Canarytokens, Python, Docker, and IP reputation enrichment."
+    />
+    <meta name="theme-color" content="#0b1016" />
+    <meta
+      property="og:title"
+      content="Deceptive Identity Architecture | Rasheed Farhat"
+    />
+    <meta
+      property="og:description"
+      content="A lab study of SSO tripwires, Canarytokens, webhook processing, and threat-intelligence enrichment with explicit production limitations."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://rasheedfarhat.github.io/projects/identity-deception/"
+    />
+    <meta
+      property="og:image"
+      content="https://rasheedfarhat.github.io/assets/social-card.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="canonical"
+      href="https://rasheedfarhat.github.io/projects/identity-deception/"
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles.css?v=20260717c" />
+    <script src="/script.js" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Deceptive Identity Architecture",
+        "description": "A lab architecture integrating Authentik SSO, Canarytokens, a Python webhook processor, and IP reputation enrichment.",
+        "codeRepository": "https://github.com/RasheedFarhat/Deceptive-Identity-Architecture",
+        "programmingLanguage": "Python",
+        "author": {
+          "@type": "Person",
+          "name": "Rasheed Farhat",
+          "url": "https://rasheedfarhat.github.io/"
+        }
+      }
+    </script>
+    <title>Deceptive Identity Architecture | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/"
+          ><span class="brand__mark" aria-hidden="true">RF</span
+          ><span class="brand__text"
+            ><strong>Rasheed Farhat</strong
+            ><span class="brand__alias"
+              >ZerOne / Security engineering</span
+            ></span
+          ></a
+        ><button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-menu-toggle
+        >
+          <span class="menu-toggle__icon" aria-hidden="true"></span
+          ><span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav
+          class="site-nav"
+          id="site-nav"
+          aria-label="Primary navigation"
+          data-menu
+          data-open="false"
+        >
+          <a href="/">Home</a
+          ><a href="/projects/" aria-current="page">Projects</a
+          ><a href="/writing/">Writing</a><a href="/about/">About</a
+          ><a href="/contact/">Contact</a
+          ><a class="nav-resume" href="/resume/">Resume</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <article>
+        <header class="case-hero shell">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/projects/">Projects</a><span aria-hidden="true">/</span
+            ><span>Deceptive Identity Architecture</span>
+          </nav>
+          <div class="case-hero__grid">
+            <div>
+              <p class="eyebrow">Identity security / Deception lab</p>
+              <h1>Deceptive Identity Architecture</h1>
+              <p class="case-hero__summary">
+                A self-hosted lab that connects an Authentik identity perimeter
+                to Canarytokens and a Python enrichment service. The goal is to
+                study how a deliberate identity tripwire can produce evidence
+                with less background noise than a general-purpose network
+                honeypot.
+              </p>
+              <div class="note">
+                <strong>Scope statement</strong>
+                <p>
+                  This is a proof of concept, not a production identity control.
+                  It has not been load tested, hardened for multi-tenant use, or
+                  validated as a replacement for authentication, authorization,
+                  endpoint detection, or network monitoring.
+                </p>
+              </div>
+              <div class="action-row">
+                <a
+                  class="button button-primary"
+                  href="https://github.com/RasheedFarhat/Deceptive-Identity-Architecture"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View repository<span class="sr-only">
+                    (opens in a new tab)</span
+                  ></a
+                >
+              </div>
+            </div>
+            <dl class="case-meta">
+              <div>
+                <dt>Status</dt>
+                <dd>Lab proof of concept</dd>
+              </div>
+              <div>
+                <dt>Ownership</dt>
+                <dd>Independent architecture and implementation</dd>
+              </div>
+              <div>
+                <dt>Stack</dt>
+                <dd>
+                  Authentik, Canarytokens, Python, Flask, Docker, AbuseIPDB
+                </dd>
+              </div>
+              <div>
+                <dt>Environment</dt>
+                <dd>macOS ARM64 host and Kali Linux AArch64 virtual machine</dd>
+              </div>
+            </dl>
+          </div>
+        </header>
+
+        <section class="evidence-rail shell" aria-labelledby="evidence-heading">
+          <h2 class="sr-only" id="evidence-heading">
+            Claim, evidence, and boundary
+          </h2>
+          <div class="evidence-rail__item">
+            <h2>Claim</h2>
+            <p>
+              A deliberately placed identity tripwire can connect SSO activity
+              to a structured webhook and an enriched audit record in a
+              controlled lab.
+            </p>
+          </div>
+          <div class="evidence-rail__item">
+            <h2>Evidence</h2>
+            <p>
+              Repository configuration, Authentik customization, a self-hosted
+              Canarytokens stack, Python processing code, and captured lab
+              output.
+            </p>
+          </div>
+          <div class="evidence-rail__item">
+            <h2>Boundary</h2>
+            <p>
+              The webhook and IP heuristic are not production hardened. Source
+              attribution, delivery integrity, and failure handling require more
+              work.
+            </p>
+          </div>
+        </section>
+
+        <div class="case-layout shell">
+          <div class="case-content">
+            <section id="problem" aria-labelledby="problem-title">
+              <p class="eyebrow">The problem</p>
+              <h2 id="problem-title">
+                High-signal deception at the identity layer.
+              </h2>
+              <p>
+                Network honeypots can collect broad activity, but that breadth
+                also creates noise and maintenance work. This project explores a
+                narrower design: place a token at an identity boundary where
+                legitimate users should never activate it, then preserve the
+                activation as an event for review.
+              </p>
+              <p>
+                The project does not claim that every activation proves a
+                specific attacker or attack path. It treats token use as a
+                high-priority signal that still needs context, source
+                validation, and incident handling.
+              </p>
+            </section>
+
+            <section id="architecture" aria-labelledby="architecture-title">
+              <p class="eyebrow">Architecture</p>
+              <h2 id="architecture-title">
+                From identity boundary to enriched event.
+              </h2>
+              <ol class="flow-diagram">
+                <li>
+                  <span class="flow-node__step">01 / Control</span
+                  ><strong>Authentik SSO</strong
+                  ><small
+                    >Central identity perimeter for simulated
+                    applications.</small
+                  >
+                </li>
+                <li>
+                  <span class="flow-node__step">02 / Tripwire</span
+                  ><strong>Canarytoken</strong
+                  ><small
+                    >Hidden test resource placed in the identity
+                    experience.</small
+                  >
+                </li>
+                <li>
+                  <span class="flow-node__step">03 / Route</span
+                  ><strong>Secure tunnel</strong
+                  ><small
+                    >External callback delivered into the isolated lab
+                    network.</small
+                  >
+                </li>
+                <li>
+                  <span class="flow-node__step">04 / Process</span
+                  ><strong>Flask service</strong
+                  ><small
+                    >Extracts event fields and appends structured JSONL.</small
+                  >
+                </li>
+                <li>
+                  <span class="flow-node__step">05 / Enrich</span
+                  ><strong>Threat context</strong
+                  ><small
+                    >Queries geolocation and AbuseIPDB for reviewer
+                    context.</small
+                  >
+                </li>
+              </ol>
+            </section>
+
+            <section id="constraints" aria-labelledby="constraints-title">
+              <p class="eyebrow">Implementation constraints</p>
+              <h2 id="constraints-title">
+                The environment forced real systems work.
+              </h2>
+              <div class="decision-list">
+                <div class="decision">
+                  <h3>ARM64 dependencies</h3>
+                  <p>
+                    Missing public images required native Canarytokens
+                    compilation on AArch64 rather than relying on an expected
+                    registry artifact.
+                  </p>
+                </div>
+                <div class="decision">
+                  <h3>Virtualized storage</h3>
+                  <p>
+                    VirtioFS and Alpine container ownership behavior caused
+                    volume and database permission failures that required host
+                    and container configuration changes.
+                  </p>
+                </div>
+                <div class="decision">
+                  <h3>Cryptographic inputs</h3>
+                  <p>
+                    Seed and base64 constraints in the deception stack had to be
+                    aligned with the backend library instead of using
+                    placeholder values that failed during initialization.
+                  </p>
+                </div>
+                <div class="decision">
+                  <h3>Proxy-obscured IPs</h3>
+                  <p>
+                    Tunnels and Docker networking replaced or mixed source
+                    information. The lab processor scans the complete payload
+                    for globally routable IPv4 values instead of trusting one
+                    proxy header.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section id="processor" aria-labelledby="processor-title">
+              <p class="eyebrow">Telemetry processor</p>
+              <h2 id="processor-title">
+                A small service with an explicit evidence path.
+              </h2>
+              <p>
+                The Flask service receives the token webhook, extracts a
+                candidate public IP, enriches it with location and reputation
+                context, and appends a JSON record containing a timestamp, token
+                name, candidate source IP, user agent, and enrichment result.
+              </p>
+              <p>
+                The API key is read from an environment variable rather than
+                embedded in source. The output is append-only JSONL so another
+                SIEM process can ingest it without scraping terminal
+                presentation.
+              </p>
+            </section>
+
+            <section id="security" aria-labelledby="security-title">
+              <p class="eyebrow">Security review of the prototype</p>
+              <h2 id="security-title">
+                The current code has important hardening gaps.
+              </h2>
+              <ul>
+                <li>
+                  <strong>Untrusted IP ordering:</strong> Choosing the first
+                  globally routable IPv4 value from the payload can misattribute
+                  a source when several addresses are present.
+                </li>
+                <li>
+                  <strong>Webhook authenticity:</strong> The repository does not
+                  prove signed webhook verification or a separate authentication
+                  control on the receiver.
+                </li>
+                <li>
+                  <strong>Cleartext geolocation request:</strong> The current IP
+                  geolocation call uses HTTP. A production revision should use
+                  an authenticated HTTPS provider or omit the lookup.
+                </li>
+                <li>
+                  <strong>Silent failures:</strong> Broad exception handling
+                  keeps the lab running but can hide enrichment and file-write
+                  failures. Structured error reporting and health checks are
+                  needed.
+                </li>
+                <li>
+                  <strong>External dependency trust:</strong> AbuseIPDB and
+                  tunnel providers add availability, privacy, and rate-limit
+                  dependencies.
+                </li>
+                <li>
+                  <strong>Token disclosure:</strong> Screenshots or
+                  configuration containing a live token URL must not be
+                  republished. The portfolio intentionally excludes that asset.
+                </li>
+              </ul>
+            </section>
+
+            <section id="next" aria-labelledby="next-title">
+              <p class="eyebrow">Next engineering steps</p>
+              <h2 id="next-title">
+                What would move the lab toward a hardened service.
+              </h2>
+              <ol>
+                <li>
+                  Add signed webhook verification, request-size limits, schema
+                  validation, rate limiting, and explicit failure responses.
+                </li>
+                <li>
+                  Replace the payload-wide IP heuristic with a documented
+                  trusted-proxy chain and normalized source model.
+                </li>
+                <li>
+                  Move all enrichment to HTTPS, add retries with backoff, and
+                  distinguish enrichment failure from a low-risk result.
+                </li>
+                <li>
+                  Add unit and integration tests for proxy chains, malformed
+                  webhooks, file failures, API timeouts, and multiple-candidate
+                  IPs.
+                </li>
+                <li>
+                  Define retention, redaction, and access controls for captured
+                  identifiers.
+                </li>
+                <li>
+                  Run availability and recovery tests before any claim of
+                  operational readiness.
+                </li>
+              </ol>
+            </section>
+
+            <section id="ownership" aria-labelledby="ownership-title">
+              <p class="eyebrow">What I implemented</p>
+              <h2 id="ownership-title">
+                Architecture, deployment, and telemetry processing.
+              </h2>
+              <p>
+                I deployed and configured Authentik, built the ARM64
+                Canarytokens environment, connected the identity tripwire,
+                resolved virtualization and dependency issues, implemented the
+                Python webhook and enrichment service, and documented the
+                architecture and lab output.
+              </p>
+              <div class="action-row">
+                <a
+                  class="button button-primary"
+                  href="https://github.com/RasheedFarhat/Deceptive-Identity-Architecture"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Inspect the source<span class="sr-only">
+                    (opens in a new tab)</span
+                  ></a
+                ><a class="button button-secondary" href="/contact/"
+                  >Discuss this project</a
+                >
+              </div>
+            </section>
+          </div>
+          <aside class="case-sidebar" aria-labelledby="case-nav-title">
+            <h2 id="case-nav-title">Case study contents</h2>
+            <ul>
+              <li><a href="#problem">Problem</a></li>
+              <li><a href="#architecture">Architecture</a></li>
+              <li><a href="#constraints">Constraints</a></li>
+              <li><a href="#processor">Telemetry processor</a></li>
+              <li><a href="#security">Security review</a></li>
+              <li><a href="#next">Next steps</a></li>
+              <li><a href="#ownership">Ownership</a></li>
+            </ul>
+            <ul class="tag-list">
+              <li class="tag">Authentik</li>
+              <li class="tag">Canarytokens</li>
+              <li class="tag">Python</li>
+              <li class="tag">Flask</li>
+              <li class="tag">Docker</li>
+              <li class="tag">AbuseIPDB</li>
+            </ul>
+          </aside>
+        </div>
+      </article>
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner shell">
+        <div class="site-footer__identity">
+          <strong>Rasheed Farhat</strong
+          ><span
+            >Detection engineering, security automation, and AI attack-surface
+            review.</span
+          >
+        </div>
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a href="/projects/">Projects</a><a href="/writing/">Writing</a
+          ><a href="/resume/">Resume</a
+          ><a
+            href="https://github.com/RasheedFarhat"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub<span class="sr-only"> (opens in a new tab)</span></a
+          ><a
+            href="https://www.linkedin.com/in/rasheed-farhat010"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
+          ><a
+            href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
+            >Email</a
+          >
+        </nav>
+        <p class="footer-meta">
+          Copyright <span data-year></span> Rasheed Farhat. ZerOne is a
+          technical alias.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

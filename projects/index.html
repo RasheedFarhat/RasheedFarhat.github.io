@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Security engineering projects by Rasheed Farhat covering Detection-as-Code, MCP security review, identity deception, and Android malware investigation."
+    />
+    <meta name="theme-color" content="#0b1016" />
+    <meta property="og:title" content="Projects | Rasheed Farhat" />
+    <meta
+      property="og:description"
+      content="Technical case studies with architecture, validation, tradeoffs, and known limits."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://rasheedfarhat.github.io/projects/"
+    />
+    <meta
+      property="og:image"
+      content="https://rasheedfarhat.github.io/assets/social-card.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/projects/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/styles.css?v=20260717c" />
+    <script src="/script.js" defer></script>
+    <title>Projects | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/"
+          ><span class="brand__mark" aria-hidden="true">RF</span
+          ><span class="brand__text"
+            ><strong>Rasheed Farhat</strong
+            ><span class="brand__alias"
+              >ZerOne / Security engineering</span
+            ></span
+          ></a
+        ><button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-menu-toggle
+        >
+          <span class="menu-toggle__icon" aria-hidden="true"></span
+          ><span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav
+          class="site-nav"
+          id="site-nav"
+          aria-label="Primary navigation"
+          data-menu
+          data-open="false"
+        >
+          <a href="/">Home</a
+          ><a href="/projects/" aria-current="page">Projects</a
+          ><a href="/writing/">Writing</a><a href="/about/">About</a
+          ><a href="/contact/">Contact</a
+          ><a class="nav-resume" href="/resume/">Resume</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="page-hero shell" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Project index</p>
+          <h1 id="page-title">Systems, research, and investigations.</h1>
+          <p class="hero-copy">
+            The strongest work here is not presented as a feature list. Each
+            project is framed around the security problem, implementation
+            choices, evidence, and current boundary.
+          </p>
+        </div>
+        <div class="page-hero__meta">
+          <p>
+            <strong>Primary ownership:</strong> Independent design and
+            implementation.
+          </p>
+          <p>
+            <strong>Current focus:</strong> Detection engineering, security
+            automation, identity controls, and MCP security.
+          </p>
+        </div>
+      </section>
+      <section
+        class="section-compact shell"
+        aria-labelledby="project-list-title"
+      >
+        <h2 class="sr-only" id="project-list-title">All projects</h2>
+        <div class="project-list">
+          <article class="project-row">
+            <span class="project-index">01</span>
+            <div>
+              <h3>
+                <a href="/projects/detection-as-code/"
+                  >Detection-as-Code Pipeline</a
+                >
+              </h3>
+              <p>
+                Compiles supported Sigma detection logic into Wazuh XML,
+                verifies structure and identity, and deploys through a
+                controlled GitHub Actions workflow.
+              </p>
+            </div>
+            <div class="project-row__aside">
+              <span class="status">Active open source</span>
+              <p class="project-fact">
+                <strong>Core work:</strong> AST traversal, DNF conversion,
+                Jinja2 rendering, rule ID registry, Wazuh API deployment, and CI
+                security gates.
+              </p>
+              <a class="text-link" href="/projects/detection-as-code/"
+                >Read case study</a
+              >
+            </div>
+          </article>
+          <article class="project-row">
+            <span class="project-index">02</span>
+            <div>
+              <h3>
+                <a href="/projects/mcp-security/"
+                  >MCP Security Review Framework</a
+                >
+              </h3>
+              <p>
+                Captures MCP tool-call traffic, applies bounded structural and
+                stateful detections, inventories trust boundaries, and prepares
+                evidence for human review.
+              </p>
+            </div>
+            <div class="project-row__aside">
+              <span class="status">Research lab</span>
+              <p class="project-fact">
+                <strong>Core work:</strong> Transparent proxying, JSONL
+                telemetry, Wazuh rules, baseline drift, AI Bill of Materials,
+                compiler gates, and coverage reports.
+              </p>
+              <a class="text-link" href="/projects/mcp-security/"
+                >Read case study</a
+              >
+            </div>
+          </article>
+          <article class="project-row">
+            <span class="project-index">03</span>
+            <div>
+              <h3>
+                <a href="/projects/identity-deception/"
+                  >Deceptive Identity Architecture</a
+                >
+              </h3>
+              <p>
+                Connects an Authentik identity perimeter to Canarytokens and a
+                Python enrichment service to study deterministic identity
+                tripwires in a lab.
+              </p>
+            </div>
+            <div class="project-row__aside">
+              <span class="status">Lab proof of concept</span>
+              <p class="project-fact">
+                <strong>Core work:</strong> ARM64 deployment, Authentik
+                configuration, webhook processing, public-IP extraction, and
+                AbuseIPDB enrichment.
+              </p>
+              <a class="text-link" href="/projects/identity-deception/"
+                >Read case study</a
+              >
+            </div>
+          </article>
+          <article class="project-row">
+            <span class="project-index">04</span>
+            <div>
+              <h3>
+                <a href="/writing/#android-investigation"
+                  >Android Malware Investigation</a
+                >
+              </h3>
+              <p>
+                Used Android Safe Mode, ADB, package timelines, APKTool, JADX,
+                VirusTotal, and OSINT to investigate and remove a HiddenAds
+                sample from an infected device.
+              </p>
+            </div>
+            <div class="project-row__aside">
+              <span class="status">Published investigation</span>
+              <p class="project-fact">
+                <strong>Evidence:</strong> Eight-minute technical write-up
+                published September 8, 2025, with identifiers and the sample
+                redacted.
+              </p>
+              <a class="text-link" href="/writing/#android-investigation"
+                >View investigation</a
+              >
+            </div>
+          </article>
+        </div>
+      </section>
+      <section class="section shell" aria-labelledby="method-title">
+        <div class="contact-panel">
+          <div>
+            <p class="eyebrow">Common method</p>
+            <h2 id="method-title">Build, test, disclose.</h2>
+            <p>
+              Across these projects, the recurring pattern is to make the
+              security logic inspectable, run it against evidence, and document
+              the cases it cannot resolve. That matters more than a clean
+              scorecard.
+            </p>
+          </div>
+          <div class="action-row">
+            <a class="button button-primary" href="/contact/"
+              >Discuss the work</a
+            ><a
+              class="button button-secondary"
+              href="https://github.com/RasheedFarhat"
+              target="_blank"
+              rel="noopener noreferrer"
+              >View GitHub<span class="sr-only"> (opens in a new tab)</span></a
+            >
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="site-footer__inner shell">
+        <div class="site-footer__identity">
+          <strong>Rasheed Farhat</strong
+          ><span
+            >Detection engineering, security automation, and AI attack-surface
+            review.</span
+          >
+        </div>
+        <nav class="site-footer__links" aria-label="Footer navigation">
+          <a href="/projects/">Projects</a><a href="/writing/">Writing</a
+          ><a href="/resume/">Resume</a
+          ><a
+            href="https://github.com/RasheedFarhat"
+            target="_blank"
+            rel="noopener noreferrer"
+            >GitHub<span class="sr-only"> (opens in a new tab)</span></a
+          ><a
+            href="https://www.linkedin.com/in/rasheed-farhat010"
+            target="_blank"
+            rel="noopener noreferrer"
+            >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
+          ><a
+            href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
+            >Email</a
+          >
+        </nav>
+        <p class="footer-meta">
+          Copyright <span data-year></span> Rasheed Farhat. ZerOne is a
+          technical alias.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,6 +1,28 @@
-# Rasheed Farhat — Portfolio
+# Rasheed Farhat security engineering portfolio
 
-Personal cybersecurity portfolio for [Rasheed Farhat](https://github.com/RasheedFarhat), hosted with GitHub Pages.
+Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.github.io](https://rasheedfarhat.github.io/).
+
+## Architecture
+
+- Plain semantic HTML
+- One shared CSS design system
+- One small JavaScript file for the accessible mobile menu and generated copyright year
+- No build step
+- No runtime dependencies
+- No analytics, cookies, form processors, or third-party fonts
+
+## Public routes
+
+- `/` - Homepage
+- `/projects/` - Project index
+- `/projects/detection-as-code/` - Detection-as-Code case study
+- `/projects/mcp-security/` - MCP security review case study
+- `/projects/identity-deception/` - Identity deception case study
+- `/writing/` - Technical writing and reports
+- `/about/` - Professional profile
+- `/resume/` - Resume overview and PDF
+- `/contact/` - Contact options
+- `/404.html` - Not-found page
 
 ## Local preview
 
@@ -8,14 +30,21 @@ Personal cybersecurity portfolio for [Rasheed Farhat](https://github.com/Rasheed
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Open `http://127.0.0.1:8000/`.
 
-## Structure
+## Validation
 
-- `index.html` — portfolio content and semantic structure
-- `styles.css` — responsive visual system
-- `script.js` — progressive reveal and header behavior
-- `favicon.svg` — site mark
-- `404.html` — GitHub Pages fallback
+Dependency-free site checks:
 
-No build step or framework is required.
+```bash
+node scripts/validate-site.mjs
+node --check script.js
+```
+
+HTML validation used during release:
+
+```bash
+npx --yes html-validate@9.7.1 "**/*.html"
+```
+
+See `VALIDATION_REPORT.md` for the complete release record.

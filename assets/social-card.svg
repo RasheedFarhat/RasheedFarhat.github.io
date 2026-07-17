@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="social-title social-desc">
+  <title id="social-title">Rasheed Farhat security engineering portfolio</title>
+  <desc id="social-desc">Dark blue technical portfolio card with Rasheed Farhat's name and focus areas.</desc>
+  <rect width="1200" height="630" fill="#0b1016"/>
+  <g stroke="#2b3948" stroke-width="1" opacity="0.5">
+    <path d="M0 90h1200M0 180h1200M0 270h1200M0 360h1200M0 450h1200M0 540h1200"/>
+    <path d="M100 0v630M300 0v630M500 0v630M700 0v630M900 0v630M1100 0v630"/>
+  </g>
+  <rect x="70" y="66" width="58" height="58" rx="10" fill="#111923" stroke="#2b3948" stroke-width="2"/>
+  <text x="99" y="103" fill="#6db7ff" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" font-weight="700" text-anchor="middle">RF</text>
+  <text x="153" y="86" fill="#a8b4c0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="18" letter-spacing="2">SECURITY ENGINEERING PORTFOLIO</text>
+  <text x="70" y="255" fill="#f2f6f9" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="78" font-weight="650">Rasheed Farhat</text>
+  <rect x="70" y="296" width="130" height="6" rx="3" fill="#6db7ff"/>
+  <text x="70" y="378" fill="#f2f6f9" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="34" font-weight="550">Detection pipelines. Security automation.</text>
+  <text x="70" y="430" fill="#f2f6f9" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="34" font-weight="550">MCP and identity attack-surface review.</text>
+  <text x="70" y="540" fill="#a8b4c0" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="20">BUILD / VALIDATE / DISCLOSE THE BOUNDARY</text>
+</svg>

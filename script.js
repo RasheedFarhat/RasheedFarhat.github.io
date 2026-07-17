@@ -1,31 +1,45 @@
-const yearNode = document.querySelector("[data-year]");
-const header = document.querySelector("[data-header]");
-const revealNodes = document.querySelectorAll(".reveal");
+const yearNodes = document.querySelectorAll("[data-year]");
+const menuButton = document.querySelector("[data-menu-toggle]");
+const menu = document.querySelector("[data-menu]");
 
-if (yearNode) {
-  yearNode.textContent = new Date().getFullYear();
-}
+yearNodes.forEach((node) => {
+  node.textContent = new Date().getFullYear();
+});
 
-if (header) {
-  const updateHeader = () => header.classList.toggle("is-scrolled", window.scrollY > 24);
-  updateHeader();
-  window.addEventListener("scroll", updateHeader, { passive: true });
-}
+if (menuButton && menu) {
+  const closeMenu = (returnFocus = false) => {
+    menuButton.setAttribute("aria-expanded", "false");
+    menu.dataset.open = "false";
+    document.documentElement.classList.remove("nav-open");
+    if (returnFocus) menuButton.focus();
+  };
 
-if ("IntersectionObserver" in window) {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.12 }
-  );
+  const openMenu = () => {
+    menuButton.setAttribute("aria-expanded", "true");
+    menu.dataset.open = "true";
+    document.documentElement.classList.add("nav-open");
+    const firstLink = menu.querySelector("a");
+    if (firstLink) firstLink.focus();
+  };
 
-  revealNodes.forEach((node) => observer.observe(node));
-} else {
-  revealNodes.forEach((node) => node.classList.add("is-visible"));
+  menuButton.addEventListener("click", () => {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    if (isOpen) closeMenu();
+    else openMenu();
+  });
+
+  menu.addEventListener("click", (event) => {
+    if (event.target.closest("a")) closeMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+      closeMenu(true);
+    }
+  });
+
+  const desktopQuery = window.matchMedia("(min-width: 54.01rem)");
+  desktopQuery.addEventListener("change", (event) => {
+    if (event.matches) closeMenu();
+  });
 }
