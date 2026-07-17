@@ -85,6 +85,7 @@ const requiredAssets = [
   "assets/fonts/plex-mono-600.woff2",
   "assets/social-card.png",
   "assets/apple-touch-icon.png",
+  "assets/rasheed-farhat.jpg",
   "assets/rasheed-farhat-resume.pdf",
   "robots.txt",
   "sitemap.xml",
