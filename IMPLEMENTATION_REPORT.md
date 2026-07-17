@@ -17,11 +17,12 @@ directly into technical evidence.
 
 ## Design system
 
-- Palette: mineral mist, white instrument surfaces, deep ink, and signal teal.
+- Palette: slate mist, cool instrument surfaces, deep ink, and petroleum teal.
 - Type: Big Shoulders for display, Public Sans for body copy, and IBM Plex Mono
   for code and technical metadata.
-- Structure: a quiet grid, open page heroes, rounded evidence panels, restrained
-  shadows, and pipeline nodes that use the accent only where meaning exists.
+- Structure: a solid neutral canvas, open page heroes, rounded evidence panels,
+  restrained shadows, and pipeline nodes that use the accent only where meaning
+  exists.
 - Signature: the real Sigma-to-Wazuh compilation exhibit remains the visual
   anchor, redesigned as a daylight instrument sheet.
 
@@ -34,12 +35,15 @@ directly into technical evidence.
 - Removed "early-career" from visible About copy and social metadata.
 - Replaced the project-index and writing introductions with shorter summaries.
 - Preserved detailed project evidence on the case-study routes.
+- Replaced the full-name header wordmark with a compact `RF` mark so the name
+  appears only once on the homepage.
 
 ## Engineering changes
 
 - Updated all route metadata from dark to light color-scheme hints.
 - Reworked shared tokens and components in `styles.css`.
-- Updated `favicon.svg`, `site.webmanifest`, and both social asset sources.
+- Updated the favicon and touch icon to a legible `RF` monogram.
+- Updated `site.webmanifest` and both social asset sources.
 - Regenerated the 1200x630 social card and 180x180 touch icon.
 - Preserved the dependency-free static architecture and existing navigation
   behavior.

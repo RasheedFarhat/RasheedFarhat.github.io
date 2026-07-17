@@ -26,9 +26,9 @@ Validation date: July 17, 2026 (Clear Signal redesign)
 
 - axe-core 4.12.1: zero violations on all ten routes.
 - Lighthouse accessibility: 100.
-- Shared normal-text contrast ratios range from 5.05:1 to 13.76:1 on their
+- Shared normal-text contrast ratios range from 4.85:1 to 12.76:1 on their
   assigned backgrounds.
-- Primary button text measures 5.80:1 against the signal-teal fill.
+- Primary button text measures 6.62:1 against the signal-teal fill.
 - Mobile menu verified at 390px: 44x44px control, focus moves to the first link,
   `aria-expanded` updates, Escape closes the menu, and focus returns to the
   toggle.
@@ -60,16 +60,16 @@ session was not performed.
 - Largest Contentful Paint: 2.1s
 - Total Blocking Time: 0ms
 - Cumulative Layout Shift: 0
-- Speed Index: 1.4s
+- Speed Index: 2.4s
 
 ### Assets and budget
 
-- Homepage HTML: 18,716 bytes
-- CSS: 38,364 bytes
+- Homepage HTML: 18,738 bytes
+- CSS: 38,031 bytes
 - JavaScript: 1,407 bytes
 - Fonts: 105,104 bytes total, self-hosted WOFF2
-- Social card: 250,503 bytes
-- Touch icon: 13,591 bytes
+- Social card: 50,501 bytes
+- Touch icon: 11,632 bytes
 
 ### External links
 

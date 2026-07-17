@@ -5,7 +5,8 @@ deep blue-green ink, and a single signal-teal accent replace the conventional
 dark security palette. The signature remains a real detection rule shown as
 Sigma source, transformation stages, and generated Wazuh XML. Soft elevation,
 open spacing, and rounded instrument panels keep the system calm without making
-it casual.
+it casual. A solid slate-mist canvas replaces decorative background texture;
+neutral surface layers provide the hierarchy.
 
 ## Principles
 
@@ -24,19 +25,19 @@ it casual.
 
 | Token           | Value     | Role                                   |
 | --------------- | --------- | -------------------------------------- |
-| `--ink`         | `#eef4f2` | Mineral-mist page ground               |
-| `--panel`       | `#f8fbfa` | Raised instrument surfaces             |
-| `--well`        | `#e5eeeb` | Code and evidence wells                |
-| `--line`        | `#cfddda` | Quiet structural rules                 |
-| `--line-strong` | `#aebfbc` | Emphasized borders                     |
-| `--text-hi`     | `#13282e` | Headings and key values                |
-| `--text`        | `#344b51` | Body text                              |
-| `--text-dim`    | `#566b70` | Labels and secondary text              |
-| `--signal`      | `#176d73` | Links, active paths, and section cues  |
-| `--signal-hi`   | `#0d555b` | Hover and active state                 |
-| `--signal-fill` | `#176d73` | Primary button fill                    |
-| `--signal-ink`  | `#f7fbfa` | Text on signal teal                    |
-| `--signal-soft` | `#d9eae7` | Low-emphasis active surface            |
+| `--ink`         | `#e2e9e7` | Slate-mist page ground                 |
+| `--panel`       | `#f2f5f4` | Raised instrument surfaces             |
+| `--well`        | `#d5dfdc` | Code and evidence wells                |
+| `--line`        | `#b9c8c4` | Quiet structural rules                 |
+| `--line-strong` | `#94aaa5` | Emphasized borders                     |
+| `--text-hi`     | `#10262c` | Headings and key values                |
+| `--text`        | `#2d454b` | Body text                              |
+| `--text-dim`    | `#52676b` | Labels and secondary text              |
+| `--signal`      | `#0f6268` | Links, active paths, and section cues  |
+| `--signal-hi`   | `#084c51` | Hover and active state                 |
+| `--signal-fill` | `#0f6268` | Primary button fill                    |
+| `--signal-ink`  | `#f5f8f7` | Text on signal teal                    |
+| `--signal-soft` | `#c8dcda` | Low-emphasis active surface            |
 
 Text colors are selected for WCAG AA contrast on their assigned surfaces.
 Automated and manual contrast results are recorded in `VALIDATION_REPORT.md`.
