@@ -89,7 +89,15 @@ Local HTTP status checks returned 200 for:
 - `/404.html`
 - Resume PDF, social image, robots, sitemap, and manifest assets
 
-An unknown local route returned HTTP 404. The Python development server uses its own error body, so GitHub Pages custom-404 behavior must be confirmed after deployment.
+An unknown local route returned HTTP 404. After deployment, an unknown GitHub Pages route also returned HTTP 404 with the custom portfolio error page.
+
+### Production deployment
+
+- GitHub Pages completed the build for commit `9a99a3a` with status `built`.
+- The live homepage and Detection-as-Code route returned HTTP 200 with the new release copy.
+- The live resume returned HTTP 200 with `application/pdf`.
+- The live social preview returned HTTP 200 with `image/png`.
+- A deliberately unknown live route returned HTTP 404 with the custom 404 page.
 
 ### Metadata and assets
 
@@ -123,4 +131,3 @@ An unknown local route returned HTTP 404. The Python development server uses its
 - No full manual screen-reader session was performed.
 - External link status for Medium and LinkedIn could not be established through command-line HTTP because those services block automated requests.
 - Field performance was not measured from real visitors.
-- GitHub Pages deployment and custom 404 behavior are verified only after the final push.
