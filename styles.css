@@ -1197,45 +1197,6 @@ hr {
   color: var(--copper-hi);
 }
 
-/* About portrait ----------------------------------------------------------- */
-
-.about-hero {
-  display: grid;
-  gap: 2.5rem;
-}
-
-.portrait {
-  margin: 0;
-  border: 1px solid var(--line-strong);
-  background: var(--well);
-  align-self: start;
-  max-width: 20rem;
-}
-
-.portrait img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.portrait figcaption {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  padding: 0.7rem 1rem;
-  border-top: 1px solid var(--line-strong);
-}
-
-@media (min-width: 60rem) {
-  .about-hero {
-    grid-template-columns: minmax(0, 1.6fr) minmax(0, 20rem);
-    gap: 4rem;
-    align-items: start;
-  }
-}
-
 /* Case study -------------------------------------------------------------- */
 
 .case-hero__grid {
