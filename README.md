@@ -5,7 +5,7 @@ Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.git
 ## Architecture
 
 - Plain semantic HTML
-- One shared CSS design system ("compile plate" identity, see `DESIGN_SYSTEM.md`)
+- One shared CSS design system ("Clear Signal" identity, see `DESIGN_SYSTEM.md`)
 - One small JavaScript file for the accessible mobile menu and generated copyright year
 - Self-hosted variable fonts (Big Shoulders, Public Sans, IBM Plex Mono) with no third-party requests
 - No build step
@@ -14,7 +14,7 @@ Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.git
 
 ## Public routes
 
-- `/` - Homepage with the compile-plate exhibit
+- `/` - Homepage with the detection compilation exhibit
 - `/projects/` - Project index
 - `/projects/detection-as-code/` - Detection-as-Code case study
 - `/projects/mcp-security/` - MCP security review case study

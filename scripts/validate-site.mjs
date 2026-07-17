@@ -79,6 +79,7 @@ const requiredAssets = [
   "styles.css",
   "script.js",
   "favicon.svg",
+  "favicon.ico",
   "assets/fonts/big-shoulders-var.woff2",
   "assets/fonts/public-sans-var.woff2",
   "assets/fonts/plex-mono-400.woff2",

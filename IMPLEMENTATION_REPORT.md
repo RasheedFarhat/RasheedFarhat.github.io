@@ -4,59 +4,71 @@ Date: July 17, 2026
 
 ## Outcome
 
-The portfolio was visually and editorially reinvented around a single design
-concept, "The Compile Plate": the site reads as a controlled engineering
-document, and its signature element is a homepage exhibit showing a real
-detection rule from the Detection-as-Code pipeline as authored Sigma source
-beside the exact Wazuh PCRE2 XML it compiles to, annotated with the four
-transform stages. The excerpt is verifiable against the public repository.
+The portfolio now uses the "Clear Signal" light design system. It replaces the
+dark industrial presentation with cool mineral surfaces, deep blue-green type,
+and one signal-teal accent. The result keeps the technical character of the
+work while feeling calmer, more open, and easier to scan.
 
-The site remains a dependency-free static deployment: semantic HTML, one
-stylesheet, one small script, no build step, no trackers.
+The homepage was reduced from 688 rendered main-content words to 388. The
+record and capability sections were removed from the homepage because that
+information already exists on the About and Resume pages. The hero now contains
+one positioning statement, two primary actions, and a GitHub link before moving
+directly into technical evidence.
 
-## Identity
+## Design system
 
-- Palette: petroleum ink and gunmetal surfaces with a single oxidized-copper
-  accent family. All text pairs pass WCAG AA with margin.
-- Type: Big Shoulders (condensed industrial display), Public Sans (body),
-  IBM Plex Mono (code, labels, metadata). Self-hosted variable WOFF2 subsets.
-- Devices: hairline section rules with copper ticks, drafting-style eyebrow
-  labels, claim/evidence/boundary assessment strips, pipeline stage
-  schematics, scope notes, native-details disclosures, and a title-block
-  footer modeled on an engineering drawing.
+- Palette: mineral mist, white instrument surfaces, deep ink, and signal teal.
+- Type: Big Shoulders for display, Public Sans for body copy, and IBM Plex Mono
+  for code and technical metadata.
+- Structure: a quiet grid, open page heroes, rounded evidence panels, restrained
+  shadows, and pipeline nodes that use the accent only where meaning exists.
+- Signature: the real Sigma-to-Wazuh compilation exhibit remains the visual
+  anchor, redesigned as a daylight instrument sheet.
 
-## Structural changes
+## Content changes
 
-- Rewrote every route with condensed copy. Case studies dropped roughly a
-  third of their word count; deep detail moved into expandable disclosures.
-- Homepage restructured: status line, display-scale name, positioning
-  statement, compile-plate exhibit, three project rows with evidence
-  columns, dated record list, four capability groups, two writing entries,
-  and a short contact panel.
-- Project rows replaced numbered cards; markers now carry real information
-  (status and years) instead of sequence decoration.
-- The technical alias was removed site-wide.
-- Writing index carries verified publication dates for both Medium articles.
-- New favicon, social card, and touch icon expressing the compile motif
-  (source lines, transform chevron, artifact block).
+- Removed the homepage location line, supporting paragraph, metadata column,
+  record timeline, and capability grid.
+- Replaced abstract homepage headings with direct project and writing labels.
+- Shortened the compilation explanation and caption.
+- Removed "early-career" from visible About copy and social metadata.
+- Replaced the project-index and writing introductions with shorter summaries.
+- Preserved detailed project evidence on the case-study routes.
 
-## Files
+## Engineering changes
 
-- Rewritten: `styles.css`, `index.html`, all nine interior routes,
-  `favicon.svg`, `site.webmanifest`, `README.md`, `DESIGN_SYSTEM.md`,
-  `VALIDATION_REPORT.md`.
-- Added: `assets/fonts/` (four WOFF2 subsets),
-  `scripts/social-card-source.html`, `scripts/apple-touch-icon-source.html`.
-- Regenerated: `assets/social-card.png`, `assets/apple-touch-icon.png`.
-- Removed: `assets/social-card.svg` (replaced by the HTML source).
-- Unchanged: `script.js`, `robots.txt`, `sitemap.xml` (lastmod already
-  current), the resume PDF, and `.htmlvalidate.json`.
-- `scripts/validate-site.mjs` now requires the font files and skips the
-  non-page asset sources in `scripts/`.
+- Updated all route metadata from dark to light color-scheme hints.
+- Reworked shared tokens and components in `styles.css`.
+- Updated `favicon.svg`, `site.webmanifest`, and both social asset sources.
+- Regenerated the 1200x630 social card and 180x180 touch icon.
+- Preserved the dependency-free static architecture and existing navigation
+  behavior.
 
-## Validation
+## Accessibility and performance
 
-See `VALIDATION_REPORT.md` for the full command-level record: repository
-validator, html-validate, axe-core (0 violations on all routes), Lighthouse
-99/100/100/100, five-width overflow checks, keyboard and mobile-menu
-verification, link checks, and content scans.
+- Dark-on-light text pairs were recalculated; normal text pairs meet WCAG AA.
+- Focus indicators, semantic structure, reduced-motion handling, and the mobile
+  menu behavior were preserved.
+- The mobile compilation figure now removes the browser's default figure margin
+  so the code panel uses the available width.
+- No analytics, trackers, remote fonts, or new runtime dependencies were added.
+
+## Files changed
+
+- `styles.css`
+- `index.html`
+- All public route HTML files for light-theme metadata
+- `about/index.html`, `projects/index.html`, `writing/index.html`, and
+  `contact/index.html` for copy changes
+- `DESIGN_SYSTEM.md`, `README.md`, `IMPLEMENTATION_REPORT.md`, and
+  `VALIDATION_REPORT.md`
+- `favicon.svg`, `favicon.ico`, `site.webmanifest`, social-card and touch-icon source files
+- `assets/social-card.png` and `assets/apple-touch-icon.png`
+
+## Remaining limitations
+
+- Automated accessibility testing cannot replace a manual screen-reader pass.
+- Field performance has not been measured from real visitors.
+- The in-app browser rendered all routes at 390px and 1280px. Its viewport
+  control clamped the requested 320px width to 390px, so 320px was reviewed from
+  the responsive CSS rather than captured as a separate browser viewport.

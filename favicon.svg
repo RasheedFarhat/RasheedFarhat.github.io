@@ -1,10 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="favicon-title">
   <title id="favicon-title">Rasheed Farhat</title>
-  <rect width="64" height="64" fill="#101619"/>
-  <rect x="1.5" y="1.5" width="61" height="61" fill="none" stroke="#33454b" stroke-width="3"/>
-  <rect x="12" y="16" width="18" height="4" fill="#93a3a2"/>
-  <rect x="12" y="26" width="14" height="4" fill="#93a3a2"/>
-  <rect x="12" y="36" width="18" height="4" fill="#93a3a2"/>
-  <path d="M34 22l8 10-8 10" fill="none" stroke="#d28c5e" stroke-width="4"/>
-  <rect x="44" y="24" width="10" height="16" fill="#d28c5e"/>
+  <rect width="64" height="64" rx="12" fill="#eef4f2"/>
+  <rect x="2" y="2" width="60" height="60" rx="10" fill="none" stroke="#cfddda" stroke-width="3"/>
+  <circle cx="18" cy="20" r="5" fill="none" stroke="#176d73" stroke-width="3"/>
+  <path d="M23 20h10c5 0 8 3 8 8v8" fill="none" stroke="#176d73" stroke-width="3" stroke-linecap="round"/>
+  <circle cx="41" cy="42" r="6" fill="#176d73"/>
+  <path d="M13 43h16" stroke="#13282e" stroke-width="3" stroke-linecap="round"/>
 </svg>

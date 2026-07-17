@@ -3,8 +3,8 @@
   "short_name": "Rasheed Farhat",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#101619",
-  "theme_color": "#101619",
+  "background_color": "#eef4f2",
+  "theme_color": "#eef4f2",
   "icons": [
     {
       "src": "/favicon.svg",
