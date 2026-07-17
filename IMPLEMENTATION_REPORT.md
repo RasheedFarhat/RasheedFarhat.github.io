@@ -1,13 +1,17 @@
 # Portfolio Implementation Report
 
-Date: July 17, 2026
+Date: July 18, 2026
 
 ## Outcome
 
-The portfolio now uses the "Clear Signal" light design system. It replaces the
-dark industrial presentation with cool mineral surfaces, deep blue-green type,
-and one signal-teal accent. The result keeps the technical character of the
-work while feeling calmer, more open, and easier to scan.
+The portfolio now uses the dual-mode "Clear Signal" design system. Its light
+mode uses cool mineral surfaces, deep blue-green type, and one signal-teal
+accent. The result keeps the technical character of the work while feeling
+calmer, more open, and easier to scan.
+
+A matching dark mode now uses charcoal-teal surfaces rather than pure black.
+The header control follows the system preference on first visit and persists an
+explicit visitor choice across routes.
 
 The homepage was reduced from 688 rendered main-content words to 388. The
 record and capability sections were removed from the homepage because that
@@ -44,6 +48,9 @@ directly into technical evidence.
 - Reworked shared tokens and components in `styles.css`.
 - Updated the favicon and touch icon to a legible `RF` monogram.
 - Updated `site.webmanifest` and both social asset sources.
+- Added `theme-init.js` to apply the preferred theme before CSS paints.
+- Added an accessible theme control to every public route and extended shared
+  components with semantic dark-theme tokens.
 - Regenerated the 1200x630 social card and 180x180 touch icon.
 - Preserved the dependency-free static architecture and existing navigation
   behavior.
@@ -61,7 +68,7 @@ directly into technical evidence.
 
 - `styles.css`
 - `index.html`
-- All public route HTML files for light-theme metadata
+- All public route HTML files for theme metadata and the shared toggle
 - `about/index.html`, `projects/index.html`, `writing/index.html`, and
   `contact/index.html` for copy changes
 - `DESIGN_SYSTEM.md`, `README.md`, `IMPLEMENTATION_REPORT.md`, and

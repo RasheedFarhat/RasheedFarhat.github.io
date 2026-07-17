@@ -6,7 +6,8 @@ dark security palette. The signature remains a real detection rule shown as
 Sigma source, transformation stages, and generated Wazuh XML. Soft elevation,
 open spacing, and rounded instrument panels keep the system calm without making
 it casual. A solid slate-mist canvas replaces decorative background texture;
-neutral surface layers provide the hierarchy.
+neutral surface layers provide the hierarchy. The dark theme keeps the same
+instrument language with charcoal-teal surfaces and low-glare cyan accents.
 
 ## Principles
 
@@ -23,21 +24,21 @@ neutral surface layers provide the hierarchy.
 
 ## Color tokens
 
-| Token           | Value     | Role                                   |
-| --------------- | --------- | -------------------------------------- |
-| `--ink`         | `#e2e9e7` | Slate-mist page ground                 |
-| `--panel`       | `#f2f5f4` | Raised instrument surfaces             |
-| `--well`        | `#d5dfdc` | Code and evidence wells                |
-| `--line`        | `#b9c8c4` | Quiet structural rules                 |
-| `--line-strong` | `#94aaa5` | Emphasized borders                     |
-| `--text-hi`     | `#10262c` | Headings and key values                |
-| `--text`        | `#2d454b` | Body text                              |
-| `--text-dim`    | `#52676b` | Labels and secondary text              |
-| `--signal`      | `#0f6268` | Links, active paths, and section cues  |
-| `--signal-hi`   | `#084c51` | Hover and active state                 |
-| `--signal-fill` | `#0f6268` | Primary button fill                    |
-| `--signal-ink`  | `#f5f8f7` | Text on signal teal                    |
-| `--signal-soft` | `#c8dcda` | Low-emphasis active surface            |
+| Token           | Light     | Dark      | Role                                  |
+| --------------- | --------- | --------- | ------------------------------------- |
+| `--ink`         | `#e2e9e7` | `#10191b` | Page ground                           |
+| `--panel`       | `#f2f5f4` | `#172326` | Raised instrument surfaces            |
+| `--well`        | `#d5dfdc` | `#0b1416` | Code and evidence wells               |
+| `--line`        | `#b9c8c4` | `#2d4144` | Quiet structural rules                |
+| `--line-strong` | `#94aaa5` | `#456064` | Emphasized borders                    |
+| `--text-hi`     | `#10262c` | `#edf4f2` | Headings and key values               |
+| `--text`        | `#2d454b` | `#c4d1ce` | Body text                             |
+| `--text-dim`    | `#52676b` | `#91a6a2` | Labels and secondary text             |
+| `--signal`      | `#0f6268` | `#70b7b5` | Links, active paths, and section cues |
+| `--signal-hi`   | `#084c51` | `#98cfcc` | Hover and active state                |
+| `--signal-fill` | `#0f6268` | `#24666b` | Primary button fill                   |
+| `--signal-ink`  | `#f5f8f7` | `#f5f8f7` | Text on signal teal                   |
+| `--signal-soft` | `#c8dcda` | `#1e3a3c` | Low-emphasis active surface           |
 
 Text colors are selected for WCAG AA contrast on their assigned surfaces.
 Automated and manual contrast results are recorded in `VALIDATION_REPORT.md`.
@@ -76,5 +77,8 @@ All fonts are subset latin WOFF2 files self-hosted under `/assets/fonts/`
 - Focus is a 2px signal-teal outline with 3px offset on every interactive element.
 - The mobile menu button is 44px, toggles `aria-expanded`, moves focus to the
   first link on open, closes on Escape, and returns focus to the button.
+- The light/dark control exposes its state through `aria-pressed`, names the
+  target theme, persists an explicit choice, and otherwise follows the system
+  preference.
 - `prefers-reduced-motion` collapses all transitions.
 - No scroll-triggered animation anywhere.

@@ -78,6 +78,7 @@ for (const file of collectHtml(root)) {
 const requiredAssets = [
   "styles.css",
   "script.js",
+  "theme-init.js",
   "favicon.svg",
   "favicon.ico",
   "assets/fonts/big-shoulders-var.woff2",

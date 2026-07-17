@@ -8,7 +8,7 @@
       content="Rasheed Farhat is a security engineer building detection pipelines, security automation, and review tooling for emerging attack surfaces. Security+ and CySA+ certified."
     />
     <meta name="theme-color" content="#e2e9e7" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <meta property="og:title" content="Rasheed Farhat | Security Engineer" />
     <meta
       property="og:description"
@@ -54,8 +54,9 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="/styles.css?v=20260719b" />
-    <script src="/script.js" defer></script>
+    <script src="/theme-init.js?v=20260718a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260718a" />
+    <script src="/script.js?v=20260718a" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -118,6 +119,15 @@
           <a href="/writing/">Writing</a>
           <a href="/about/">About</a>
           <a href="/contact/">Contact</a>
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-pressed="false"
+            data-theme-toggle
+          >
+            <span class="theme-toggle__icon" aria-hidden="true"></span>
+            <span data-theme-label>Dark</span>
+          </button>
           <a class="nav-resume" href="/resume/">Resume</a>
         </nav>
       </div>

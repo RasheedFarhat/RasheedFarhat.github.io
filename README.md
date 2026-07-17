@@ -6,7 +6,8 @@ Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.git
 
 - Plain semantic HTML
 - One shared CSS design system ("Clear Signal" identity, see `DESIGN_SYSTEM.md`)
-- One small JavaScript file for the accessible mobile menu and generated copyright year
+- Two small JavaScript files for pre-paint theme selection, the accessible
+  theme and mobile-menu controls, and the generated copyright year
 - Self-hosted variable fonts (Big Shoulders, Public Sans, IBM Plex Mono) with no third-party requests
 - No build step
 - No runtime dependencies
@@ -40,6 +41,7 @@ Dependency-free site checks:
 ```bash
 node scripts/validate-site.mjs
 node --check script.js
+node --check theme-init.js
 ```
 
 HTML validation used during release (page routes only; `scripts/` holds

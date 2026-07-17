@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Technical writing by Rasheed Farhat: browser forensics, Android malware investigation, a Sigma compiler trace, and a sample MCP detection readiness report." />
     <meta name="theme-color" content="#e2e9e7" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="light dark" />
     <meta property="og:title" content="Writing | Rasheed Farhat" />
     <meta property="og:description" content="Technical writing by Rasheed Farhat: browser forensics, Android malware investigation, a Sigma compiler trace, and a sample MCP detection readiness report." />
     <meta property="og:type" content="website" />
@@ -36,8 +36,9 @@
       type="font/woff2"
       crossorigin
     />
-    <link rel="stylesheet" href="/styles.css?v=20260719b" />
-    <script src="/script.js" defer></script>
+    <script src="/theme-init.js?v=20260718a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260718a" />
+    <script src="/script.js?v=20260718a" defer></script>
     <title>Writing | Rasheed Farhat</title>
   </head>
   <body>
@@ -67,6 +68,15 @@
           <a href="/writing/" aria-current="page">Writing</a>
           <a href="/about/">About</a>
           <a href="/contact/">Contact</a>
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-pressed="false"
+            data-theme-toggle
+          >
+            <span class="theme-toggle__icon" aria-hidden="true"></span>
+            <span data-theme-label>Dark</span>
+          </button>
           <a class="nav-resume" href="/resume/">Resume</a>
         </nav>
       </div>
