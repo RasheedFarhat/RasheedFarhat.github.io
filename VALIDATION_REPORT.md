@@ -1,133 +1,100 @@
 # Portfolio Validation Report
 
-Validation date: July 17, 2026
+Validation date: July 17, 2026 (compile-plate redesign)
 
-## Baseline
+## Scope
 
-The repository had no package manifest, test suite, type system, or build command. It was a seven-file static GitHub Pages site.
+Full visual and technical redesign of all ten routes, the stylesheet, the
+favicon, the social card, and the touch icon. The site remains a static,
+build-free GitHub Pages deployment.
 
-Baseline commands and results:
-
-- `node --check script.js`: passed.
-- Local route and asset requests: passed for the two original HTML pages and local assets.
-- `npx --yes html-validate@9.7.1 index.html 404.html`: failed with 29 errors, including doctype and void-element style, invalid ARIA labels, and inline styles.
-- Secret pattern scan: no exposed credentials found.
-
-## Final command results
+## Command results
 
 ### Repository validation
 
-- `node scripts/validate-site.mjs`: passed for 10 HTML files and 9 required assets.
-- `npx --yes html-validate@9.7.1 "**/*.html"`: passed with zero errors or warnings.
+- `node scripts/validate-site.mjs`: passed for 10 HTML files and 13 required
+  assets (now including the four self-hosted font files).
 - `node --check script.js`: passed.
-- `git diff --check`: passed.
-- Typographic dash scan: no en dash or em dash found outside binary assets.
-- Credential pattern scan: no API keys, GitHub tokens, or private-key headers found.
-
-The HTML validator uses the recommended ruleset. Doctype capitalization and void-tag style rules are disabled because the checked-in HTML is formatted by Prettier, whose HTML output uses a lowercase doctype and self-closing void-tag syntax. Both forms are accepted by HTML parsers. All structural, semantic, ARIA, and content rules remain enabled.
-
-### Build, tests, lint, and type checking
-
-- Production build: not applicable. The production artifact is the checked-in static HTML, CSS, JavaScript, and assets.
-- Unit tests: not present in the original repository. The new repository validation script covers route files, required assets, headings, landmarks, metadata, fragments, local links, external-link safety, inline styles, and banned placeholder copy.
-- Lint: HTML validation and JavaScript syntax validation passed.
-- Type check: not applicable. The site has no TypeScript or typed build step.
-- Dependency audit: not applicable. The site has no runtime or package dependencies.
+- `npx --yes html-validate@9.7.1` across all ten page routes: zero errors,
+  zero warnings, using the recommended ruleset with only doctype-style and
+  void-style disabled (Prettier-style output).
+- Typographic dash scan across HTML, CSS, and JS: none found.
+- Banned-copy scan (alias, "passionate", "innovative", "cutting edge",
+  "world class", "robust", "future proof"): none found.
+- Credential pattern scan (API keys, tokens, private keys): none found.
 
 ### Accessibility
 
-- axe-core CLI 4.12.1 ran against all 10 HTML routes with WCAG 2 A, AA, 2.1 AA, and 2.2 AA tags: zero automated violations.
-- Lighthouse accessibility score on the homepage: 100.
-- Primary color-pair contrast ratios ranged from 8.64:1 to 17.30:1 after the forensic-material palette update.
-- Mobile menu: opens with an updated `aria-expanded` state, closes on Escape, and returns focus to its button.
-- Case-study sidebar links: measured at 44px high after a mobile touch-target correction.
-- Skip link, heading hierarchy, landmarks, current-page state, external-link context, visible focus, and reduced-motion CSS were inspected.
+- axe-core (via @axe-core/playwright, tags wcag2a, wcag2aa, wcag21aa,
+  wcag22aa) on all 10 routes: 0 violations.
+- An earlier run flagged the decorative 404 numeral at 1.81:1; it was raised
+  to #566b70 (3.24:1, passes the large-text threshold) and re-verified.
+- Keyboard walk on the homepage: skip link is the first tab stop, every stop
+  shows a 2px copper outline, and no keyboard traps were found.
+- Mobile menu verified in the browser: opens with focus moved to the first
+  link, `aria-expanded` toggles, Escape closes and returns focus to the
+  44px toggle button.
+- Case-study disclosures open and close with Enter on the summary element.
+- All palette text pairs measure between 5.75:1 and 15.99:1.
+- Reduced-motion support collapses all transitions.
 
-Automated accessibility tools cannot prove full WCAG conformance. A manual screen-reader pass remains recommended.
+### Lighthouse (local, headless, simulated throttling)
 
-### Lighthouse
+- Performance 99, Accessibility 100, Best Practices 100, SEO 100.
+- First Contentful Paint 1.4 s, Largest Contentful Paint 2.1 s, Total
+  Blocking Time 0 ms, Cumulative Layout Shift 0, Speed Index 1.4 s.
+- The single performance point is the display-font LCP under simulated
+  throttling; fonts are preloaded and use `font-display: swap`.
 
-Final homepage scores:
+### Responsive checks
 
-- Performance: 100.
-- Accessibility: 100.
-- Best Practices: 100.
-- SEO: 100.
-- First Contentful Paint: 0.9 seconds.
-- Largest Contentful Paint: 1.2 seconds.
-- Speed Index: 0.9 seconds.
-- Total Blocking Time: 0 milliseconds.
-- Cumulative Layout Shift: 0.
+- Rendered at 320, 390, 768, 1024, and 1440 px across all ten routes:
+  zero horizontal overflow at every width (programmatic scrollWidth check).
+- The compile plate collapses from a three-column source/transform/artifact
+  layout to a stacked layout with a two-column stage grid.
+- Case-study code figures scroll inside their own containers.
 
-These results came from a local, headless, simulated Lighthouse run. Production network conditions and GitHub Pages caching can change field performance.
+### Routes, links, and console
 
-### Responsive browser checks
+- All ten routes return HTTP 200 locally; an unknown route returns 404
+  (GitHub Pages serves the custom 404 page in production, verified on the
+  previous deployment).
+- Browser crawl of all routes: no console errors, warnings, or failed
+  requests other than the expected 404 for the unknown-route probe.
+- All six GitHub link targets return HTTP 200.
+- Both Medium articles were re-verified through a readable rendering:
+  "Chromium-Based Browsers: An Analysis on Simple Cache" (Browser Forensics,
+  August 6, 2024, 11 min) and "How I Turned My Mom's Infected Phone Into a
+  Cybersecurity Lab" (September 8, 2025, 8 min). Medium and LinkedIn block
+  raw command-line HTTP probes, as before.
+- Every `target="_blank"` link carries `rel="noopener noreferrer"` and a
+  screen-reader "(opens in a new tab)" note.
 
-Rendered checks were performed at 1440 by 1000, 1024 by 768, 390 by 844, and 320 by 800.
+### Metadata
 
-- No horizontal overflow was found on any public route at 1024px or 390px.
-- The 320px homepage had no overflowing elements.
-- Desktop navigation, current-page states, mobile menu, case-study sidebars, diagrams, buttons, code blocks, and footer layout were inspected.
-- Case-study flow diagrams collapsed to one column on mobile.
-- Project code remained within its scroll container.
-- The desktop hero was refined so the statement, evidence focus, explanation, and primary actions appear in the initial viewport.
-- No browser console warnings or errors were recorded during the route crawl.
+- Every page has one H1, one main landmark, a skip link, a unique title, and
+  a unique meta description.
+- Indexable pages carry canonical URLs, Open Graph, and Twitter card tags;
+  the 404 page is noindex with no canonical.
+- Person and WebSite schema on the homepage; SoftwareSourceCode schema on
+  the three case studies.
+- New 1200x630 social card and 180x180 touch icon rendered from the design
+  system (sources in `scripts/`).
+- Sitemap (lastmod 2026-07-17), robots.txt, and web manifest are current.
 
-### Routes and assets
+### Asset budget
 
-Local HTTP status checks returned 200 for:
-
-- `/`
-- `/projects/`
-- `/projects/detection-as-code/`
-- `/projects/mcp-security/`
-- `/projects/identity-deception/`
-- `/writing/`
-- `/about/`
-- `/resume/`
-- `/contact/`
-- `/404.html`
-- Resume PDF, social image, robots, sitemap, and manifest assets
-
-An unknown local route returned HTTP 404. After deployment, an unknown GitHub Pages route also returned HTTP 404 with the custom portfolio error page.
-
-### Production deployment
-
-- GitHub Pages completed the build for commit `9a99a3a` with status `built`.
-- The live homepage and Detection-as-Code route returned HTTP 200 with the new release copy.
-- The live resume returned HTTP 200 with `application/pdf`.
-- The live social preview returned HTTP 200 with `image/png`.
-- A deliberately unknown live route returned HTTP 404 with the custom 404 page.
-
-### Metadata and assets
-
-- All public pages have one H1, one main landmark, a unique title, a description, and a skip link.
-- All indexable pages have canonical URLs.
-- The 404 page has `noindex` and no canonical URL.
-- All project routes have current-page navigation state.
-- All image elements loaded successfully during the browser crawl.
-- The social preview image is 1200 by 630.
-- The Apple touch icon is 180 by 180.
-- Sitemap, robots, manifest, favicon, and structured data are present.
-
-### Internal and external links
-
-- The repository validator found no missing local route, asset, or fragment targets.
-- All tested GitHub repository and documentation links returned HTTP 200.
-- The MIT license destination returned HTTP 200.
-- Medium returned HTTP 403 to direct command-line requests and LinkedIn returned HTTP 999, both consistent with automated-request blocking. The destinations were corroborated from the source resume and published page evidence. The Chromium Simple Cache article title, author, publication date, reading time, technical contents, and supporting repository link were also checked through a readable rendering of the published page.
-- All `target="_blank"` destinations include `noopener noreferrer`.
-
-### Asset size check
-
-- Homepage HTML: 18,119 bytes raw, 4,537 bytes gzipped.
-- CSS: 27,216 bytes raw, 5,182 bytes gzipped.
-- JavaScript: 1,407 bytes raw, 527 bytes gzipped.
-- Social preview PNG: 94,184 bytes.
-- Resume PDF: 139,289 bytes.
+- Homepage HTML 23,700 bytes raw / 5,549 gzipped.
+- CSS 30,636 bytes raw / 5,654 gzipped.
+- JavaScript 1,407 bytes raw / 527 gzipped.
+- Fonts 112 KB total (four subset WOFF2 files, self-hosted).
+- Social card PNG 57 KB. No other images.
 
 ## Known warnings and unverified items
 
-- No full manual screen-reader session was performed.
-- External link status for Medium and LinkedIn could not be established through command-line HTTP because those services block automated requests.
+- No manual screen-reader session was performed; axe-core cannot prove full
+  WCAG conformance.
 - Field performance was not measured from real visitors.
+- Production deployment of this redesign has not happened yet; deployment
+  checks in this report describe the local environment plus the prior
+  deployment's 404 behavior.

@@ -3,43 +3,47 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Case study of MCP-DETECT, Rasheed Farhat's supervised security review framework for capturing MCP traffic, measuring bounded detections, and documenting blind spots."
-    />
-    <meta name="theme-color" content="#0c1112" />
-    <meta
-      property="og:title"
-      content="MCP Security Review Framework | Rasheed Farhat"
-    />
-    <meta
-      property="og:description"
-      content="Human-led MCP security review supported by telemetry capture, bounded detections, trust-boundary inventory, and explicit limitations."
-    />
+    <meta name="description" content="Case study: MCP-DETECT captures Model Context Protocol tool traffic, applies bounded detections, inventories trust boundaries, and prepares evidence for human review." />
+    <meta name="theme-color" content="#101619" />
+    <meta name="color-scheme" content="dark" />
+    <meta property="og:title" content="MCP Security Review Framework | Rasheed Farhat" />
+    <meta property="og:description" content="Case study: MCP-DETECT captures Model Context Protocol tool traffic, applies bounded detections, inventories trust boundaries, and prepares evidence for human review." />
     <meta property="og:type" content="article" />
-    <meta
-      property="og:url"
-      content="https://rasheedfarhat.github.io/projects/mcp-security/"
-    />
-    <meta
-      property="og:image"
-      content="https://rasheedfarhat.github.io/assets/social-card.png"
-    />
+    <meta property="og:url" content="https://rasheedfarhat.github.io/projects/mcp-security/" />
+    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Rasheed Farhat, security engineer. Detection pipelines, security automation, review tooling." />
     <meta name="twitter:card" content="summary_large_image" />
-    <link
-      rel="canonical"
-      href="https://rasheedfarhat.github.io/projects/mcp-security/"
-    />
+    <meta name="twitter:title" content="MCP Security Review Framework | Rasheed Farhat" />
+    <meta name="twitter:description" content="Case study: MCP-DETECT captures Model Context Protocol tool traffic, applies bounded detections, inventories trust boundaries, and prepares evidence for human review." />
+    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/projects/mcp-security/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="/styles.css?v=20260717e" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="preload"
+      href="/assets/fonts/big-shoulders-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/public-sans-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/styles.css?v=20260718a" />
     <script src="/script.js" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "SoftwareSourceCode",
-        "name": "MCP-DETECT Security Review Framework",
-        "description": "A research lab and supervised review framework for capturing Model Context Protocol telemetry, running bounded detections, measuring results, and documenting gaps.",
+        "name": "MCP-DETECT: MCP Security Review Framework",
+        "description": "A supervised review framework that captures Model Context Protocol traffic, applies bounded detections, inventories trust boundaries, and prepares evidence for a human security reviewer.",
         "codeRepository": "https://github.com/RasheedFarhat/mcp-detect",
         "programmingLanguage": "Python",
         "author": {
@@ -55,42 +59,37 @@
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
       <div class="site-header__inner shell">
-        <a class="brand" href="/"
-          ><span class="brand__mark" aria-hidden="true">RF</span
-          ><span class="brand__text"
-            ><strong>Rasheed Farhat</strong
-            ><span class="brand__alias"
-              >ZerOne / Security engineering</span
-            ></span
-          ></a
-        ><button
+        <a class="brand" href="/">Rasheed Farhat</a>
+        <button
           class="menu-toggle"
           type="button"
           aria-expanded="false"
           aria-controls="site-nav"
           data-menu-toggle
         >
-          <span class="menu-toggle__icon" aria-hidden="true"></span
-          ><span class="sr-only">Toggle navigation</span>
+          <span class="menu-toggle__icon" aria-hidden="true"></span>
+          <span class="sr-only">Toggle navigation</span>
         </button>
         <nav
           class="site-nav"
           id="site-nav"
-          aria-label="Primary navigation"
+          aria-label="Primary"
           data-menu
           data-open="false"
         >
-          <a href="/">Home</a
-          ><a href="/projects/" aria-current="page">Projects</a
-          ><a href="/writing/">Writing</a><a href="/about/">About</a
-          ><a href="/contact/">Contact</a
-          ><a class="nav-resume" href="/resume/">Resume</a>
+          <a href="/">Home</a>
+          <a href="/projects/" aria-current="page">Projects</a>
+          <a href="/writing/">Writing</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          <a class="nav-resume" href="/resume/">Resume</a>
         </nav>
       </div>
     </header>
+
     <main id="main">
       <article>
-        <header class="case-hero shell">
+        <div class="page-hero shell">
           <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/projects/">Projects</a><span aria-hidden="true">/</span
             ><span>MCP Security Review Framework</span>
@@ -100,18 +99,17 @@
               <p class="eyebrow">Agentic AI security / Detection research</p>
               <h1>MCP Security Review Framework</h1>
               <p class="case-hero__summary">
-                MCP-DETECT is a research lab and supervised review framework. It
-                captures Model Context Protocol traffic, applies a bounded set
-                of structural and stateful detections, inventories observed
-                trust boundaries, and prepares evidence for a human security
-                reviewer.
+                MCP-DETECT captures Model Context Protocol tool traffic,
+                applies a bounded set of structural and stateful detections,
+                inventories observed trust boundaries, and prepares evidence
+                for a human security reviewer.
               </p>
-              <div class="note">
-                <strong>Scope statement</strong>
+              <div class="scope-note">
+                <strong>Scope</strong>
                 <p>
-                  This is not autonomous enforcement, complete MCP protection,
-                  or a production drop-in. A human reviewer must interpret
-                  findings, confirm context, and choose compensating controls.
+                  Supervised tooling for a human-led review. Not autonomous
+                  enforcement, not complete MCP protection, not a production
+                  drop-in.
                 </p>
               </div>
               <div class="action-row">
@@ -120,36 +118,23 @@
                   href="https://github.com/RasheedFarhat/mcp-detect"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >View repository<span class="sr-only">
-                    (opens in a new tab)</span
-                  ></a
-                ><a
+                  >View repository<span class="sr-only"> (opens in a new tab)</span></a
+                >
+                <a
                   class="button button-secondary"
                   href="https://github.com/RasheedFarhat/mcp-detect/blob/main/samples/NorthwindPay-Agentic-Detection-Readiness-Assessment/REPORT.md"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >View synthetic sample report<span class="sr-only">
-                    (opens in a new tab)</span
-                  ></a
+                  >Sample report<span class="sr-only"> (opens in a new tab)</span></a
                 >
               </div>
             </div>
             <dl class="case-meta">
-              <div>
-                <dt>Status</dt>
-                <dd>Research lab and open-core framework</dd>
-              </div>
-              <div>
-                <dt>Ownership</dt>
-                <dd>
-                  Independent architecture, implementation, and measurement
-                </dd>
-              </div>
+              <div><dt>Status</dt><dd>Research lab, open-core framework</dd></div>
+              <div><dt>Role</dt><dd>Sole engineer, architecture through measurement</dd></div>
               <div>
                 <dt>Stack</dt>
-                <dd>
-                  Python, MCP SDK, Wazuh, Docker, JSONL telemetry, Ollama lab
-                </dd>
+                <dd>Python, MCP SDK, Wazuh, Docker, JSONL telemetry, Ollama lab</dd>
               </div>
               <div>
                 <dt>Review model</dt>
@@ -157,316 +142,226 @@
               </div>
             </dl>
           </div>
-        </header>
+        </div>
 
-        <section class="evidence-rail shell" aria-labelledby="evidence-heading">
-          <h2 class="sr-only" id="evidence-heading">
-            Claim, evidence, and boundary
-          </h2>
-          <div class="evidence-rail__item">
-            <h2>Claim</h2>
-            <p>
-              The framework can make selected MCP behaviors observable and
-              produce reproducible evidence for five implemented abuse
-              techniques.
-            </p>
+        <div class="shell">
+          <div class="assessment">
+            <div class="assessment__cell">
+              <h2>Claim</h2>
+              <p>
+                Makes selected MCP behaviors observable and produces
+                reproducible evidence for five implemented abuse techniques.
+              </p>
+            </div>
+            <div class="assessment__cell">
+              <h2>Evidence</h2>
+              <p>
+                Ten rules plus two parent anchors, a 4,727-record benign
+                corpus, five compiler gates, and an 18-class evasion corpus.
+              </p>
+            </div>
+            <div class="assessment__cell">
+              <h2>Boundary</h2>
+              <p>
+                All data is self-authored, 5 of roughly 85 SAF-MCP techniques
+                are implemented, and there is no semantic detection backend.
+              </p>
+            </div>
           </div>
-          <div class="evidence-rail__item">
-            <h2>Evidence</h2>
-            <p>
-              Ten rules, two parent anchors, a 4,727-record benign corpus, five
-              compiler gates, and an 18-class adversarial evasion corpus.
-            </p>
-          </div>
-          <div class="evidence-rail__item">
-            <h2>Boundary</h2>
-            <p>
-              The data is self-authored, only 5 of roughly 85 SAF-MCP techniques
-              are implemented, and no semantic detection backend exists.
-            </p>
-          </div>
-        </section>
+        </div>
 
         <div class="case-layout shell">
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
               <p class="eyebrow">The problem</p>
-              <h2 id="problem-title">
-                MCP expands what an agent can touch, but ordinary reviews miss
-                the tool-call layer.
-              </h2>
+              <h2 id="problem-title">Ordinary reviews miss the tool-call layer.</h2>
               <p>
-                MCP integrations connect agents to filesystems, ticketing,
-                memory stores, web access, and internal services. A conventional
-                configuration review can identify declared permissions, but it
-                may not show what tools were advertised, what arguments moved
-                through them, whether metadata changed mid-session, or whether
-                an undeclared server appeared in observed traffic.
+                MCP connects agents to filesystems, ticketing, memory stores,
+                and internal services. A configuration review can list declared
+                permissions, but it cannot show which tools were actually
+                advertised, what arguments moved through them, whether metadata
+                changed mid-session, or whether an undeclared server appeared
+                in live traffic.
               </p>
               <p>
-                The project asks a narrower question: what evidence can be
-                extracted from MCP traffic, which abuse techniques can be
-                detected from that evidence, and which classes require controls
+                So the project asks a narrower question: what evidence can be
+                extracted from MCP traffic, which abuse techniques are
+                detectable from that evidence, and which classes need controls
                 outside telemetry?
               </p>
             </section>
 
-            <section id="review-model" aria-labelledby="review-model-title">
-              <p class="eyebrow">Review model</p>
-              <h2 id="review-model-title">
-                Tooling supports the reviewer. It does not replace one.
-              </h2>
-              <p>
-                A human-led review uses the framework to capture or receive
-                minimized telemetry, inventory servers and tools, run registered
-                detections, inspect findings, compare observed infrastructure to
-                a declared baseline, and report the confidence and limitations
-                of each result.
-              </p>
-              <ul>
-                <li>
-                  <strong>Tool-call abuse:</strong> Review file access, path
-                  traversal, secret-shaped arguments, and tool-description
-                  poisoning.
-                </li>
-                <li>
-                  <strong>Trust boundaries:</strong> Inventory server commands,
-                  writable mounts, network egress, and shadow-server candidates.
-                </li>
-                <li>
-                  <strong>Evidence integrity:</strong> Validate schema, hashes,
-                  fixture references, session joins, and the path from rule to
-                  report.
-                </li>
-                <li>
-                  <strong>Drift and rug pulls:</strong> Compare advertised
-                  metadata across a stateful baseline, then distinguish
-                  suspicious drift from legitimate updates manually.
-                </li>
-                <li>
-                  <strong>Control flow:</strong> Use findings as evidence for a
-                  reviewer. The framework does not claim to understand every
-                  semantic instruction or agent decision.
-                </li>
-              </ul>
-            </section>
-
             <section id="architecture" aria-labelledby="architecture-title">
               <p class="eyebrow">Architecture</p>
-              <h2 id="architecture-title">
-                Capture once, analyze through bounded paths.
-              </h2>
-              <ol class="flow-diagram">
+              <h2 id="architecture-title">Capture once, analyze through bounded paths.</h2>
+              <ol class="stage-list">
                 <li>
-                  <span class="flow-node__step">01 / Observe</span
-                  ><strong>Transparent proxy</strong
-                  ><small
-                    >Forwards MCP JSON-RPC bytes and emits one JSONL event per
-                    message.</small
-                  >
+                  <span class="stage-label">Observe</span>
+                  <strong>Transparent proxy</strong>
+                  <small>Forwards MCP JSON-RPC bytes untouched and emits one JSONL event per message.</small>
                 </li>
                 <li>
-                  <span class="flow-node__step">02 / Structure</span
-                  ><strong>Telemetry schema</strong
-                  ><small
-                    >Normalizes sessions, server commands, tools, arguments, and
-                    direction.</small
-                  >
+                  <span class="stage-label">Structure</span>
+                  <strong>Telemetry schema</strong>
+                  <small>Normalizes sessions, server commands, tools, arguments, and direction.</small>
                 </li>
                 <li>
-                  <span class="flow-node__step">03 / Detect</span
-                  ><strong>Rules and baseline</strong
-                  ><small
-                    >Wazuh handles structural patterns; Python tracks stateful
-                    drift.</small
-                  >
+                  <span class="stage-label">Detect</span>
+                  <strong>Rules and baseline</strong>
+                  <small>Wazuh handles structural patterns. Python tracks stateful metadata drift.</small>
                 </li>
                 <li>
-                  <span class="flow-node__step">04 / Measure</span
-                  ><strong>Framework gates</strong
-                  ><small
-                    >Runs fixtures, joins alerts, measures coverage, and records
-                    gaps.</small
-                  >
+                  <span class="stage-label">Measure</span>
+                  <strong>Framework gates</strong>
+                  <small>Runs fixtures, joins alerts to sessions, measures coverage, and records gaps.</small>
                 </li>
                 <li>
-                  <span class="flow-node__step">05 / Review</span
-                  ><strong>Human assessment</strong
-                  ><small
-                    >Interprets evidence, validates context, and recommends
-                    controls.</small
-                  >
+                  <span class="stage-label">Review</span>
+                  <strong>Human assessment</strong>
+                  <small>A reviewer interprets the evidence, validates context, and recommends controls.</small>
                 </li>
               </ol>
             </section>
 
             <section id="coverage" aria-labelledby="coverage-title">
               <p class="eyebrow">Implemented coverage</p>
-              <h2 id="coverage-title">
-                Five techniques with named detection logic.
-              </h2>
-              <div class="decision-list">
-                <div class="decision">
-                  <h3>Tool poisoning</h3>
+              <h2 id="coverage-title">Five techniques, each with a named evasion.</h2>
+              <details class="disclosure">
+                <summary>Tool poisoning</summary>
+                <div class="disclosure__body">
                   <p>
                     Flags hidden instructions embedded in advertised tool
-                    descriptions. It does not detect every malicious instruction
-                    or semantic manipulation.
+                    descriptions. It does not catch every semantic
+                    manipulation, and meaning-preserving rewrites can evade it.
                   </p>
                 </div>
-                <div class="decision">
-                  <h3>Credential exfiltration</h3>
+              </details>
+              <details class="disclosure">
+                <summary>Credential exfiltration</summary>
+                <div class="disclosure__body">
                   <p>
                     Correlates a sensitive-file read with secret-shaped content
                     leaving in a later tool argument. Encoded or transformed
                     secrets can evade plaintext matching.
                   </p>
                 </div>
-                <div class="decision">
-                  <h3>Sensitive absolute paths</h3>
+              </details>
+              <details class="disclosure">
+                <summary>Sensitive absolute paths</summary>
+                <div class="disclosure__body">
                   <p>
-                    Matches a bounded list of high-risk absolute paths used with
-                    recognized content-exposing file tools. Renamed tools, new
-                    paths, or indirection can evade.
+                    Matches a bounded list of high-risk absolute paths used
+                    with content-exposing file tools. Renamed tools, new paths,
+                    or indirection can evade.
                   </p>
                 </div>
-                <div class="decision">
-                  <h3>Path traversal</h3>
+              </details>
+              <details class="disclosure">
+                <summary>Path traversal</summary>
+                <div class="disclosure__body">
                   <p>
-                    Detects relative path escape patterns such as `../` in
-                    file-tool arguments. It does not replace server-side path
+                    Detects relative escape patterns in file-tool arguments. It
+                    complements, and does not replace, server-side path
                     confinement.
                   </p>
                 </div>
-                <div class="decision">
-                  <h3>Rug pull</h3>
+              </details>
+              <details class="disclosure">
+                <summary>Rug pull</summary>
+                <div class="disclosure__body">
                   <p>
-                    Tracks hash-visible tool or server metadata drift across a
-                    baseline. Legitimate upgrades look like drift, and
-                    behavior-only changes are invisible.
+                    Tracks hash-visible tool and server metadata drift across a
+                    stateful baseline. A legitimate upgrade looks identical to
+                    a malicious swap at this layer, and behavior-only changes
+                    are invisible.
                   </p>
                 </div>
-              </div>
+              </details>
             </section>
 
-            <section id="compiler" aria-labelledby="compiler-title">
-              <p class="eyebrow">Detection discipline</p>
-              <h2 id="compiler-title">
-                Five gates tied to real historical bugs.
-              </h2>
+            <section id="measurement" aria-labelledby="measurement-title">
+              <p class="eyebrow">Measurement discipline</p>
+              <h2 id="measurement-title">Gates tied to real historical bugs.</h2>
               <p>
-                Each `detection.yaml` declares its backends, rules, session
-                join, fixtures, status, and known gaps. The compiler checks
-                schema, rule references, fixture references, session-key
-                correctness, and false positives against the frozen benign
-                corpus. The tests reconstruct earlier failures so a new
-                detection cannot silently reintroduce the same class of mistake.
+                Each detection declares its backends, rules, session join,
+                fixtures, status, and known gaps in a detection.yaml. The
+                framework compiler checks schema, rule references, fixture
+                references, session-key correctness, and false positives
+                against a frozen benign corpus. Its tests reconstruct earlier
+                failures so a new detection cannot silently reintroduce the
+                same class of mistake.
               </p>
               <div class="metric-list">
-                <div class="metric">
-                  <strong>10 + 2</strong
-                  ><span>Detection rules and parent anchors</span>
-                </div>
-                <div class="metric">
-                  <strong>5</strong><span>Implemented SAF-MCP techniques</span>
-                </div>
-                <div class="metric">
-                  <strong>4,727</strong
-                  ><span>Benign records across 541 sessions</span>
-                </div>
-                <div class="metric">
-                  <strong>0</strong
-                  ><span>Aggregate benign-corpus false positives</span>
-                </div>
-                <div class="metric">
-                  <strong>18</strong
-                  ><span>Documented evasion classes in the current corpus</span>
-                </div>
-                <div class="metric">
-                  <strong>5</strong><span>Write-side compiler gates</span>
-                </div>
+                <div class="metric"><strong>10+2</strong><span>Rules and parent anchors</span></div>
+                <div class="metric"><strong>5</strong><span>Of ~85 SAF-MCP techniques</span></div>
+                <div class="metric"><strong>4,727</strong><span>Benign records, 541 sessions</span></div>
+                <div class="metric"><strong>0</strong><span>False positives on that corpus</span></div>
+                <div class="metric"><strong>18</strong><span>Documented evasion classes</span></div>
+                <div class="metric"><strong>5</strong><span>Write-side compiler gates</span></div>
               </div>
-              <div class="note">
+              <div class="scope-note">
                 <strong>Measurement boundary</strong>
                 <p>
-                  The benign corpus, attack telemetry, and worked examples were
-                  generated by the project. These results are reproducible, but
-                  they are not evidence of performance against independent
-                  adversary traffic.
+                  The corpora and worked examples are self-authored. Results
+                  are reproducible, but they are not evidence of performance
+                  against independent adversary traffic.
                 </p>
               </div>
             </section>
 
             <section id="abom" aria-labelledby="abom-title">
-              <p class="eyebrow">Trust-boundary inventory</p>
-              <h2 id="abom-title">
-                An AI Bill of Materials from observed traffic.
-              </h2>
+              <p class="eyebrow">Trust boundaries</p>
+              <h2 id="abom-title">An AI Bill of Materials from observed traffic.</h2>
               <p>
-                The framework can inventory observed MCP servers, tool names,
-                version hashes, session counts, filesystem access patterns, and
-                network egress. A declared known-good inventory can be compared
-                with observations to surface shadow-server candidates.
-              </p>
-              <p>
-                Classification is deliberately bounded. An unrecognized custom
-                server is reported as unknown and sent to manual review instead
-                of being assigned a guessed trust boundary.
+                The framework inventories observed MCP servers, tool names,
+                version hashes, session counts, filesystem access, and network
+                egress, then compares a declared known-good inventory against
+                observations to surface shadow-server candidates. An
+                unrecognized server is reported as unknown and routed to manual
+                review, not assigned a guessed trust level.
               </p>
             </section>
 
-            <section id="limitations" aria-labelledby="limitations-title">
+            <section id="limits" aria-labelledby="limits-title">
               <p class="eyebrow">Known limits</p>
-              <h2 id="limitations-title">
-                The blind spots are part of the result.
-              </h2>
-              <ul>
+              <h2 id="limits-title">The blind spots are part of the result.</h2>
+              <ul class="limit-list">
                 <li>
-                  <strong>Coverage breadth:</strong> Five of roughly 85 SAF-MCP
+                  <strong>Coverage breadth.</strong> Five of roughly 85 SAF-MCP
                   techniques are implemented.
                 </li>
                 <li>
-                  <strong>No semantic backend:</strong> Semantic prompt
-                  manipulation, intent changes, and meaning-preserving
-                  obfuscation are not implemented as a detection backend.
+                  <strong>No semantic backend.</strong> Prompt manipulation and
+                  meaning-preserving obfuscation are out of scope for the
+                  current detections.
                 </li>
                 <li>
-                  <strong>Behavior-only compromise:</strong> A tool can return
-                  manipulated results without changing visible metadata.
+                  <strong>Behavior-only compromise.</strong> A tool can return
+                  manipulated results without changing any visible metadata.
                 </li>
                 <li>
-                  <strong>Encoded content:</strong> Base64 or other
-                  transformations can bypass plaintext secret matching.
+                  <strong>Encoded content.</strong> Base64 and similar
+                  transforms bypass plaintext secret matching.
                 </li>
                 <li>
-                  <strong>Legitimate drift:</strong> A real version upgrade can
-                  look identical to a malicious rug pull at the hash-drift
-                  layer.
-                </li>
-                <li>
-                  <strong>Self-authored data:</strong> Independent or held-out
+                  <strong>Self-authored data.</strong> Independent or held-out
                   traffic is the highest-value next validation step.
                 </li>
                 <li>
-                  <strong>Offline analysis:</strong> The proxy can capture
-                  traffic, but the review workflow is not positioned as
-                  production inline enforcement.
+                  <strong>Offline analysis.</strong> The proxy captures
+                  traffic, but the workflow is not positioned as inline
+                  production enforcement.
                 </li>
               </ul>
             </section>
 
-            <section id="ownership" aria-labelledby="ownership-title">
-              <p class="eyebrow">What I implemented</p>
-              <h2 id="ownership-title">
-                A complete evidence path, not only detection rules.
-              </h2>
+            <section id="source" aria-labelledby="source-title">
+              <p class="eyebrow">Source</p>
+              <h2 id="source-title">Inspect it yourself.</h2>
               <p>
-                I built the transparent proxy, schema and validator, scripted
-                client, attack harnesses, Wazuh rules, stateful rug-pull
-                detector, Detection-as-Code framework, compiler gates, coverage
-                reports, AI Bill of Materials, redaction pass, parity checks,
-                adversarial fixtures, reproducibility paths, and synthetic
-                assessment report.
+                The proxy, schema, rules, drift detector, compiler gates,
+                coverage reports, and the synthetic assessment report are
+                public.
               </p>
               <div class="action-row">
                 <a
@@ -474,26 +369,24 @@
                   href="https://github.com/RasheedFarhat/mcp-detect"
                   target="_blank"
                   rel="noopener noreferrer"
-                  >Inspect the source<span class="sr-only">
-                    (opens in a new tab)</span
-                  ></a
-                ><a class="button button-secondary" href="/contact/"
+                  >Open the repository<span class="sr-only"> (opens in a new tab)</span></a
+                >
+                <a class="button button-secondary" href="/contact/"
                   >Discuss a scoped review</a
                 >
               </div>
             </section>
           </div>
           <aside class="case-sidebar" aria-labelledby="case-nav-title">
-            <h2 id="case-nav-title">Case study contents</h2>
+            <h2 id="case-nav-title">On this page</h2>
             <ul>
               <li><a href="#problem">Problem</a></li>
-              <li><a href="#review-model">Review model</a></li>
               <li><a href="#architecture">Architecture</a></li>
-              <li><a href="#coverage">Implemented coverage</a></li>
-              <li><a href="#compiler">Detection discipline</a></li>
+              <li><a href="#coverage">Coverage</a></li>
+              <li><a href="#measurement">Measurement</a></li>
               <li><a href="#abom">Trust boundaries</a></li>
-              <li><a href="#limitations">Known limits</a></li>
-              <li><a href="#ownership">Ownership</a></li>
+              <li><a href="#limits">Known limits</a></li>
+              <li><a href="#source">Source</a></li>
             </ul>
             <ul class="tag-list">
               <li class="tag">Python</li>
@@ -501,43 +394,78 @@
               <li class="tag">Wazuh</li>
               <li class="tag">Docker</li>
               <li class="tag">JSONL</li>
-              <li class="tag">OWASP MCP</li>
+              <li class="tag">SAF-MCP</li>
             </ul>
           </aside>
         </div>
       </article>
     </main>
+
     <footer class="site-footer">
-      <div class="site-footer__inner shell">
-        <div class="site-footer__identity">
-          <strong>Rasheed Farhat</strong
-          ><span
-            >Detection engineering, security automation, and AI attack-surface
-            review.</span
-          >
+      <div class="shell">
+        <div class="title-block">
+          <div class="title-block__cell">
+            <span class="title-block__label">Engineer</span>
+            <p>Rasheed Farhat</p>
+            <span class="mono-note">Security engineering</span>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Focus</span>
+            <p>Detection pipelines, security automation, MCP security</p>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Location</span>
+            <p>Chico, California</p>
+            <span class="mono-note">Remote, on-site, or hybrid</span>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Contact</span>
+            <ul>
+              <li>
+                <a
+                  href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
+                  >Email</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/rasheed-farhat010"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Source</span>
+            <ul>
+              <li>
+                <a
+                  href="https://github.com/RasheedFarhat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://medium.com/@rasheed-farhat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Medium<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Document</span>
+            <p>rasheedfarhat.github.io</p>
+            <span class="mono-note"
+              >Rev 2026.07 / &#169; <span data-year></span> Rasheed Farhat</span
+            >
+          </div>
         </div>
-        <nav class="site-footer__links" aria-label="Footer navigation">
-          <a href="/projects/">Projects</a><a href="/writing/">Writing</a
-          ><a href="/resume/">Resume</a
-          ><a
-            href="https://github.com/RasheedFarhat"
-            target="_blank"
-            rel="noopener noreferrer"
-            >GitHub<span class="sr-only"> (opens in a new tab)</span></a
-          ><a
-            href="https://www.linkedin.com/in/rasheed-farhat010"
-            target="_blank"
-            rel="noopener noreferrer"
-            >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
-          ><a
-            href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
-            >Email</a
-          >
-        </nav>
-        <p class="footer-meta">
-          Copyright <span data-year></span> Rasheed Farhat. ZerOne is a
-          technical alias.
-        </p>
       </div>
     </footer>
   </body>

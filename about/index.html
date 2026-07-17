@@ -3,27 +3,40 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="About Rasheed Farhat, an early-career cybersecurity engineer focused on detection engineering, automation, security operations, and MCP security."
-    />
-    <meta name="theme-color" content="#0c1112" />
+    <meta name="description" content="Rasheed Farhat is an early-career security engineer in Chico, California, focused on detection engineering, security automation, and emerging AI attack surfaces." />
+    <meta name="theme-color" content="#101619" />
+    <meta name="color-scheme" content="dark" />
     <meta property="og:title" content="About | Rasheed Farhat" />
-    <meta
-      property="og:description"
-      content="How Rasheed approaches security engineering, automation, measurement, and technical ownership."
-    />
-    <meta property="og:type" content="profile" />
+    <meta property="og:description" content="Rasheed Farhat is an early-career security engineer in Chico, California, focused on detection engineering, security automation, and emerging AI attack surfaces." />
+    <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rasheedfarhat.github.io/about/" />
-    <meta
-      property="og:image"
-      content="https://rasheedfarhat.github.io/assets/social-card.png"
-    />
+    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Rasheed Farhat, security engineer. Detection pipelines, security automation, review tooling." />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="About | Rasheed Farhat" />
+    <meta name="twitter:description" content="Rasheed Farhat is an early-career security engineer in Chico, California, focused on detection engineering, security automation, and emerging AI attack surfaces." />
+    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
     <link rel="canonical" href="https://rasheedfarhat.github.io/about/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
-    <link rel="stylesheet" href="/styles.css?v=20260717e" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="preload"
+      href="/assets/fonts/big-shoulders-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/public-sans-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="/styles.css?v=20260718a" />
     <script src="/script.js" defer></script>
     <title>About | Rasheed Farhat</title>
   </head>
@@ -31,217 +44,231 @@
     <a class="skip-link" href="#main">Skip to main content</a>
     <header class="site-header">
       <div class="site-header__inner shell">
-        <a class="brand" href="/"
-          ><span class="brand__mark" aria-hidden="true">RF</span
-          ><span class="brand__text"
-            ><strong>Rasheed Farhat</strong
-            ><span class="brand__alias"
-              >ZerOne / Security engineering</span
-            ></span
-          ></a
-        ><button
+        <a class="brand" href="/">Rasheed Farhat</a>
+        <button
           class="menu-toggle"
           type="button"
           aria-expanded="false"
           aria-controls="site-nav"
           data-menu-toggle
         >
-          <span class="menu-toggle__icon" aria-hidden="true"></span
-          ><span class="sr-only">Toggle navigation</span>
+          <span class="menu-toggle__icon" aria-hidden="true"></span>
+          <span class="sr-only">Toggle navigation</span>
         </button>
         <nav
           class="site-nav"
           id="site-nav"
-          aria-label="Primary navigation"
+          aria-label="Primary"
           data-menu
           data-open="false"
         >
-          <a href="/">Home</a><a href="/projects/">Projects</a
-          ><a href="/writing/">Writing</a
-          ><a href="/about/" aria-current="page">About</a
-          ><a href="/contact/">Contact</a
-          ><a class="nav-resume" href="/resume/">Resume</a>
+          <a href="/">Home</a>
+          <a href="/projects/">Projects</a>
+          <a href="/writing/">Writing</a>
+          <a href="/about/" aria-current="page">About</a>
+          <a href="/contact/">Contact</a>
+          <a class="nav-resume" href="/resume/">Resume</a>
         </nav>
       </div>
     </header>
+
     <main id="main">
-      <section class="page-hero shell" aria-labelledby="page-title">
-        <div>
-          <p class="eyebrow">About</p>
-          <h1 id="page-title">
-            I learn security by building systems that can fail in visible ways.
-          </h1>
-          <p class="hero-copy">
-            I'm Rasheed Farhat, an early-career cybersecurity engineer based in
-            Chico, California. My work is centered on detection engineering,
-            security automation, security operations, and emerging AI attack
-            surfaces.
-          </p>
-        </div>
-        <div class="page-hero__meta">
-          <p><strong>Credentials:</strong> CompTIA Security+ and CySA+.</p>
-          <p>
-            <strong>Direction:</strong> Cybersecurity engineering, detection
-            engineering, SOC engineering, cloud security, application security,
-            and MCP security.
-          </p>
-        </div>
+      <section class="page-hero shell">
+        <p class="eyebrow">About</p>
+        <h1>I build systems that can fail in visible ways.</h1>
+        <p class="hero-lede">
+          I'm Rasheed Farhat, an early-career security engineer in Chico,
+          California. My work sits where detection logic, software behavior,
+          and operational constraints have to function together.
+        </p>
       </section>
-      <section
-        class="section-compact section-rule shell"
-        aria-labelledby="approach-title"
-      >
-        <div class="about-grid">
-          <div class="about-grid__lead">
-            <p class="eyebrow">Approach</p>
-            <h2 id="approach-title">
-              Build the mechanism. Test the claim. State the limit.
-            </h2>
-          </div>
-          <div class="about-grid__content">
-            <section>
-              <h3>Systems over isolated demos</h3>
-              <p>
-                I gravitate toward projects where the detection logic is only
-                one part of the problem. A useful control also needs inputs,
-                validation, deployment, observability, failure handling, and
-                documentation that another engineer can follow.
-              </p>
-            </section>
-            <section>
-              <h3>Measurement over confidence language</h3>
-              <p>
-                I prefer a bounded result that can be reproduced over a broad
-                claim that cannot. In MCP-DETECT, that means publishing the
-                corpus boundary and evasion gaps next to the false-positive
-                result. In the Sigma pipeline, it means rejecting unsupported
-                constructs rather than emitting uncertain rules.
-              </p>
-            </section>
-            <section>
-              <h3>Security review applies to my own code</h3>
-              <p>
-                A project is not exempt from criticism because I built it. The
-                identity deception case study documents the current
-                webhook-authentication, source-attribution, transport, and
-                failure-handling gaps. Those limits are part of the engineering
-                record.
-              </p>
-            </section>
-          </div>
-        </div>
-      </section>
-      <section class="section section-rule shell" aria-labelledby="path-title">
+
+      <section class="section shell" aria-labelledby="approach-title">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Experience and education</p>
-            <h2 id="path-title">A practical path into security engineering.</h2>
+            <p class="eyebrow">How I work</p>
+            <h2 id="approach-title">Build the mechanism. Test the claim. State the limit.</h2>
           </div>
-          <p>
-            My professional background is early-career. The strongest evidence
-            of engineering ownership comes from independent projects, a security
-            mentorship, competition work, and technical writing.
-          </p>
         </div>
-        <dl class="timeline">
+        <div class="capability-grid">
+          <article class="capability">
+            <h3>Systems over demos</h3>
+            <p>
+              A detection is one part of a control. I build the inputs,
+              validation, deployment, and failure handling around it, then
+              document them so another engineer can follow the path.
+            </p>
+          </article>
+          <article class="capability">
+            <h3>Measured claims</h3>
+            <p>
+              I prefer a bounded, reproducible result to a broad one. Corpus
+              limits and evasion gaps are published next to the numbers they
+              qualify.
+            </p>
+          </article>
+          <article class="capability">
+            <h3>My code gets reviewed too</h3>
+            <p>
+              The identity deception case study lists its own webhook
+              authentication and source-attribution gaps. Finding those is part
+              of the work, not a footnote.
+            </p>
+          </article>
+          <article class="capability">
+            <h3>Write it down</h3>
+            <p>
+              Every project ships with the trace, the threat model, or the
+              report another person needs to verify or challenge the result.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section shell" aria-labelledby="about-record-title">
+        <div class="section-heading">
           <div>
+            <p class="eyebrow">Record</p>
+            <h2 id="about-record-title">The short version.</h2>
+          </div>
+        </div>
+        <dl class="record-list">
+          <div class="record-row">
             <dt>2025 to present</dt>
             <dd>
-              <strong>Independent security engineering projects</strong
-              ><span
-                >Detection-as-Code, MCP security review, identity deception, and
-                Android malware investigation.</span
-              >
+              <strong>Independent security engineering projects</strong>
+              <p>
+                Detection-as-Code, MCP security review, identity deception, and
+                a published Android malware investigation.
+              </p>
             </dd>
           </div>
-          <div>
+          <div class="record-row">
+            <dt>2025 to 2026</dt>
+            <dd>
+              <strong>CompTIA Security+ and CySA+</strong>
+              <p>
+                Security+ active October 2025 to October 2028. CySA+ active May
+                2026 to May 2029.
+              </p>
+            </dd>
+          </div>
+          <div class="record-row">
             <dt>Oct 2024 to Apr 2025</dt>
             <dd>
-              <strong>CrowdStrike Cybersecurity Mentorship Program</strong
-              ><span
-                >Practiced incident detection, containment, escalation, and
-                red-team or blue-team scenarios with Falcon EDR, Splunk, and
-                Wireshark in simulated environments.</span
-              >
+              <strong>CrowdStrike Cybersecurity Mentorship Program</strong>
+              <p>
+                Incident detection, containment, and escalation with Falcon
+                EDR, Splunk, and Wireshark in simulated red-team and blue-team
+                scenarios.
+              </p>
             </dd>
           </div>
-          <div>
-            <dt>Spring and Fall 2024</dt>
-            <dd>
-              <strong>National Cyber League competitor</strong
-              ><span
-                >Worked timed OSINT, network traffic, log review, cryptography,
-                and incident-handling challenges, ranking in the top percentile
-                nationally.</span
-              >
-            </dd>
-          </div>
-          <div>
+          <div class="record-row">
             <dt>2024</dt>
             <dd>
-              <strong
-                >A.S. Cybersecurity and Information Assurance, Butte
-                College</strong
-              ><span
-                >Dean's List, 4.0 GPA in Spring 2024, and ISACA Foundation NCL
-                Games Scholarship.</span
-              >
+              <strong>National Cyber League competitor</strong>
+              <p>
+                Timed OSINT, network traffic, log review, cryptography, and
+                incident-handling challenges. Top-percentile national ranking
+                across the Spring and Fall seasons.
+              </p>
+            </dd>
+          </div>
+          <div class="record-row">
+            <dt>2024</dt>
+            <dd>
+              <strong>A.S. Cybersecurity and Information Assurance, Butte College</strong>
+              <p>
+                Dean's List, and the ISACA Foundation NCL Games Scholarship.
+              </p>
             </dd>
           </div>
         </dl>
       </section>
-      <section class="section shell" aria-labelledby="opportunity-title">
+
+      <section class="section shell" aria-labelledby="seeking-title">
         <div class="contact-panel">
-          <div>
-            <p class="eyebrow">What I'm seeking</p>
-            <h2 id="opportunity-title">
-              A team that expects engineers to explain the tradeoff.
-            </h2>
-            <p>
-              I'm looking for junior roles where I can contribute to detection
-              content, security automation, incident workflows, cloud or
-              application security controls, and the engineering around
-              operational security systems.
-            </p>
-          </div>
+          <p class="eyebrow">What I'm seeking</p>
+          <h2 id="seeking-title">A team that expects engineers to explain the tradeoff.</h2>
+          <p>
+            Junior roles in detection engineering, security automation, SOC
+            engineering, or cloud and application security, where I can own
+            detection content and the systems around it.
+          </p>
           <div class="action-row">
-            <a class="button button-primary" href="/contact/">Contact me</a
-            ><a class="button button-secondary" href="/resume/">View resume</a>
+            <a class="button button-primary" href="/contact/">Contact me</a>
+            <a class="button button-secondary" href="/resume/">View resume</a>
           </div>
         </div>
       </section>
     </main>
+
     <footer class="site-footer">
-      <div class="site-footer__inner shell">
-        <div class="site-footer__identity">
-          <strong>Rasheed Farhat</strong
-          ><span
-            >Detection engineering, security automation, and AI attack-surface
-            review.</span
-          >
+      <div class="shell">
+        <div class="title-block">
+          <div class="title-block__cell">
+            <span class="title-block__label">Engineer</span>
+            <p>Rasheed Farhat</p>
+            <span class="mono-note">Security engineering</span>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Focus</span>
+            <p>Detection pipelines, security automation, MCP security</p>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Location</span>
+            <p>Chico, California</p>
+            <span class="mono-note">Remote, on-site, or hybrid</span>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Contact</span>
+            <ul>
+              <li>
+                <a
+                  href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
+                  >Email</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/rasheed-farhat010"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Source</span>
+            <ul>
+              <li>
+                <a
+                  href="https://github.com/RasheedFarhat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://medium.com/@rasheed-farhat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Medium<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Document</span>
+            <p>rasheedfarhat.github.io</p>
+            <span class="mono-note"
+              >Rev 2026.07 / &#169; <span data-year></span> Rasheed Farhat</span
+            >
+          </div>
         </div>
-        <nav class="site-footer__links" aria-label="Footer navigation">
-          <a href="/projects/">Projects</a><a href="/writing/">Writing</a
-          ><a href="/resume/">Resume</a
-          ><a
-            href="https://github.com/RasheedFarhat"
-            target="_blank"
-            rel="noopener noreferrer"
-            >GitHub<span class="sr-only"> (opens in a new tab)</span></a
-          ><a
-            href="https://www.linkedin.com/in/rasheed-farhat010"
-            target="_blank"
-            rel="noopener noreferrer"
-            >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
-          ><a
-            href="mailto:rasheedfrht+portfolio@gmail.com?subject=Portfolio%20inquiry"
-            >Email</a
-          >
-        </nav>
-        <p class="footer-meta">
-          Copyright <span data-year></span> Rasheed Farhat. ZerOne is a
-          technical alias.
-        </p>
       </div>
     </footer>
   </body>

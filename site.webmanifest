@@ -1,10 +1,10 @@
 {
-  "name": "Rasheed Farhat Security Engineering Portfolio",
+  "name": "Rasheed Farhat, Security Engineer",
   "short_name": "Rasheed Farhat",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0c1112",
-  "theme_color": "#0c1112",
+  "background_color": "#101619",
+  "theme_color": "#101619",
   "icons": [
     {
       "src": "/favicon.svg",

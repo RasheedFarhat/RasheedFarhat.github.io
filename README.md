@@ -5,15 +5,16 @@ Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.git
 ## Architecture
 
 - Plain semantic HTML
-- One shared CSS design system
+- One shared CSS design system ("compile plate" identity, see `DESIGN_SYSTEM.md`)
 - One small JavaScript file for the accessible mobile menu and generated copyright year
+- Self-hosted variable fonts (Big Shoulders, Public Sans, IBM Plex Mono) with no third-party requests
 - No build step
 - No runtime dependencies
-- No analytics, cookies, form processors, or third-party fonts
+- No analytics, cookies, form processors, or tracking of any kind
 
 ## Public routes
 
-- `/` - Homepage
+- `/` - Homepage with the compile-plate exhibit
 - `/projects/` - Project index
 - `/projects/detection-as-code/` - Detection-as-Code case study
 - `/projects/mcp-security/` - MCP security review case study
@@ -41,10 +42,14 @@ node scripts/validate-site.mjs
 node --check script.js
 ```
 
-HTML validation used during release:
+HTML validation used during release (page routes only; `scripts/` holds
+non-page asset sources):
 
 ```bash
-npx --yes html-validate@9.7.1 "**/*.html"
+npx --yes html-validate@9.7.1 index.html 404.html "projects/**/*.html" "writing/**/*.html" "about/**/*.html" "contact/**/*.html" "resume/**/*.html"
 ```
+
+Social-card and touch-icon PNGs are rendered from the HTML sources in
+`scripts/` at 1200x630 and 180x180.
 
 See `VALIDATION_REPORT.md` for the complete release record.

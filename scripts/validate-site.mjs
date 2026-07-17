@@ -19,7 +19,7 @@ const failures = [];
 
 function collectHtml(directory) {
   return readdirSync(directory).flatMap((name) => {
-    if (name === ".git") return [];
+    if (name === ".git" || name === "scripts") return [];
     const path = join(directory, name);
     if (statSync(path).isDirectory()) return collectHtml(path);
     return path.endsWith(".html") ? [path] : [];
@@ -79,6 +79,10 @@ const requiredAssets = [
   "styles.css",
   "script.js",
   "favicon.svg",
+  "assets/fonts/big-shoulders-var.woff2",
+  "assets/fonts/public-sans-var.woff2",
+  "assets/fonts/plex-mono-400.woff2",
+  "assets/fonts/plex-mono-600.woff2",
   "assets/social-card.png",
   "assets/apple-touch-icon.png",
   "assets/rasheed-farhat-resume.pdf",
