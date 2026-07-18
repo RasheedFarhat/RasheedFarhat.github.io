@@ -1,8 +1,8 @@
 const yearNodes = document.querySelectorAll("[data-year]");
 const menuButton = document.querySelector("[data-menu-toggle]");
 const menu = document.querySelector("[data-menu]");
-const themeButton = document.querySelector("[data-theme-toggle]");
-const themeLabel = document.querySelector("[data-theme-label]");
+const themeButtons = document.querySelectorAll("[data-theme-toggle]");
+const themeLabels = document.querySelectorAll("[data-theme-label]");
 const themeColor = document.querySelector('meta[name="theme-color"]');
 const themeKey = "rf-theme";
 
@@ -13,12 +13,14 @@ yearNodes.forEach((node) => {
 const applyTheme = (theme, persist = false) => {
   const isDark = theme === "dark";
   document.documentElement.dataset.theme = isDark ? "dark" : "light";
-  if (themeButton) {
-    themeButton.setAttribute("aria-pressed", String(isDark));
-    themeButton.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
-    themeButton.title = `Switch to ${isDark ? "light" : "dark"} theme`;
-  }
-  if (themeLabel) themeLabel.textContent = isDark ? "Light" : "Dark";
+  themeButtons.forEach((button) => {
+    button.setAttribute("aria-pressed", String(isDark));
+    button.setAttribute("aria-label", `Switch to ${isDark ? "light" : "dark"} theme`);
+    button.title = `Switch to ${isDark ? "light" : "dark"} theme`;
+  });
+  themeLabels.forEach((label) => {
+    label.textContent = isDark ? "Light" : "Dark";
+  });
   if (themeColor) themeColor.content = isDark ? "#10191b" : "#e2e9e7";
   if (persist) {
     try {
@@ -29,13 +31,15 @@ const applyTheme = (theme, persist = false) => {
   }
 };
 
-if (themeButton) {
+if (themeButtons.length > 0) {
   applyTheme(document.documentElement.dataset.theme);
-  themeButton.addEventListener("click", () => {
-    const nextTheme = document.documentElement.dataset.theme === "dark"
-      ? "light"
-      : "dark";
-    applyTheme(nextTheme, true);
+  themeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const nextTheme = document.documentElement.dataset.theme === "dark"
+        ? "light"
+        : "dark";
+      applyTheme(nextTheme, true);
+    });
   });
 
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
