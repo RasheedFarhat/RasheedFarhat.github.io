@@ -1,4 +1,4 @@
-# Rasheed Farhat security engineering portfolio
+# Rasheed Farhat security operations portfolio
 
 Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.github.io](https://rasheedfarhat.github.io/).
 
