@@ -2194,6 +2194,10 @@ ul.tag-list {
   margin-bottom: 1.5rem;
 }
 
+.article-title__signal {
+  color: var(--signal);
+}
+
 .article-hero__dek {
   max-width: 58ch;
   font-size: clamp(1.15rem, 2.3vw, 1.45rem);

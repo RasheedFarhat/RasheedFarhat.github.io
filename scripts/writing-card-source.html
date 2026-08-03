@@ -16,6 +16,7 @@
   .content { position: absolute; z-index: 2; inset: 4.4%; padding: 4.8% 6% 3.4%; display: flex; flex-direction: column; justify-content: space-between; }
   .kicker { font-family: "IBM Plex Mono", monospace; font-size: clamp(15px, 1.55vw, 30px); letter-spacing: 0.14em; text-transform: uppercase; color: #0f6268; margin: 0; }
   h1 { font-family: "Big Shoulders", sans-serif; font-size: clamp(58px, 7vw, 136px); font-weight: 720; line-height: 0.88; letter-spacing: -0.01em; max-width: 10.7ch; margin: 0; }
+  h1 .signal { color: #0f6268; }
   .support { font-size: clamp(20px, 2.1vw, 40px); line-height: 1.28; color: #2d454b; max-width: 32ch; margin: 1.8% 0 0; }
   .bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 4%; }
   .proof { display: flex; gap: 2.3vw; font-family: "IBM Plex Mono", monospace; font-size: clamp(13px, 1.25vw, 24px); color: #52676b; }
@@ -38,6 +39,7 @@
   .node:nth-child(5)::after { content: "RESOURCE"; }
   body[data-article="2"] .trace-line { background: linear-gradient(90deg, #0f6268 0 46%, transparent 46% 52%, #0f6268 52% 100%); }
   body[data-article="2"] .node:nth-child(4) { border-style: dashed; }
+  body[data-article="2"] h1 { font-size: clamp(52px, 5.85vw, 112px); line-height: 0.92; max-width: 12ch; }
   body[data-article="3"] .trace-line { background: linear-gradient(90deg, #0f6268 0 62%, #a7b8b4 62% 100%); }
   body[data-article="3"] .node:nth-child(4) { background: repeating-linear-gradient(135deg, #d5dfdc 0 5px, #f2f5f4 5px 9px); }
   @media (max-aspect-ratio: 1.3/1) {
@@ -64,19 +66,25 @@
   const cards = {
     "1": {
       kicker: "Inside MCP Detect / 01",
-      title: "How do you know your agent isn't going rogue?",
+      titleBefore: "How do you know your agent isn't going ",
+      titleSignal: "rogue",
+      titleAfter: "?",
       support: "Start by watching it behave.",
       proof: ["1,011 model calls", "4,727 records", "20 tools"]
     },
     "2": {
       kicker: "Inside MCP Detect / 02",
-      title: "Five detections. Ten evasions still worked.",
+      titleBefore: "Catching your own attack only proves the ",
+      titleSignal: "plumbing",
+      titleAfter: " works.",
       support: "What the clean tables did not prove.",
       proof: ["5 techniques", "0 / 4,727 benign", "12 evasion classes"]
     },
     "3": {
       kicker: "Inside MCP Detect / 03",
-      title: "The call looked legitimate. The authorization bug wasn't.",
+      titleBefore: "The handler ",
+      titleSignal: "deleted",
+      titleAfter: " the only field that mattered.",
       support: "Follow identity through the handler.",
       proof: ["tenant-red", "tenant-blue", "denied retest"]
     }
@@ -85,7 +93,11 @@
   const card = cards[article];
   document.body.dataset.article = article;
   document.getElementById("kicker").textContent = card.kicker;
-  document.getElementById("title").textContent = card.title;
+  const title = document.getElementById("title");
+  const signal = document.createElement("span");
+  signal.className = "signal";
+  signal.textContent = card.titleSignal;
+  title.replaceChildren(document.createTextNode(card.titleBefore), signal, document.createTextNode(card.titleAfter));
   document.getElementById("support").textContent = card.support;
   document.getElementById("proof").replaceChildren(...card.proof.map((item) => {
     const span = document.createElement("span");
