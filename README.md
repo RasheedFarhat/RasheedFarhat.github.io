@@ -21,6 +21,9 @@ Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.git
 - `/projects/mcp-security/` - MCP security review case study
 - `/projects/identity-deception/` - Identity deception case study
 - `/writing/` - Technical writing and reports
+- `/writing/how-do-you-know-your-agent-isnt-going-rogue/` - Inside MCP Detect, part 1
+- `/writing/i-built-five-mcp-detections-then-broke-them/` - Inside MCP Detect, part 2
+- `/writing/the-mcp-call-looked-legitimate/` - Inside MCP Detect, part 3
 - `/about/` - Professional profile
 - `/resume/` - Resume overview and PDF
 - `/contact/` - Contact options
@@ -53,5 +56,9 @@ npx --yes html-validate@9.7.1 index.html 404.html "projects/**/*.html" "writing/
 
 Social-card and touch-icon PNGs are rendered from the HTML sources in
 `scripts/` at 1200x630 and 180x180.
+
+The MCP Detect series has six additional assets under `assets/writing/`: a
+1200x630 portfolio and Medium preview plus a 1920x1080 LinkedIn cover for each
+article. Rebuild them with `scripts/render-writing-cards.mjs` using Playwright.
 
 See `VALIDATION_REPORT.md` for the complete release record.

@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Technical writing by Rasheed Farhat: browser forensics, Android malware investigation, a Sigma compiler trace, and a sample MCP detection readiness report." />
+    <meta name="description" content="Technical investigations by Rasheed Farhat, including Inside MCP Detect: a three-part series on normal agent behavior, abuse detections, evasions, and authorization boundaries." />
     <meta name="theme-color" content="#e2e9e7" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:title" content="Writing | Rasheed Farhat" />
-    <meta property="og:description" content="Technical writing by Rasheed Farhat: browser forensics, Android malware investigation, a Sigma compiler trace, and a sample MCP detection readiness report." />
+    <meta property="og:description" content="Inside MCP Detect and other technical investigations with commands, evidence, and limitations included." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rasheedfarhat.github.io/writing/" />
     <meta property="og:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
@@ -16,7 +16,7 @@
     <meta property="og:image:alt" content="Rasheed Farhat. Security operations, detection automation, and assurance." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Writing | Rasheed Farhat" />
-    <meta name="twitter:description" content="Technical writing by Rasheed Farhat: browser forensics, Android malware investigation, a Sigma compiler trace, and a sample MCP detection readiness report." />
+    <meta name="twitter:description" content="Inside MCP Detect and other technical investigations with commands, evidence, and limitations included." />
     <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
     <link rel="canonical" href="https://rasheedfarhat.github.io/writing/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -36,9 +36,9 @@
       type="font/woff2"
       crossorigin
     />
-    <script src="/theme-init.js?v=20260718b"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260718b" />
-    <script src="/script.js?v=20260718b" defer></script>
+    <script src="/theme-init.js?v=20260803a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260803b" />
+    <script src="/script.js?v=20260803a" defer></script>
     <title>Writing | Rasheed Farhat</title>
   </head>
   <body>
@@ -104,6 +104,48 @@
       <section class="section shell" aria-labelledby="writing-index-title">
         <h2 class="sr-only" id="writing-index-title">Articles and reports</h2>
         <div class="writing-list">
+          <article class="writing-row">
+            <div class="writing-row__meta">
+              <span>2026-08-03</span>
+              <span class="venue">Inside MCP Detect 1/3</span>
+            </div>
+            <div>
+              <h3><a href="/writing/how-do-you-know-your-agent-isnt-going-rogue/">How Do You Know Your AI Agent Isn't Going Rogue? Start by Watching It Behave</a></h3>
+              <p>
+                I recorded 1,011 model-selected MCP calls across six server
+                configurations to learn what legitimate agent behavior looks
+                like before writing abuse detections.
+              </p>
+            </div>
+          </article>
+          <article class="writing-row">
+            <div class="writing-row__meta">
+              <span>2026-08-03</span>
+              <span class="venue">Inside MCP Detect 2/3</span>
+            </div>
+            <div>
+              <h3><a href="/writing/i-built-five-mcp-detections-then-broke-them/">I Built Five MCP Abuse Detections. Then I Tried to Break Every One.</a></h3>
+              <p>
+                Perfect canonical counts, zero alerts across 4,727 synthetic
+                benign records, and ten successful evasions can all be true at
+                the same time.
+              </p>
+            </div>
+          </article>
+          <article class="writing-row">
+            <div class="writing-row__meta">
+              <span>2026-08-03</span>
+              <span class="venue">Inside MCP Detect 3/3</span>
+            </div>
+            <div>
+              <h3><a href="/writing/the-mcp-call-looked-legitimate/">The MCP Call Looked Legitimate. The Authorization Bug Wasn't.</a></h3>
+              <p>
+                A synthetic cross-tenant request looked valid in telemetry.
+                The source showed that the handler had discarded authenticated
+                identity and trusted caller-controlled tenant selection.
+              </p>
+            </div>
+          </article>
           <article class="writing-row">
             <div class="writing-row__meta">
               <span>2025-09-08</span>

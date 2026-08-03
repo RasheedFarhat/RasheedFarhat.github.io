@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="I recorded 1,011 model-selected MCP tool calls to learn what legitimate agent behavior looks like before writing abuse detections." />
+    <meta name="theme-color" content="#e2e9e7" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="How Do You Know Your AI Agent Isn't Going Rogue?" />
+    <meta property="og:description" content="I recorded 1,011 model-selected MCP tool calls to learn what legitimate agent behavior looks like before writing abuse detections." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://rasheedfarhat.github.io/writing/how-do-you-know-your-agent-isnt-going-rogue/" />
+    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/writing/agent-rogue-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Article one of Inside MCP Detect: a model-selected tool call entering a measured benign corpus." />
+    <meta property="article:author" content="Rasheed Farhat" />
+    <meta property="article:published_time" content="2026-08-03T16:00:00+03:00" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="How Do You Know Your AI Agent Isn't Going Rogue?" />
+    <meta name="twitter:description" content="I recorded 1,011 model-selected MCP tool calls to learn what legitimate agent behavior looks like before writing abuse detections." />
+    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/writing/agent-rogue-preview.png" />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/writing/how-do-you-know-your-agent-isnt-going-rogue/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/assets/fonts/big-shoulders-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="/theme-init.js?v=20260803a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260803b" />
+    <script src="/script.js?v=20260803a" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "How Do You Know Your AI Agent Isn't Going Rogue? Start by Watching It Behave",
+        "description": "I recorded 1,011 model-selected MCP tool calls to learn what legitimate agent behavior looks like before writing abuse detections.",
+        "datePublished": "2026-08-03T16:00:00+03:00",
+        "dateModified": "2026-08-03T16:00:00+03:00",
+        "author": {"@type": "Person", "name": "Rasheed Farhat", "url": "https://rasheedfarhat.github.io/"},
+        "image": "https://rasheedfarhat.github.io/assets/writing/agent-rogue-preview.png",
+        "isPartOf": {"@type": "CreativeWorkSeries", "name": "Inside MCP Detect: Engineering Evidence for AI-Agent Boundaries"}
+      }
+    </script>
+    <title>How Do You Know Your AI Agent Isn't Going Rogue? | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/" aria-label="Rasheed Farhat, home">RF</a>
+        <button class="theme-toggle theme-toggle--bar" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Toggle navigation</span></button>
+        <nav class="site-nav" id="site-nav" aria-label="Primary" data-menu data-open="false">
+          <a href="/">Home</a><a href="/projects/">Projects</a><a href="/writing/" aria-current="page">Writing</a><a href="/about/">About</a><a href="/contact/">Contact</a>
+          <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+          <a class="nav-resume" href="/resume/">Resume</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="article-hero shell">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/writing/">Writing</a><span aria-hidden="true">/</span><span>Inside MCP Detect, part 1</span></nav>
+          <p class="series-kicker">Inside MCP Detect <span>Part 1 of 3</span></p>
+          <h1>How Do You Know Your AI Agent Isn't Going Rogue? Start by Watching It Behave</h1>
+          <p class="article-hero__dek">I gave a local model legitimate work, recorded the MCP calls it chose on its own, and learned why a useful detection baseline has to preserve the agent's mistakes.</p>
+          <dl class="article-meta">
+            <div><dt>Written by</dt><dd>Rasheed Farhat</dd></div>
+            <div><dt>Published</dt><dd><time datetime="2026-08-03">August 3, 2026</time></dd></div>
+            <div><dt>Reading time</dt><dd>14 minutes</dd></div>
+            <div><dt>Evidence</dt><dd>Synthetic and self-authored</dd></div>
+          </dl>
+        </header>
+
+        <div class="article-layout shell">
+          <aside class="article-rail" aria-labelledby="article-nav-1">
+            <h2 id="article-nav-1">In this article</h2>
+            <ol>
+              <li><a href="#zero-calls">The zero-call result</a></li>
+              <li><a href="#boundary">The MCP boundary</a></li>
+              <li><a href="#phase-zero">Seven records</a></li>
+              <li><a href="#lab">The reproducible lab</a></li>
+              <li><a href="#model">Handing control to a model</a></li>
+              <li><a href="#denominator">Why v1 was not enough</a></li>
+              <li><a href="#mistakes">Useful mistakes</a></li>
+              <li><a href="#operations">What broke</a></li>
+              <li><a href="#frozen">Frozen evidence</a></li>
+              <li><a href="#limits">Limitations</a></li>
+              <li><a href="#run">Run it</a></li>
+            </ol>
+          </aside>
+
+          <div class="article-body">
+            <div class="at-a-glance">
+              <h2>At a glance</h2>
+              <ul>
+                <li>A local <code>qwen3:1.7b</code> model chose its own MCP calls across six server configurations.</li>
+                <li>The frozen benign corpus contains 541 sessions, 1,011 tool calls, 4,727 records, and 20 distinct tools.</li>
+                <li><code>git_show</code> has zero benign representation. I published the gap instead of forcing the model to produce it.</li>
+                <li><code>make measure</code> reproduces the project-authored regression result offline.</li>
+              </ul>
+            </div>
+
+            <section id="zero-calls" aria-labelledby="zero-calls-title">
+              <h2 class="sr-only" id="zero-calls-title">The zero-call result</h2>
+              <p>I wrote a task that asked for the diff introduced by the most recent commit. If any prompt should have pushed the model toward <code>git_show</code>, I thought that one would.</p>
+              <p>Across 28 attempts, <code>qwen3:1.7b</code> answered with <code>git_log</code> followed by <code>git_diff</code>. Every time. It never called <code>git_show</code> once.</p>
+              <p>I could have kept rewriting the prompt until the tool call appeared. I stopped because that would have damaged the baseline. The point was to record what this model does during legitimate work, not to manufacture a balanced dataset by steering it toward the tool names I wanted.</p>
+              <p>That left an awkward result in the final corpus. A detection keyed on the literal name <code>git_show</code> has no benign denominator here. I cannot calculate a meaningful false-positive rate for it from this data. The underlying behavior, inspecting what a commit changed, appears through 56 <code>git_diff</code> calls. The literal tool does not appear at all.</p>
+              <blockquote><p>Before I could say an agent crossed a line, I needed a defensible record of the agent not crossing it.</p></blockquote>
+              <p>MCP had been everywhere I looked. New servers, SDKs, integrations, and demos kept appearing, but I saw much less work asking what would happen when one of those tool boundaries failed. MCP Detect started from that gap. I wanted to build the missing evidence path, then break it hard enough to know where its claims ended.</p>
+            </section>
+
+            <section id="boundary" aria-labelledby="boundary-title">
+              <h2 id="boundary-title">One call compresses several trust decisions</h2>
+              <p>The current MCP architecture uses a host that manages client instances, with each client communicating with exactly one server. The current 2026-07-28 specification describes a stateless JSON-RPC protocol where each request carries its version and capabilities. My lab is pinned to an earlier runtime that opens a session with <code>initialize</code>, sends <code>notifications/initialized</code>, and discovers tools through <code>tools/list</code>. I keep that distinction visible because the captured record shapes are not examples of the latest protocol revision. The security boundary underneath them still applies. <a href="https://modelcontextprotocol.io/specification/2026-07-28/architecture" target="_blank" rel="noopener noreferrer">The current MCP architecture<span class="sr-only"> (opens in a new tab)</span></a> still separates host, client, server, and the resources a handler can reach.</p>
+              <figure class="evidence-diagram">
+                <div class="trace-grid" role="img" tabindex="0" aria-label="An authenticated identity reaches an MCP client, then a server, handler, and downstream resource. Telemetry observes the messages before handler authorization.">
+                  <div class="trace-node"><span>Identity</span><strong>Authenticated principal</strong><small>The host's trusted context</small></div>
+                  <div class="trace-node"><span>Protocol</span><strong>MCP client and server</strong><small>JSON-RPC method and arguments</small></div>
+                  <div class="trace-node"><span>Decision</span><strong>Tool handler</strong><small>Authorization must happen here</small></div>
+                  <div class="trace-node"><span>Reach</span><strong>Downstream resource</strong><small>File, repository, API, or record</small></div>
+                </div>
+                <figcaption>Figure 1. The trace that shaped the series. Wire telemetry can record identity, method, and arguments. It cannot automatically prove the handler used them safely.</figcaption>
+              </figure>
+              <p>A single <code>tools/call</code> record compresses several separate questions. Which identity initiated it? Which arguments crossed the protocol boundary? Which handler accepted them? What did that handler reach next?</p>
+              <p>For the first phase I narrowed the job to something measurable: capture the wire traffic without changing it, label it, and feed it to a real detection engine.</p>
+            </section>
+
+            <section id="phase-zero" aria-labelledby="phase-zero-title">
+              <h2 id="phase-zero-title">Phase 0 was seven records and one real alert</h2>
+              <p>I built a byte-transparent stdio proxy in standard-library Python. It sits between the MCP client and server, forwards the original bytes, and writes one JSONL record for each JSON-RPC message. A deterministic client then drove a tiny session: <code>initialize</code>, <code>tools/list</code>, and one <code>tools/call</code> against a synthetic <code>.env</code> fixture.</p>
+              <p>The session produced exactly seven schema-valid records. I sent them through a real Wazuh manager using the normal <code>localfile</code>, <code>logcollector</code>, and <code>wazuh-analysisd</code> path. Six records stayed quiet. The sensitive file read produced rule <code>100101</code> at level 12.</p>
+              <figure class="code-figure"><figcaption>First live alert from the synthetic lab</figcaption><pre tabindex="0"><code>rule.id 100101
+MCP sensitive file read via tool call:
+tool=read_text_file path=/app/workspace/.env</code></pre></figure>
+              <p>The alert was satisfying. The proxy failure mattered more.</p>
+              <h3>The response that disappeared</h3>
+              <p>My first proxy used <code>asyncio.wait(..., return_when=FIRST_COMPLETED)</code> for the two byte pumps. When the client closed stdin, the proxy cancelled the server-to-client pump even if the final response was still moving. The session exited cleanly while silently dropping its last message.</p>
+              <p>I caught it with an isolated echo-subprocess test that proved byte-for-byte round trips in each direction. I replaced cross-cancellation with <code>asyncio.gather</code> and let each pump drain to its own EOF. A telemetry proxy that occasionally eats evidence is worse than no proxy because every later count inherits the loss.</p>
+              <h3>The regex dialect I assumed</h3>
+              <p>I also wrote a Wazuh field match using <code>.+</code> and expected PCRE behavior. Wazuh's default is its own osregex dialect. The expression did not match a non-empty UUID the way I expected. Adding <code>type="pcre2"</code> fixed it, and every field and match condition in the project now states that dialect explicitly. <a href="https://documentation.wazuh.com/current/user-manual/ruleset/decoders/json-decoder.html" target="_blank" rel="noopener noreferrer">Wazuh's JSON decoder documentation<span class="sr-only"> (opens in a new tab)</span></a> explains how decoded JSON fields enter this rule path.</p>
+            </section>
+
+            <section id="lab" aria-labelledby="lab-title">
+              <h2 id="lab-title">I needed the real engine in the loop</h2>
+              <p><code>wazuh-logtest</code> was useful while writing expressions, but it was not enough to prove the full path. I wanted the record to enter the same place it would enter during collection, pass through Wazuh's JSON decoder, reach <code>wazuh-analysisd</code>, and either create an alert or stay quiet.</p>
+              <p>I pinned Wazuh 4.9.0 in Docker Compose and ran the amd64 containers through Colima on an arm64 Mac. That architecture mismatch was slower and occasionally fragile, but pinning it gave every later report one named runtime. I copied the rule file into the manager, verified that the loaded bytes matched the repository, tailed the alert output, and counted alerts by rule ID instead of trusting a dashboard view.</p>
+              <p>The lab separated three kinds of evidence. Unit tests proved the proxy and schema. The live manager proved how the pinned Wazuh engine decoded and evaluated records. Frozen verdicts later made those results reproducible without asking every reader to run the full Docker stack.</p>
+              <p>That separation saved me more than once. A record could validate as JSON and still fail to match because of Wazuh's regex dialect. A candidate rule could pass an isolated expression test and still lose to a sibling when the complete ruleset loaded. I kept both fast and live paths because they answer different failure modes.</p>
+            </section>
+
+            <section id="model" aria-labelledby="model-title">
+              <h2 id="model-title">Then I handed tool selection to a model</h2>
+              <p>The scripted client proved that the lab worked. It could not tell me what normal agent behavior looked like because every tool call came from a decision I had already made.</p>
+              <p>I replaced it with a local <code>qwen3:1.7b</code> model running through Ollama at temperature 0. I supplied benign tasks across read-only filesystem, writable filesystem, Git, memory, time, and fetch server configurations. The model chose the tool, built the arguments, read the result, and decided when to stop.</p>
+              <figure class="evidence-diagram">
+                <ol class="flow-list">
+                  <li><strong>I supply a benign task.</strong> The prompt describes an ordinary job, not a required tool name.</li>
+                  <li><strong>The local model chooses MCP calls.</strong> Its retries, substitutions, and malformed arguments stay intact.</li>
+                  <li><strong>The transparent proxy records JSONL.</strong> Each record carries session, task, scenario, direction, and label.</li>
+                  <li><strong>I freeze and checksum the result.</strong> Later measurements point to exact bytes instead of a fresh model run.</li>
+                </ol>
+                <figcaption>Figure 2. I did not ask what benign MCP traffic should look like. I recorded what the model actually produced.</figcaption>
+              </figure>
+              <p>Corpus v1 contained 33 sessions, 273 records, 54 model-selected calls, and 12 tools. It crossed the phase gate I had written. Then I inspected the per-tool counts.</p>
+            </section>
+
+            <section id="denominator" aria-labelledby="denominator-title">
+              <h2 id="denominator-title">The first corpus passed the wrong gate</h2>
+              <p>A per-tool false-positive rate needs a per-tool denominator. V1's aggregate of 54 calls looked respectable until I found <code>edit_file</code> at one call and <code>get_current_time</code> at three. At <code>n=5</code>, one alert becomes a 20 percent rate. The corpus was real. It was not large enough in the places that mattered.</p>
+              <p>I tried scaling the same generation plan. A 240-session run still concentrated almost half the calls in <code>add_observations</code> and <code>read_text_file</code>, while a dozen tools stayed near the repeat floor. A bigger skewed distribution is still skewed.</p>
+              <p>I fixed the task plan instead. Two targeted top-up passes exercised thin tool families with new paths, timezones, memory queries, and Git references. I merged and re-measured after each pass.</p>
+              <figure class="evidence-diagram">
+                <div class="comparison-grid">
+                  <div class="comparison-card"><span>Corpus v1</span><strong>54 calls</strong><p>33 sessions, 273 records, 12 tools. The thinnest tool had one benign call.</p></div>
+                  <div class="comparison-card"><span>Corpus v2</span><strong>1,011 calls</strong><p>541 sessions, 4,727 records, 20 tools. Every represented tool reached at least 25 calls.</p></div>
+                </div>
+                <figcaption>Figure 3. The aggregate grew, but the important change was the per-tool floor. <code>git_show</code> remained at zero and stayed disclosed.</figcaption>
+              </figure>
+            </section>
+
+            <section id="mistakes" aria-labelledby="mistakes-title">
+              <h2 id="mistakes-title">The mistakes became the useful part</h2>
+              <p>Two tools entered v2 because the model made a bad choice. It tried <code>edit_file</code> against the read-only workspace mount. The server rejected the write. The model improvised with <code>create_directory</code> and <code>move_file</code>, tools that had never appeared in v1.</p>
+              <p>Those calls looked like behavior a future security rule might flag. I did not remove them as noise. I added legitimate writable-sandbox tasks so both tools gained a real benign baseline. <code>create_directory</code> finished at 113 calls. <code>move_file</code> finished at 48, with multiple source and destination paths.</p>
+              <figure class="evidence-diagram">
+                <ol class="flow-list">
+                  <li><code>edit_file(...)</code> targets the read-only workspace.</li>
+                  <li>The filesystem server rejects the operation.</li>
+                  <li>The model tries <code>create_directory(...)</code>.</li>
+                  <li>The model follows with <code>move_file(...)</code>.</li>
+                  <li>I keep the sequence and add legitimate coverage for both write-shaped tools.</li>
+                </ol>
+                <figcaption>Figure 4. A failed task introduced two legitimate tool shapes that a tidy scripted baseline would never have shown me.</figcaption>
+              </figure>
+              <p>I kept guessed paths, malformed arguments, retries, and odd substitutions for the same reason. One near-boundary read task produced 14 calls across 12 sessions because two attempts used malformed paths. A Git task wandered into an unrelated configuration file before recovering. The pipeline only required complete, schema-valid telemetry. It did not require the model to look smart.</p>
+              <p>That is how I now think about the baseline: if I want to catch a system doing something bad, I first need to study the same system doing legitimate work, including the messy ways it gets there.</p>
+            </section>
+
+            <section id="operations" aria-labelledby="operations-title">
+              <h2 id="operations-title">I was wrong about three different failures</h2>
+              <p>The corpus work also exposed failures outside the model.</p>
+              <h3>I killed a process that was still progressing</h3>
+              <p>A <code>git_log</code> call stayed active long enough that one <code>ps aux</code> snapshot looked frozen. I declared a deadlock and killed the process tree. About 17 sessions of real work disappeared with it. Git's <code>cat-file --batch</code> helpers were slow, not stuck.</p>
+              <p>I changed the operating rule after that. I judge liveness across two checks separated by real time, and I detach long runs so killing a tracking process cannot kill the workload.</p>
+              <h3>The Ollama timeout was an OOM kill</h3>
+              <p>When Ollama returned 500s mid-run, I blamed its five-minute idle eviction and set <code>KEEP_ALIVE=-1</code>. Nothing improved. Ollama's logs said <code>signal: killed</code>. The <code>llama-server</code> subprocess was being OOM-killed inside a 6 GiB Colima VM shared with the Wazuh indexer, dashboard, manager, and Ollama.</p>
+              <p>I stopped the indexer and dashboard during generation and recovered about 2.1 GiB. Then my permanent keep-alive fix created a slower failure. The on-disk prompt cache accumulated one entry per distinct task, memory climbed from roughly 2.2 GiB to 2.9 GiB, and the process died again. A finite <code>OLLAMA_KEEP_ALIVE=10m</code> bounded the cache growth. The next run completed 238 of 240 sessions.</p>
+              <h3>The full disk was not the generation job</h3>
+              <p>Later, <code>docker cp</code> failed with no space left on a 40 GB VM disk. I suspected the memory changes. The actual cause was Wazuh's vulnerability feed. Its unused caches under <code>queue/vd_updater</code> and <code>queue/vd</code> had grown to 23 GB. I disabled the module because this lab does not use vulnerability-detection alerts.</p>
+              <p>Each correction came from a concrete signal: <code>signal: killed</code> instead of a timeout line, memory growth across time instead of one snapshot, and <code>queue/vd_updater</code> instead of the generation directory. The operational lesson matched the detection lesson. A plausible story is not evidence.</p>
+            </section>
+
+            <section id="frozen" aria-labelledby="frozen-title">
+              <h2 id="frozen-title">Why I froze the corpus</h2>
+              <p><code>benign_corpus_v2.jsonl</code> is committed with its SHA-256 checksum. I do not regenerate it in place.</p>
+              <p>A model run is not byte-deterministic just because temperature is zero. Hardware, drivers, inference runtime, and quantization can change the exact decisions. A new run can produce statistically similar traffic, but it cannot recreate these 4,727 records byte for byte.</p>
+              <p>If the corpus changed underneath a published measurement, the number would quietly describe different evidence. Freezing the file gives every later claim an exact input. Extending the corpus requires a new version. Partial telemetry from failed runs remains archived as recovery provenance and does not enter the measured dataset.</p>
+            </section>
+
+            <section id="limits" aria-labelledby="limits-title">
+              <h2 id="limits-title">What this result does not establish</h2>
+              <div class="research-note"><strong>Research software boundary</strong><p>Everything in this article is synthetic and self-authored. The model selected the tools, but I designed the tasks, servers, fixtures, and environment.</p></div>
+              <ul>
+                <li><code>qwen3:1.7b</code> is one small model. Another model can produce a different normal distribution.</li>
+                <li>Zero alerts across 4,727 records is a regression result over project-authored traffic. It is not a field false-positive rate, a benchmark, or validated real-world accuracy.</li>
+                <li><code>git_show</code> has no benign denominator in this corpus.</li>
+                <li>The lab has no per-call timeout. A genuinely hung tool call can still wait forever.</li>
+                <li>The proxy records what reached a handler. It cannot prove what the handler did next.</li>
+              </ul>
+              <p>The final limitation becomes the center of part three. First I needed to find out how far structural detections could go, and how quickly an adversarial corpus could break them.</p>
+            </section>
+
+            <section id="run" aria-labelledby="run-title">
+              <h2 id="run-title">Run the measurement</h2>
+              <p>Python 3.11 or newer. No credentials, Docker, Ollama, or Wazuh installation required.</p>
+              <figure class="code-figure"><figcaption>Offline reproduction</figcaption><pre tabindex="0"><code>git clone https://github.com/RasheedFarhat/mcp-detect.git
+cd mcp-detect
+make measure</code></pre></figure>
+              <p>The line to inspect is <code>Aggregate benign FP: 0/4727</code>. The <a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/data/benign_corpus_v2.summary.md" target="_blank" rel="noopener noreferrer">corpus summary<span class="sr-only"> (opens in a new tab)</span></a> lists every per-tool denominator and the accepted <code>git_show</code> gap.</p>
+            </section>
+
+            <section id="references" class="references" aria-labelledby="references-title">
+              <h2 id="references-title">Sources</h2>
+              <ol>
+                <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/architecture" target="_blank" rel="noopener noreferrer">Model Context Protocol architecture, revision 2026-07-28<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://documentation.wazuh.com/current/user-manual/ruleset/decoders/json-decoder.html" target="_blank" rel="noopener noreferrer">Wazuh JSON decoder documentation<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/docs/PHASE0.md" target="_blank" rel="noopener noreferrer">MCP Detect Phase 0 record<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/docs/PHASE1.md" target="_blank" rel="noopener noreferrer">MCP Detect Phase 1 record<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/docs/PHASE1b.md" target="_blank" rel="noopener noreferrer">MCP Detect Phase 1b record<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/data/benign_corpus_v2.summary.md" target="_blank" rel="noopener noreferrer">Frozen benign corpus v2 summary<span class="sr-only"> (opens in a new tab)</span></a></li>
+              </ol>
+            </section>
+
+            <nav class="series-nav" aria-label="Next article in the series">
+              <span class="series-nav__label">Next in Inside MCP Detect</span>
+              <a href="/writing/i-built-five-mcp-detections-then-broke-them/">I Built Five MCP Abuse Detections. Then I Tried to Break Every One.</a>
+            </nav>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell"><div class="title-block">
+        <div class="title-block__cell"><span class="title-block__label">Series</span><p>Inside MCP Detect</p><span class="mono-note">Part 1 of 3</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Project</span><p>MCP security research and detection engineering</p></div>
+        <div class="title-block__cell"><span class="title-block__label">Evidence</span><p>Synthetic, reproducible, openly published</p></div>
+        <div class="title-block__cell"><span class="title-block__label">Author</span><p>Rasheed Farhat</p><span class="mono-note">Security operations | detection engineering</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Source</span><ul><li><a href="https://github.com/RasheedFarhat/mcp-detect" target="_blank" rel="noopener noreferrer">Repository<span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="/projects/mcp-security/">Project page</a></li></ul></div>
+        <div class="title-block__cell"><span class="title-block__label">Document</span><p>rasheedfarhat.github.io</p><span class="mono-note">Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span></div>
+      </div></div>
+    </footer>
+  </body>
+</html>

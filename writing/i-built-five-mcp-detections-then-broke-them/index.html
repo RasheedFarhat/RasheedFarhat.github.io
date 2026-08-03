@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="I built five MCP abuse detections, measured them against synthetic traffic, and published the evasions that still beat them." />
+    <meta name="theme-color" content="#e2e9e7" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="I Built Five MCP Abuse Detections. Then I Tried to Break Every One." />
+    <meta property="og:description" content="Perfect canonical counts, zero benign regression alerts, and ten successful evasions can all be true at the same time." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://rasheedfarhat.github.io/writing/i-built-five-mcp-detections-then-broke-them/" />
+    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/writing/five-detections-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Article two of Inside MCP Detect: five measured detections facing a larger evasion field." />
+    <meta property="article:author" content="Rasheed Farhat" />
+    <meta property="article:published_time" content="2026-08-03T16:00:00+03:00" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="I Built Five MCP Abuse Detections. Then I Tried to Break Every One." />
+    <meta name="twitter:description" content="Perfect canonical counts, zero benign regression alerts, and ten successful evasions can all be true at the same time." />
+    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/writing/five-detections-preview.png" />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/writing/i-built-five-mcp-detections-then-broke-them/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/assets/fonts/big-shoulders-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="/theme-init.js?v=20260803a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260803b" />
+    <script src="/script.js?v=20260803a" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "I Built Five MCP Abuse Detections. Then I Tried to Break Every One.",
+        "description": "I built five MCP abuse detections, measured them against synthetic traffic, and published the evasions that still beat them.",
+        "datePublished": "2026-08-03T16:00:00+03:00",
+        "dateModified": "2026-08-03T16:00:00+03:00",
+        "author": {"@type": "Person", "name": "Rasheed Farhat", "url": "https://rasheedfarhat.github.io/"},
+        "image": "https://rasheedfarhat.github.io/assets/writing/five-detections-preview.png",
+        "isPartOf": {"@type": "CreativeWorkSeries", "name": "Inside MCP Detect: Engineering Evidence for AI-Agent Boundaries"}
+      }
+    </script>
+    <title>I Built Five MCP Abuse Detections | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/" aria-label="Rasheed Farhat, home">RF</a>
+        <button class="theme-toggle theme-toggle--bar" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Toggle navigation</span></button>
+        <nav class="site-nav" id="site-nav" aria-label="Primary" data-menu data-open="false">
+          <a href="/">Home</a><a href="/projects/">Projects</a><a href="/writing/" aria-current="page">Writing</a><a href="/about/">About</a><a href="/contact/">Contact</a>
+          <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+          <a class="nav-resume" href="/resume/">Resume</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="article-hero shell">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/writing/">Writing</a><span aria-hidden="true">/</span><span>Inside MCP Detect, part 2</span></nav>
+          <p class="series-kicker">Inside MCP Detect <span>Part 2 of 3</span></p>
+          <h1>I Built Five MCP Abuse Detections. Then I Tried to Break Every One.</h1>
+          <p class="article-hero__dek">The canonical attacks looked excellent. The evasion corpus did not. I needed both results before I could describe what the rules actually covered.</p>
+          <dl class="article-meta">
+            <div><dt>Written by</dt><dd>Rasheed Farhat</dd></div>
+            <div><dt>Published</dt><dd><time datetime="2026-08-03">August 3, 2026</time></dd></div>
+            <div><dt>Reading time</dt><dd>17 minutes</dd></div>
+            <div><dt>Evidence</dt><dd>Synthetic and self-authored</dd></div>
+          </dl>
+        </header>
+
+        <div class="article-layout shell">
+          <aside class="article-rail" aria-labelledby="article-nav-2">
+            <h2 id="article-nav-2">In this article</h2>
+            <ol>
+              <li><a href="#contradiction">Three true results</a></li>
+              <li><a href="#techniques">Five techniques</a></li>
+              <li><a href="#signals">Three detection forms</a></li>
+              <li><a href="#measurement">Measured coverage</a></li>
+              <li><a href="#worked-attack">One attack, two sessions</a></li>
+              <li><a href="#wazuh">What Wazuh taught me</a></li>
+              <li><a href="#evasions">The evasion corpus</a></li>
+              <li><a href="#hardening">One fix, one rejection</a></li>
+              <li><a href="#compiler">Detection as code</a></li>
+              <li><a href="#evidence">Frozen verdicts</a></li>
+              <li><a href="#limits">Limitations</a></li>
+              <li><a href="#run">Run it</a></li>
+            </ol>
+          </aside>
+
+          <div class="article-body">
+            <div class="at-a-glance">
+              <h2>At a glance</h2>
+              <ul>
+                <li>Five detections cover tool poisoning, sensitive absolute-path reads, path traversal, metadata drift, and credential-exfiltration indicators.</li>
+                <li>Canonical synthetic scenarios produced 12/12, 6/8, 6/8, 3/3, and 11/11 plus 11/11 technique-specific results.</li>
+                <li>No rule alerted across 4,727 project-authored benign records.</li>
+                <li>After one hardening fix, 10 of 12 true evasion attempts still succeeded.</li>
+              </ul>
+            </div>
+
+            <section id="contradiction" aria-labelledby="contradiction-title">
+              <h2 class="sr-only" id="contradiction-title">Three true results</h2>
+              <p>My canonical tool-poisoning scenarios produced 12 alerts from 12 task IDs. The credential-exfiltration sequence produced 11 read-hop alerts and 11 exfil-hop alerts from 11 tasks. All three rug-pull drift shapes fired. Not one alert appeared across 4,727 benign records.</p>
+              <p>Then I authored an adversarial corpus and tried to evade the same rules. After I installed the only hardening change that passed its tests, 10 of 12 true evasion attempts still worked.</p>
+              <p>Those results do not cancel each other out. They describe different questions.</p>
+              <figure class="evidence-diagram">
+                <div class="result-grid">
+                  <div class="result-card"><span>Canonical scenarios</span><strong>Measured catches</strong><p>The rules recognize the exact structural signals I designed them to detect.</p></div>
+                  <div class="result-card"><span>Adversarial variants</span><strong>10 evasions</strong><p>Small changes preserve malicious behavior while moving outside those signals.</p></div>
+                  <div class="result-card"><span>Benign regression</span><strong>0 / 4,727</strong><p>No alert appeared in the frozen project-authored benign records.</p></div>
+                  <div class="result-card"><span>Field accuracy</span><strong>Not measured</strong><p>The dataset is synthetic, self-authored, and not deployment traffic.</p></div>
+                </div>
+                <figcaption>Figure 1. Canonical recall, synthetic benign regression, and evasion resistance measure different properties. I publish them separately.</figcaption>
+              </figure>
+              <p>A rule catching its author's attack proves that the plumbing works and the named signal is observable. It does not prove the rule will catch a differently worded instruction, an encoded secret, a renamed tool, or a behavior change that never touches metadata.</p>
+              <p>I deliberately refused to collapse these results into one precision, recall, or F1 score. The denominators differ by technique, and the word recall would look far more general than the test evidence allows.</p>
+            </section>
+
+            <section id="techniques" aria-labelledby="techniques-title">
+              <h2 id="techniques-title">I chose five bounded techniques</h2>
+              <p>I did not try to secure MCP as a category. I selected abuse patterns that connected a public threat model to telemetry the proxy could actually observe.</p>
+              <p><a href="https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks" target="_blank" rel="noopener noreferrer">Invariant Labs demonstrated tool poisoning<span class="sr-only"> (opens in a new tab)</span></a> through malicious instructions hidden in tool descriptions. The <a href="https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package" target="_blank" rel="noopener noreferrer">Postmark disclosure<span class="sr-only"> (opens in a new tab)</span></a> later documented a malicious MCP package that could copy email data to an external address. The <a href="https://github.com/OWASP/www-project-mcp-top-10" target="_blank" rel="noopener noreferrer">OWASP MCP Top 10<span class="sr-only"> (opens in a new tab)</span></a> and the pinned <a href="https://github.com/secure-agentic-framework/saf-mcp/blob/238fd9f22a0db26f422af368f7d0a333386939b3/techniques/SAF-T1001/README.md" target="_blank" rel="noopener noreferrer">SAF-MCP tool-poisoning technique<span class="sr-only"> (opens in a new tab)</span></a> gave me common names and boundaries for the work.</p>
+              <p>From there I implemented five detections:</p>
+              <ol>
+                <li><strong>Tool poisoning.</strong> Rule <code>100102</code> looks for imperative instruction text hidden inside HTML comments in advertised tool descriptions.</li>
+                <li><strong>Sensitive absolute-path read.</strong> Rule <code>100109</code> matches content-exposing file tools reaching a bounded list such as <code>/etc/passwd</code>, <code>/proc/self/environ</code>, and SSH configuration paths.</li>
+                <li><strong>Path traversal.</strong> Rule <code>100108</code> detects relative escape sequences in file-tool path arguments while deferring named overlaps to the credential-read rule.</li>
+                <li><strong>Rug-pull drift.</strong> A stateful Python process hashes tool description, schema, and server version metadata, compares observations across sessions, and sends drift markers to rule <code>100201</code>.</li>
+                <li><strong>Credential-exfiltration indicators.</strong> Rule <code>100101</code> catches a sensitive read hop. Rules <code>100103</code> through <code>100107</code> catch secret-shaped content leaving through five named argument keys.</li>
+              </ol>
+              <p>Every rule has a known-gaps list in its <code>detection.yaml</code>. I treat that list as part of the detection, not an apology attached afterward.</p>
+            </section>
+
+            <section id="signals" aria-labelledby="signals-title">
+              <h2 id="signals-title">One engine could not express every signal</h2>
+              <p>The five techniques separated into three detection forms.</p>
+              <figure class="evidence-diagram">
+                <div class="trace-grid" role="img" tabindex="0" aria-label="Telemetry branches into Wazuh structural rules, stateful drift comparison, and evidence tooling.">
+                  <div class="trace-node"><span>Input</span><strong>Normalized MCP JSONL</strong><small>Method, tool, arguments, direction, labels</small></div>
+                  <div class="trace-node"><span>Structural</span><strong>Wazuh PCRE2 rules</strong><small>Path, content, and description shapes</small></div>
+                  <div class="trace-node"><span>Stateful</span><strong>Drift comparison</strong><small>Hashes across server sessions</small></div>
+                  <div class="trace-node"><span>Evidence</span><strong>Coverage tooling</strong><small>Joins, gates, checksums, and reports</small></div>
+                </div>
+                <figcaption>Figure 2. Wazuh handles bounded fields on one event. Python handles state across sessions. The evidence layer proves which version produced each result.</figcaption>
+              </figure>
+              <p>Wazuh works well when the signal exists on one decoded JSON event: a path suffix, a traversal token, a tool description, or secret-shaped text under a known key. It is a poor fit for questions such as whether the same server changed its schema between sessions. That requires memory.</p>
+              <p>I kept the drift detector outside the Wazuh rule language. It compares canonical hashes, emits a new marker event when a baseline changes, and lets Wazuh alert on that marker. Trying to force state into a stateless rule would have made the implementation harder to inspect and easier to misread.</p>
+            </section>
+
+            <section id="measurement" aria-labelledby="measurement-title">
+              <h2 id="measurement-title">The measured coverage, without rounding up</h2>
+              <div class="coverage-table-wrap" tabindex="0">
+                <table class="coverage-table">
+                  <thead><tr><th>Technique</th><th>Engine</th><th>Synthetic result</th><th>Boundary</th></tr></thead>
+                  <tbody>
+                    <tr><td><strong>Tool poisoning</strong></td><td>Wazuh rule 100102</td><td>12/12 task IDs</td><td>HTML-comment structure plus bounded keywords</td></tr>
+                    <tr><td><strong>Sensitive absolute-path read</strong></td><td>Wazuh rule 100109</td><td>6/8 own-rule</td><td>Two overlaps intentionally defer to 100101, so technique-level detection is 8/8</td></tr>
+                    <tr><td><strong>Path traversal</strong></td><td>Wazuh rule 100108</td><td>6/8 own-rule</td><td>Two overlaps intentionally resolve to 100101, so technique-level detection is 8/8</td></tr>
+                    <tr><td><strong>Rug-pull drift</strong></td><td>Python state plus rule 100201</td><td>3/3 drift shapes</td><td>Description-only, version-only, and combined drift</td></tr>
+                    <tr><td><strong>Credential exfiltration</strong></td><td>Rules 100101 and 100103 to 100107</td><td>11/11 read hop and 11/11 exfil hop</td><td>Five tested argument-key families, not arbitrary keys</td></tr>
+                    <tr><td><strong>Benign regression</strong></td><td>All active detections</td><td>0 alerts / 4,727 records</td><td>Project-authored synthetic corpus, not field traffic</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>The two <code>6/8</code> numbers are deliberate. For sensitive absolute paths, <code>/root/.ssh/id_rsa</code> and <code>/home/agent/app/.env</code> belong to the existing sensitive-read rule. For traversal, <code>../../.env</code> and <code>../../.ssh/id_rsa</code> belong there too. I made the sibling rules disjoint and reported the owning rule instead of counting one attack twice.</p>
+              <div class="research-note"><strong>Measurement boundary</strong><p>Zero alerts across 4,727 records means the current rules stayed quiet on this frozen, synthetic, project-authored corpus. It is not a real-world false-positive rate. The rug-pull result is narrower still because the benign corpus contains no legitimate server version changes.</p></div>
+            </section>
+
+            <section id="worked-attack" aria-labelledby="worked-attack-title">
+              <h2 id="worked-attack-title">One attack crossed two servers and two sessions</h2>
+              <p>The credential-exfiltration result is easier to misread than its 11/11 table suggests. The synthetic attack does not place a read and an outbound send on one convenient event. It spans two complete MCP sessions joined by one <code>task_id</code>.</p>
+              <p>In the first session, the real pinned filesystem server receives <code>read_text_file(.env)</code>. Rule <code>100101</code> fires on that request. The session finishes. Then a second client connects to the synthetic exfiltration server and calls <code>exfiltrate</code> with the content in its <code>data</code> argument. Rule <code>100103</code> fires 0.308 seconds after the read signal.</p>
+              <figure class="evidence-diagram">
+                <ol class="flow-list">
+                  <li><strong>Session <code>7d8dd3c8</code>.</strong> <code>read_text_file</code> requests the synthetic <code>.env</code> fixture and trips rule <code>100101</code>.</li>
+                  <li><strong>The read session closes.</strong> Its tool call and response complete before the next server connection begins.</li>
+                  <li><strong>Session <code>1ab2bed5</code>.</strong> <code>exfiltrate(data=...)</code> sends secret-shaped fixture content and trips rule <code>100103</code>.</li>
+                  <li><strong>The analysis layer joins both sessions.</strong> A shared <code>task_id</code> reconstructs one logical attack without pretending the alerts happened on one record.</li>
+                </ol>
+                <figcaption>Figure 3. The sequence is synthetic, but the join problem is real. Session IDs describe protocol connections. The task ID describes the behavior being measured.</figcaption>
+              </figure>
+              <p>This is why I kept session identity and task identity separate in the telemetry schema. Joining only on <code>session_id</code> would split the attack in half. Grouping every nearby alert by time would create unrelated correlations. The explicit task label makes the synthetic ground truth inspectable.</p>
+              <h3>The drift detector also found real cross-scenario changes</h3>
+              <p>Four credential-exfiltration variants changed the exfiltration tool's input key while keeping the same tool name and server command. The drift detector correctly saw different schemas for what appeared to be one server identity and generated <code>100201</code> markers. Those alerts lived on credential-exfiltration task IDs, not rug-pull task IDs.</p>
+              <p>I left that cross-scenario result in the report. The stateful detector behaved as designed. The synthetic harness had reused one server identity across variants whose schemas genuinely differed. Hiding the extra alerts would have made the technique table cleaner and the evidence less honest.</p>
+            </section>
+
+            <section id="wazuh" aria-labelledby="wazuh-title">
+              <h2 id="wazuh-title">Wazuh forced me to test the rule engine, not my reading of XML</h2>
+              <p>Several failures shaped the compiler that came later.</p>
+              <h3>Negation against a missing field</h3>
+              <p>I tried to express an exfiltration rule that should fire unless a sensitive path field was present. The malicious event had no <code>path</code> field. Wazuh did not treat the absent field as a successful negation. The candidate fell through to parent rule <code>100100</code> and produced no alert. I found the same landmine again when testing a proposed fix for renamed exfiltration tools.</p>
+              <h3>Sibling-rule shadowing</h3>
+              <p>When two sibling rules match one event, file order and engine behavior can leave only one final alert. A naive path-traversal rule matched <code>../../.env</code>, but rule <code>100101</code> won. I made ownership explicit: the traversal rule negates the credential suffixes, then compiler tests assert the expected owner for all overlaps.</p>
+              <h3>XML entities changed the text I thought PCRE2 received</h3>
+              <p>Rule expressions containing XML-sensitive characters have two parsers in front of them. The XML must first preserve the expression that PCRE2 is meant to compile. I stopped judging those rules by visual inspection and ran the actual loaded expression through <code>wazuh-logtest</code>.</p>
+              <h3>A stock rule already occupied the surface</h3>
+              <p>New top-level JSON anchors can collide with Wazuh's stock ruleset before an MCP child rule ever runs. That failure produced a compiler gate that checks top-level decoder surfaces and stock-rule IDs before installation. <a href="https://documentation.wazuh.com/current/user-manual/ruleset/ruleset-xml-syntax/rules.html" target="_blank" rel="noopener noreferrer">Wazuh's rule syntax reference<span class="sr-only"> (opens in a new tab)</span></a> defines the primitives. The lab tests how those primitives behave together in the pinned Wazuh 4.9.0 runtime.</p>
+            </section>
+
+            <section id="evasions" aria-labelledby="evasions-title">
+              <h2 id="evasions-title">Then I attacked the assumptions in each signal</h2>
+              <p>I authored 154 synthetic records spanning 17 task IDs and 12 evasion classes. Each class changed one assumption while trying to preserve attack efficacy.</p>
+              <ul>
+                <li><strong>Keyword avoidance.</strong> A clear instruction such as <code>OBEY THIS PROTOCOL</code> remains understandable without using the rule's fixed keyword list.</li>
+                <li><strong>No HTML comment.</strong> Bracketed instructions carry the same intent without the comment wrapper rule <code>100102</code> requires.</li>
+                <li><strong>Unicode changes.</strong> A zero-width character split one keyword. A homoglyph substitution changed a visible character without changing how a model would likely read it.</li>
+                <li><strong>Distance padding.</strong> Inert text pushed the imperative beyond the rule's 120-character proximity bound.</li>
+                <li><strong>Renamed tool.</strong> The exfiltration behavior stayed the same while the advertised tool name matched an excluded reader name.</li>
+                <li><strong>Alternate argument key.</strong> <code>msg</code> carried the same secret outside the five keys the Wazuh family enumerates.</li>
+                <li><strong>Different secret shape.</strong> A synthetic token avoided the fixed patterns.</li>
+                <li><strong>Encoded payload.</strong> Base64 preserved the data for the receiving side while removing the plaintext signal.</li>
+                <li><strong>Alternate path.</strong> <code>.env.bak</code> contained byte-identical synthetic content without matching the original read-path suffix.</li>
+                <li><strong>Behavior-only compromise.</strong> The tool kept the same name, description, schema, and version while returning a manipulated result.</li>
+              </ul>
+              <p>The last class matters most. No amount of metadata hashing catches a server that changes behavior without changing metadata. That is a structural limit, not a missing regex.</p>
+              <p>I also included a legitimate version-change probe. The drift detector alerted because the metadata changed. At its layer, a legitimate upgrade and a malicious rug pull are the same observation. A human or another source of deployment context has to decide which one occurred.</p>
+            </section>
+
+            <section id="hardening" aria-labelledby="hardening-title">
+              <h2 id="hardening-title">I installed one fix and rejected another</h2>
+              <p>Before hardening, 11 of 12 true evasion attempts succeeded. The zero-width insertion beat rule <code>100102</code>, so I checked whether the pinned Wazuh PCRE2 build supported Unicode properties. It did.</p>
+              <p>I changed each keyword expression to tolerate characters in Unicode category <code>Cf</code> between letters. The pattern caught the U+200B specimen, left the homoglyph evasion untouched, introduced zero new alerts across all 4,727 benign records, and preserved every canonical result. I installed it.</p>
+              <p>I still describe the generalization carefully. I measured one format character. The regex structure gives me reason to predict that it will catch other <code>Cf</code> insertions, but prediction is not measurement.</p>
+              <p>The renamed-tool evasion produced a different outcome. I tested a candidate that negated on the absence of <code>tool_arguments.path</code>. The engine reached the candidate and then matched only <code>100100</code>. The test completed correctly. The fix failed.</p>
+              <p>I did not install a broader, unproven rule to make the table look better. The gap stayed in the report. An external Python scanner can express the missing-field and arbitrary-key logic cleanly, but that backend did not exist in the measured system. Claiming it as covered would have described planned infrastructure, not code.</p>
+            </section>
+
+            <section id="compiler" aria-labelledby="compiler-title">
+              <h2 id="compiler-title">The failures became compiler gates</h2>
+              <p>Once a detection declares its rule, fixtures, session join, status, and known gaps in <code>detection.yaml</code>, the framework compiles and validates it through five gates.</p>
+              <figure class="evidence-diagram">
+                <ol class="flow-list">
+                  <li><strong>Parent-rule enforcement.</strong> Every child points to the intended MCP anchor.</li>
+                  <li><strong>Rule disjointness.</strong> Real fixtures prove which sibling owns an overlap.</li>
+                  <li><strong>Stock-ruleset collision checks.</strong> New anchors cannot silently lose to an existing Wazuh rule.</li>
+                  <li><strong>Negate-on-absent-field probes.</strong> Every negated field is exercised against its own true-positive fixture.</li>
+                  <li><strong>Benign-corpus regression.</strong> A validated detection must preserve the accepted result across 4,727 frozen records.</li>
+                </ol>
+                <figcaption>Figure 4. Each gate traces back to a failure I hit in the real rule engine. The compiler validates a detection; it does not invent the detection logic.</figcaption>
+              </figure>
+              <p>The path-traversal rule proved why the fifth gate mattered. The first complete draft passed the write-side checks and then alerted on 20 benign <code>search_files</code> calls that legitimately used <code>../</code>. I scoped the rule away from five metadata and search tools, reran all eight attack fixtures, and returned the benign result to 0/4,727.</p>
+              <p>That fix inherits a named evasion. A traversal-capable tool renamed to one of the excluded names can bypass the rule. The compiler can prove that the current fixtures and corpus meet a gate. It cannot turn a bounded name list into semantic understanding.</p>
+              <p>Adding rule <code>100108</code> also exposed two assumptions inside the tests. The compiler schema needed no change, but the negate-probe fixture map was hardcoded by rule ID, so I had to add the new rule manually. A red-team safety check also used <code>git diff</code> against <code>HEAD</code> to detect accidental rule mutation. That worked only while <code>local_rules.xml</code> started clean. The legitimate uncommitted addition of <code>100108</code> made the safety test stop before the red-team run began.</p>
+              <p>I changed that check to compare the file against a snapshot captured when the test started. The compiler itself stayed unchanged, but the surrounding harness was not as registry-driven as the design suggested. I documented the manual cost because adding a sixth detection should not surprise the next person who expects one YAML file to be the whole job.</p>
+              <p>That limitation remains visible in the compiler report and roadmap.</p>
+            </section>
+
+            <section id="evidence" aria-labelledby="evidence-title">
+              <h2 id="evidence-title">A result is tied to the rule version that produced it</h2>
+              <p>The offline replay uses frozen Wazuh verdicts for every corpus record. Golden files pin the SHA-256 of <code>wazuh/local_rules.xml</code>, record the expected rule IDs, and preserve checksums for the inputs.</p>
+              <figure class="evidence-diagram">
+                <div class="trace-grid" role="img" tabindex="0" aria-label="Checksummed JSONL moves through frozen Wazuh verdicts and golden matches, with a pinned rule hash.">
+                  <div class="trace-node"><span>Input</span><strong>Checksummed JSONL</strong><small>Exact synthetic corpus bytes</small></div>
+                  <div class="trace-node"><span>Engine</span><strong>Frozen verdicts</strong><small>Pinned Wazuh 4.9.0 results</small></div>
+                  <div class="trace-node"><span>Expected</span><strong>Golden matches</strong><small>Rule IDs by task and record</small></div>
+                  <div class="trace-node"><span>Refusal</span><strong>Stale evidence stops</strong><small>Current rule hash must match</small></div>
+                </div>
+                <figcaption>Figure 5. If the rule file changes, the replay refuses to present old verdicts as current evidence. Live parity testing remains optional.</figcaption>
+              </figure>
+              <p>This solved a problem that basic offline fixtures often hide. A regex can change while an old expected-output file keeps passing. MCP Detect rejects the evidence when the current rule hash no longer matches the hash that produced the verdicts.</p>
+            </section>
+
+            <section id="limits" aria-labelledby="limits-title">
+              <h2 id="limits-title">What the detections still miss</h2>
+              <div class="research-note"><strong>Research software boundary</strong><p>All attack, evasion, and benign data discussed here is synthetic and self-authored. The measurements prove reproducibility against published fixtures, not accuracy against independent attackers or production deployments.</p></div>
+              <ul>
+                <li>Meaning-preserving tool-poisoning text can avoid the fixed structural and keyword signal.</li>
+                <li>Renamed tools, unknown argument keys, new secret shapes, and encoded content can bypass individual Wazuh rules.</li>
+                <li>Absolute paths outside the named sensitive list remain invisible to rule <code>100109</code>.</li>
+                <li>Symlink indirection can reach a sensitive file without exposing a dangerous path string.</li>
+                <li>Legitimate version changes alert like malicious metadata drift.</li>
+                <li>Behavior-only compromise produces no metadata drift at all.</li>
+              </ul>
+              <p>The last item forced a change in how I reviewed the project. Telemetry could show a valid MCP call and still leave the most important authorization decision unproven.</p>
+            </section>
+
+            <section id="run" aria-labelledby="run-title">
+              <h2 id="run-title">Run the complete replay</h2>
+              <p>The full corpus is public under MIT and runs from an ordinary clone.</p>
+              <figure class="code-figure"><figcaption>Full offline measurement</figcaption><pre tabindex="0"><code>git clone https://github.com/RasheedFarhat/mcp-detect.git
+cd mcp-detect
+make measure-full</code></pre></figure>
+              <p>The command verifies corpus checksums, rule hashes, golden matches, technique-specific counts, known overlaps, and the 0/4,727 synthetic benign regression result.</p>
+            </section>
+
+            <section id="references" class="references" aria-labelledby="references-title">
+              <h2 id="references-title">Sources</h2>
+              <ol>
+                <li><a href="https://invariantlabs.ai/blog/mcp-security-notification-tool-poisoning-attacks" target="_blank" rel="noopener noreferrer">Invariant Labs, MCP tool-poisoning research<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package" target="_blank" rel="noopener noreferrer">Postmark, malicious MCP package disclosure<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/OWASP/www-project-mcp-top-10" target="_blank" rel="noopener noreferrer">OWASP MCP Top 10<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/secure-agentic-framework/saf-mcp/blob/238fd9f22a0db26f422af368f7d0a333386939b3/techniques/SAF-T1001/README.md" target="_blank" rel="noopener noreferrer">SAF-MCP SAF-T1001 at pinned commit 238fd9f<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://documentation.wazuh.com/current/user-manual/ruleset/ruleset-xml-syntax/rules.html" target="_blank" rel="noopener noreferrer">Wazuh rule syntax<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/docs/PHASE4-REPORT.md" target="_blank" rel="noopener noreferrer">MCP Detect Phase 4 measurement report<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/docs/PHASE5-REPORT.md" target="_blank" rel="noopener noreferrer">MCP Detect Phase 5 evasion report<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/docs/PHASE6-T1105-REPORT.md" target="_blank" rel="noopener noreferrer">Path-traversal detection report<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/docs/ADD1-SAF-T1104-REPORT.md" target="_blank" rel="noopener noreferrer">Sensitive absolute-path detection report<span class="sr-only"> (opens in a new tab)</span></a></li>
+              </ol>
+            </section>
+
+            <nav class="series-nav" aria-label="Next article in the series">
+              <span class="series-nav__label">Next in Inside MCP Detect</span>
+              <a href="/writing/the-mcp-call-looked-legitimate/">The MCP Call Looked Legitimate. The Authorization Bug Wasn't.</a>
+            </nav>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell"><div class="title-block">
+        <div class="title-block__cell"><span class="title-block__label">Series</span><p>Inside MCP Detect</p><span class="mono-note">Part 2 of 3</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Project</span><p>MCP security research and detection engineering</p></div>
+        <div class="title-block__cell"><span class="title-block__label">Evidence</span><p>Synthetic, reproducible, openly published</p></div>
+        <div class="title-block__cell"><span class="title-block__label">Author</span><p>Rasheed Farhat</p><span class="mono-note">Security operations | detection engineering</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Source</span><ul><li><a href="https://github.com/RasheedFarhat/mcp-detect" target="_blank" rel="noopener noreferrer">Repository<span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="/projects/mcp-security/">Project page</a></li></ul></div>
+        <div class="title-block__cell"><span class="title-block__label">Document</span><p>rasheedfarhat.github.io</p><span class="mono-note">Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span></div>
+      </div></div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A synthetic MCP request looked valid in telemetry while its handler returned another tenant's invoice. I traced the identity, fixed the source, and denied the retest." />
+    <meta name="theme-color" content="#e2e9e7" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="The MCP Call Looked Legitimate. The Authorization Bug Wasn't." />
+    <meta property="og:description" content="The method, schema, arguments, and response looked normal. The handler had discarded the authenticated tenant." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://rasheedfarhat.github.io/writing/the-mcp-call-looked-legitimate/" />
+    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/writing/legitimate-call-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Article three of Inside MCP Detect: a valid MCP request crosses from tenant-red to tenant-blue at the handler." />
+    <meta property="article:author" content="Rasheed Farhat" />
+    <meta property="article:published_time" content="2026-08-03T16:00:00+03:00" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="The MCP Call Looked Legitimate. The Authorization Bug Wasn't." />
+    <meta name="twitter:description" content="The method, schema, arguments, and response looked normal. The handler had discarded the authenticated tenant." />
+    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/writing/legitimate-call-preview.png" />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/writing/the-mcp-call-looked-legitimate/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/assets/fonts/big-shoulders-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="/theme-init.js?v=20260803a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260803b" />
+    <script src="/script.js?v=20260803a" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "The MCP Call Looked Legitimate. The Authorization Bug Wasn't.",
+        "description": "A synthetic MCP request looked valid in telemetry while its handler returned another tenant's invoice. I traced the identity, fixed the source, and denied the retest.",
+        "datePublished": "2026-08-03T16:00:00+03:00",
+        "dateModified": "2026-08-03T16:00:00+03:00",
+        "author": {"@type": "Person", "name": "Rasheed Farhat", "url": "https://rasheedfarhat.github.io/"},
+        "image": "https://rasheedfarhat.github.io/assets/writing/legitimate-call-preview.png",
+        "isPartOf": {"@type": "CreativeWorkSeries", "name": "Inside MCP Detect: Engineering Evidence for AI-Agent Boundaries"}
+      }
+    </script>
+    <title>The MCP Call Looked Legitimate | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/" aria-label="Rasheed Farhat, home">RF</a>
+        <button class="theme-toggle theme-toggle--bar" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Toggle navigation</span></button>
+        <nav class="site-nav" id="site-nav" aria-label="Primary" data-menu data-open="false">
+          <a href="/">Home</a><a href="/projects/">Projects</a><a href="/writing/" aria-current="page">Writing</a><a href="/about/">About</a><a href="/contact/">Contact</a>
+          <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+          <a class="nav-resume" href="/resume/">Resume</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="article-hero shell">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/writing/">Writing</a><span aria-hidden="true">/</span><span>Inside MCP Detect, part 3</span></nav>
+          <p class="series-kicker">Inside MCP Detect <span>Part 3 of 3</span></p>
+          <h1>The MCP Call Looked Legitimate. The Authorization Bug Wasn't.</h1>
+          <p class="article-hero__dek">Telemetry showed an authenticated request, a valid tool, accepted arguments, and a successful response. Only the source revealed that the wrong tenant controlled the lookup.</p>
+          <dl class="article-meta">
+            <div><dt>Written by</dt><dd>Rasheed Farhat</dd></div>
+            <div><dt>Published</dt><dd><time datetime="2026-08-03">August 3, 2026</time></dd></div>
+            <div><dt>Reading time</dt><dd>14 minutes</dd></div>
+            <div><dt>Evidence</dt><dd>Synthetic reference, not customer work</dd></div>
+          </dl>
+        </header>
+
+        <div class="article-layout shell">
+          <aside class="article-rail" aria-labelledby="article-nav-3">
+            <h2 id="article-nav-3">In this article</h2>
+            <ol>
+              <li><a href="#request">The valid-looking call</a></li>
+              <li><a href="#boundary">Two boundary questions</a></li>
+              <li><a href="#source">The vulnerable handler</a></li>
+              <li><a href="#impact">What the defect changes</a></li>
+              <li><a href="#telemetry">Why telemetry looked fine</a></li>
+              <li><a href="#fix">The source-level fix</a></li>
+              <li><a href="#retest">Four retests</a></li>
+              <li><a href="#manifest">Evidence manifest</a></li>
+              <li><a href="#open-source">Why I published it</a></li>
+              <li><a href="#limits">Limitations</a></li>
+              <li><a href="#run">Run it</a></li>
+            </ol>
+          </aside>
+
+          <div class="article-body">
+            <div class="at-a-glance">
+              <h2>At a glance</h2>
+              <ul>
+                <li>The synthetic caller is authenticated as <code>tenant-red</code>.</li>
+                <li>The public tool arguments select <code>tenant-blue</code> and invoice <code>inv-200</code>.</li>
+                <li>The vulnerable handler discards trusted identity and returns the blue tenant's record.</li>
+                <li>The fix removes tenant selection from the tool schema, scopes the lookup to trusted context, verifies ownership, and passes four focused retests.</li>
+              </ul>
+            </div>
+
+            <section id="request" aria-labelledby="request-title">
+              <h2 class="sr-only" id="request-title">The valid-looking call</h2>
+              <p>The request looked normal in every field I had spent the project measuring.</p>
+              <p>The host had an authenticated identity: <code>tenant-red</code>. The MCP client called a real tool named <code>get_invoice</code>. Its arguments matched the advertised schema. The caller supplied <code>tenant_id: tenant-blue</code> and <code>invoice_id: inv-200</code>. The server returned a valid invoice record with a total of 9800.</p>
+              <p>No traversal token appeared. No secret-shaped content left through an odd key. The tool description did not change. The method, schema, arguments, and response all looked legitimate.</p>
+              <p>The request still crossed a tenant boundary.</p>
+              <p><span class="synthetic-label">Synthetic reference, not customer work</span></p>
+              <p>I created this fixture specifically to test where MCP Detect's telemetry evidence stopped. Both tenants, both invoices, the server, and every identifier are fictional. The defect is intentional and lives only in the published reference implementation.</p>
+              <figure class="evidence-diagram">
+                <div class="trace-grid" role="img" tabindex="0" aria-label="Tenant-red is authenticated, but a caller argument selects tenant-blue before invoice inv-200 is returned.">
+                  <div class="trace-node"><span>Trusted identity</span><strong>tenant-red</strong><small>Authenticated host context</small></div>
+                  <div class="trace-node"><span>Public input</span><strong>tenant-blue</strong><small>Caller-controlled tenant_id</small></div>
+                  <div class="trace-node trace-node--blind"><span>Handler</span><strong>Identity discarded</strong><small>Lookup follows public input</small></div>
+                  <div class="trace-node"><span>Resource</span><strong>inv-200</strong><small>Owned by tenant-blue</small></div>
+                </div>
+                <figcaption>Figure 1. The protocol call is valid. The handler binds the lookup to the wrong source of authority.</figcaption>
+              </figure>
+            </section>
+
+            <section id="boundary" aria-labelledby="boundary-title">
+              <h2 id="boundary-title">Who can call it? What can it reach?</h2>
+              <p>I kept returning to those two questions while building the project.</p>
+              <p>The first asks whether the server knows who is making the request and whether that principal is allowed to invoke the operation. The second follows the request through the handler to the file, API, database row, or tenant-scoped object that the operation can reach.</p>
+              <p>The current MCP authorization specification defines transport-level authorization for HTTP-based transports. It treats the MCP server as an OAuth resource server, requires audience-bound token validation, and encourages least-privilege scope selection. It also says stdio implementations should obtain credentials from the environment instead of using that HTTP flow. <a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization" target="_blank" rel="noopener noreferrer">Those requirements<span class="sr-only"> (opens in a new tab)</span></a> answer important parts of who can reach the server.</p>
+              <p>A valid access token does not prove object ownership inside <code>get_invoice()</code>. A scope that allows invoice reads does not automatically prove that <code>tenant-red</code> may read <code>tenant-blue</code>'s invoice. The handler still has to bind the authenticated principal to the requested object.</p>
+              <p>This pattern maps directly to <a href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/" target="_blank" rel="noopener noreferrer">OWASP API1:2023 Broken Object Level Authorization<span class="sr-only"> (opens in a new tab)</span></a> and <a href="https://cwe.mitre.org/data/definitions/639.html" target="_blank" rel="noopener noreferrer">CWE-639, Authorization Bypass Through User-Controlled Key<span class="sr-only"> (opens in a new tab)</span></a>. The user controls a key that selects another user's object, and the server never proves ownership before returning it.</p>
+            </section>
+
+            <section id="source" aria-labelledby="source-title">
+              <h2 id="source-title">The vulnerable handler accepts trusted identity and throws it away</h2>
+              <p>The defect fits in four lines:</p>
+              <figure class="code-figure"><figcaption>Intentionally vulnerable synthetic handler</figcaption><pre tabindex="0"><code>def get_invoice(
+    *, authenticated_tenant: str,
+    tenant_id: str,
+    invoice_id: str,
+) -&gt; dict:
+    del authenticated_tenant
+    return dict(INVOICES[(tenant_id, invoice_id)])</code></pre></figure>
+              <p>The function signature creates the appearance that authenticated identity matters. The first statement deletes it. The lookup key comes entirely from the caller-controlled <code>tenant_id</code> and <code>invoice_id</code>.</p>
+              <p>The public tool schema reinforces the defect:</p>
+              <figure class="code-figure"><figcaption>Caller-controlled tenant selection</figcaption><pre tabindex="0"><code>{
+  "properties": {
+    "tenant_id": {"type": "string"},
+    "invoice_id": {"type": "string"}
+  },
+  "required": ["tenant_id", "invoice_id"]
+}</code></pre></figure>
+              <p>For the synthetic reproduction, I call the function as <code>tenant-red</code>, request <code>tenant-blue</code>, and supply <code>inv-200</code>. The dictionary contains that exact key, so the function returns the blue tenant's record.</p>
+            </section>
+
+            <section id="impact" aria-labelledby="impact-title">
+              <h2 id="impact-title">The impact follows whatever the tool can reach</h2>
+              <p>In this fixture, the result is one fictional invoice. The security pattern is larger than invoices and larger than MCP. Any handler that accepts a caller-controlled object key can make the same mistake with a ticket, workspace, document, repository, customer record, or cloud resource.</p>
+              <p>MCP makes the boundary worth examining because a model can construct and repeat these calls at machine speed. The model does not need to exploit the server in a traditional sense. It only needs to use a field the server intentionally advertised. If the tool schema says <code>tenant_id</code> is valid input, the client has no protocol-level reason to treat that field as dangerous.</p>
+              <p>The reachable impact therefore depends on the handler's downstream authority. A read-only invoice tool can disclose records. A file tool can expose another workspace. A deployment tool can operate on the wrong account. The JSON-RPC envelope does not tell me how much authority sits behind the function.</p>
+              <p>This is why I avoided calling the fixture an authentication bypass. Authentication worked. The host supplied <code>tenant-red</code>. The failure occurred afterward, when the handler chose caller input over authenticated context. Calling it an auth bypass would erase the exact control that failed.</p>
+              <p>The same distinction changes the test plan. Token-validation tests belong at the transport boundary. Object-ownership tests belong at the handler and storage boundary. Passing the first set cannot stand in for the second. I wanted the reference to make both layers visible without pretending a four-test fixture covers a production identity system.</p>
+            </section>
+
+            <section id="telemetry" aria-labelledby="telemetry-title">
+              <h2 id="telemetry-title">Why normal telemetry looked legitimate</h2>
+              <p>The proxy can record that <code>tenant-red</code> initiated a <code>get_invoice</code> call. It can record the method, arguments, server identity, response, timestamps, and session labels. A SIEM can store the same fields and even alert when one tenant string differs from another.</p>
+              <p>That difference is not proof of a vulnerability. Real systems can allow delegated billing access, parent and child accounts, support impersonation, shared resources, or administrator scopes. Telemetry alone does not contain the business rule that tells me whether <code>tenant-red</code> should reach <code>tenant-blue</code>.</p>
+              <p>The inverse problem is worse. If a vulnerable handler ignores the public tenant argument and derives the wrong tenant from another internal source, the wire can look perfectly aligned while the resource lookup is still wrong.</p>
+              <div class="research-note"><strong>Observability boundary</strong><p>Wire telemetry proves what reached the handler. Source, configuration, identity propagation, and denied-path tests prove how the handler used it.</p></div>
+              <p>This is where my original detection-first framing reached its limit. I could add a cross-tenant mismatch rule, but that rule would produce an indicator that needs review. It could not prove ownership. More patterns would not solve the missing evidence.</p>
+            </section>
+
+            <section id="fix" aria-labelledby="fix-title">
+              <h2 id="fix-title">I fixed the source of authority, not the suspicious string</h2>
+              <p>The remediation removes <code>tenant_id</code> from the public tool schema. The handler receives tenant identity only through trusted host context, uses it to scope the lookup, verifies the returned record, and emits one non-enumerating denial for both absent and unauthorized objects.</p>
+              <figure class="evidence-diagram">
+                <div class="source-diff">
+                  <div class="source-diff__side">
+                    <span class="source-diff__label">Vulnerable</span>
+                    <pre tabindex="0"><code>def get_invoice(
+  *,
+  authenticated_tenant,
+  tenant_id,
+  invoice_id,
+):
+  del authenticated_tenant
+  return INVOICES[
+    (tenant_id, invoice_id)
+  ]</code></pre>
+                  </div>
+                  <div class="source-diff__side">
+                    <span class="source-diff__label">Fixed</span>
+                    <pre tabindex="0"><code>def get_invoice(
+  *,
+  authenticated_tenant,
+  invoice_id,
+):
+  record = INVOICES.get(
+    (authenticated_tenant,
+     invoice_id)
+  )
+  if record is None or \
+     record["tenant_id"] != \
+     authenticated_tenant:
+    raise AuthorizationError(
+      "invoice is not accessible"
+    )
+  return record</code></pre>
+                  </div>
+                </div>
+                <figcaption>Figure 2. The fixed lookup derives tenant scope from trusted identity. The caller can select an invoice ID, but not a tenant.</figcaption>
+              </figure>
+              <p>Removing the field from the schema matters as much as checking it in the function. A public <code>tenant_id</code> invites clients and models to treat tenant selection as a legitimate capability. The fixed schema advertises only <code>invoice_id</code> and rejects additional properties.</p>
+              <p>The ownership check is intentionally redundant with the scoped dictionary key. If the storage implementation changes later, the explicit comparison still documents and tests the security invariant.</p>
+              <p>The error text does not say whether <code>inv-200</code> exists for another tenant. The same denial covers missing and unauthorized objects, which avoids turning the tool into an invoice enumerator.</p>
+              <p>The fixed server also advertises version <code>1.0.1</code> instead of <code>1.0.0</code>. That metadata change is useful evidence that a release occurred, but it cannot explain what changed inside the handler. The source diff and denied test carry that explanation.</p>
+              <h3>I rejected a smaller patch</h3>
+              <p>I could have left <code>tenant_id</code> in the public schema and added <code>if tenant_id != authenticated_tenant</code>. That would block this fixture's cross-tenant request, but it would preserve the wrong interface. Every caller would still send a tenant selector that the server already knows from trusted context.</p>
+              <p>Duplicated sources of authority drift. A later handler can forget the comparison, a batch endpoint can validate only the first item, or an internal client can assume the field grants delegation. Removing the selector reduces the number of states the authorization code must reason about.</p>
+              <p>I also avoided returning separate messages for missing and forbidden invoices. Different errors would help a caller enumerate valid invoice IDs across tenants. The generic <code>AuthorizationError</code> keeps both paths identical at this layer.</p>
+            </section>
+
+            <section id="retest" aria-labelledby="retest-title">
+              <h2 id="retest-title">The fix had to deny the old path without breaking the right one</h2>
+              <p>I wrote four focused tests. One reproduces the defect. Three define what the corrected boundary must do.</p>
+              <figure class="evidence-diagram">
+                <div class="retest-grid">
+                  <div class="retest-card"><span>Vulnerable control</span><strong>Access succeeds</strong><p><code>tenant-red</code> reads <code>tenant-blue</code> invoice <code>inv-200</code>. This proves the fixture is exploitable.</p></div>
+                  <div class="retest-card"><span>Negative retest</span><strong>Access denied</strong><p>The fixed handler raises <code>AuthorizationError</code> for <code>tenant-red</code> requesting <code>inv-200</code>.</p></div>
+                  <div class="retest-card"><span>Positive control</span><strong>Access succeeds</strong><p><code>tenant-red</code> still reads its own <code>inv-100</code> after remediation.</p></div>
+                  <div class="retest-card"><span>Schema retest</span><strong>Selector removed</strong><p><code>tenant_id</code> is absent and additional properties are rejected.</p></div>
+                </div>
+                <figcaption>Figure 3. A denied cross-tenant test alone is incomplete. The same-tenant control and schema assertion prove the fix preserves intended behavior and removes the dangerous interface.</figcaption>
+              </figure>
+              <p>The first test is important because a negative retest against a nonfunctional fixture proves nothing. I make the vulnerable version return the wrong tenant's record, then run the fixed version against the same object ID.</p>
+            </section>
+
+            <section id="manifest" aria-labelledby="manifest-title">
+              <h2 id="manifest-title">The retest is bound to exact source</h2>
+              <p>The reference directory includes an evidence manifest with SHA-256 hashes for the vulnerable server, fixed server, authorization tests, and control-evidence record. It also states the expected result: four tests, zero failures, zero errors.</p>
+              <figure class="evidence-diagram">
+                <div class="trace-grid" role="img" tabindex="0" aria-label="Vulnerable source, fixed source, authorization tests, and evidence manifest form one reproducible chain.">
+                  <div class="trace-node"><span>Reproduce</span><strong>Vulnerable source</strong><small>Cross-tenant access succeeds</small></div>
+                  <div class="trace-node"><span>Remediate</span><strong>Fixed source</strong><small>Trusted identity scopes lookup</small></div>
+                  <div class="trace-node"><span>Retest</span><strong>Four assertions</strong><small>Denied and allowed paths</small></div>
+                  <div class="trace-node"><span>Bind</span><strong>SHA-256 manifest</strong><small>Exact reviewed artifacts</small></div>
+                </div>
+                <figcaption>Figure 4. Source hashes keep the result from drifting away from the implementation that produced it.</figcaption>
+              </figure>
+              <p>If any reviewed file changes, <code>verify_manifest.py</code> fails until the evidence is deliberately regenerated. That does not make the fixture a formal proof. It makes the evidence honest about which bytes were reviewed.</p>
+            </section>
+
+            <section id="open-source" aria-labelledby="open-source-title">
+              <h2 id="open-source-title">I ended by publishing the entire evidence path</h2>
+              <p>The authorization fixture changed how I described MCP Detect. The project began with telemetry and rules. By the end, the stronger story connected normal model behavior, attack fixtures, evasions, frozen verdicts, source review, and a denied authorization retest.</p>
+              <p>I published the code, full synthetic corpus, Wazuh rules, stateful detector, compiler gates, reproduction tooling, reference review, and limitations under MIT. The repository runs its offline tests in CI and scans for secrets. Anyone can inspect the exact signals, rerun the measurements, or disagree with the boundaries using the same evidence.</p>
+              <p>That choice also keeps me honest. A public rule with a published evasion cannot hide behind a perfect recall table. A public synthetic defect cannot be mistaken for customer work. A checksum that anyone can verify is stronger than a screenshot of a passing command.</p>
+            </section>
+
+            <section id="limits" aria-labelledby="limits-title">
+              <h2 id="limits-title">What the reference does not prove</h2>
+              <div class="research-note"><strong>Synthetic reference, not customer work</strong><p>The server uses fictional invoices and a simplified environment-variable host context. It demonstrates one authorization pattern. It does not claim to solve a real deployment's OAuth, identity, delegation, tenancy, or storage architecture.</p></div>
+              <ul>
+                <li>The environment variable models trusted context for a local stdio fixture. A remote server must bind identity to an authenticated request and validate its token audience.</li>
+                <li>The dictionary lookup is intentionally small. Real storage layers need tenant scoping in every query path, including caches, batch operations, and indirect references.</li>
+                <li>A non-enumerating application error still has to map correctly to the transport's authorization and error-handling behavior.</li>
+                <li>The four tests cover one tool and one object type. They do not establish complete authorization coverage.</li>
+                <li>Telemetry remains useful after the fix, but it supplements the preventive control. It does not replace it.</li>
+              </ul>
+            </section>
+
+            <section id="run" aria-labelledby="run-title">
+              <h2 id="run-title">Run the denied retest</h2>
+              <p>The authorization tests use the Python standard library. From the repository root:</p>
+              <figure class="code-figure"><figcaption>Synthetic cross-tenant reproduction and retest</figcaption><pre tabindex="0"><code>.venv/bin/python3 -m unittest discover \
+  -s examples/reference-mcp-review/tests \
+  -p 'test_*.py' -v</code></pre></figure>
+              <p>Then verify that the evidence manifest still matches the reviewed files:</p>
+              <figure class="code-figure"><figcaption>Evidence manifest verification</figcaption><pre tabindex="0"><code>.venv/bin/python3 \
+  examples/reference-mcp-review/verify_manifest.py</code></pre></figure>
+            </section>
+
+            <section id="principles" aria-labelledby="principles-title">
+              <h2 id="principles-title">What I would carry into the next MCP system</h2>
+              <ol>
+                <li><strong>Observe legitimate behavior first.</strong> A rule needs a denominator shaped by real model choices, including mistakes.</li>
+                <li><strong>Connect a threat to an observable signal.</strong> If the signal is not in the telemetry, adding a technique name does not create it.</li>
+                <li><strong>Publish evasions with detections.</strong> The failure boundary tells another engineer where to add a control.</li>
+                <li><strong>Bind measurements to exact evidence.</strong> Corpora, verdicts, rules, source, and retests should identify the versions that produced the result.</li>
+                <li><strong>Follow identity past the wire.</strong> When telemetry stops, inspect the handler, trace the downstream lookup, and prove the denied path.</li>
+              </ol>
+              <p>MCP was already moving quickly when I started this project. That was exactly why I wanted to slow one boundary down, instrument it, attack it, and leave enough evidence for someone else to reproduce every claim.</p>
+            </section>
+
+            <section id="references" class="references" aria-labelledby="references-title">
+              <h2 id="references-title">Sources</h2>
+              <ol>
+                <li><a href="https://modelcontextprotocol.io/specification/2026-07-28/basic/authorization" target="_blank" rel="noopener noreferrer">Model Context Protocol authorization, revision 2026-07-28<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/modelcontextprotocol/modelcontextprotocol/security" target="_blank" rel="noopener noreferrer">MCP security policy and responsibilities<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/" target="_blank" rel="noopener noreferrer">OWASP API1:2023 Broken Object Level Authorization<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://cwe.mitre.org/data/definitions/639.html" target="_blank" rel="noopener noreferrer">CWE-639: Authorization Bypass Through User-Controlled Key<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/tree/main/examples/reference-mcp-review" target="_blank" rel="noopener noreferrer">Synthetic MCP authorization reference<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/examples/reference-mcp-review/vulnerable_server.py" target="_blank" rel="noopener noreferrer">Intentionally vulnerable handler<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/examples/reference-mcp-review/fixed_server.py" target="_blank" rel="noopener noreferrer">Fixed handler<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/examples/reference-mcp-review/tests/test_authorization.py" target="_blank" rel="noopener noreferrer">Denied cross-tenant retest<span class="sr-only"> (opens in a new tab)</span></a></li>
+              </ol>
+            </section>
+
+            <nav class="series-nav" aria-label="Series conclusion">
+              <span class="series-nav__label">Inspect the complete project</span>
+              <a href="https://github.com/RasheedFarhat/mcp-detect" target="_blank" rel="noopener noreferrer">Run MCP Detect, read the rules, and challenge the limits.<span class="sr-only"> (opens in a new tab)</span></a>
+            </nav>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell"><div class="title-block">
+        <div class="title-block__cell"><span class="title-block__label">Series</span><p>Inside MCP Detect</p><span class="mono-note">Part 3 of 3</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Project</span><p>MCP security research and detection engineering</p></div>
+        <div class="title-block__cell"><span class="title-block__label">Evidence</span><p>Synthetic, reproducible, openly published</p></div>
+        <div class="title-block__cell"><span class="title-block__label">Author</span><p>Rasheed Farhat</p><span class="mono-note">Security operations | detection engineering</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Source</span><ul><li><a href="https://github.com/RasheedFarhat/mcp-detect" target="_blank" rel="noopener noreferrer">Repository<span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="/projects/mcp-security/">Project page</a></li></ul></div>
+        <div class="title-block__cell"><span class="title-block__label">Document</span><p>rasheedfarhat.github.io</p><span class="mono-note">Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span></div>
+      </div></div>
+    </footer>
+  </body>
+</html>

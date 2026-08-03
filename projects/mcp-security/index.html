@@ -3,21 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Case study: MCP-DETECT captures Model Context Protocol tool traffic, applies bounded detections, inventories trust boundaries, and prepares evidence for human review." />
+    <meta name="description" content="MCP Detect is an open-source MCP abuse-detection lab with model-selected benign traffic, synthetic attack and evasion corpora, bounded rules, and reproducible evidence." />
     <meta name="theme-color" content="#e2e9e7" />
     <meta name="color-scheme" content="light dark" />
-    <meta property="og:title" content="MCP Security Review Framework | Rasheed Farhat" />
-    <meta property="og:description" content="Case study: MCP-DETECT captures Model Context Protocol tool traffic, applies bounded detections, inventories trust boundaries, and prepares evidence for human review." />
+    <meta property="og:title" content="MCP Detect Open-Source Security Research | Rasheed Farhat" />
+    <meta property="og:description" content="Model-selected benign traffic, synthetic attacks and evasions, bounded detections, and exact reproduction." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://rasheedfarhat.github.io/projects/mcp-security/" />
-    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
+    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/writing/agent-rogue-preview.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Rasheed Farhat. Security operations, detection automation, and assurance." />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="MCP Security Review Framework | Rasheed Farhat" />
-    <meta name="twitter:description" content="Case study: MCP-DETECT captures Model Context Protocol tool traffic, applies bounded detections, inventories trust boundaries, and prepares evidence for human review." />
-    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
+    <meta name="twitter:title" content="MCP Detect Open-Source Security Research | Rasheed Farhat" />
+    <meta name="twitter:description" content="Model-selected benign traffic, synthetic attacks and evasions, bounded detections, and exact reproduction." />
+    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/writing/agent-rogue-preview.png" />
     <link rel="canonical" href="https://rasheedfarhat.github.io/projects/mcp-security/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
@@ -36,15 +36,15 @@
       type="font/woff2"
       crossorigin
     />
-    <script src="/theme-init.js?v=20260718b"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260718b" />
-    <script src="/script.js?v=20260718b" defer></script>
+    <script src="/theme-init.js?v=20260803a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260803b" />
+    <script src="/script.js?v=20260803a" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "SoftwareSourceCode",
-        "name": "MCP-DETECT: MCP Security Review Framework",
-        "description": "A supervised review framework that captures Model Context Protocol traffic, applies bounded detections, inventories trust boundaries, and prepares evidence for a human security reviewer.",
+        "name": "MCP Detect",
+        "description": "An open-source MCP abuse-detection lab with reproducible rules, synthetic corpora, adversarial evasions, and honest coverage limits.",
         "codeRepository": "https://github.com/RasheedFarhat/mcp-detect",
         "programmingLanguage": "Python",
         "author": {
@@ -54,7 +54,7 @@
         }
       }
     </script>
-    <title>MCP Security Review Framework | Rasheed Farhat</title>
+    <title>MCP Detect Open-Source Security Research | Rasheed Farhat</title>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to main content</a>
@@ -111,24 +111,24 @@
         <div class="page-hero shell">
           <nav class="breadcrumb" aria-label="Breadcrumb">
             <a href="/projects/">Projects</a><span aria-hidden="true">/</span
-            ><span>MCP Security Review Framework</span>
+            ><span>MCP Detect</span>
           </nav>
           <div class="case-hero__grid">
             <div>
               <p class="eyebrow">Agentic AI security / Detection research</p>
-              <h1>MCP Security Review Framework</h1>
+              <h1>MCP Detect</h1>
               <p class="case-hero__summary">
                 MCP-DETECT captures Model Context Protocol tool traffic,
                 applies a bounded set of structural and stateful detections,
-                inventories observed trust boundaries, and prepares evidence
-                for a human security reviewer.
+                publishes adversarial evasions, and binds every measurement to
+                exact reproducible evidence.
               </p>
               <div class="scope-note">
                 <strong>Scope</strong>
                 <p>
-                  Supervised tooling for a human-led review. Not autonomous
-                  enforcement, not complete MCP protection, not a production
-                  drop-in.
+                  Research software, not autonomous enforcement or complete MCP
+                  protection. Every corpus and worked example is synthetic and
+                  self-authored.
                 </p>
               </div>
               <div class="action-row">
@@ -141,23 +141,21 @@
                 >
                 <a
                   class="button button-secondary"
-                  href="https://github.com/RasheedFarhat/mcp-detect/blob/main/samples/NorthwindPay-Agentic-Detection-Readiness-Assessment/REPORT.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Sample report<span class="sr-only"> (opens in a new tab)</span></a
+                  href="/writing/how-do-you-know-your-agent-isnt-going-rogue/"
+                  >Read the technical series</a
                 >
               </div>
             </div>
             <dl class="case-meta">
-              <div><dt>Status</dt><dd>Research lab, open-core framework</dd></div>
+              <div><dt>Status</dt><dd>Open source under MIT</dd></div>
               <div><dt>Role</dt><dd>Sole engineer, architecture through measurement</dd></div>
               <div>
                 <dt>Stack</dt>
                 <dd>Python, MCP SDK, Wazuh, Docker, JSONL telemetry, Ollama lab</dd>
               </div>
               <div>
-                <dt>Review model</dt>
-                <dd>Tool-assisted, human-led security assessment</dd>
+                <dt>Evidence model</dt>
+                <dd>Frozen corpora, rule hashes, golden matches, and denied retests</dd>
               </div>
             </dl>
           </div>
@@ -193,7 +191,7 @@
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
               <p class="eyebrow">The problem</p>
-              <h2 id="problem-title">Ordinary reviews miss the tool-call layer.</h2>
+              <h2 id="problem-title">MCP tool calls need inspectable evidence.</h2>
               <p>
                 MCP connects agents to filesystems, ticketing, memory stores,
                 and internal services. A configuration review can list declared
@@ -235,9 +233,9 @@
                   <small>Runs fixtures, joins alerts to sessions, measures coverage, and records gaps.</small>
                 </li>
                 <li>
-                  <span class="stage-label">Review</span>
-                  <strong>Human assessment</strong>
-                  <small>A reviewer interprets the evidence, validates context, and recommends controls.</small>
+                  <span class="stage-label">Reproduce</span>
+                  <strong>Frozen evidence</strong>
+                  <small>Checksums, rule hashes, golden matches, and source-level retests keep each claim inspectable.</small>
                 </li>
               </ol>
             </section>
@@ -374,13 +372,41 @@
               </ul>
             </section>
 
+            <section id="series" aria-labelledby="series-title">
+              <p class="eyebrow">Technical series</p>
+              <h2 id="series-title">Inside MCP Detect, from baseline to denied retest.</h2>
+              <p>
+                I documented the project in three first-person articles. The
+                series starts with model-selected benign traffic, pressure-tests
+                the five detections, and ends at the authorization decision that
+                telemetry could not prove.
+              </p>
+              <ol class="stage-list">
+                <li>
+                  <span class="stage-label">Part 1</span>
+                  <strong><a href="/writing/how-do-you-know-your-agent-isnt-going-rogue/">Start by watching the agent behave</a></strong>
+                  <small>541 sessions, 1,011 model-selected calls, and the accepted zero-call <code>git_show</code> gap.</small>
+                </li>
+                <li>
+                  <span class="stage-label">Part 2</span>
+                  <strong><a href="/writing/i-built-five-mcp-detections-then-broke-them/">Build the detections, then break them</a></strong>
+                  <small>Canonical results, benign regression, ten successful evasions, and the compiler gates those failures created.</small>
+                </li>
+                <li>
+                  <span class="stage-label">Part 3</span>
+                  <strong><a href="/writing/the-mcp-call-looked-legitimate/">Follow identity into the handler</a></strong>
+                  <small>A synthetic cross-tenant defect, exact source fix, and denied authorization retest.</small>
+                </li>
+              </ol>
+            </section>
+
             <section id="source" aria-labelledby="source-title">
               <p class="eyebrow">Source</p>
               <h2 id="source-title">Inspect it yourself.</h2>
               <p>
-                The proxy, schema, rules, drift detector, compiler gates,
-                coverage reports, and the synthetic assessment report are
-                public.
+                The proxy, schema, complete synthetic corpora, rules, drift
+                detector, compiler gates, coverage reports, and authorization
+                reference are public under MIT.
               </p>
               <div class="action-row">
                 <a
@@ -390,8 +416,8 @@
                   rel="noopener noreferrer"
                   >Open the repository<span class="sr-only"> (opens in a new tab)</span></a
                 >
-                <a class="button button-secondary" href="/contact/"
-                  >Discuss a scoped review</a
+                <a class="button button-secondary" href="/writing/"
+                  >Read the articles</a
                 >
               </div>
             </section>
@@ -405,6 +431,7 @@
               <li><a href="#measurement">Measurement</a></li>
               <li><a href="#abom">Trust boundaries</a></li>
               <li><a href="#limits">Known limits</a></li>
+              <li><a href="#series">Technical series</a></li>
               <li><a href="#source">Source</a></li>
             </ul>
             <ul class="tag-list">

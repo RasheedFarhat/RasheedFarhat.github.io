@@ -69,6 +69,11 @@ All fonts are subset latin WOFF2 files self-hosted under `/assets/fonts/`
 - Scope note: teal-edged panel stating what a project is not.
 - Disclosures: native `details` elements for engineering decisions and
   constraint deep dives.
+- Longform boundary trace: identity, MCP, handler, and resource nodes carry the
+  MCP Detect series. The trace changes at the technical failure point in each
+  article instead of acting as decoration.
+- Article evidence figures: measured tables, source diffs, retest panels, and
+  numbered captions use the same instrument surfaces as the project pages.
 - Footer: a restrained labeled grid for contact, source, and document context.
 
 ## Interaction

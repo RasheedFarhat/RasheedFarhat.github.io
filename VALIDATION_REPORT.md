@@ -2,6 +2,59 @@
 
 Validation date: July 18, 2026 (Clear Signal theme release)
 
+## August 3, 2026 addendum: Inside MCP Detect series
+
+This addendum covers the three new longform article routes, the updated MCP
+project page and writing index, and six social preview assets.
+
+### Content and evidence
+
+- All three articles pass the zero-em-dash, forbidden-phrase, AI-default
+  vocabulary, unsupported-placeholder, synthetic-label, command, and
+  commercial-history checks in `scripts/validate-site.mjs`.
+- Rendered article-body text falls within the requested ranges: 2,301 words for
+  part one, 2,703 for part two, and 2,202 for part three at the final content
+  audit.
+- `make measure` and `make measure-full` reproduce the published sample and
+  complete-corpus results, including 0 alerts across 4,727 project-authored
+  benign records.
+- The synthetic authorization reference passes all four focused tests. The
+  vulnerable cross-tenant control succeeds, the fixed cross-tenant path is
+  denied, same-tenant access succeeds, and the fixed schema removes
+  caller-controlled tenant selection.
+- `examples/reference-mcp-review/verify_manifest.py` passes for all four pinned
+  source and test artifacts.
+- All 24 unique external evidence links used by the articles returned HTTP 200.
+
+### Markup and accessibility
+
+- Site validator: passed for 13 HTML files and 21 required assets.
+- HTML Validate 9.7.1: zero reported errors or warnings across every public
+  route.
+- JavaScript syntax and Git whitespace checks: passed.
+- Browser DOM inspection confirmed one H1, named landmarks, useful figure
+  labels, article publication metadata, and readable source ordering.
+- Mobile navigation at 390px moves focus to the first link, updates
+  `aria-expanded`, closes on Escape, and returns focus to the trigger.
+- Every horizontally scrollable code block, trace, and coverage table in the
+  series is keyboard focusable.
+- No page-level horizontal overflow appeared at 390px or at the 640px
+  reflow-equivalent check.
+- New article token contrast ranges from 5.45:1 to 12.76:1 in light mode and
+  6.27:1 to 15.99:1 in dark mode.
+- Automated axe-core and Lighthouse runs were not repeated for the new routes.
+  The earlier shared-theme results below remain a baseline, not a claim about
+  the new pages. A manual screen-reader session was not performed.
+
+### Visual assets
+
+- Three portfolio and Medium previews render at exactly 1200x630.
+- Three LinkedIn covers render at exactly 1920x1080.
+- The previews were visually checked for title cropping, evidence-strip
+  visibility, author credit, and the identity-to-handler-to-resource trace.
+- Desktop, dark-theme, mobile, light-theme, and synthetic-label views were
+  inspected in the browser.
+
 ## Commands run
 
 - `node scripts/validate-site.mjs`
