@@ -27,6 +27,7 @@ Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.git
 - `/about/` - Professional profile
 - `/resume/` - Resume overview and PDF
 - `/contact/` - Contact options
+- `/support/` - IT support, service desk, and technical support profile
 - `/404.html` - Not-found page
 
 ## Local preview

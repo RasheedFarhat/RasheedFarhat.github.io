@@ -1064,6 +1064,89 @@ hr {
   border: 1px solid var(--line);
 }
 
+/* Support page ---------------------------------------------------------- */
+
+.support-snapshot {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  border-top: 1px solid var(--line);
+}
+
+.support-snapshot > div {
+  padding: 1.15rem 1rem 1.25rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.support-snapshot > div:nth-child(even) {
+  padding-left: 1rem;
+  border-left: 1px solid var(--line);
+}
+
+.support-snapshot dt,
+.ticket-path__step {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+.support-snapshot dd {
+  margin: 0.35rem 0 0;
+  max-width: 42ch;
+  color: var(--text-hi);
+  font-weight: 600;
+}
+
+.ticket-path {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--line);
+  background: var(--line);
+  gap: 1px;
+}
+
+.ticket-path li {
+  position: relative;
+  margin: 0;
+  padding: 1.5rem;
+  background: var(--ink);
+}
+
+.ticket-path h3 {
+  margin: 0.75rem 0 0.55rem;
+  font-size: 1.2rem;
+}
+
+.ticket-path p {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 56rem) {
+  .ticket-path {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 38rem) {
+  .support-snapshot,
+  .ticket-path {
+    grid-template-columns: 1fr;
+  }
+
+  .support-snapshot > div:nth-child(even) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}
+
 .capability {
   background: var(--ink);
   padding: 1.5rem;
