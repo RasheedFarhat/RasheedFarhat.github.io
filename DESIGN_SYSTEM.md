@@ -46,8 +46,12 @@ Automated and manual contrast results are recorded in `VALIDATION_REPORT.md`.
 ## Typography
 
 - Display: Big Shoulders (variable, optical size 10 to 72). Headings, the
-  hero name, and metric numerals. Uppercase only for the name, status chips,
-  and mono labels.
+  hero name lockup, and metric numerals. The hero name uses a compact
+  first-name / surname treatment with a mono divider and a restrained binary
+  texture so the long name reads as a technical identity rather than a large
+  block of display type. The binary layer is decorative; the underlying name
+  remains semantic text. Uppercase only for the name, status chips, and mono
+  labels.
 - Body: Public Sans (variable). All prose.
 - Technical: IBM Plex Mono 400/600. Code, filenames, dates, eyebrow labels,
   evidence lines, buttons, and navigation.
