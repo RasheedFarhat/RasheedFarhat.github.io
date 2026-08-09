@@ -342,6 +342,23 @@ hr {
   gap: 1.6rem;
 }
 
+@media (min-width: 55rem) {
+  .site-header__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .brand {
+    margin-right: 0;
+    justify-self: start;
+  }
+
+  .site-nav {
+    grid-column: 2;
+    justify-self: center;
+  }
+}
+
 .site-nav a {
   font-family: var(--mono);
   font-size: 0.78rem;
@@ -2046,7 +2063,7 @@ ul.tag-list {
 }
 
 .hero-grid {
-  align-items: start;
+  align-items: center;
   gap: 2.25rem 5rem;
 }
 
