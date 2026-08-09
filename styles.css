@@ -339,6 +339,12 @@ hr {
 .site-nav {
   display: flex;
   align-items: center;
+}
+
+.site-nav__links,
+.site-nav__actions {
+  display: flex;
+  align-items: center;
   gap: 1.6rem;
 }
 
@@ -354,8 +360,17 @@ hr {
   }
 
   .site-nav {
+    display: contents;
+  }
+
+  .site-nav__links {
     grid-column: 2;
     justify-self: center;
+  }
+
+  .site-nav__actions {
+    grid-column: 3;
+    justify-self: end;
   }
 }
 
@@ -517,6 +532,13 @@ hr {
     border-bottom: 1px solid var(--line-strong);
     padding: 0.5rem var(--pad) 1.25rem;
     display: none;
+  }
+
+  .site-nav__links,
+  .site-nav__actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
   }
 
   .site-nav[data-open="true"] {

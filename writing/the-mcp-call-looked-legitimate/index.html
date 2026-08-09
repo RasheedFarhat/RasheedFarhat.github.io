@@ -27,7 +27,7 @@
     <link rel="preload" href="/assets/fonts/big-shoulders-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin />
     <script src="/theme-init.js?v=20260803a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260809b" />
+    <link rel="stylesheet" href="/styles.css?v=20260809c" />
     <script src="/script.js?v=20260803a" defer></script>
     <script type="application/ld+json">
       {
@@ -52,9 +52,13 @@
         <button class="theme-toggle theme-toggle--bar" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
         <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Toggle navigation</span></button>
         <nav class="site-nav" id="site-nav" aria-label="Primary" data-menu data-open="false">
+          <div class="site-nav__links">
           <a href="/">Home</a><a href="/projects/">Projects</a><a href="/writing/" aria-current="page">Writing</a><a href="/about/">About</a><a href="/contact/">Contact</a>
+          </div>
+          <div class="site-nav__actions">
           <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
           <a class="nav-resume" href="/resume/">Resume</a>
+          </div>
         </nav>
       </div>
     </header>
