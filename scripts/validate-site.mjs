@@ -6,6 +6,7 @@ const requiredRoutes = [
   "index.html",
   "404.html",
   "projects/index.html",
+  "projects/control-plane/index.html",
   "projects/detection-as-code/index.html",
   "projects/mcp-security/index.html",
   "projects/identity-deception/index.html",

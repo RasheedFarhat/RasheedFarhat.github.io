@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Case study: an approval-gated IT and security operations environment where identity, endpoint state, tickets, alerts, approvals, and audit evidence run as one executable chain." />
+    <meta name="theme-color" content="#e2e9e7" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="Control Plane | Rasheed Farhat" />
+    <meta property="og:description" content="Case study: an approval-gated IT and security operations environment where identity, endpoint state, tickets, alerts, approvals, and audit evidence run as one executable chain." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://rasheedfarhat.github.io/projects/control-plane/" />
+    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Rasheed Farhat. Security operations, detection automation, and assurance." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Control Plane | Rasheed Farhat" />
+    <meta name="twitter:description" content="Case study: an approval-gated IT and security operations environment where identity, endpoint state, tickets, alerts, approvals, and audit evidence run as one executable chain." />
+    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/projects/control-plane/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link
+      rel="preload"
+      href="/assets/fonts/big-shoulders-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/public-sans-var.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script src="/theme-init.js?v=20260718b"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260809c" />
+    <script src="/script.js?v=20260718b" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Control Plane",
+        "description": "An approval-gated IT and security operations environment that runs identity, endpoint state, ticketing, alerts, approvals, and audit evidence as one executable chain.",
+        "codeRepository": "https://github.com/RasheedFarhat/it-secops-lab",
+        "programmingLanguage": ["Python", "Rego", "SQL"],
+        "author": {
+          "@type": "Person",
+          "name": "Rasheed Farhat",
+          "url": "https://rasheedfarhat.github.io/"
+        }
+      }
+    </script>
+    <title>Control Plane | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/" aria-label="Rasheed Farhat, home">RF</a>
+        <button
+          class="theme-toggle theme-toggle--bar"
+          type="button"
+          aria-pressed="false"
+          data-theme-toggle
+        >
+          <span class="theme-toggle__icon" aria-hidden="true"></span>
+          <span data-theme-label>Dark</span>
+        </button>
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          data-menu-toggle
+        >
+          <span class="menu-toggle__icon" aria-hidden="true"></span>
+          <span class="sr-only">Toggle navigation</span>
+        </button>
+        <nav
+          class="site-nav"
+          id="site-nav"
+          aria-label="Primary"
+          data-menu
+          data-open="false"
+        >
+          <div class="site-nav__links">
+          <a href="/">Home</a>
+          <a href="/projects/" aria-current="page">Projects</a>
+          <a href="/writing/">Writing</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          </div>
+          <div class="site-nav__actions">
+          <button
+            class="theme-toggle"
+            type="button"
+            aria-pressed="false"
+            data-theme-toggle
+          >
+            <span class="theme-toggle__icon" aria-hidden="true"></span>
+            <span data-theme-label>Dark</span>
+          </button>
+          <a class="nav-resume" href="/resume/">Resume</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <div class="page-hero shell">
+          <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/projects/">Projects</a><span aria-hidden="true">/</span
+            ><span>Control Plane</span>
+          </nav>
+          <div class="case-hero__grid">
+            <div>
+              <p class="eyebrow">IT and security operations / Approval-gated workflow</p>
+              <h1>Control Plane</h1>
+              <p class="case-hero__summary">
+                An operations environment where a request becomes identity, MFA,
+                endpoint state, a ticket, an alert, an approval, an action, and
+                evidence. Every privileged step passes one authorization
+                decision, and that decision is recorded whether it allows or
+                denies.
+              </p>
+              <div class="scope-note">
+                <strong>Scope</strong>
+                <p>
+                  Every user, device, alert, vulnerability, approval, and
+                  containment action is synthetic. This is a local learning
+                  environment, not ServiceNow, Jira, Okta, Active Directory,
+                  Intune, a commercial scanner, or a compliance certification.
+                </p>
+              </div>
+              <div class="action-row">
+                <a
+                  class="button button-primary"
+                  href="https://github.com/RasheedFarhat/it-secops-lab"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >View repository<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </div>
+            </div>
+            <dl class="case-meta">
+              <div><dt>Status</dt><dd>Active open source</dd></div>
+              <div><dt>Role</dt><dd>Sole engineer, data model through CI</dd></div>
+              <div>
+                <dt>Stack</dt>
+                <dd>
+                  Python, PostgreSQL, Keycloak, Rego and OPA, Docker Compose,
+                  GitHub Actions, Wazuh, Grype and Syft
+                </dd>
+              </div>
+              <div>
+                <dt>Environment</dt>
+                <dd>macOS ARM64 host, multi-arch AMD64 and ARM64 images</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <div class="shell">
+          <div class="assessment">
+            <div class="assessment__cell">
+              <h2>Claim</h2>
+              <p>
+                An operations chain from request to closure can be made
+                executable, and every privileged action inside it can be forced
+                through a single recorded policy decision.
+              </p>
+            </div>
+            <div class="assessment__cell">
+              <h2>Evidence</h2>
+              <p>
+                A seeded 600-event corpus run through the real ingest and
+                authorization paths, a 2,092-case policy matrix evaluated
+                through two independent engines, 28 invariants across five
+                scenarios, and a verified audit hash chain.
+              </p>
+            </div>
+            <div class="assessment__cell">
+              <h2>Boundary</h2>
+              <p>
+                The data is synthetic and written by the same person as the
+                code. The results show the controls behave as specified, not
+                that the system survives input nobody anticipated.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="case-layout shell">
+          <div class="case-content">
+            <section id="problem" aria-labelledby="problem-title">
+              <p class="eyebrow">The problem</p>
+              <h2 id="problem-title">The tools are the easy part. The handoffs are not.</h2>
+              <p>
+                Most IT and security work is not one product. It is a chain of
+                handoffs between the person who asks, the identity that carries
+                the request, the endpoint it lands on, the ticket that tracks
+                it, the alert that interrupts it, the approver who authorizes
+                it, and the evidence that closes it. Each link is usually a
+                different system, and the failures live between them.
+              </p>
+              <p>
+                The failure mode I wanted to study is a case that looks closed.
+                A command returned successfully, so the ticket was resolved,
+                even though the state never changed, nobody independent
+                approved it, or the proof attached to it went stale weeks
+                earlier. So I built the chain instead of a dashboard over it,
+                and made closure depend on the state transition, the
+                authorization boundary, and fresh evidence rather than on an
+                exit code.
+              </p>
+            </section>
+
+            <section id="architecture" aria-labelledby="architecture-title">
+              <p class="eyebrow">Architecture</p>
+              <h2 id="architecture-title">Six stages, one recorded decision each.</h2>
+              <ol class="stage-list">
+                <li>
+                  <span class="stage-label">Intake</span>
+                  <strong>Correlated events</strong>
+                  <small>Lifecycle requests and endpoint events arrive with a source event ID and an idempotency key.</small>
+                </li>
+                <li>
+                  <span class="stage-label">Identify</span>
+                  <strong>Keycloak OIDC</strong>
+                  <small>Groups, roles, and TOTP enrollment settle who the actor is before any state changes.</small>
+                </li>
+                <li>
+                  <span class="stage-label">Record</span>
+                  <strong>PostgreSQL state</strong>
+                  <small>Canonical state, an append-only event ledger, and an outbox worker with retry and replay.</small>
+                </li>
+                <li>
+                  <span class="stage-label">Route</span>
+                  <strong>Native ITSM</strong>
+                  <small>Tickets, SLAs, changes, approvals, and a knowledge base, with each alert linked to the ticket it opened.</small>
+                </li>
+                <li>
+                  <span class="stage-label">Decide</span>
+                  <strong>Authorization gate</strong>
+                  <small>One policy call per privileged action, written to the decision table on allow and on deny.</small>
+                </li>
+                <li>
+                  <span class="stage-label">Close</span>
+                  <strong>Fresh evidence</strong>
+                  <small>A case closes on verified, unexpired evidence, never on a command that returned zero.</small>
+                </li>
+              </ol>
+            </section>
+
+            <section id="policy" aria-labelledby="policy-title">
+              <p class="eyebrow">Authorization</p>
+              <h2 id="policy-title">One decision point, two implementations that must agree.</h2>
+              <p>
+                Every privileged action routes through a single call. The
+                default engine is a versioned Python evaluator, so offline
+                verification needs no external binary.
+                policies/authorization.rego implements the same contract over
+                the same input shape, and setting LAB_POLICY_ENGINE to opa
+                sends the entire environment through the Rego bundle instead.
+                CI runs the whole suite both ways, which is what makes the Rego
+                an enforcement path rather than documentation that drifted.
+              </p>
+              <p>
+                A parity test builds a 2,092-case cross product of actors,
+                actions, and targets, evaluates each case through both engines,
+                and fails the build on any disagreement in the verdict or in
+                the set of denial reasons. Two guard tests keep that matrix
+                honest. One fails if the matrix stops producing both allows and
+                denies, since a matrix that only ever denies would pass parity
+                for the wrong reason. The other fails if any denial reason
+                stops being exercised.
+              </p>
+              <figure class="code-figure">
+                <figcaption>
+                  Two recorded denials, printed from the live policy evaluator
+                </figcaption>
+                <pre><code>{
+  <span class="tok-k">"action"</span>: <span class="tok-s">"approve_change"</span>,
+  <span class="tok-k">"decision"</span>: <span class="tok-s">"deny"</span>,
+  <span class="tok-k">"reasons"</span>: [
+    <span class="tok-t">"required_role_present"</span>,
+    <span class="tok-t">"mfa_present"</span>,
+    <span class="tok-t">"separation_of_duties_violation"</span>
+  ],
+  <span class="tok-k">"policy_version"</span>: <span class="tok-s">"2026-08-10-control-plane-v2"</span>
+}
+
+{
+  <span class="tok-k">"action"</span>: <span class="tok-s">"execute_containment"</span>,
+  <span class="tok-k">"decision"</span>: <span class="tok-s">"deny"</span>,
+  <span class="tok-k">"reasons"</span>: [
+    <span class="tok-t">"required_role_present"</span>,
+    <span class="tok-t">"mfa_present"</span>,
+    <span class="tok-t">"independent_approver"</span>,
+    <span class="tok-t">"valid_approval_present"</span>,
+    <span class="tok-t">"device_posture_not_eligible"</span>
+  ]
+}</code></pre>
+              </figure>
+              <p>
+                A denial keeps the reasons that passed. The first record shows
+                an approver who held the right role and had MFA, refused only
+                because they were the person who requested the change. The
+                second shows an analyst with an independent, valid approval in
+                hand, refused because the device posture had gone stale. A
+                reviewer reading the decision table can see which control fired
+                without rerunning anything.
+              </p>
+            </section>
+
+            <section id="scenarios" aria-labelledby="scenarios-title">
+              <p class="eyebrow">Scenarios</p>
+              <h2 id="scenarios-title">Three chains, each ending in evidence.</h2>
+              <details class="disclosure">
+                <summary>Joiner, mover, leaver</summary>
+                <div class="disclosure__body">
+                  <p>
+                    A lifecycle request becomes an identity, an MFA enrollment,
+                    a role mapping, entitlement changes, a device assignment, a
+                    ticket, and offboarding completeness checks. Granting a
+                    privileged role requires an administrator, so a manager
+                    cannot quietly promote someone through the normal path.
+                  </p>
+                </div>
+              </details>
+              <details class="disclosure">
+                <summary>Suspicious endpoint to approval-gated containment</summary>
+                <div class="disclosure__body">
+                  <p>
+                    A Wazuh event becomes an enriched alert, an owned case, a
+                    containment change, an independent approval, a simulated
+                    isolation action, and post-action evidence. The analyst who
+                    requests containment cannot approve it, an expired approval
+                    stops counting, and an ineligible device posture blocks the
+                    action even when the approval is valid.
+                  </p>
+                </div>
+              </details>
+              <details class="disclosure">
+                <summary>Vulnerability remediation</summary>
+                <div class="disclosure__body">
+                  <p>
+                    A Grype finding becomes an owned asset, a remediation
+                    change, a patch, and a rescan. The case cannot close
+                    without fresh rescan evidence, which is the whole point of
+                    the scenario. Scanner version, vulnerability database
+                    checksum, image reference, and capture time are recorded
+                    with the finding, because a scan result is only meaningful
+                    next to the scanner that produced it.
+                  </p>
+                </div>
+              </details>
+            </section>
+
+            <section id="measurement" aria-labelledby="measurement-title">
+              <p class="eyebrow">Measurement</p>
+              <h2 id="measurement-title">A seeded corpus, pushed through the real paths.</h2>
+              <p>
+                The published numbers come from one command. It generates a
+                deterministic synthetic corpus, pushes it through the same
+                ingest and authorization code the scenarios use, and reports
+                what happened. The corpus is roughly 55 percent benign endpoint
+                noise, 20 percent suspicious alerts, 15 percent posture
+                snapshots, and 10 percent input the pipeline is expected to
+                refuse. It also replays every eighth envelope verbatim, which
+                is what an at-least-once delivery pipeline actually produces.
+              </p>
+              <div class="metric-list">
+                <div class="metric"><strong>600</strong><span>Unique events accepted, 675 submitted</span></div>
+                <div class="metric"><strong>75</strong><span>Duplicate envelopes rejected at ingest</span></div>
+                <div class="metric"><strong>65</strong><span>Malformed events routed to dead letter</span></div>
+                <div class="metric"><strong>90 of 108</strong><span>Privileged attempts denied by policy</span></div>
+                <div class="metric"><strong>2,092</strong><span>Cases checked through both engines</span></div>
+                <div class="metric"><strong>1,631</strong><span>Audit records, hash chain valid</span></div>
+              </div>
+              <p>
+                Each of the five denial reasons isolates one control: a missing
+                role, a self-approval, a containment with no valid approval, a
+                containment against an ineligible device posture, and a closure
+                without fresh verified evidence. Replayed envelopes never
+                produced a second alert or a second ticket, so alert and ticket
+                counts stayed equal to the unique actionable-alert count.
+                Refused input landed in the dead-letter table with its error
+                preserved, and the audit chain still verified afterwards.
+              </p>
+              <div class="scope-note">
+                <strong>Measurement boundary</strong>
+                <p>
+                  None of the 332 benign alerts opened a ticket. That shows the
+                  routing honors the label the generator assigned, not that the
+                  system can tell benign traffic from malicious traffic. It
+                  cannot, and it does not try. Every attempt pattern has a
+                  fixed expected verdict by construction, so this is a
+                  conformance result, not an accuracy result.
+                </p>
+              </div>
+            </section>
+
+            <section id="evidence" aria-labelledby="evidence-title">
+              <p class="eyebrow">Evidence integrity</p>
+              <h2 id="evidence-title">Nothing is trusted for being written by the system.</h2>
+              <p>
+                Audit records chain by SHA-256 over the previous record hash,
+                starting from a genesis value, and a verify command recomputes
+                the chain across the whole run rather than across the three
+                headline scenarios. Evidence is hashed over canonical JSON so
+                key ordering cannot change the digest, and every new artifact
+                enters marked for review rather than verified.
+              </p>
+              <p>
+                Testing that pair of rules is the part I care about. A tampered
+                evidence body is rejected on content-hash mismatch, and a
+                closure that requires fresh verified evidence is refused when
+                the evidence has expired. An offline verification suite asserts
+                28 invariants across five scenarios, covering role denial, the
+                MFA gate, the approval gate, idempotency, stale and tampered
+                evidence, traceability, and the audit chain. The suite runs on
+                SQLite, and a separate CI job runs the same tests against
+                PostgreSQL 16 on a throwaway database per test, so portability
+                is tested rather than asserted.
+              </p>
+            </section>
+
+            <section id="limits" aria-labelledby="limits-title">
+              <p class="eyebrow">Known limits</p>
+              <h2 id="limits-title">What this cannot show.</h2>
+              <ul class="limit-list">
+                <li>
+                  <strong>Synthetic throughout.</strong> The corpus was written
+                  by the same person as the code, so it cannot demonstrate
+                  behavior on input nobody anticipated.
+                </li>
+                <li>
+                  <strong>Routing is not detection.</strong> Benign handling is
+                  a property of the corpus and the routing rule. It is not a
+                  false-positive rate.
+                </li>
+                <li>
+                  <strong>Containment is simulated.</strong> The adapter changes
+                  synthetic database state. It cannot reach a host firewall, an
+                  endpoint, or a real network.
+                </li>
+                <li>
+                  <strong>Append-only is an application rule.</strong> A
+                  database administrator can bypass it. The guarantee sits
+                  above the storage layer, not inside it.
+                </li>
+                <li>
+                  <strong>A hash proves the artifact, not the event.</strong>
+                  Evidence hashes show the captured artifact is unchanged, not
+                  that the underlying event happened as described.
+                </li>
+                <li>
+                  <strong>Not a platform.</strong> The ITSM service is
+                  deliberately smaller than a commercial one, and the endpoint
+                  agent is a lab simulator rather than an EDR or MDM agent.
+                </li>
+                <li>
+                  <strong>Scanner output is time-bound.</strong> A Grype match
+                  is a finding, not proof of exploitability, and a missing
+                  match is not proof of remediation.
+                </li>
+              </ul>
+            </section>
+
+            <section id="source" aria-labelledby="source-title">
+              <p class="eyebrow">Source</p>
+              <h2 id="source-title">Run it in three minutes, offline.</h2>
+              <p>
+                The offline path needs only Python. Docker Compose profiles add
+                PostgreSQL, Keycloak, the event worker, the endpoint simulator,
+                and optionally Wazuh and the scanners. The threat model, the
+                limitations, the measured results, and the runbooks are in the
+                repository next to the code they describe.
+              </p>
+              <figure class="code-figure">
+                <figcaption>Offline reproduction</figcaption>
+                <pre tabindex="0"><code>git clone https://github.com/RasheedFarhat/it-secops-lab.git
+cd it-secops-lab
+make verify
+make corpus
+make evidence</code></pre>
+              </figure>
+              <div class="action-row">
+                <a
+                  class="button button-primary"
+                  href="https://github.com/RasheedFarhat/it-secops-lab"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Open the repository<span class="sr-only"> (opens in a new tab)</span></a
+                >
+                <a class="button button-secondary" href="/contact/"
+                  >Discuss this project</a
+                >
+              </div>
+            </section>
+          </div>
+          <aside class="case-sidebar" aria-labelledby="case-nav-title">
+            <h2 id="case-nav-title">On this page</h2>
+            <ul>
+              <li><a href="#problem">Problem</a></li>
+              <li><a href="#architecture">Architecture</a></li>
+              <li><a href="#policy">Authorization</a></li>
+              <li><a href="#scenarios">Scenarios</a></li>
+              <li><a href="#measurement">Measurement</a></li>
+              <li><a href="#evidence">Evidence integrity</a></li>
+              <li><a href="#limits">Known limits</a></li>
+              <li><a href="#source">Source</a></li>
+            </ul>
+            <ul class="tag-list">
+              <li class="tag">Python</li>
+              <li class="tag">PostgreSQL</li>
+              <li class="tag">Keycloak</li>
+              <li class="tag">OPA and Rego</li>
+              <li class="tag">Docker</li>
+              <li class="tag">GitHub Actions</li>
+              <li class="tag">Wazuh</li>
+              <li class="tag">Grype and Syft</li>
+            </ul>
+          </aside>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <div class="title-block">
+          <div class="title-block__cell">
+            <span class="title-block__label">Focus</span>
+            <p>Rasheed Farhat</p>
+            <span class="mono-note">Security operations | detection | assurance</span>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Focus</span>
+            <p>Detection pipelines, security automation, MCP security</p>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Location</span>
+            <p>Rochester, Minnesota</p>
+            <span class="mono-note">Open to remote roles across the United States</span>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Contact</span>
+            <ul>
+              <li>
+                <a
+                  href="mailto:rasheedfrht@gmail.com?subject=Portfolio%20inquiry"
+                  >Email</a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://www.linkedin.com/in/rasheed-farhat010"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >LinkedIn<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Source</span>
+            <ul>
+              <li>
+                <a
+                  href="https://github.com/RasheedFarhat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >GitHub<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+              <li>
+                <a
+                  href="https://medium.com/@rasheed-farhat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Medium<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="title-block__cell">
+            <span class="title-block__label">Document</span>
+            <p>rasheedfarhat.github.io</p>
+            <span class="mono-note"
+              >Rev 2026.07 / &#169; <span data-year></span> Rasheed Farhat</span
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
