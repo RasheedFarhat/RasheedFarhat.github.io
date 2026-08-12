@@ -7,7 +7,7 @@
       name="description"
       content="Rasheed Farhat is an early-career security operations candidate in Rochester, Minnesota, building tested detection automation and evidence-driven assurance projects."
     />
-    <meta name="theme-color" content="#e2e9e7" />
+    <meta name="theme-color" content="#edebe5" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:title" content="Rasheed Farhat | Security Operations and Detection" />
     <meta
@@ -54,9 +54,9 @@
       type="font/woff2"
       crossorigin
     />
-    <script src="/theme-init.js?v=20260718b"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260809c" />
-    <script src="/script.js?v=20260718b" defer></script>
+    <script src="/theme-init.js?v=20260812a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260812g" />
+    <script src="/script.js?v=20260812a" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -150,18 +150,27 @@
 
     <main id="main">
       <section class="hero shell" aria-labelledby="hero-title">
-        <ul class="hero-status">
-          <li>Open to junior security and IT roles</li>
-          <li>Security+ / CySA+</li>
-        </ul>
+        <p class="hero-bezel">
+          <span>Rochester, MN &middot; Detection &amp; Security Ops &middot; Rev 2026.08</span>
+          <span class="hero-bezel__ticks" aria-hidden="true">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </span>
+        </p>
         <div class="hero-grid">
-          <h1 id="hero-title">
-            <span class="hero-name__given">Rasheed</span>
-            <span class="hero-name__divider" aria-hidden="true">/</span>
-            <span class="hero-name__family">Farhat</span>
-          </h1>
-          <div>
+          <div class="hero-copy">
+            <h1 id="hero-title">
+              <span class="hero-name__given"
+                >Rasheed<span class="hero-name__readout" aria-hidden="true">Rasheed</span></span
+              >
+              <span class="hero-name__divider" aria-hidden="true">/</span>
+              <span class="hero-name__family"
+                >Farhat<span class="hero-name__readout" aria-hidden="true">Farhat</span></span
+              >
+            </h1>
             <p class="hero-lede">
+              Detection engineering, tested and bounded.
+            </p>
+            <p class="hero-support">
               Early-career security operations candidate building tested
               detection automation and evidence-driven assurance projects.
             </p>
@@ -182,52 +191,65 @@
                 >GitHub<span class="sr-only"> (opens in a new tab)</span></a
               >
             </div>
+            <ul class="hero-status">
+              <li class="lamp lamp--sig lamp--pulse">Open to junior roles</li>
+              <li class="lamp lamp--sig">Security+ / CySA+ / CSAP</li>
+            </ul>
+            <div class="metric-list hero-metrics">
+              <div class="metric">
+                <strong>0</strong>
+                <span>False positives, 4,727-record MCP-DETECT corpus</span>
+              </div>
+              <div class="metric metric--amb">
+                <strong>3</strong>
+                <span>Structurally undetectable blind spots, documented not hidden</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
-
-      <section class="section shell" aria-labelledby="exhibit-title">
-        <div class="section-heading section-heading--split">
-          <div>
-            <p class="eyebrow">Exhibit / Detection-as-Code</p>
-            <h2 id="exhibit-title">A detection, compiled end to end.</h2>
-          </div>
-          <p class="section-note">
-            Sigma source in. Validated Wazuh XML out.
-          </p>
-        </div>
-        <figure class="plate">
-          <div class="plate__bar">
-            <p class="plate__title">DaC-Pipeline / rule 200001 / T1105</p>
-            <span class="mono-note">58 Sigma rules in, 216 Wazuh rules out</span>
-          </div>
-          <div class="plate__grid">
-            <div class="plate__pane plate__pane--src">
-              <span class="plate__pane-label"
-                >SOURCE / <strong>rules/sigma/sysmon_certutil_download.yml</strong></span
-              >
-              <pre><code><span class="tok-k">detection:</span>
+          <figure class="hero-id">
+            <div class="hero-id__frame">
+              <img
+                src="/assets/rasheed-portrait.png"
+                width="320"
+                height="400"
+                alt="Portrait of Rasheed Farhat"
+              />
+            </div>
+            <figcaption class="hero-id__plate">R. Farhat</figcaption>
+          </figure>
+          <div class="hero-exhibit">
+            <figure class="plate">
+              <div class="plate__bar">
+                <p class="plate__title">DaC-Pipeline / rule 200001 / T1105</p>
+                <span class="mono-note">58 Sigma rules in, 216 Wazuh rules out</span>
+              </div>
+              <div class="plate__grid">
+                <div class="plate__pane plate__pane--src">
+                  <span class="plate__pane-label"
+                    >SOURCE / <strong>rules/sigma/sysmon_certutil_download.yml</strong></span
+                  >
+                  <pre><code><span class="tok-k">detection:</span>
     <span class="tok-k">selection:</span>
         <span class="tok-k">Image|endswith:</span> <span class="tok-s">'\certutil.exe'</span>
         <span class="tok-k">CommandLine|contains|all:</span>
             - <span class="tok-s">'urlcache'</span>
             - <span class="tok-s">'split'</span>
     <span class="tok-k">condition:</span> <span class="tok-t">selection</span></code></pre>
-            </div>
-            <div class="plate__stages">
-              <span class="plate__stages-label">Transform</span>
-              <ol>
-                <li><strong>Parse</strong>pySigma AST</li>
-                <li><strong>Distribute</strong>DNF, capped at 500</li>
-                <li><strong>Merge</strong>PCRE2 lookaheads</li>
-                <li><strong>Render</strong>Jinja2, stable ID</li>
-              </ol>
-            </div>
-            <div class="plate__pane plate__pane--out">
-              <span class="plate__pane-label"
-                >ARTIFACT / <strong>build/wazuh/sysmon_certutil_download_200001.xml</strong></span
-              >
-              <pre><code><span class="tok-k">&lt;group</span> name=<span class="tok-s">"windows, custom_sigma"</span><span class="tok-k">&gt;</span>
+                </div>
+                <div class="plate__stages">
+                  <span class="plate__stages-label">Transform</span>
+                  <ol>
+                    <li><strong>Parse</strong>pySigma AST</li>
+                    <li><strong>Distribute</strong>DNF, capped at 500</li>
+                    <li><strong>Merge</strong>PCRE2 lookaheads</li>
+                    <li><strong>Render</strong>Jinja2, stable ID</li>
+                  </ol>
+                </div>
+                <div class="plate__pane plate__pane--out">
+                  <span class="plate__pane-label"
+                    >ARTIFACT / <strong>build/wazuh/sysmon_certutil_download_200001.xml</strong></span
+                  >
+                  <pre><code><span class="tok-k">&lt;group</span> name=<span class="tok-s">"windows, custom_sigma"</span><span class="tok-k">&gt;</span>
   <span class="tok-k">&lt;rule</span> id=<span class="tok-s">"200001"</span> level=<span class="tok-s">"10"</span><span class="tok-k">&gt;</span>
     <span class="tok-c">&lt;!-- sigma_uuid:c8d8b9e5... --&gt;</span>
     <span class="tok-k">&lt;if_group&gt;</span>sysmon_event1<span class="tok-k">&lt;/if_group&gt;</span>
@@ -242,25 +264,27 @@
     <span class="tok-k">&lt;mitre&gt;&lt;id&gt;</span>T1105<span class="tok-k">&lt;/id&gt;&lt;/mitre&gt;</span>
   <span class="tok-k">&lt;/rule&gt;</span>
 <span class="tok-k">&lt;/group&gt;</span></code></pre>
-            </div>
+                </div>
+              </div>
+              <figcaption class="plate__caption">
+                <p>
+                  The pipeline parses Sigma logic, preserves stable rule IDs, and
+                  validates the generated XML before deployment.
+                  <a href="/projects/detection-as-code/">Read the full case study</a>
+                  or the
+                  <a
+                    href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >stage-by-stage trace<span class="sr-only">
+                      (opens in a new tab)</span
+                    ></a
+                  >.
+                </p>
+              </figcaption>
+            </figure>
           </div>
-          <figcaption class="plate__caption">
-            <p>
-              The pipeline parses Sigma logic, preserves stable rule IDs, and
-              validates the generated XML before deployment.
-              <a href="/projects/detection-as-code/">Read the full case study</a>
-              or the
-              <a
-                href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
-                target="_blank"
-                rel="noopener noreferrer"
-                >stage-by-stage trace<span class="sr-only">
-                  (opens in a new tab)</span
-                ></a
-              >.
-            </p>
-          </figcaption>
-        </figure>
+        </div>
       </section>
 
       <section class="section shell" aria-labelledby="work-title">
@@ -273,7 +297,7 @@
         <div class="work-list">
           <article class="work-row">
             <div class="work-row__meta">
-              <span class="status status--active">Active open source</span>
+              <span class="status lamp lamp--sig">Active open source</span>
               <span class="work-row__year">2025 to present</span>
             </div>
             <div class="work-row__body">
@@ -292,7 +316,7 @@
           </article>
           <article class="work-row">
             <div class="work-row__meta">
-              <span class="status status--active">Active open source</span>
+              <span class="status lamp lamp--sig">Active open source</span>
               <span class="work-row__year">2026</span>
             </div>
             <div class="work-row__body">
@@ -313,7 +337,7 @@
           </article>
           <article class="work-row">
             <div class="work-row__meta">
-              <span class="status">Research lab</span>
+              <span class="status lamp lamp--amb">Research lab</span>
               <span class="work-row__year">2026</span>
             </div>
             <div class="work-row__body">
@@ -333,7 +357,7 @@
           </article>
           <article class="work-row">
             <div class="work-row__meta">
-              <span class="status">Lab proof of concept</span>
+              <span class="status lamp lamp--amb">Lab proof of concept</span>
               <span class="work-row__year">2026</span>
             </div>
             <div class="work-row__body">
@@ -450,7 +474,7 @@
             <span class="mono-note">Security operations | detection | assurance</span>
           </div>
           <div class="title-block__cell">
-            <span class="title-block__label">Focus</span>
+            <span class="title-block__label">Systems</span>
             <p>Detection pipelines, security automation, MCP security</p>
           </div>
           <div class="title-block__cell">
@@ -502,7 +526,7 @@
             <span class="title-block__label">Document</span>
             <p>rasheedfarhat.github.io</p>
             <span class="mono-note"
-              >Rev 2026.07 / &#169; <span data-year></span> Rasheed Farhat</span
+              >Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span
             >
           </div>
         </div>

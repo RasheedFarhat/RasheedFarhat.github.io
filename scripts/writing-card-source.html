@@ -9,39 +9,39 @@
   @font-face { font-family: "IBM Plex Mono"; src: url("../assets/fonts/plex-mono-600.woff2") format("woff2"); font-weight: 600; }
   * { box-sizing: border-box; }
   html, body { width: 100%; height: 100%; margin: 0; }
-  body { background: #e2e9e7; color: #10262c; font-family: "Public Sans", sans-serif; overflow: hidden; }
-  .frame { position: absolute; inset: 4.4%; border: 1px solid #94aaa5; border-radius: 2.2vw; background: #f2f5f4; overflow: hidden; }
-  .frame::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0.7%; background: #0f6268; }
-  .grid { position: absolute; inset: 0; opacity: 0.42; background-image: linear-gradient(#b9c8c4 1px, transparent 1px), linear-gradient(90deg, #b9c8c4 1px, transparent 1px); background-size: 4.2% 8%; mask-image: linear-gradient(90deg, transparent, #000 38%, #000); }
+  body { background: #0f1211; color: #e8edea; font-family: "Public Sans", sans-serif; overflow: hidden; }
+  .frame { position: absolute; inset: 4.4%; border: 1px solid #262d2c; border-radius: 0.35vw; background: #171b1a; overflow: hidden; box-shadow: inset 0 1px 0 rgba(255,255,255,0.05); }
+  .frame::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 0.6%; background: #6fbfb4; }
+  .grid { position: absolute; inset: 0; opacity: 0.28; background-image: linear-gradient(#262d2c 1px, transparent 1px), linear-gradient(90deg, #262d2c 1px, transparent 1px); background-size: 4.2% 8%; mask-image: linear-gradient(90deg, transparent, #000 38%, #000); }
   .content { position: absolute; z-index: 2; inset: 4.4%; padding: 4.8% 6% 3.4%; display: flex; flex-direction: column; justify-content: space-between; }
-  .kicker { font-family: "IBM Plex Mono", monospace; font-size: clamp(15px, 1.55vw, 30px); letter-spacing: 0.14em; text-transform: uppercase; color: #0f6268; margin: 0; }
-  h1 { font-family: "Big Shoulders", sans-serif; font-size: clamp(58px, 7vw, 136px); font-weight: 720; line-height: 0.88; letter-spacing: -0.01em; max-width: 10.7ch; margin: 0; }
-  h1 .signal { color: #0f6268; }
-  .support { font-size: clamp(20px, 2.1vw, 40px); line-height: 1.28; color: #2d454b; max-width: 32ch; margin: 1.8% 0 0; }
+  .kicker { font-family: "IBM Plex Mono", monospace; font-size: clamp(15px, 1.55vw, 30px); letter-spacing: 0.14em; text-transform: uppercase; color: #6fbfb4; margin: 0; }
+  h1 { font-family: "Big Shoulders", sans-serif; font-variation-settings: "opsz" 60; font-size: clamp(58px, 7vw, 136px); font-weight: 700; line-height: 0.88; letter-spacing: -0.01em; max-width: 10.7ch; margin: 0; color: #e8edea; }
+  h1 .signal { color: #6fbfb4; }
+  .support { font-size: clamp(20px, 2.1vw, 40px); line-height: 1.28; color: #b3bfba; max-width: 32ch; margin: 1.8% 0 0; }
   .bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 4%; }
-  .proof { display: flex; gap: 2.3vw; font-family: "IBM Plex Mono", monospace; font-size: clamp(13px, 1.25vw, 24px); color: #52676b; }
+  .proof { display: flex; gap: 2.3vw; font-family: "IBM Plex Mono", monospace; font-size: clamp(13px, 1.25vw, 24px); color: #96d6cb; }
   .proof span { display: flex; align-items: center; gap: 0.65em; }
-  .proof span::before { content: ""; width: 0.65em; height: 0.65em; border: 2px solid #0f6268; border-radius: 50%; }
+  .proof span::before { content: ""; width: 0.65em; height: 0.65em; border-radius: 50%; background: #6fbfb4; }
   .mark { min-width: 16%; text-align: right; }
-  .mark strong { display: block; font-family: "Big Shoulders", sans-serif; font-size: clamp(30px, 3.6vw, 68px); line-height: 0.9; }
-  .mark span { display: block; margin-top: 0.55em; font-family: "IBM Plex Mono", monospace; font-size: clamp(11px, 1vw, 19px); letter-spacing: 0.1em; color: #0f6268; text-transform: uppercase; }
-  .trace { position: absolute; z-index: 3; right: 6%; top: 14%; width: 37%; height: 55%; opacity: 0.92; }
-  .trace-line { position: absolute; left: 8%; right: 8%; top: 50%; height: 3px; background: #0f6268; }
-  .node { position: absolute; top: calc(50% - 0.7vw); width: 1.4vw; height: 1.4vw; min-width: 14px; min-height: 14px; border-radius: 50%; border: 3px solid #0f6268; background: #f2f5f4; }
+  .mark strong { display: block; font-family: "Big Shoulders", sans-serif; font-variation-settings: "opsz" 40; font-size: clamp(30px, 3.6vw, 68px); line-height: 0.9; color: #e8edea; }
+  .mark span { display: block; margin-top: 0.55em; font-family: "IBM Plex Mono", monospace; font-size: clamp(11px, 1vw, 19px); letter-spacing: 0.1em; color: #6fbfb4; text-transform: uppercase; }
+  .trace { position: absolute; z-index: 3; right: 6%; top: 14%; width: 37%; height: 55%; opacity: 0.95; }
+  .trace-line { position: absolute; left: 8%; right: 8%; top: 50%; height: 2px; background: #6fbfb4; }
+  .node { position: absolute; top: calc(50% - 0.7vw); width: 1.4vw; height: 1.4vw; min-width: 14px; min-height: 14px; border-radius: 50%; border: 3px solid #6fbfb4; background: #171b1a; }
   .node:nth-child(2) { left: 6%; }
   .node:nth-child(3) { left: 34%; }
   .node:nth-child(4) { left: 62%; }
   .node:nth-child(5) { left: 88%; }
-  .node::after { position: absolute; top: 1.8em; left: 50%; transform: translateX(-50%); font-family: "IBM Plex Mono", monospace; font-size: clamp(10px, 0.85vw, 16px); color: #52676b; white-space: nowrap; }
+  .node::after { position: absolute; top: 1.8em; left: 50%; transform: translateX(-50%); font-family: "IBM Plex Mono", monospace; font-size: clamp(10px, 0.85vw, 16px); color: #7c8a85; white-space: nowrap; letter-spacing: 0.06em; }
   .node:nth-child(2)::after { content: "IDENTITY"; }
   .node:nth-child(3)::after { content: "MCP"; }
   .node:nth-child(4)::after { content: "HANDLER"; }
   .node:nth-child(5)::after { content: "RESOURCE"; }
-  body[data-article="2"] .trace-line { background: linear-gradient(90deg, #0f6268 0 46%, transparent 46% 52%, #0f6268 52% 100%); }
-  body[data-article="2"] .node:nth-child(4) { border-style: dashed; }
+  body[data-article="2"] .trace-line { background: linear-gradient(90deg, #6fbfb4 0 46%, transparent 46% 52%, #6fbfb4 52% 100%); }
+  body[data-article="2"] .node:nth-child(4) { border-color: #e0a75e; border-style: dashed; }
   body[data-article="2"] h1 { font-size: clamp(52px, 5.85vw, 112px); line-height: 0.92; max-width: 12ch; }
-  body[data-article="3"] .trace-line { background: linear-gradient(90deg, #0f6268 0 62%, #a7b8b4 62% 100%); }
-  body[data-article="3"] .node:nth-child(4) { background: repeating-linear-gradient(135deg, #d5dfdc 0 5px, #f2f5f4 5px 9px); }
+  body[data-article="3"] .trace-line { background: linear-gradient(90deg, #6fbfb4 0 62%, #38423f 62% 100%); }
+  body[data-article="3"] .node:nth-child(4) { border-color: #e0a75e; background: repeating-linear-gradient(135deg, #2a2118 0 5px, #171b1a 5px 9px); }
   @media (max-aspect-ratio: 1.3/1) {
     .trace { top: 9%; width: 42%; }
     .proof { gap: 1.2vw; }

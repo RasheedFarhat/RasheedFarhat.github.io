@@ -1,3 +1,7 @@
+window.addEventListener("DOMContentLoaded", () => {
+  document.documentElement.dataset.loaded = "true";
+});
+
 const yearNodes = document.querySelectorAll("[data-year]");
 const menuButton = document.querySelector("[data-menu-toggle]");
 const menu = document.querySelector("[data-menu]");
@@ -21,7 +25,7 @@ const applyTheme = (theme, persist = false) => {
   themeLabels.forEach((label) => {
     label.textContent = isDark ? "Light" : "Dark";
   });
-  if (themeColor) themeColor.content = isDark ? "#10191b" : "#e2e9e7";
+  if (themeColor) themeColor.content = isDark ? "#171b1a" : "#edebe5";
   if (persist) {
     try {
       window.localStorage.setItem(themeKey, isDark ? "dark" : "light");
