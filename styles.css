@@ -81,12 +81,49 @@
 
   --shell: 75rem;
   --pad: clamp(1.25rem, 5vw, 2.75rem);
+  --header-h: 4.25rem;
+
+  /* Spacing scale. Not yet migrated everywhere; new component work should
+     reach for these before writing another one-off rem value. */
+  --s-1: 0.25rem;
+  --s-2: 0.5rem;
+  --s-3: 0.75rem;
+  --s-4: 1rem;
+  --s-5: 1.25rem;
+  --s-6: 1.5rem;
+  --s-7: 2rem;
+  --s-8: 3rem;
+
+  /* The two most-repeated card paddings on the site, pulled out of nine
+     near-duplicate hand-written declarations (scope-note, limit-list,
+     metric, research-note, case-meta, case-sidebar, ticket-path li,
+     capability, flow-list). The third of the three shared shapes is the
+     flat var(--s-6) case padding already in the spacing scale above. */
+  --pad-tight: 1.15rem 1.3rem;
+  --pad-panel: 1.4rem 1.5rem;
+
+  /* Type scale, 7 steps. Values match the sizes already in use across the
+     site (micro mono labels through the largest case-page heading) rather
+     than introducing new ones. */
+  --t-1: 0.625rem;
+  --t-2: 0.78rem;
+  --t-3: 0.92rem;
+  --t-4: 1rem;
+  --t-5: 1.25rem;
+  --t-6: 1.8rem;
+  --t-7: 2.5rem;
 
   --dur-fast: 140ms;
   --dur-med: 320ms;
   --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 
+/* KEEP IN SYNC: this block and the identical block inside the
+   @media (prefers-color-scheme: light) query below must stay token-for-token
+   equal. A media query cannot join this selector without JS, so the values
+   are written twice on purpose (one for an explicit [data-theme="light"]
+   toggle, one for the OS-level default). scripts/validate-site.mjs asserts
+   the two blocks match; update both together. */
 :root[data-theme="light"] {
   color-scheme: light;
 
@@ -162,7 +199,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
+  scroll-padding-top: calc(var(--header-h) + 1.25rem);
 }
 
 body {
@@ -287,12 +324,6 @@ li {
   max-width: 62ch;
 }
 
-hr {
-  border: 0;
-  border-top: 1px solid var(--line);
-  margin: 0;
-}
-
 /* Utilities ------------------------------------------------------------- */
 
 .shell {
@@ -342,6 +373,13 @@ hr {
   font-variation-settings: "opsz" 16;
 }
 
+/* Boundary eyebrow (signature): the amber twin of .eyebrow, for section
+   labels that name a limit rather than a result (Known limits, Constraints,
+   Trust boundaries). */
+.eyebrow--amb {
+  color: var(--amb-hi);
+}
+
 .eyebrow strong {
   color: var(--sig);
   font-weight: 600;
@@ -356,15 +394,28 @@ hr {
 
 /* Engraved plate label: the site's smallest recurring detail, used for
    every metadata caption. Tiny uppercase mono, wide tracking, a hairline
-   rule beneath it standing in for an etched groove. */
-.plate-label {
-  display: block;
+   rule beneath it standing in for an etched groove. This is the shared base
+   for .title-block__label, .case-meta dt, .scope-note strong,
+   .case-sidebar h2, .article-rail h2, and .plate__stages-label; each of
+   those adds only its own weight, spacing, or color delta at its own
+   location in this file. */
+.plate-label,
+.title-block__label,
+.case-meta dt,
+.scope-note strong,
+.case-sidebar h2,
+.article-rail h2,
+.plate__stages .plate__stages-label {
   font-family: var(--mono);
   font-size: 0.625rem;
-  font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-dim);
+}
+
+.plate-label {
+  display: block;
+  font-weight: 600;
   padding-bottom: 0.5rem;
   margin-bottom: 0.75rem;
   border-bottom: 1px solid var(--line);
@@ -592,7 +643,7 @@ hr {
 }
 
 .theme-toggle {
-  min-height: 36px;
+  min-height: 44px;
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel-hi);
@@ -760,7 +811,7 @@ hr {
 
   :root[data-theme] .theme-toggle--bar {
     display: inline-flex;
-    min-height: 40px;
+    min-height: 44px;
   }
 
   html.nav-open,
@@ -955,7 +1006,7 @@ html[data-loaded="true"] .hero-bezel {
   text-transform: uppercase;
   line-height: 0.92;
   letter-spacing: -0.01em;
-  margin: 0 0 1.35rem;
+  margin: 0 0 1.5rem;
   font-variation-settings: "opsz" 60;
 }
 
@@ -1029,9 +1080,43 @@ html[data-loaded="true"] .hero-name__readout {
   font-weight: 500;
 }
 
+/* The color code, taught in the first sentence a visitor reads. Same idiom
+   as .article-title__signal, given a boundary-colored twin. */
+.hero-lede__sig {
+  color: var(--sig);
+}
+
+.hero-lede__bound {
+  color: var(--amb-hi);
+}
+
 .hero-support {
   color: var(--text-dim);
   max-width: 52ch;
+}
+
+/* Homepage-only rhythm: the copy column's natural content is shorter than
+   the exhibit beside it (a brief identity statement next to a full code
+   instrument, deliberately). Rather than add a module to fill that gap,
+   open the existing spacing so the column reads as generously paced, not
+   cut short. Scoped to .hero-copy so the shared .hero-lede/.hero-support/
+   .action-row/.hero-status components keep their tighter defaults on every
+   other page's hero. */
+.hero-copy .hero-lede {
+  margin-bottom: 1rem;
+}
+
+.hero-copy .hero-support {
+  margin-bottom: 1.5rem;
+}
+
+.hero-copy .action-row {
+  margin-top: 2.25rem;
+}
+
+.hero-copy .hero-status {
+  margin-top: 1.1rem;
+  margin-bottom: 2.5rem;
 }
 
 @media (min-width: 64rem) {
@@ -1231,11 +1316,8 @@ html[data-loaded="true"] .hero-name__readout {
 }
 
 .plate__stages .plate__stages-label {
-  font-family: var(--mono);
   font-size: 0.66rem;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-dim);
   display: block;
   margin-bottom: 0.9rem;
 }
@@ -1308,6 +1390,20 @@ html[data-loaded="true"] .plate__stages li::before {
 .plate__caption p {
   margin: 0;
   max-width: none;
+}
+
+/* Fifth load-sequence step: the boundary chip fades in after the four teal
+   stage lamps finish (540ms + 220ms settle), so the limit arrives with the
+   result rather than replacing it. */
+.plate__caption p.plate__bound {
+  margin-top: 0.85rem;
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease);
+}
+
+html[data-loaded="true"] .plate__bound {
+  opacity: 1;
+  transition-delay: 760ms;
 }
 
 /* The exhibit always stacks (source pane, transform stages, artifact pane)
@@ -1408,6 +1504,14 @@ html[data-loaded="true"] .plate__stages li::before {
   border-color: var(--sig);
 }
 
+/* Named alias for the tick's default state: out of scope entirely, distinct
+   from is-blind (in scope, not caught). Same well/line fill, given a name so
+   the third state in the meter's own doc comment actually exists in CSS. */
+.coverage__ticks li.is-out-of-scope {
+  background: var(--well);
+  border-color: var(--line);
+}
+
 .coverage__ticks li.is-blind {
   background: var(--amb);
   border-color: var(--amb);
@@ -1462,6 +1566,11 @@ html[data-loaded="true"] .plate__stages li::before {
   background: var(--panel);
 }
 
+.work-row:has(.lamp--amb):hover::before,
+.work-row:has(.lamp--amb):focus-within::before {
+  background: var(--amb);
+}
+
 .work-row:hover::before,
 .work-row:focus-within::before {
   background: var(--sig);
@@ -1490,7 +1599,7 @@ html[data-loaded="true"] .plate__stages li::before {
 }
 
 .status.lamp--amb {
-  color: var(--amb);
+  color: var(--amb-hi);
 }
 
 .work-row__year {
@@ -1538,6 +1647,14 @@ html[data-loaded="true"] .plate__stages li::before {
 .work-row__evidence strong {
   color: var(--sig-hi);
   font-weight: 600;
+}
+
+.work-row__evidence .bound {
+  display: block;
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--line);
+  color: var(--amb-hi);
 }
 
 .work-row__arrow {
@@ -1683,7 +1800,7 @@ html[data-loaded="true"] .plate__stages li::before {
 .ticket-path li {
   position: relative;
   margin: 0;
-  padding: 1.5rem;
+  padding: var(--s-6);
   background: var(--ink);
 }
 
@@ -1718,12 +1835,23 @@ html[data-loaded="true"] .plate__stages li::before {
 
 .capability {
   background: var(--ink);
-  padding: 1.5rem;
+  padding: var(--s-6);
 }
 
 .capability h3 {
   font-size: 1.2rem;
   margin-bottom: 0.6rem;
+}
+
+/* A capability that is itself about a boundary (what gets reviewed, what a
+   claim does not cover) takes the same amber left-key idiom as .scope-note. */
+.capability--amb {
+  border-left: 3px solid var(--amb);
+  padding-left: calc(1.5rem - 3px);
+}
+
+.capability--amb h3 {
+  color: var(--amb-hi);
 }
 
 .capability p {
@@ -1876,16 +2004,11 @@ html[data-loaded="true"] .plate__stages li::before {
 }
 
 .title-block__label {
-  font-family: var(--mono);
-  font-size: 0.625rem;
+  display: block;
   font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-dim);
   margin: 0 0 0.55rem;
   padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--line);
-  display: block;
 }
 
 .title-block__cell p {
@@ -1986,7 +2109,7 @@ html[data-loaded="true"] .plate__stages li::before {
 .case-meta {
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
-  padding: 1.4rem 1.5rem;
+  padding: var(--pad-panel);
   margin: 0;
   display: grid;
   gap: 1.1rem;
@@ -1998,14 +2121,6 @@ html[data-loaded="true"] .plate__stages li::before {
 .case-meta div {
   display: grid;
   gap: 0.3rem;
-}
-
-.case-meta dt {
-  font-family: var(--mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-dim);
 }
 
 .case-meta dd {
@@ -2030,18 +2145,14 @@ html[data-loaded="true"] .plate__stages li::before {
   border-radius: var(--radius);
   background: var(--well);
   box-shadow: inset 0 1px 3px var(--well-top);
-  padding: 1.1rem 1.3rem;
+  padding: var(--pad-tight);
   margin-top: 1.5rem;
   max-width: 58ch;
 }
 
 .scope-note strong {
-  font-family: var(--mono);
-  font-size: 0.625rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--amb);
+  color: var(--amb-hi);
   display: block;
   margin-bottom: 0.55rem;
 }
@@ -2067,8 +2178,7 @@ html[data-loaded="true"] .plate__stages li::before {
   padding: 1.25rem 1.4rem;
 }
 
-.assessment__cell h2,
-.assessment__cell h3 {
+.assessment__cell .assessment__label {
   font-family: var(--mono);
   font-size: 0.68rem;
   font-weight: 600;
@@ -2078,8 +2188,7 @@ html[data-loaded="true"] .plate__stages li::before {
   margin-bottom: 0.6rem;
 }
 
-.assessment__cell:last-child h2,
-.assessment__cell:last-child h3 {
+.assessment__cell:last-child .assessment__label {
   color: var(--amb);
 }
 
@@ -2130,16 +2239,11 @@ html[data-loaded="true"] .plate__stages li::before {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--panel);
-  padding: 1.4rem 1.5rem;
+  padding: var(--pad-panel);
 }
 
 .case-sidebar h2 {
-  font-family: var(--mono);
-  font-size: 0.625rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-dim);
   margin-bottom: 0.9rem;
 }
 
@@ -2195,6 +2299,14 @@ ul.tag-list {
   margin: 0;
 }
 
+/* Scope tag: same shape as .tag, keyed amber for a named limitation or
+   out-of-scope surface rather than a neutral topic tag. */
+.tag--scope {
+  color: var(--amb-hi);
+  background: var(--amb-soft);
+  border-color: var(--amb);
+}
+
 @media (min-width: 64rem) {
   .case-layout {
     grid-template-columns: minmax(0, 1fr) 16rem;
@@ -2203,7 +2315,7 @@ ul.tag-list {
 
   .case-sidebar {
     position: sticky;
-    top: 5.5rem;
+    top: calc(var(--header-h) + 1.25rem);
   }
 }
 
@@ -2259,6 +2371,16 @@ ul.tag-list {
   margin-bottom: 0.15rem;
 }
 
+/* A stage that records a gap or a known limit rather than a completed step. */
+.stage-list li--amb::before {
+  background: var(--amb);
+  box-shadow: 0 0 0 3px var(--amb-soft);
+}
+
+.stage-list .stage-label--amb {
+  color: var(--amb-hi);
+}
+
 .stage-list strong {
   color: var(--text-hi);
   font-weight: 600;
@@ -2295,7 +2417,7 @@ ul.tag-list {
 
 .metric {
   background: var(--panel);
-  padding: 1.2rem 1.3rem;
+  padding: var(--pad-tight);
 }
 
 .metric strong {
@@ -2309,6 +2431,11 @@ ul.tag-list {
   font-variation-settings: "opsz" 72;
 }
 
+/* A metric that reports a ceiling or a shortfall, not a covered result. */
+.metric--amb strong {
+  color: var(--amb-hi);
+}
+
 .metric span {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -2318,23 +2445,27 @@ ul.tag-list {
   line-height: 1.5;
 }
 
-/* Boundary variant: same instrument, amber readout for a measured limit
-   rather than a verified count, the Signal & Boundary semantics applied to
-   a numeral instead of a lamp. */
-.metric--amb strong {
-  color: var(--amb-hi);
+/* A metric list whose count is not a clean multiple of the column count
+   leaves an orphan cell alone in the last row; the mosaic's own gap-as-line
+   background shows through the empty tracks beside it as a bare block of
+   color. If the last metric starts a row by itself, stretch it across the
+   remaining columns instead of leaving them empty. */
+.metric-list .metric:last-child {
+  grid-column: auto;
 }
 
-/* Hero placement: two real MCP-DETECT figures under the status lamps, one
-   teal (verified) and one amber (boundary), so the space below the lamps
-   carries evidence instead of empty ground. Two entries only, so the list
-   stays at its base 2-column layout rather than picking up the site-wide
-   3-column bump at 48rem, and sits closer to the lamps than the default
-   1.5rem block spacing used mid-article. */
-.hero-metrics {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 1.35rem 0 0;
-  max-width: 30rem;
+.metric-list .metric:last-child:nth-child(2n + 1) {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 48rem) {
+  .metric-list .metric:last-child {
+    grid-column: auto;
+  }
+
+  .metric-list .metric:last-child:nth-child(3n + 1) {
+    grid-column: 1 / -1;
+  }
 }
 
 /* Details / disclosure --------------------------------------------------- */
@@ -2433,7 +2564,7 @@ ul.tag-list {
    limits get the same design investment as the claims. */
 .limit-list {
   list-style: none;
-  padding: 1.1rem 1.3rem;
+  padding: var(--pad-tight);
   margin-top: 1.5rem;
   border: 1px solid var(--line);
   border-left: 3px solid var(--amb);
@@ -2510,6 +2641,32 @@ ul.tag-list {
   }
 }
 
+.info-list {
+  list-style: none;
+  margin: 1.25rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.info-list li {
+  position: relative;
+  padding-left: 1.15rem;
+  max-width: 56ch;
+  color: var(--text-dim);
+}
+
+.info-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--sig);
+}
+
 /* 404 ------------------------------------------------------------------- */
 
 .error-hero {
@@ -2521,7 +2678,7 @@ ul.tag-list {
   font-size: clamp(6rem, 22vw, 12rem);
   font-weight: 750;
   line-height: 0.9;
-  color: var(--sig);
+  color: var(--amb);
   display: block;
   font-variation-settings: "opsz" 72;
 }
@@ -2595,6 +2752,12 @@ ul.tag-list {
   color: var(--sig);
 }
 
+/* The evidence-provenance field names what the article's proof cannot claim
+   to be (synthetic, self-authored), so it takes the boundary key. */
+.article-meta dt.dt--amb {
+  color: var(--amb-hi);
+}
+
 .article-meta dd {
   margin: 0;
 }
@@ -2645,11 +2808,15 @@ ul.tag-list {
 }
 
 .article-body blockquote {
-  margin: 2rem 0;
+  margin: var(--s-7) 0;
   padding: 0.25rem 0 0.25rem 1.35rem;
   border-left: 3px solid var(--sig);
   color: var(--text-hi);
   font-size: 1.16em;
+}
+
+.article-body blockquote.bound {
+  border-left-color: var(--amb);
 }
 
 .article-body blockquote p:last-child {
@@ -2660,14 +2827,6 @@ ul.tag-list {
   align-self: start;
   border-top: 1px solid var(--line-hi);
   padding-top: 1rem;
-}
-
-.article-rail h2 {
-  font-family: var(--mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--text-dim);
 }
 
 .article-rail ol {
@@ -2704,7 +2863,7 @@ ul.tag-list {
 
   .article-rail {
     position: sticky;
-    top: 5.5rem;
+    top: calc(var(--header-h) + 1.25rem);
   }
 }
 
@@ -2760,12 +2919,28 @@ ul.tag-list {
   background: var(--amb);
 }
 
+/* Boundary chip (signature): the filled amber twin of .button-primary, for a
+   single fact stated inline rather than a scope card. The one place
+   --amb-ink earns its keep. */
+.chip--bound {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0.4rem 0.7rem;
+  border-radius: var(--radius);
+  background: var(--amb);
+  color: var(--amb-ink);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -2px 0 rgb(0 0 0 / 0.18);
+}
+
 /* Boundary panel (signature), inline form: every research-note in the
    articles is a scope/limitation statement (see its usage), so it takes
    the same amber key as .scope-note and .limit-list rather than teal. */
 .research-note {
-  margin: 2rem 0;
-  padding: 1.2rem 1.3rem;
+  margin: var(--s-7) 0;
+  padding: var(--pad-tight);
   border: 1px solid var(--line);
   border-left: 3px solid var(--amb);
   border-radius: var(--radius);
@@ -2790,7 +2965,7 @@ ul.tag-list {
 .evidence-diagram {
   width: min(100%, 58rem);
   max-width: none;
-  margin: 2.25rem 0;
+  margin: var(--s-7) 0;
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel);
@@ -2883,7 +3058,7 @@ ul.tag-list {
 }
 
 .trace-node--blind span {
-  color: var(--amb);
+  color: var(--amb-hi);
 }
 
 .comparison-grid,
@@ -2926,6 +3101,11 @@ ul.tag-list {
   font-variation-settings: "opsz" 60;
 }
 
+/* A card reporting a gap, a vulnerable state, or an unmeasured value. */
+.card--amb strong {
+  color: var(--amb-hi);
+}
+
 .comparison-card p,
 .result-card p,
 .retest-card p {
@@ -2949,7 +3129,7 @@ ul.tag-list {
 .flow-list {
   list-style: none;
   margin: 0;
-  padding: 1.5rem;
+  padding: var(--s-6);
   display: grid;
 }
 
@@ -2993,7 +3173,7 @@ ul.tag-list {
 
 .coverage-table-wrap {
   overflow-x: auto;
-  margin: 2rem 0;
+  margin: var(--s-7) 0;
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel);
@@ -3021,6 +3201,10 @@ ul.tag-list {
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--sig);
+}
+
+.coverage-table th:last-child {
+  color: var(--amb);
 }
 
 .coverage-table tr:last-child td {
@@ -3142,6 +3326,11 @@ ul.tag-list {
   .plate__stages li::before {
     background: var(--sig) !important;
     box-shadow: 0 0 0 3px var(--sig-soft) !important;
+    transition-delay: 0ms !important;
+  }
+
+  .plate__caption p.plate__bound {
+    opacity: 1 !important;
     transition-delay: 0ms !important;
   }
 }

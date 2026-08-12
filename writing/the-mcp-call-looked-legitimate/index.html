@@ -27,7 +27,7 @@
     <link rel="preload" href="/assets/fonts/big-shoulders-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260812g" />
+    <link rel="stylesheet" href="/styles.css?v=20260812j" />
     <script src="/script.js?v=20260812a" defer></script>
     <script type="application/ld+json">
       {
@@ -74,7 +74,7 @@
             <div><dt>Written by</dt><dd>Rasheed Farhat</dd></div>
             <div><dt>Published</dt><dd><time datetime="2026-08-03">August 3, 2026</time></dd></div>
             <div><dt>Reading time</dt><dd>14 minutes</dd></div>
-            <div><dt>Evidence</dt><dd>Synthetic reference, not customer work</dd></div>
+            <div><dt class="dt--amb">Evidence</dt><dd>Synthetic reference, not customer work</dd></div>
           </dl>
         </header>
 
@@ -230,7 +230,7 @@
               <p>I wrote four focused tests. One reproduces the defect. Three define what the corrected boundary must do.</p>
               <figure class="evidence-diagram">
                 <div class="retest-grid">
-                  <div class="retest-card"><span>Vulnerable control</span><strong>Access succeeds</strong><p><code>tenant-red</code> reads <code>tenant-blue</code> invoice <code>inv-200</code>. This proves the fixture is exploitable.</p></div>
+                  <div class="retest-card card--amb"><span>Vulnerable control</span><strong>Access succeeds</strong><p><code>tenant-red</code> reads <code>tenant-blue</code> invoice <code>inv-200</code>. This proves the fixture is exploitable.</p></div>
                   <div class="retest-card"><span>Negative retest</span><strong>Access denied</strong><p>The fixed handler raises <code>AuthorizationError</code> for <code>tenant-red</code> requesting <code>inv-200</code>.</p></div>
                   <div class="retest-card"><span>Positive control</span><strong>Access succeeds</strong><p><code>tenant-red</code> still reads its own <code>inv-100</code> after remediation.</p></div>
                   <div class="retest-card"><span>Schema retest</span><strong>Selector removed</strong><p><code>tenant_id</code> is absent and additional properties are rejected.</p></div>
@@ -265,7 +265,7 @@
             <section id="limits" aria-labelledby="limits-title">
               <h2 id="limits-title">What the reference does not prove</h2>
               <div class="research-note"><strong>Synthetic reference, not customer work</strong><p>The server uses fictional invoices and a simplified environment-variable host context. It demonstrates one authorization pattern. It does not claim to solve a real deployment's OAuth, identity, delegation, tenancy, or storage architecture.</p></div>
-              <ul>
+              <ul class="limit-list">
                 <li>The environment variable models trusted context for a local stdio fixture. A remote server must bind identity to an authenticated request and validate its token audience.</li>
                 <li>The dictionary lookup is intentionally small. Real storage layers need tenant scoping in every query path, including caches, batch operations, and indirect references.</li>
                 <li>A non-enumerating application error still has to map correctly to the transport's authorization and error-handling behavior.</li>
@@ -327,7 +327,7 @@
         <div class="title-block__cell"><span class="title-block__label">Evidence</span><p>Synthetic, reproducible, openly published</p></div>
         <div class="title-block__cell"><span class="title-block__label">Author</span><p>Rasheed Farhat</p><span class="mono-note">Security operations | detection engineering</span></div>
         <div class="title-block__cell"><span class="title-block__label">Source</span><ul><li><a href="https://github.com/RasheedFarhat/mcp-detect" target="_blank" rel="noopener noreferrer">Repository<span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="/projects/mcp-security/">Project page</a></li></ul></div>
-        <div class="title-block__cell"><span class="title-block__label">Document</span><p>rasheedfarhat.github.io</p><span class="mono-note">Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Document</span><p>rasheedfarhat.github.io</p><span class="mono-note">Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span> <a class="mono-note" href="/support/">IT support and help desk resume</a></div>
       </div></div>
     </footer>
   </body>

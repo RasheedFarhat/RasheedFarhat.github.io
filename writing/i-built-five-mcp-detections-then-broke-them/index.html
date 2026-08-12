@@ -27,7 +27,7 @@
     <link rel="preload" href="/assets/fonts/big-shoulders-var.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260812g" />
+    <link rel="stylesheet" href="/styles.css?v=20260812j" />
     <script src="/script.js?v=20260812a" defer></script>
     <script type="application/ld+json">
       {
@@ -74,7 +74,7 @@
             <div><dt>Written by</dt><dd>Rasheed Farhat</dd></div>
             <div><dt>Published</dt><dd><time datetime="2026-08-03">August 3, 2026</time></dd></div>
             <div><dt>Reading time</dt><dd>17 minutes</dd></div>
-            <div><dt>Evidence</dt><dd>Synthetic and self-authored</dd></div>
+            <div><dt class="dt--amb">Evidence</dt><dd>Synthetic and self-authored</dd></div>
           </dl>
         </header>
 
@@ -118,7 +118,7 @@
                   <div class="result-card"><span>Canonical scenarios</span><strong>Measured catches</strong><p>The rules recognize the exact structural signals I designed them to detect.</p></div>
                   <div class="result-card"><span>Adversarial variants</span><strong>10 evasions</strong><p>Small changes preserve malicious behavior while moving outside those signals.</p></div>
                   <div class="result-card"><span>Benign regression</span><strong>0 / 4,727</strong><p>No alert appeared in the frozen project-authored benign records.</p></div>
-                  <div class="result-card"><span>Field accuracy</span><strong>Not measured</strong><p>The dataset is synthetic, self-authored, and not deployment traffic.</p></div>
+                  <div class="result-card card--amb"><span>Field accuracy</span><strong>Not measured</strong><p>The dataset is synthetic, self-authored, and not deployment traffic.</p></div>
                 </div>
                 <figcaption>Figure 1. Canonical recall, synthetic benign regression, and evasion resistance measure different properties. I publish them separately.</figcaption>
               </figure>
@@ -274,7 +274,7 @@
             <section id="limits" aria-labelledby="limits-title">
               <h2 id="limits-title">What the detections still miss</h2>
               <div class="research-note"><strong>Research software boundary</strong><p>All attack, evasion, and benign data discussed here is synthetic and self-authored. The measurements prove reproducibility against published fixtures, not accuracy against independent attackers or production deployments.</p></div>
-              <ul>
+              <ul class="limit-list">
                 <li>Meaning-preserving tool-poisoning text can avoid the fixed structural and keyword signal.</li>
                 <li>Renamed tools, unknown argument keys, new secret shapes, and encoded content can bypass individual Wazuh rules.</li>
                 <li>Absolute paths outside the named sensitive list remain invisible to rule <code>100109</code>.</li>
@@ -325,7 +325,7 @@ make measure-full</code></pre></figure>
         <div class="title-block__cell"><span class="title-block__label">Evidence</span><p>Synthetic, reproducible, openly published</p></div>
         <div class="title-block__cell"><span class="title-block__label">Author</span><p>Rasheed Farhat</p><span class="mono-note">Security operations | detection engineering</span></div>
         <div class="title-block__cell"><span class="title-block__label">Source</span><ul><li><a href="https://github.com/RasheedFarhat/mcp-detect" target="_blank" rel="noopener noreferrer">Repository<span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="/projects/mcp-security/">Project page</a></li></ul></div>
-        <div class="title-block__cell"><span class="title-block__label">Document</span><p>rasheedfarhat.github.io</p><span class="mono-note">Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Document</span><p>rasheedfarhat.github.io</p><span class="mono-note">Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span> <a class="mono-note" href="/support/">IT support and help desk resume</a></div>
       </div></div>
     </footer>
   </body>

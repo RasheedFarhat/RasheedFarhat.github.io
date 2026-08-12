@@ -37,7 +37,7 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260812g" />
+    <link rel="stylesheet" href="/styles.css?v=20260812j" />
     <script src="/script.js?v=20260812a" defer></script>
     <script type="application/ld+json">
       {
@@ -163,7 +163,7 @@
         <div class="shell">
           <div class="assessment">
             <div class="assessment__cell">
-              <h2>Claim</h2>
+              <p class="assessment__label">Claim</p>
               <p>
                 A deliberately placed identity tripwire can connect SSO
                 activity to a structured, enriched audit record in a controlled
@@ -171,7 +171,7 @@
               </p>
             </div>
             <div class="assessment__cell">
-              <h2>Evidence</h2>
+              <p class="assessment__label">Evidence</p>
               <p>
                 Repository configuration, Authentik customization, a
                 self-hosted Canarytokens stack, the processing code, and
@@ -179,7 +179,7 @@
               </p>
             </div>
             <div class="assessment__cell">
-              <h2>Boundary</h2>
+              <p class="assessment__label">Boundary</p>
               <p>
                 The webhook receiver and IP heuristic are not production
                 hardened. Attribution, delivery integrity, and failure handling
@@ -211,6 +211,11 @@
             <section id="architecture" aria-labelledby="architecture-title">
               <p class="eyebrow">Architecture</p>
               <h2 id="architecture-title">From identity boundary to enriched event.</h2>
+              <div class="metric-list">
+                <div class="metric"><strong>5</strong><span>Pipeline stages, control to enrichment</span></div>
+                <div class="metric metric--amb"><strong>4</strong><span>Environment failures forced into fixes</span></div>
+                <div class="metric metric--amb"><strong>6</strong><span>Documented security gaps</span></div>
+              </div>
               <ol class="stage-list">
                 <li>
                   <span class="stage-label">Control</span>
@@ -241,7 +246,7 @@
             </section>
 
             <section id="constraints" aria-labelledby="constraints-title">
-              <p class="eyebrow">Constraints</p>
+              <p class="eyebrow eyebrow--amb">Constraints</p>
               <h2 id="constraints-title">The environment forced real systems work.</h2>
               <details class="disclosure">
                 <summary>No ARM64 images existed</summary>
@@ -286,7 +291,7 @@
             </section>
 
             <section id="gaps" aria-labelledby="gaps-title">
-              <p class="eyebrow">Security review of my own prototype</p>
+              <p class="eyebrow eyebrow--amb">Security review of my own prototype</p>
               <h2 id="gaps-title">Where the current code falls short.</h2>
               <ul class="limit-list">
                 <li>
@@ -432,6 +437,7 @@
             <span class="mono-note"
               >Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span
             >
+            <a class="mono-note" href="/support/">IT support and help desk resume</a>
           </div>
         </div>
       </div>

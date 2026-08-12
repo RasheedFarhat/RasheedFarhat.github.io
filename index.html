@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Rasheed Farhat is an early-career security operations candidate in Rochester, Minnesota, building tested detection automation and evidence-driven assurance projects."
+      content="Rasheed Farhat builds tested detection automation and evidence-driven assurance projects in Rochester, Minnesota. Every project ships with its measurements and its limits."
     />
     <meta name="theme-color" content="#edebe5" />
     <meta name="color-scheme" content="light dark" />
@@ -55,7 +55,7 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260812g" />
+    <link rel="stylesheet" href="/styles.css?v=20260812j" />
     <script src="/script.js?v=20260812a" defer></script>
     <script type="application/ld+json">
       {
@@ -65,7 +65,7 @@
             "@type": "Person",
             "@id": "https://rasheedfarhat.github.io/#person",
             "name": "Rasheed Farhat",
-            "jobTitle": "Early-Career Security Operations Candidate",
+            "jobTitle": "Detection Engineering and Security Operations",
             "url": "https://rasheedfarhat.github.io/",
             "sameAs": [
               "https://github.com/RasheedFarhat",
@@ -168,11 +168,12 @@
               >
             </h1>
             <p class="hero-lede">
-              Detection engineering, tested and bounded.
+              Detection engineering, <span class="hero-lede__sig">tested</span>
+              and <span class="hero-lede__bound">bounded</span>.
             </p>
             <p class="hero-support">
-              Early-career security operations candidate building tested
-              detection automation and evidence-driven assurance projects.
+              I build detection pipelines, security automation, and review
+              tooling, then measure what they catch and publish what they miss.
             </p>
             <div class="action-row">
               <a class="button button-primary" href="/projects/"
@@ -195,16 +196,6 @@
               <li class="lamp lamp--sig lamp--pulse">Open to junior roles</li>
               <li class="lamp lamp--sig">Security+ / CySA+ / CSAP</li>
             </ul>
-            <div class="metric-list hero-metrics">
-              <div class="metric">
-                <strong>0</strong>
-                <span>False positives, 4,727-record MCP-DETECT corpus</span>
-              </div>
-              <div class="metric metric--amb">
-                <strong>3</strong>
-                <span>Structurally undetectable blind spots, documented not hidden</span>
-              </div>
-            </div>
           </div>
           <figure class="hero-id">
             <div class="hero-id__frame">
@@ -281,6 +272,9 @@
                     ></a
                   >.
                 </p>
+                <p class="plate__bound" data-load-step="bound">
+                  <span class="chip--bound">57 of 58 rules target Windows process creation</span>
+                </p>
               </figcaption>
             </figure>
           </div>
@@ -293,6 +287,7 @@
             <p class="eyebrow">Selected work</p>
             <h2 id="work-title">Security systems I built.</h2>
           </div>
+          <p class="section-note">4 systems / 2025 to 2026</p>
         </div>
         <div class="work-list">
           <article class="work-row">
@@ -311,6 +306,7 @@
               <strong>58 Sigma &#8594; 216 Wazuh rules</strong><br />
               119 ATT&amp;CK techniques, 14 tactics<br />
               87 automated tests
+              <span class="bound">57 of 58 rules target Windows process creation</span>
             </p>
             <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
           </article>
@@ -332,6 +328,7 @@
               <strong>2,092-case policy parity</strong><br />
               90 of 108 privileged attempts denied<br />
               1,631 audit records, chain valid
+              <span class="bound">Synthetic environment, not a production platform</span>
             </p>
             <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
           </article>
@@ -352,6 +349,7 @@
               <strong>10 rules, 5 abuse techniques</strong><br />
               4,727-record benign corpus<br />
               12 documented evasion classes
+              <span class="bound">3 of 12 evasion classes are structurally undetectable</span>
             </p>
             <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
           </article>
@@ -372,6 +370,7 @@
               <strong>Authentik + Canarytokens</strong><br />
               Flask webhook processor<br />
               AbuseIPDB enrichment, ARM64 lab
+              <span class="bound">Proof of concept, not a production identity control</span>
             </p>
             <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
           </article>
@@ -389,26 +388,20 @@
             <p class="eyebrow">Writing</p>
             <h2 id="writing-title">Technical investigations.</h2>
           </div>
+          <p class="section-note">3-part series / 2026</p>
         </div>
         <div class="writing-list">
           <article class="writing-row">
             <div class="writing-row__meta">
-              <span>2025-09-08</span>
-              <span class="venue">Medium</span>
+              <span>2026-08-03</span>
+              <span class="venue">Inside MCP Detect 2/3</span>
             </div>
             <div>
-              <h3>
-                <a
-                  href="https://medium.com/@rasheed-farhat/how-i-turned-my-moms-infected-phone-into-a-cybersecurity-lab-57f08174981f"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >How I Turned My Mom's Infected Phone Into a Cybersecurity
-                  Lab<span class="sr-only"> (opens in a new tab)</span></a
-                >
-              </h3>
+              <h3><a href="/writing/i-built-five-mcp-detections-then-broke-them/">Catching Your Own Attack Only Proves the Plumbing Works</a></h3>
               <p>
-                Isolating a HiddenAds infection with ADB, tracing the package,
-                and reversing the APK in a Kali lab.
+                Ten rules measured against a 4,727-record synthetic benign
+                corpus with zero alerts, and ten evasions that still defeat
+                them.
               </p>
             </div>
           </article>
@@ -528,6 +521,7 @@
             <span class="mono-note"
               >Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span
             >
+            <a class="mono-note" href="/support/">IT support and help desk resume</a>
           </div>
         </div>
       </div>

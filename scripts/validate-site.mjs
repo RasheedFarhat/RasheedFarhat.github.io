@@ -194,6 +194,33 @@ for (const asset of requiredAssets) {
   if (!existsSync(join(root, asset))) failures.push(`${asset}: required asset is missing`);
 }
 
+const cssFile = join(root, "styles.css");
+const css = readFileSync(cssFile, "utf8");
+
+function extractTokenBlock(css, openSelectorRegex) {
+  const openMatch = openSelectorRegex.exec(css);
+  if (!openMatch) return null;
+  const bodyStart = openMatch.index + openMatch[0].length;
+  const bodyEnd = css.indexOf("}", bodyStart);
+  if (bodyEnd === -1) return null;
+  return css
+    .slice(bodyStart, bodyEnd)
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => line.startsWith("--"));
+}
+
+const explicitLightBlock = extractTokenBlock(css, /:root\[data-theme="light"\]\s*\{/);
+const osLightBlock = extractTokenBlock(css, /:root:not\(\[data-theme="dark"\]\)\s*\{/);
+
+if (!explicitLightBlock || !osLightBlock) {
+  failures.push("styles.css: could not locate both light-theme token blocks for the sync check");
+} else if (explicitLightBlock.join("\n") !== osLightBlock.join("\n")) {
+  failures.push(
+    "styles.css: :root[data-theme=\"light\"] and the @media (prefers-color-scheme: light) block have drifted; keep their custom properties token-for-token identical"
+  );
+}
+
 if (failures.length) {
   console.error(`Site validation failed with ${failures.length} issue(s):`);
   failures.forEach((message) => console.error(`- ${message}`));

@@ -85,8 +85,25 @@ if (menuButton && menu) {
   });
 
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && menuButton.getAttribute("aria-expanded") === "true") {
+    const isOpen = menuButton.getAttribute("aria-expanded") === "true";
+    if (!isOpen) return;
+
+    if (event.key === "Escape") {
       closeMenu(true);
+      return;
+    }
+
+    if (event.key === "Tab") {
+      const focusable = [menuButton, ...menu.querySelectorAll("a[href], button:not([disabled])")];
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     }
   });
 

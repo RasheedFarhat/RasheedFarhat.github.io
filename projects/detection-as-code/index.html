@@ -37,7 +37,7 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260812g" />
+    <link rel="stylesheet" href="/styles.css?v=20260812j" />
     <script src="/script.js?v=20260812a" defer></script>
     <script type="application/ld+json">
       {
@@ -162,21 +162,21 @@
         <div class="shell">
           <div class="assessment">
             <div class="assessment__cell">
-              <h2>Claim</h2>
+              <p class="assessment__label">Claim</p>
               <p>
                 Translates its supported Sigma subset into traceable Wazuh
                 rules and delivers them through a controlled workflow.
               </p>
             </div>
             <div class="assessment__cell">
-              <h2>Evidence</h2>
+              <p class="assessment__label">Evidence</p>
               <p>
                 58 Sigma rules compile to 216 Wazuh rules across 119 ATT&amp;CK
                 techniques, behind 87 automated tests.
               </p>
             </div>
             <div class="assessment__cell">
-              <h2>Boundary</h2>
+              <p class="assessment__label">Boundary</p>
               <p>
                 Not a complete Sigma backend. Unsupported constructs and
                 oversized DNF expansions fail the build instead of emitting
@@ -361,6 +361,9 @@
                   <li class="is-covered"></li>
                   <li class="is-covered"></li>
                 </ul>
+                <p class="coverage__foot">
+                  <span class="lamp lamp--sig">Covered</span>
+                </p>
               </div>
               <div class="metric-list">
                 <div class="metric"><strong>58</strong><span>Sigma source rules</span></div>
@@ -368,7 +371,8 @@
                 <div class="metric"><strong>87</strong><span>Automated tests</span></div>
                 <div class="metric"><strong>119</strong><span>ATT&amp;CK techniques</span></div>
                 <div class="metric"><strong>14</strong><span>ATT&amp;CK tactics, all covered</span></div>
-                <div class="metric"><strong>500</strong><span>DNF clause cap</span></div>
+                <div class="metric metric--amb"><strong>500</strong><span>DNF clause cap</span></div>
+                <div class="metric metric--amb"><strong>57 / 58</strong><span>Rules are Windows process creation</span></div>
               </div>
               <p>
                 Deploying against a live Wazuh 4.9 manager exposed a real bug:
@@ -380,7 +384,7 @@
             </section>
 
             <section id="limits" aria-labelledby="limits-title">
-              <p class="eyebrow">Known limits</p>
+              <p class="eyebrow eyebrow--amb">Known limits</p>
               <h2 id="limits-title">What it does not solve.</h2>
               <ul class="limit-list">
                 <li>
@@ -518,6 +522,7 @@
             <span class="mono-note"
               >Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span
             >
+            <a class="mono-note" href="/support/">IT support and help desk resume</a>
           </div>
         </div>
       </div>

@@ -37,7 +37,7 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260812g" />
+    <link rel="stylesheet" href="/styles.css?v=20260812j" />
     <script src="/script.js?v=20260812a" defer></script>
     <script type="application/ld+json">
       {
@@ -151,7 +151,7 @@
               </div>
             </div>
             <dl class="case-meta">
-              <div><dt>Status</dt><dd><span class="lamp lamp--amb">Open source under MIT</span></dd></div>
+              <div><dt>Status</dt><dd><span class="lamp lamp--sig">Open source under MIT</span></dd></div>
               <div><dt>Role</dt><dd>Sole engineer, architecture through measurement</dd></div>
               <div>
                 <dt>Stack</dt>
@@ -168,21 +168,21 @@
         <div class="shell">
           <div class="assessment">
             <div class="assessment__cell">
-              <h2>Claim</h2>
+              <p class="assessment__label">Claim</p>
               <p>
                 Makes selected MCP behaviors observable and produces
                 reproducible evidence for five implemented abuse techniques.
               </p>
             </div>
             <div class="assessment__cell">
-              <h2>Evidence</h2>
+              <p class="assessment__label">Evidence</p>
               <p>
                 Ten rules plus two parent anchors, a 4,727-record benign
                 corpus, five compiler gates, and an 18-class evasion corpus.
               </p>
             </div>
             <div class="assessment__cell">
-              <h2>Boundary</h2>
+              <p class="assessment__label">Boundary</p>
               <p>
                 All data is self-authored, 5 of roughly 85 SAF-MCP techniques
                 are implemented, and there is no semantic detection backend.
@@ -338,10 +338,10 @@
               </p>
               <div class="metric-list">
                 <div class="metric"><strong>10+2</strong><span>Rules and parent anchors</span></div>
-                <div class="metric"><strong>5</strong><span>Of ~85 SAF-MCP techniques</span></div>
+                <div class="metric metric--amb"><strong>5</strong><span>Of ~85 SAF-MCP techniques</span></div>
                 <div class="metric"><strong>4,727</strong><span>Benign records, 541 sessions</span></div>
                 <div class="metric"><strong>0</strong><span>False positives on that corpus</span></div>
-                <div class="metric"><strong>12</strong><span>Documented evasion classes</span></div>
+                <div class="metric metric--amb"><strong>12</strong><span>Documented evasion classes</span></div>
                 <div class="metric"><strong>5</strong><span>Write-side compiler gates</span></div>
               </div>
               <div class="scope-note">
@@ -355,7 +355,7 @@
             </section>
 
             <section id="abom" aria-labelledby="abom-title">
-              <p class="eyebrow">Trust boundaries</p>
+              <p class="eyebrow eyebrow--amb">Trust boundaries</p>
               <h2 id="abom-title">An AI Bill of Materials from observed traffic.</h2>
               <p>
                 The framework inventories observed MCP servers, tool names,
@@ -368,7 +368,7 @@
             </section>
 
             <section id="limits" aria-labelledby="limits-title">
-              <p class="eyebrow">Known limits</p>
+              <p class="eyebrow eyebrow--amb">Known limits</p>
               <h2 id="limits-title">The blind spots are part of the result.</h2>
               <ul class="limit-list">
                 <li>
@@ -538,6 +538,7 @@
             <span class="mono-note"
               >Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span
             >
+            <a class="mono-note" href="/support/">IT support and help desk resume</a>
           </div>
         </div>
       </div>

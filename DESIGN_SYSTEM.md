@@ -10,7 +10,16 @@ The name comes from how Rasheed writes about his own work, not from a mood board
 where an absence of indicators never yields `verified`, and `control-plane`
 defaults new evidence to `review_required`. The two accent colors on this site
 encode exactly that distinction: teal is what a system detects and verifies,
-amber is what it cannot see. Nothing on the site uses amber decoratively.
+amber is what it cannot see. Nothing on the site uses amber decoratively, and
+every page carries at least one real amber boundary, not just the teal
+evidence beside it.
+
+The hero states the system before a visitor sees a single lamp or limit list.
+The homepage lede reads "Detection engineering, tested and bounded," with
+`tested` set in `--sig` and `bounded` set in `--amb` using the same
+`.article-title__signal` word-highlight idiom used elsewhere for article
+titles. That sentence is the whole color code, taught in eight words, before
+any component demonstrates it.
 
 ---
 
@@ -75,6 +84,15 @@ applied consistently everywhere a surface changes elevation:
 `--radius` is `2px` and is the only corner radius used anywhere except
 `--radius-lamp` (`50%`), reserved for status lamps. Lamps are circles because
 lamps are circles; nothing else on the site is round.
+
+A small scale layer sits on `:root` for the highest-traffic measurements:
+`--s-1` through `--s-8` for spacing, `--t-1` through `--t-7` for type size,
+`--header-h` for the fixed header height that every sticky offset derives
+from, and `--pad-tight` / `--pad-panel` for the two card-padding shapes still
+in use after the near-duplicates were collapsed. This is a partial migration
+by design, covering the worst repeat offenders rather than every declaration
+in the sheet, so a fair number of one-off values remain hand-set and that is
+expected, not a gap to close later.
 
 ---
 
@@ -151,10 +169,15 @@ rather than implied.
 ### 5. Engraved plate labels (`.plate-label`)
 
 The smallest recurring detail, used for every metadata caption site-wide: case
-meta, footer title block, plate pane labels, tag lists, coverage labels. Tiny
-uppercase mono, `0.18em` tracking, a hairline rule beneath. Applied with total
-consistency, this is the detail that signals one person designed every part of
-the page, not a component library assembled from defaults.
+meta, footer title block, scope-note keys, case-study sidebar and article-rail
+headings, plate pane labels, tag lists, coverage labels. `.plate-label` is the
+single shared rule (tiny uppercase mono, `0.18em` tracking, a hairline rule
+beneath) that `.title-block__label`, `.case-meta dt`, `.scope-note strong`,
+`.case-sidebar h2`, `.article-rail h2`, and `.plate__stages-label` all extend
+in the stylesheet, each adding only its own per-component delta on top.
+Applied with total consistency at the CSS level, not just visually, this is
+the detail that signals one person designed every part of the page, not a
+component library assembled from defaults.
 
 ---
 
@@ -166,10 +189,13 @@ One orchestrated load sequence, gated by `html[data-loaded="true"]`, which
 1. Hairline rules draw in horizontally (`transform: scaleX`).
 2. Status lamps come up in sequence.
 3. The exhibit's four stage indicators light left to right, once.
+4. The exhibit's boundary chip ("57 of 58 rules target Windows process
+   creation") fades in last, after the fourth stage lamp. The limit arrives
+   with the result, not instead of it or ahead of it.
 
 The whole sequence runs under 900ms and every element is at full text opacity
 from the first frame; nothing waits on animation to become readable, only
-supporting marks (rules, lamps, stage lights) animate in.
+supporting marks (rules, lamps, stage lights, the boundary chip) animate in.
 
 Hover states never lift or float. A row's left edge marker extends and its top
 highlight brightens instead, which reads as a control being selected rather
@@ -223,3 +249,9 @@ entirely; every element renders in its final state with no animation.
   through shared classes only. Their body markup indentation is left
   untouched, because `validate-site.mjs` extracts article word counts using a
   literal indentation-sensitive marker.
+- The light theme's token values are written twice: once under
+  `:root[data-theme="light"]` for the explicit toggle, once under
+  `@media (prefers-color-scheme: light)` for the OS-level default. A media
+  query cannot join that selector without JavaScript, so the duplication is
+  intentional rather than an oversight. `validate-site.mjs` asserts the two
+  blocks stay token-for-token identical, so they cannot silently drift apart.
