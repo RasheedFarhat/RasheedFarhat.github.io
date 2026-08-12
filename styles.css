@@ -247,6 +247,11 @@ h3 {
   letter-spacing: 0.006em;
   margin: 0 0 0.75rem;
   font-variation-settings: "opsz" 46;
+  /* Every headline on this site is a full sentence, not a label, so a
+     careless wrap leaves a single word stranded on its own line. Let the
+     browser choose break points that even out line length instead of
+     greedily filling each line, so the last line is never a lone widow. */
+  text-wrap: balance;
 }
 
 h2 {
@@ -1078,6 +1083,7 @@ html[data-loaded="true"] .hero-name__readout {
   max-width: 42ch;
   margin-bottom: 0;
   font-weight: 500;
+  text-wrap: balance;
 }
 
 /* The color code, taught in the first sentence a visitor reads. Same idiom
@@ -1093,6 +1099,7 @@ html[data-loaded="true"] .hero-name__readout {
 .hero-support {
   color: var(--text-dim);
   max-width: 52ch;
+  text-wrap: balance;
 }
 
 /* Homepage-only rhythm: the copy column's natural content is shorter than
@@ -2104,6 +2111,7 @@ html[data-loaded="true"] .plate__bound {
   line-height: 1.6;
   color: var(--text);
   max-width: 56ch;
+  text-wrap: balance;
 }
 
 .case-meta {
@@ -2712,6 +2720,7 @@ ul.tag-list {
   font-size: clamp(1.15rem, 2.3vw, 1.45rem);
   line-height: 1.48;
   color: var(--text);
+  text-wrap: balance;
 }
 
 .series-kicker {
