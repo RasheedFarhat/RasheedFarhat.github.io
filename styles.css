@@ -57,15 +57,15 @@
   --text: #b3bfba;
   --text-dim: #7c8a85;
 
-  --sig: #6fbfb4;
-  --sig-hi: #96d6cb;
+  --sig: #26d9c0;
+  --sig-hi: #63e9d6;
   --sig-ink: #06201d;
-  --sig-soft: rgb(111 191 180 / 0.12);
+  --sig-soft: rgb(38 217 192 / 0.12);
 
-  --amb: #e0a75e;
-  --amb-hi: #f0c287;
+  --amb: #fe651b;
+  --amb-hi: #fe915d;
   --amb-ink: #2a1a03;
-  --amb-soft: rgb(224 167 94 / 0.12);
+  --amb-soft: rgb(254 101 27 / 0.12);
 
   --code-a: var(--text-hi);
   --code-b: var(--sig);
@@ -142,15 +142,15 @@
   --text: #3a403d;
   --text-dim: #545b57;
 
-  --sig: #0d5f62;
-  --sig-hi: #0a4b4e;
+  --sig: #085b5e;
+  --sig-hi: #074e50;
   --sig-ink: #f4faf9;
-  --sig-soft: rgb(13 95 98 / 0.09);
+  --sig-soft: rgb(8 91 94 / 0.09);
 
-  --amb: #8a5a16;
-  --amb-hi: #6e4711;
+  --amb: #a23601;
+  --amb-hi: #842c01;
   --amb-ink: #fbf4e8;
-  --amb-soft: rgb(138 90 22 / 0.1);
+  --amb-soft: rgb(162 54 1 / 0.1);
 
   --code-a: var(--text-hi);
   --code-b: var(--sig);
@@ -174,14 +174,14 @@
     --text-hi: #161a19;
     --text: #3a403d;
     --text-dim: #545b57;
-    --sig: #0d5f62;
-    --sig-hi: #0a4b4e;
+    --sig: #085b5e;
+    --sig-hi: #074e50;
     --sig-ink: #f4faf9;
-    --sig-soft: rgb(13 95 98 / 0.09);
-    --amb: #8a5a16;
-    --amb-hi: #6e4711;
+    --sig-soft: rgb(8 91 94 / 0.09);
+    --amb: #a23601;
+    --amb-hi: #842c01;
     --amb-ink: #fbf4e8;
-    --amb-soft: rgb(138 90 22 / 0.1);
+    --amb-soft: rgb(162 54 1 / 0.1);
     --code-a: var(--text-hi);
     --code-b: var(--sig);
     --code-c: var(--amb);
