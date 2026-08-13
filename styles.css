@@ -1254,7 +1254,7 @@ html[data-loaded="true"] .hero-name__readout {
   align-items: center;
   justify-content: space-between;
   gap: 0.5rem 1.5rem;
-  padding: 0.8rem 1.25rem;
+  padding: 0.4rem 1.25rem;
   border-bottom: 1px solid var(--line-hi);
   background: var(--panel-hi);
 }
@@ -1271,9 +1271,12 @@ html[data-loaded="true"] .hero-name__readout {
   overflow-wrap: anywhere;
 }
 
+/* Dialed back from var(--text) to the shared .mono-note default: the title
+   bar's brightest element should read as .plate__title (teal), not this
+   stat line competing with it. */
 .plate__bar .mono-note {
   font-size: 0.72rem;
-  color: var(--text);
+  color: var(--text-dim);
 }
 
 .plate__grid {
@@ -1282,7 +1285,7 @@ html[data-loaded="true"] .hero-name__readout {
 
 .plate__pane {
   min-width: 0;
-  padding: 1.1rem 1.25rem 1.3rem;
+  padding: 0.75rem 1.25rem 0.85rem;
   background: var(--well);
   box-shadow: inset 0 1px 3px var(--well-top);
 }
@@ -1316,8 +1319,44 @@ html[data-loaded="true"] .hero-name__readout {
   mask-image: linear-gradient(90deg, #000 calc(100% - 1.5rem), transparent);
 }
 
+/* The full compiled rule stays in the DOM (real content, not a stub) but the
+   hero only needs enough of it to read as a genuine build artifact: the
+   group/rule open, the sigma_uuid provenance comment, and the first field
+   match. A vertical fade closes over the rest rather than a hard cut, and
+   the pane never grows past this height regardless of viewport, so the
+   hero's right column stops competing with the left column on length. */
+.plate__code-clip {
+  position: relative;
+  max-height: 3.6rem;
+  overflow: hidden;
+}
+
+.plate__code-clip::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1.5rem;
+  background: linear-gradient(180deg, transparent, var(--well) 82%);
+  pointer-events: none;
+}
+
+.plate__more {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  margin-top: 0.5rem;
+  color: var(--text-dim);
+  text-decoration-color: color-mix(in srgb, var(--text-dim) 55%, transparent);
+}
+
+.plate__more:hover,
+.plate__more:focus-visible {
+  color: var(--sig);
+  text-decoration-color: var(--sig);
+}
+
 .plate__stages {
-  padding: 1.1rem 1.25rem;
+  padding: 0.6rem 1.25rem;
   background: var(--panel);
   align-content: center;
 }
@@ -1326,7 +1365,7 @@ html[data-loaded="true"] .hero-name__readout {
   font-size: 0.66rem;
   letter-spacing: 0.16em;
   display: block;
-  margin-bottom: 0.9rem;
+  margin-bottom: 0.6rem;
 }
 
 .plate__stages ol {
@@ -1388,7 +1427,7 @@ html[data-loaded="true"] .plate__stages li::before {
 
 .plate__caption {
   border-top: 1px solid var(--line-hi);
-  padding: 1rem 1.25rem;
+  padding: 0.6rem 1.25rem;
   font-size: 0.88rem;
   color: var(--text-dim);
   background: var(--panel-hi);
@@ -1403,7 +1442,7 @@ html[data-loaded="true"] .plate__stages li::before {
    stage lamps finish (540ms + 220ms settle), so the limit arrives with the
    result rather than replacing it. */
 .plate__caption p.plate__bound {
-  margin-top: 0.85rem;
+  margin-top: 0.55rem;
   opacity: 0;
   transition: opacity var(--dur-med) var(--ease);
 }

@@ -240,7 +240,8 @@
                   <span class="plate__pane-label"
                     >ARTIFACT / <strong>build/wazuh/sysmon_certutil_download_200001.xml</strong></span
                   >
-                  <pre><code><span class="tok-k">&lt;group</span> name=<span class="tok-s">"windows, custom_sigma"</span><span class="tok-k">&gt;</span>
+                  <div class="plate__code-clip">
+                    <pre><code><span class="tok-k">&lt;group</span> name=<span class="tok-s">"windows, custom_sigma"</span><span class="tok-k">&gt;</span>
   <span class="tok-k">&lt;rule</span> id=<span class="tok-s">"200001"</span> level=<span class="tok-s">"10"</span><span class="tok-k">&gt;</span>
     <span class="tok-c">&lt;!-- sigma_uuid:c8d8b9e5... --&gt;</span>
     <span class="tok-k">&lt;if_group&gt;</span>sysmon_event1<span class="tok-k">&lt;/if_group&gt;</span>
@@ -255,22 +256,22 @@
     <span class="tok-k">&lt;mitre&gt;&lt;id&gt;</span>T1105<span class="tok-k">&lt;/id&gt;&lt;/mitre&gt;</span>
   <span class="tok-k">&lt;/rule&gt;</span>
 <span class="tok-k">&lt;/group&gt;</span></code></pre>
+                  </div>
+                  <a
+                    class="text-link plate__more"
+                    href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >View full trace <span aria-hidden="true">&rarr;</span
+                    ><span class="sr-only"> (opens in a new tab)</span></a
+                  >
                 </div>
               </div>
               <figcaption class="plate__caption">
                 <p>
                   The pipeline parses Sigma logic, preserves stable rule IDs, and
                   validates the generated XML before deployment.
-                  <a href="/projects/detection-as-code/">Read the full case study</a>
-                  or the
-                  <a
-                    href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >stage-by-stage trace<span class="sr-only">
-                      (opens in a new tab)</span
-                    ></a
-                  >.
+                  <a href="/projects/detection-as-code/">Read the full case study</a>.
                 </p>
                 <p class="plate__bound" data-load-step="bound">
                   <span class="chip--bound">57 of 58 rules target Windows process creation</span>
