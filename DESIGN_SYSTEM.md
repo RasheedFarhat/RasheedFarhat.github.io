@@ -139,7 +139,8 @@ Wazuh XML; the treatment now reads as hardware rather than a text diff.
 
 One component, defined once in the base layer and reused everywhere a status
 appears: hero status, homepage work rows, project case-study meta, the
-Claim/Evidence/Boundary strip, and the support page's ticket path. `.lamp--sig`
+Claim/Evidence/Boundary strip, and the support casework preview rows.
+`.lamp--sig`
 is teal for active/tested/verified; `.lamp--amb` is amber for
 research/proof-of-concept/boundary; an undecorated `.lamp` (background
 `--line-hi`) marks archived or inactive. `.lamp--pulse` adds a slow 4s opacity
@@ -223,6 +224,69 @@ entirely; every element renders in its final state with no animation.
 
 ---
 
+## The support sub-theme: Resolution Desk
+
+`/support/` and `/support/casework/` are the two routes for the IT and
+technical-support lane. They run the same base layer, spacing scale,
+material rules, and motion system as the rest of the site, scoped entirely
+under `body.support-page` so the security-facing pages are byte-for-byte
+unaffected. Two things change on purpose.
+
+**The accent repoints, it does not add a third color.** `--sig` and `--amb`
+are both redefined to the same amber value under `body.support-page` (dark
+default `#F2B84B`/`#FFD27A`, light `#845200`/`#6E4500`, kept in sync the same
+explicit-toggle-plus-OS-default way as the site-wide light tokens). Detection
+work reads as teal-verified against an amber boundary; support work reads as
+one warm, consistent signal, because a service desk does not have the
+same verified/unverified duality a detection claim does. A single
+`--resolved` / `--resolved-hi` / `--resolved-ink` / `--resolved-soft` trio is
+reserved for the one moment that is genuinely a resolution rather than a
+standing fact: the hero case desk's last two stages transition into it once,
+on load, gated by the same `html[data-loaded="true"]` sequence the rest of
+the site uses, never as an ambient color.
+
+**Three new components carry the "documented service ticket" idiom:**
+
+- `.case-desk` (hero) — a live worked example, styled as a physical case
+  file: a provenance-labeled fact panel (`.case-desk__facts`, a
+  `dl > div > dt + dd` grid reusing the same structure as `.case-desk__facts`
+  was in every case downstream) beside a five-stage status rail
+  (`.case-desk__stages`) that lights REPORT through DOCUMENT in sequence,
+  with RESOLVE and DOCUMENT keyed to `--resolved` instead of `--sig`.
+- `.case-file` (casework page) — the repeating 11-field anatomy
+  (Context and provenance through Boundary) used identically for all three
+  cases, a lighter sibling of `.case-desk__facts` rather than a reuse of the
+  heavier `/projects/` case-study stack (`.case-hero__grid`, `.assessment`,
+  `.metric-list`), because three full case-study layouts on one page would
+  compete with each other for weight. Boundary is always the last field, so
+  its `dt` is permanently amber-keyed rather than carrying a manually
+  applied class.
+- `.comms-sample` — a two-pane, gap-as-line split (same technique as
+  `.assessment`) pairing the exact customer-facing sentence with the
+  engineering-handoff fields it was built from, making the translation
+  between the two audiences a visible artifact instead of an assertion.
+
+The casework page reuses `.case-layout` / `.case-content` / `.case-sidebar`
+and `.stage-list` (with its `li--amb` boundary variant) unchanged from the
+`/projects/` case-study pattern, at the whole-page level rather than
+per-case, so the sticky "On this page" index covers all three cases plus the
+workflow-lab module from one sidebar.
+
+The brand lockup gets one scoped variant, `.brand--support`: "RF" stays the
+identical size as the security site's mark, with a smaller mono
+`.brand__tag` ("/ SUPPORT") beside it, the same plate-label idiom as the
+portrait caption and the case desk's stage labels. This keeps the full mark
+narrow enough to fit the header row next to the theme toggle and menu button
+at a 320px viewport, where "RF / SUPPORT" set at the base `.brand` size would
+not.
+
+The support footer (`.support-footer`) is deliberately lighter than the
+security site's six-cell title-block footer: identity, contact, one
+`.support-footer__crossover` text link back to `/`, nothing else. One
+crossover link, not a nav duplication.
+
+---
+
 ## Interaction and accessibility
 
 - Focus ring is visible on every interactive element: header nav, mobile
@@ -255,3 +319,6 @@ entirely; every element renders in its final state with no animation.
   query cannot join that selector without JavaScript, so the duplication is
   intentional rather than an oversight. `validate-site.mjs` asserts the two
   blocks stay token-for-token identical, so they cannot silently drift apart.
+  The support-page repointed tokens (`html[data-theme="light"] body.support-page`
+  and its `@media (prefers-color-scheme: light)` mirror) are the same pattern,
+  scoped one level deeper, and get the identical automated sync check.

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Big Shoulders"; src: url("../assets/fonts/big-shoulders-var.woff2") format("woff2"); font-weight: 100 900; }
+  @font-face { font-family: "IBM Plex Mono"; src: url("../assets/fonts/plex-mono-600.woff2") format("woff2"); font-weight: 600; }
+  @font-face { font-family: "Public Sans"; src: url("../assets/fonts/public-sans-var.woff2") format("woff2"); font-weight: 100 900; }
+  * { margin: 0; box-sizing: border-box; }
+  body { width: 1200px; height: 630px; background: #11110e; color: #f6f0e2; font-family: "Public Sans", sans-serif; position: relative; overflow: hidden; }
+  .frame { position: absolute; inset: 28px; border: 1px solid #5a5038; border-radius: 4px; background: #191810; box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), inset 0 -1px 0 rgba(0,0,0,0.4); }
+  .tick { position: absolute; top: 27px; left: 76px; width: 72px; height: 3px; background: #f2b84b; }
+  .inner { position: absolute; inset: 28px; padding: 44px 60px; display: flex; flex-direction: column; justify-content: space-between; }
+  .kicker { font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 600; letter-spacing: 0.16em; color: #f2b84b; text-transform: uppercase; }
+  .name { font-family: "Big Shoulders", sans-serif; font-variation-settings: "opsz" 60; font-weight: 700; font-size: 138px; line-height: 0.92; text-transform: uppercase; letter-spacing: 0.004em; color: #f6f0e2; }
+  .role { font-size: 27px; line-height: 1.4; color: #cdc4af; max-width: 34ch; margin-top: 22px; }
+  .role strong { color: #f6f0e2; font-weight: 600; }
+  .strip { display: flex; gap: 34px; font-family: "IBM Plex Mono", monospace; font-size: 18px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: #ffd27a; }
+  .strip span { display: flex; align-items: center; gap: 13px; }
+  .strip span::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: #f2b84b; box-shadow: 0 0 6px 1px rgba(242,184,75,0.55); }
+</style>
+</head>
+<body>
+  <div class="frame"></div>
+  <div class="tick"></div>
+  <div class="inner">
+    <div>
+      <p class="kicker">IT &amp; Technical Support / Rochester, Minnesota</p>
+      <h1 class="name">Rasheed<br>Farhat</h1>
+      <p class="role">17 months frontline help desk experience, documented and evidence-backed.</p>
+    </div>
+    <div class="strip">
+      <span>Help Desk</span><span>Troubleshooting</span><span>Documentation</span><span>Customer Support</span>
+    </div>
+  </div>
+</body>
+</html>

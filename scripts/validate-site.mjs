@@ -16,7 +16,9 @@ const requiredRoutes = [
   "writing/the-mcp-call-looked-legitimate/index.html",
   "about/index.html",
   "resume/index.html",
-  "contact/index.html"
+  "contact/index.html",
+  "support/index.html",
+  "support/casework/index.html"
 ];
 
 const failures = [];
@@ -185,6 +187,8 @@ const requiredAssets = [
   "assets/writing/legitimate-call-linkedin.png",
   "assets/apple-touch-icon.png",
   "assets/rasheed-farhat-resume.pdf",
+  "assets/support-social-card.png",
+  "assets/rasheed-farhat-resume-support.pdf",
   "robots.txt",
   "sitemap.xml",
   "site.webmanifest"
@@ -218,6 +222,20 @@ if (!explicitLightBlock || !osLightBlock) {
 } else if (explicitLightBlock.join("\n") !== osLightBlock.join("\n")) {
   failures.push(
     "styles.css: :root[data-theme=\"light\"] and the @media (prefers-color-scheme: light) block have drifted; keep their custom properties token-for-token identical"
+  );
+}
+
+// Resolution Desk (support-page) theme tokens are scoped separately from the
+// site-wide :root blocks above, so they need their own explicit-vs-OS-default
+// sync check for the same reason.
+const supportExplicitLightBlock = extractTokenBlock(css, /html\[data-theme="light"\]\s+body\.support-page\s*\{/);
+const supportOsLightBlock = extractTokenBlock(css, /html:not\(\[data-theme="dark"\]\)\s+body\.support-page\s*\{/);
+
+if (!supportExplicitLightBlock || !supportOsLightBlock) {
+  failures.push("styles.css: could not locate both support-page light-theme token blocks for the sync check");
+} else if (supportExplicitLightBlock.join("\n") !== supportOsLightBlock.join("\n")) {
+  failures.push(
+    "styles.css: html[data-theme=\"light\"] body.support-page and its @media (prefers-color-scheme: light) mirror have drifted; keep their custom properties token-for-token identical"
   );
 }
 

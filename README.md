@@ -28,6 +28,7 @@ Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.git
 - `/resume/` - Resume overview and PDF
 - `/contact/` - Contact options
 - `/support/` - IT support, service desk, and technical support profile
+- `/support/casework/` - Three documented support cases plus a synthetic support-workflow lab
 - `/404.html` - Not-found page
 
 ## Local preview
@@ -52,11 +53,13 @@ HTML validation used during release (page routes only; `scripts/` holds
 non-page asset sources):
 
 ```bash
-npx --yes html-validate@9.7.1 index.html 404.html "projects/**/*.html" "writing/**/*.html" "about/**/*.html" "contact/**/*.html" "resume/**/*.html"
+npx --yes html-validate@9.7.1 index.html 404.html "projects/**/*.html" "writing/**/*.html" "about/**/*.html" "contact/**/*.html" "resume/**/*.html" "support/**/*.html"
 ```
 
 Social-card and touch-icon PNGs are rendered from the HTML sources in
-`scripts/` at 1200x630 and 180x180.
+`scripts/` at 1200x630 and 180x180. The support-lane social card
+(`assets/support-social-card.png`) has its own source,
+`scripts/support-social-card-source.html`, rendered the same way.
 
 The MCP Detect series has six additional assets under `assets/writing/`: a
 1200x630 portfolio and Medium preview plus a 1920x1080 LinkedIn cover for each

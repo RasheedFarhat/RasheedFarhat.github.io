@@ -189,6 +189,117 @@
   }
 }
 
+/* Support page: "Resolution Desk" theme -----------------------------------
+   Scoped to body.support-page only; the rest of the site is untouched.
+   Repoints the same custom-property names the whole system already reads
+   (--sig, --amb, --ink, --panel, --line, --text-*, ...) so every existing
+   structural rule (brand mark, nav, buttons, eyebrows, section ticks, case
+   panels, tags, lamps) renders in the new palette with no per-component
+   overrides. On this page --sig is the dominant amber accent (brand, nav,
+   CTA, eyebrows, active states) and --amb keeps its sitewide role marking
+   boundaries and limitations, tuned to the same warm amber family instead
+   of the security site's orange so it reads as one accent, not two. A
+   third pair, --resolved / --resolved-hi / --resolved-ink / --resolved-soft,
+   is new: a rare, deliberate teal used only for a confirmed, verified,
+   resolved state (the case desk's final stage). It is never substituted
+   for --sig or --amb, so existing boundary/limitation components keep
+   their meaning instead of turning green.
+   Palette and contrast ratios (WCAG 2.1, relative luminance):
+     dark   text-hi/panel 15.67:1, text/panel 10.27:1, text-dim/panel 6.17:1,
+            amber/panel 9.95:1, amber-ink/amber 10.18:1, resolved/panel 9.27:1
+     light  text-hi/panel 14.65:1, text/panel 9.49:1, text-dim/panel 5.82:1,
+            amber/panel 5.75:1, amber-ink/amber 6.22:1, resolved/panel 5.29:1
+   All pairs clear WCAG AA (4.5:1 body text, 3:1 large text/UI). line-hi and
+   the resolved-hi/ink/soft variants were not specified directly; they were
+   derived using the same lighten-in-dark/darken-in-light pattern the site
+   already uses for --sig-hi/--amb-hi, then contrast-checked. See
+   DESIGN_SYSTEM.md for the full note. */
+body.support-page {
+  --ink: #11110e;
+  --panel: #191810;
+  --panel-hi: #242016;
+  --well: #0b0b08;
+  --line: #5a5038;
+  --line-hi: #7e7663;
+
+  --text-hi: #f6f0e2;
+  --text: #cdc4af;
+  --text-dim: #a49779;
+
+  --sig: #f2b84b;
+  --sig-hi: #ffd27a;
+  --sig-ink: #1d1400;
+  --sig-soft: rgb(242 184 75 / 0.14);
+
+  --amb: #f2b84b;
+  --amb-hi: #ffd27a;
+  --amb-ink: #1d1400;
+  --amb-soft: rgb(242 184 75 / 0.14);
+
+  --resolved: #70cbb9;
+  --resolved-hi: #a2ddd1;
+  --resolved-ink: #062019;
+  --resolved-soft: rgb(112 203 185 / 0.12);
+}
+
+html[data-theme="light"] body.support-page {
+  --ink: #e7e0d1;
+  --panel: #f4efe5;
+  --panel-hi: #fff9ed;
+  --well: #d7cfbe;
+  --line: #81755e;
+  --line-hi: #695f4d;
+
+  --text-hi: #211d14;
+  --text: #443c2d;
+  --text-dim: #665b45;
+
+  --sig: #845200;
+  --sig-hi: #6e4500;
+  --sig-ink: #fdf8ed;
+  --sig-soft: rgb(132 82 0 / 0.1);
+
+  --amb: #845200;
+  --amb-hi: #6e4500;
+  --amb-ink: #fdf8ed;
+  --amb-soft: rgb(132 82 0 / 0.1);
+
+  --resolved: #3b6b62;
+  --resolved-hi: #2c5049;
+  --resolved-ink: #f2f8f6;
+  --resolved-soft: rgb(59 107 98 / 0.1);
+}
+
+@media (prefers-color-scheme: light) {
+  html:not([data-theme="dark"]) body.support-page {
+    --ink: #e7e0d1;
+    --panel: #f4efe5;
+    --panel-hi: #fff9ed;
+    --well: #d7cfbe;
+    --line: #81755e;
+    --line-hi: #695f4d;
+
+    --text-hi: #211d14;
+    --text: #443c2d;
+    --text-dim: #665b45;
+
+    --sig: #845200;
+    --sig-hi: #6e4500;
+    --sig-ink: #fdf8ed;
+    --sig-soft: rgb(132 82 0 / 0.1);
+
+    --amb: #845200;
+    --amb-hi: #6e4500;
+    --amb-ink: #fdf8ed;
+    --amb-soft: rgb(132 82 0 / 0.1);
+
+    --resolved: #3b6b62;
+    --resolved-hi: #2c5049;
+    --resolved-ink: #f2f8f6;
+    --resolved-soft: rgb(59 107 98 / 0.1);
+  }
+}
+
 /* Base ---------------------------------------------------------------------*/
 
 *,
@@ -1787,98 +1898,6 @@ html[data-loaded="true"] .plate__bound {
   border: 1px solid var(--line);
 }
 
-/* Support page -------------------------------------------------------------*/
-
-.support-snapshot {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 0;
-  border-top: 1px solid var(--line);
-}
-
-.support-snapshot > div {
-  padding: 1.15rem 1rem 1.25rem 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.support-snapshot > div:nth-child(even) {
-  padding-left: 1rem;
-  border-left: 1px solid var(--line);
-}
-
-.support-snapshot dt {
-  font-family: var(--mono);
-  font-size: 0.68rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--sig);
-}
-
-.ticket-path__step {
-  display: block;
-  font-family: var(--display);
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--sig);
-  line-height: 1;
-  font-variation-settings: "opsz" 60;
-}
-
-.support-snapshot dd {
-  margin: 0.35rem 0 0;
-  max-width: 42ch;
-  color: var(--text-hi);
-  font-weight: 600;
-}
-
-.ticket-path {
-  list-style: none;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  margin: 0;
-  padding: 0;
-  border: 1px solid var(--line);
-  background: var(--line);
-  gap: 1px;
-}
-
-.ticket-path li {
-  position: relative;
-  margin: 0;
-  padding: var(--s-6);
-  background: var(--ink);
-}
-
-.ticket-path h3 {
-  margin: 0.75rem 0 0.55rem;
-  font-size: 1.2rem;
-}
-
-.ticket-path p {
-  margin: 0;
-  color: var(--text-dim);
-  font-size: 0.9rem;
-}
-
-@media (max-width: 56rem) {
-  .ticket-path {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 38rem) {
-  .support-snapshot,
-  .ticket-path {
-    grid-template-columns: 1fr;
-  }
-
-  .support-snapshot > div:nth-child(even) {
-    padding-left: 0;
-    border-left: 0;
-  }
-}
-
 .capability {
   background: var(--ink);
   padding: var(--s-6);
@@ -3340,6 +3359,447 @@ ul.tag-list {
   margin-bottom: 0.7rem;
 }
 
+/* Support page: "Resolution Desk" components -------------------------------
+   Structural components only; color comes entirely from the token block
+   near the top of this file (body.support-page repoints --sig/--amb/
+   --resolved), so nothing here hardcodes a hex value. */
+
+/* Brand lockup: "RF" stays the same size as the security site's mark (brand
+   recognition is unchanged) with a smaller mono "/ SUPPORT" tag beside it,
+   the same plate-label idiom as the portrait's engraved caption and the
+   case desk's uppercase bar labels. Also keeps the full mark narrow enough
+   to fit the header row next to the theme toggle and menu button at a
+   320px viewport, where "RF / SUPPORT" set at full brand size would not. */
+.brand--support {
+  gap: 0.4rem;
+}
+
+.brand__tag {
+  font-family: var(--mono);
+  font-size: 0.58em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+}
+
+.support-hero {
+  display: grid;
+  gap: 1.75rem;
+  align-items: start;
+  margin-bottom: 2.25rem;
+}
+
+@media (min-width: 42rem) {
+  .support-hero {
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 2.25rem;
+  }
+}
+
+/* .support-hero__copy deliberately does not reuse the homepage's
+   .hero-copy class: that class carries a large-name h1 override
+   (.hero-copy h1) meant only for the split RASHEED / FARHAT readout
+   treatment. The support hero's h1 is a plain sentence headline, so it
+   should inherit the standard .page-hero h1 sizing instead. */
+.support-hero__copy .hero-lede {
+  margin-bottom: 0.25rem;
+}
+
+/* Portrait sizing for the support hero: taller and narrower than the
+   homepage's folded-in identity photo, since here it is a primary hero
+   element, not a secondary column. Frame, mat, and plate-label CSS is
+   shared with .hero-id sitewide; only the width changes (aspect-ratio 4/5
+   on .hero-id__frame derives the height from it). */
+.hero-id--support .hero-id__frame,
+.hero-id--support .hero-id__plate {
+  width: 9.5rem;
+}
+
+@media (max-width: 30rem) {
+  .hero-id--support .hero-id__frame,
+  .hero-id--support .hero-id__plate {
+    width: 5rem;
+  }
+}
+
+/* Case desk (signature) -----------------------------------------------
+   A real, personal-project problem shown as a diagnostic instrument, not a
+   fabricated support ticket: a labeled bezel, a facts screen, and a
+   connected stage rail. The first three stages read as an ongoing
+   diagnostic (amber, static). The last two, Resolve and Document, start
+   amber (pending) and transition once to resolved teal after load, so the
+   fix reads as an event. No fabricated ticket numbers, timestamps, or
+   customer names appear anywhere in this component. */
+.case-desk {
+  margin: 0;
+  border: 1px solid var(--line-hi);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
+  overflow: hidden;
+}
+
+.case-desk__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.4rem 1.25rem;
+  padding: 0.9rem 1.25rem;
+  border-bottom: 1px solid var(--line-hi);
+  background: var(--panel-hi);
+}
+
+.case-desk__title {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-hi);
+}
+
+.case-desk__provenance {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.02em;
+  color: var(--text-dim);
+}
+
+.case-desk__body {
+  display: grid;
+}
+
+.case-desk__facts {
+  margin: 0;
+  padding: 1.25rem;
+  display: grid;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.case-desk__facts div {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.case-desk__facts dt {
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sig);
+}
+
+.case-desk__facts dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.9rem;
+  max-width: 48ch;
+}
+
+.case-desk__stages {
+  list-style: none;
+  margin: 0;
+  padding: 1.25rem 1.25rem 1.25rem 1.6rem;
+  display: grid;
+  background: var(--well);
+  box-shadow: inset 0 1px 3px var(--well-top);
+}
+
+.case-desk__stage {
+  position: relative;
+  margin: 0;
+  max-width: none;
+  padding: 0 0 1.35rem 1.6rem;
+}
+
+.case-desk__stage:last-child {
+  padding-bottom: 0;
+}
+
+.case-desk__stage::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: var(--radius-lamp);
+  background: var(--sig);
+  box-shadow: 0 0 0 3px var(--sig-soft);
+  transition: background-color var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease);
+}
+
+.case-desk__stage:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0.24rem;
+  top: 1.15rem;
+  bottom: 0;
+  width: 1px;
+  background: var(--line-hi);
+}
+
+.case-desk__stage-label {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sig);
+  margin-bottom: 0.2rem;
+  transition: color var(--dur-med) var(--ease);
+}
+
+.case-desk__stage p {
+  margin: 0;
+  color: var(--text-hi);
+  font-size: 0.88rem;
+  font-family: var(--mono);
+}
+
+html[data-loaded="true"] .case-desk__stage--resolve::before {
+  background: var(--resolved);
+  box-shadow: 0 0 0 3px var(--resolved-soft);
+  transition-delay: 380ms;
+}
+
+html[data-loaded="true"] .case-desk__stage--resolve .case-desk__stage-label {
+  color: var(--resolved-hi);
+  transition-delay: 380ms;
+}
+
+html[data-loaded="true"] .case-desk__stage--resolve:last-child::before,
+html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage-label {
+  transition-delay: 560ms;
+}
+
+@media (min-width: 40rem) {
+  .case-desk__body {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  }
+
+  .case-desk__facts {
+    border-bottom: 0;
+    border-right: 1px solid var(--line);
+  }
+}
+
+/* Proof rail: a compact wrapping strip of verified, allowed facts. Text
+   carries the meaning; nothing here is a counter or a percentage. */
+.proof-rail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+}
+
+.proof-rail li {
+  margin: 0;
+  max-width: none;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--line-hi);
+  border-radius: var(--radius);
+  padding: 0.5rem 0.85rem;
+}
+
+/* Communication sample: customer-facing wording next to the engineering
+   handoff it was built from, same gap-as-line two-cell technique as
+   .assessment. */
+.comms-sample {
+  display: grid;
+  gap: 1px;
+  background: var(--line-hi);
+  border: 1px solid var(--line-hi);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+
+.comms-sample__pane {
+  background: var(--panel);
+  padding: 1.25rem 1.4rem;
+}
+
+.comms-sample__pane h3 {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sig);
+  margin: 0 0 0.75rem;
+}
+
+.comms-sample__pane p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text);
+  max-width: none;
+}
+
+.comms-sample__pane dl {
+  margin: 0;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.comms-sample__pane dt {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  display: inline;
+}
+
+.comms-sample__pane dd {
+  margin: 0 0 0 0;
+  display: inline;
+  color: var(--text-hi);
+  font-size: 0.88rem;
+}
+
+.comms-sample__pane dd::after {
+  content: "";
+  display: block;
+}
+
+@media (min-width: 48rem) {
+  .comms-sample {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Minimal support footer: identity, contact, one crossover link. No
+   6-cell title-block; the support pages deliberately end lighter than the
+   security site's footer. */
+.support-footer {
+  border-top: 1px solid var(--line);
+  padding: clamp(1.75rem, 4vw, 2.5rem) 0;
+}
+
+.support-footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.25rem 2.5rem;
+}
+
+.support-footer p {
+  margin: 0;
+  color: var(--text-hi);
+  font-weight: 600;
+}
+
+.support-footer .mono-note {
+  display: block;
+  margin-top: 0.35rem;
+  font-weight: 400;
+}
+
+.support-footer__crossover {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+  text-decoration: none;
+  align-self: center;
+}
+
+.support-footer__crossover:hover {
+  color: var(--sig-hi);
+}
+
+/* Case file: the casework page's repeating per-case anatomy, used three
+   times (Case 1 through 3). A lighter cousin of .case-desk, reusing the
+   same dl > div > dt + dd grid as .case-desk__facts rather than the
+   heavier .case-hero__grid / .assessment stack from /projects/. Every
+   case ends on the same field, Boundary, so it gets a permanent amber key
+   instead of a manually-applied class. */
+.case-file {
+  padding-top: clamp(2rem, 4vw, 2.75rem);
+  border-top: 1px solid var(--line);
+}
+
+.case-content > .case-file:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.case-file__head {
+  margin-bottom: 1.5rem;
+}
+
+.case-file__fields {
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+.case-file__fields > div {
+  display: grid;
+  gap: 0.35rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.case-file__fields > div:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.case-file__fields dt {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sig);
+}
+
+.case-file__fields dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 0.95rem;
+  max-width: 66ch;
+}
+
+.case-file__fields > div:last-child dt {
+  color: var(--amb-hi);
+}
+
+.case-file__source {
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.case-file__source a {
+  color: var(--text-dim);
+}
+
+.case-file__source a:hover {
+  color: var(--sig-hi);
+}
+
+@media (min-width: 40rem) {
+  .case-file__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2.5rem;
+  }
+}
+
 @media print {
   .article-rail,
   .site-header,
@@ -3379,6 +3839,17 @@ ul.tag-list {
 
   .plate__caption p.plate__bound {
     opacity: 1 !important;
+    transition-delay: 0ms !important;
+  }
+
+  .case-desk__stage--resolve::before {
+    background: var(--resolved) !important;
+    box-shadow: 0 0 0 3px var(--resolved-soft) !important;
+    transition-delay: 0ms !important;
+  }
+
+  .case-desk__stage--resolve .case-desk__stage-label {
+    color: var(--resolved-hi) !important;
     transition-delay: 0ms !important;
   }
 }
