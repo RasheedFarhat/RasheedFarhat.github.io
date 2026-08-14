@@ -1167,8 +1167,8 @@ html[data-loaded="true"] .hero-bezel {
 
 html[data-loaded="true"] .hero-name__readout {
   opacity: 0;
-  transition: opacity 640ms var(--ease);
-  transition-delay: 140ms;
+  transition: opacity 2400ms var(--ease);
+  transition-delay: 500ms;
 }
 
 :root[data-theme="light"] .hero-name__readout {
