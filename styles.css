@@ -1190,11 +1190,11 @@ html[data-loaded="true"] .hero-bezel {
 }
 
 html[data-loaded="true"] .hero-name__proof {
-  animation: hero-name-register 780ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
+  animation: hero-name-register 1170ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
 }
 
 html[data-loaded="true"] .hero-name__rule {
-  animation: hero-name-rule-travel 780ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
+  animation: hero-name-rule-travel 1170ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
 }
 
 @supports not (clip-path: inset(0 0 0 0)) {
