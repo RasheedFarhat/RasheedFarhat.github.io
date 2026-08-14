@@ -1159,7 +1159,7 @@ html[data-loaded="true"] .hero-bezel {
   top: -0.05em;
   bottom: -0.05em;
   left: 0;
-  width: 1px;
+  width: 2px;
   background: var(--sig);
   opacity: 0;
   pointer-events: none;
