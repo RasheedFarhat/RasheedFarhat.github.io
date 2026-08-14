@@ -1114,100 +1114,92 @@ html[data-loaded="true"] .hero-bezel {
 
 .hero-copy h1 {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 0.08em 0.14em;
-  font-size: clamp(3rem, 7.4vw, 5.4rem);
-  font-weight: 750;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.03em;
+  font-size: clamp(2.75rem, 5.6vw, 4.4rem);
+  font-weight: 780;
   text-transform: uppercase;
-  line-height: 0.92;
+  line-height: 0.94;
   letter-spacing: -0.01em;
   margin: 0 0 1.5rem;
   font-variation-settings: "opsz" 60;
 }
 
-.hero-name__divider {
-  color: var(--sig);
-  font-family: var(--mono);
-  font-size: 0.34em;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1;
-  transform: translateY(-0.08em);
-}
-
-/* The name resolves rather than sits static: on load it reads as a raw
-   instrument readout (real DaC-Pipeline figures, tiled as texture: T1105,
-   rule 200001, 58 Sigma rules to 216 Wazuh, 14 tactics, 119 techniques,
-   the same numbers the exhibit states outright) and clarifies to a solid
-   fill over the load sequence, the same signal-out-of-noise move the rest
-   of the page makes with lamps and coverage meters. The readout is real
-   data, never decorative noise. */
+/* Precision Register: the name is set once, at its final display cut
+   (wght 780 / opsz 60, this element's own text, in normal flow so it
+   controls layout). A lighter "proof" cut of the same instance sits over
+   it as a decorative, aria-hidden duplicate, and on load a single
+   left-to-right clip-path pass reveals the settled display cut beneath,
+   like two plates coming into exact registration, with a 1px var(--sig)
+   rule traveling at the boundary. The proof layer never changes size or
+   position, only what fraction of it is clipped, so the pass produces
+   zero layout shift. Default state (no JS, no clip-path support, or
+   prefers-reduced-motion) is the settled display cut with the proof
+   layer already fully clipped away. */
 .hero-name__given,
 .hero-name__family {
   position: relative;
   display: inline-block;
   color: var(--text-hi);
-  text-shadow: 0 0 18px var(--amb), 0 0 46px var(--amb-soft);
 }
 
-@keyframes hero-name-glow-resolve {
-  from {
-    text-shadow: 0 0 18px var(--amb), 0 0 46px var(--amb-soft);
-  }
-  to {
-    text-shadow: 0 0 0 var(--amb), 0 0 0 var(--amb-soft);
-  }
-}
-
-html[data-loaded="true"] .hero-name__given,
-html[data-loaded="true"] .hero-name__family {
-  animation: hero-name-glow-resolve 3000ms cubic-bezier(0.7, 0, 0.84, 0) 500ms forwards;
-}
-
-.hero-name__readout {
+.hero-name__proof {
   position: absolute;
   inset: 0;
-  color: transparent;
-  background-image: url("/assets/hero-readout-dark.svg");
-  background-position: 0 0;
-  background-repeat: repeat;
-  background-size: 132px 58px;
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: 1;
-  transform: scale(1.015);
+  color: var(--text-hi);
+  font-weight: 580;
+  font-variation-settings: "opsz" 18;
+  clip-path: inset(0 0 0 100%);
   pointer-events: none;
 }
 
-@keyframes hero-readout-resolve {
+.hero-name__rule {
+  position: absolute;
+  top: -0.05em;
+  bottom: -0.05em;
+  left: 0;
+  width: 1px;
+  background: var(--sig);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes hero-name-register {
   from {
-    opacity: 1;
-    transform: scale(1.015);
+    clip-path: inset(0 0 0 0%);
   }
   to {
+    clip-path: inset(0 0 0 100%);
+  }
+}
+
+@keyframes hero-name-rule-travel {
+  0% {
+    left: 0%;
+    opacity: 1;
+  }
+  92% {
+    left: 96%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
     opacity: 0;
-    transform: scale(1);
   }
 }
 
-html[data-loaded="true"] .hero-name__readout {
-  animation: hero-readout-resolve 3000ms cubic-bezier(0.7, 0, 0.84, 0) 500ms forwards;
+html[data-loaded="true"] .hero-name__proof {
+  animation: hero-name-register 780ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
 }
 
-:root[data-theme="light"] .hero-name__readout {
-  background-image: url("/assets/hero-readout-light.svg");
+html[data-loaded="true"] .hero-name__rule {
+  animation: hero-name-rule-travel 780ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
 }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) .hero-name__readout {
-    background-image: url("/assets/hero-readout-light.svg");
-  }
-}
-
-@supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-  .hero-name__readout {
+@supports not (clip-path: inset(0 0 0 0)) {
+  .hero-name__proof,
+  .hero-name__rule {
     display: none;
   }
 }
@@ -1288,11 +1280,6 @@ html[data-loaded="true"] .hero-name__readout {
   .hero-exhibit {
     grid-area: exhibit;
   }
-
-  .hero-copy h1 {
-    flex-wrap: nowrap;
-    white-space: nowrap;
-  }
 }
 
 /* Past 72rem the shell has room for the portrait to stand as its own
@@ -1328,32 +1315,13 @@ html[data-loaded="true"] .hero-name__readout {
   .hero-id__plate {
     width: 100%;
   }
-
-  /* The copy column is narrower here than in the 2-column case the
-     64rem rule above was written for (the id column now takes its own
-     share of the shell), so the name no longer fits the panel on one
-     line at the type scale's raw-vw cap. Let it wrap again. */
-  .hero-copy h1 {
-    flex-wrap: wrap;
-    white-space: normal;
-    font-size: clamp(2.75rem, 5.6vw, 4.4rem);
-  }
 }
 
 @media (max-width: 47.999rem) {
   .hero-copy h1 {
-    align-items: flex-start;
-    flex-direction: column;
-    flex-wrap: nowrap;
     gap: 0;
     font-size: clamp(3.1rem, 17vw, 4.6rem);
     letter-spacing: 0.002em;
-  }
-
-  .hero-name__divider {
-    font-size: 0.27em;
-    line-height: 0.8;
-    transform: none;
   }
 }
 
@@ -3850,6 +3818,18 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+
+  /* The 0.01ms collapse above still lets the registration pass run (and
+     briefly show the proof cut during its animation-delay, since
+     fill-mode: both applies the from-state through the delay). Reduced
+     motion asks for the settled wordmark immediately with no pass at
+     all, so the entrance animation is disabled outright here rather than
+     just shortened; the elements fall back to their default state, which
+     is already the fully-registered display cut. */
+  .hero-name__proof,
+  .hero-name__rule {
+    animation: none !important;
   }
 
   .hero-bezel {
