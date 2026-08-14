@@ -1148,6 +1148,21 @@ html[data-loaded="true"] .hero-bezel {
   position: relative;
   display: inline-block;
   color: var(--text-hi);
+  text-shadow: 0 0 18px var(--amb), 0 0 46px var(--amb-soft);
+}
+
+@keyframes hero-name-glow-resolve {
+  from {
+    text-shadow: 0 0 18px var(--amb), 0 0 46px var(--amb-soft);
+  }
+  to {
+    text-shadow: 0 0 0 var(--amb), 0 0 0 var(--amb-soft);
+  }
+}
+
+html[data-loaded="true"] .hero-name__given,
+html[data-loaded="true"] .hero-name__family {
+  animation: hero-name-glow-resolve 3000ms cubic-bezier(0.7, 0, 0.84, 0) 500ms forwards;
 }
 
 .hero-name__readout {
@@ -1162,13 +1177,23 @@ html[data-loaded="true"] .hero-bezel {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   opacity: 1;
+  transform: scale(1.015);
   pointer-events: none;
 }
 
+@keyframes hero-readout-resolve {
+  from {
+    opacity: 1;
+    transform: scale(1.015);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
 html[data-loaded="true"] .hero-name__readout {
-  opacity: 0;
-  transition: opacity 10000ms var(--ease);
-  transition-delay: 500ms;
+  animation: hero-readout-resolve 3000ms cubic-bezier(0.7, 0, 0.84, 0) 500ms forwards;
 }
 
 :root[data-theme="light"] .hero-name__readout {
