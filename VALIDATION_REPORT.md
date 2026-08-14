@@ -2,6 +2,143 @@
 
 Validation date: July 18, 2026 (Clear Signal theme release)
 
+## August 14, 2026 addendum: The Resolution Desk (signature interaction)
+
+This addendum covers a single new signature interaction added to `/support/`,
+between the page hero and the existing proof section: an interactive
+resolution-workflow visualization called "The Resolution Desk." It ships as
+two new files, `support/resolution-desk.css` (480 lines, 10,130 bytes) and
+`support/resolution-desk.js` (566 lines, 25,604 bytes), both scoped
+exclusively to the support lane, plus a new section inserted into
+`support/index.html` (now 662 lines, 32,258 bytes) and two new lines in
+`scripts/validate-site.mjs`'s `requiredAssets` list. No other file was
+created, modified, or deleted.
+
+### Scope confirmation (security portfolio unaltered)
+
+- `git diff --stat` against the working tree, excluding the four files named
+  above, returns empty: no security-portfolio route, no shared component
+  outside the support lane, and no other asset was touched.
+- A Playwright regression pass rendered all 13 security-portfolio routes
+  (`/`, `/projects/`, all 4 project detail pages, `/writing/`, all 3 article
+  pages, `/about/`, `/resume/`, `/contact/`) at 1440px in both themes, 26
+  page loads total, with zero console errors and zero `pageerror` events.
+  Full-page screenshots were captured for all 26 and spot-checked visually;
+  rendering is identical to the pre-existing Clear Signal design.
+
+### Content model
+
+- One structured data object in `resolution-desk.js` (`TICKETS`) drives all
+  four scenarios; adding a fifth ticket requires only a new entry, no markup
+  or logic changes.
+- Four representative example tickets, each explicitly labeled as such in
+  the on-page disclosure text: account lockout / sign-in failure, unstable
+  remote-access / VPN connection, slow or unreliable workstation, and
+  suspicious authentication activity.
+- Six primary stations (Intake, Triage, Investigation, Resolution,
+  Verification, Documentation) plus two secondary stations (Knowledge Base,
+  Escalation Desk), for 8 stations x 4 tickets = 32 authored evidence-panel
+  states, each with distinct copy.
+- All six required evidence categories from the brief (what he would
+  clarify, what he would check, the troubleshooting logic, what gets
+  documented, when escalation applies, how resolution is verified) appear
+  across each ticket's full path; each individual station surfaces exactly
+  2 of the 6 categories (3 for Escalation Desk) to keep panels concise
+  rather than repeating all 6 at every stop.
+- The "suspicious authentication activity" ticket is deliberately framed as
+  standard support-desk judgment, contain and hand off, not as
+  security-analyst work: its Escalation Desk panel states plainly that "his
+  role ends at containment and a clean handoff" and that the security review
+  belongs to the team that owns it.
+- No named commercial ITSM, SIEM, IAM, or endpoint-management platform
+  appears anywhere in the component's copy, consistent with the workspace
+  truthfulness rules.
+
+### Truthfulness and markup checks
+
+- Zero em dash or en dash characters in either new file or the modified
+  section of `support/index.html` (checked by direct grep, not just the
+  sitewide validator).
+- Zero `style="` attributes anywhere in the new markup, including every new
+  inline `<svg>` element (route lines, station icons, the traveling marker).
+- `node --check support/resolution-desk.js`: passed.
+- `node scripts/validate-site.mjs`: passed for 16 HTML files and 25 required
+  assets (up from 23; the two new files were added to `requiredAssets`).
+- `npx html-validate@9.7.1 support/index.html support/casework/index.html`:
+  zero errors, exit code 0.
+- `git diff --check`: passed, no whitespace errors.
+
+### Accessibility
+
+- axe-core 4.13.0, injected via Playwright (`colorScheme: "dark"` and
+  `colorScheme: "light"`, WCAG 2.0/2.1 A and AA rule sets), scoped to
+  `[data-resolution-desk]` with the "suspicious authentication activity"
+  ticket and the Escalation Desk station selected (the deepest interaction
+  state): 0 violations in either theme.
+- The same scan run unscoped, against the full `/support/` page in both
+  themes: 1 violation total (color-contrast, `light` theme only), and it
+  belongs to the pre-existing `.case-desk__stage-label` element from the
+  page's hero case-file figure, not to any element introduced by this
+  addendum. Left as-is and flagged separately; fixing a pre-existing,
+  out-of-scope component was not part of this brief.
+- Keyboard-only walk (Tab key, no mouse): every one of the 4 ticket chips
+  and all 8 stations receives focus in document order and is independently
+  operable; the evidence panel updates via the `focus` event, not only
+  `click`. Confirmed the walk reaches the final "documentation" station with
+  `aria-pressed="true"` set correctly.
+- Hover, focus-visible, and selected states share one CSS rule
+  (`.station:hover, .station:focus-visible, .station.is-selected`, and the
+  same pattern for `.ticket-chip`), so they are visually identical by
+  construction, not just by manual matching.
+- `prefers-reduced-motion: reduce`: verified via a Playwright context with
+  `reducedMotion: "reduce"`. Selecting a ticket shows the correct final
+  panel content ("Intake") immediately, with zero animation-related
+  JavaScript run (the `resolution-desk.js` traversal preview checks
+  `window.matchMedia("(prefers-reduced-motion: reduce)")` and returns before
+  scheduling any `requestAnimationFrame` or `setTimeout` call). The global
+  CSS `prefers-reduced-motion` rule in `styles.css` independently zeroes the
+  marker's CSS `transition` and every hover/focus/selected transition.
+- No audio anywhere in the component; nothing autoplays.
+
+### Interaction correctness
+
+- A Playwright sweep clicked all 4 ticket chips and all 8 stations for the
+  selected ticket, and verified `aria-pressed` state, evidence-panel title,
+  eyebrow text, and evidence-field count after each: 2 fields for every
+  primary station and Knowledge Base, 3 for Escalation Desk, matching the
+  data model. Zero console errors or warnings across the full sweep.
+- A layout bug found during visual review was fixed before this validation
+  pass: the secondary station block (`.resolution-desk__secondary`) was
+  originally nested inside the same absolutely-positioned `.stage` element
+  as the two route-map SVGs, which inflated the stage's rendered height
+  beyond the primary station row's height and threw the SVG route line and
+  marker out of vertical alignment with the station buttons. Moving the
+  secondary block to be a sibling of `.resolution-desk__stage` (still inside
+  `.resolution-desk__floor`) fixed it; re-verified visually at 375, 768, and
+  1440px in both themes after the fix.
+- Visually reviewed element-scoped screenshots at 375px, 768px (the exact
+  `48rem` desktop-switch boundary), and 1440px, in both dark and light
+  themes, plus the "authentication ticket / Escalation Desk selected" state
+  at 1440px in both themes, 8 screenshots total. Confirmed: the fixed
+  `--rd-*` tokens keep the scene dark-graphite-and-amber regardless of the
+  site's light/dark toggle; the mobile layout reads as a clean vertical
+  path with the numbered stations connected by a spine line; the 768px
+  boundary renders cleanly with no layout glitch; and the Escalation Desk
+  selection correctly moves the marker to its schematic node and renders
+  its 3-field panel.
+
+### Known limitations
+
+- A manual screen-reader session was not performed on this component.
+- The two secondary-station SVG connector lines are schematic (they run a
+  short distance to a small node marker, not literally to the Knowledge
+  Base / Escalation Desk cards), a deliberate simplification rather than an
+  oversight.
+- The traveling marker's path is computed by linear interpolation between
+  hardcoded coordinates, not `SVGGeometryElement.getPointAtLength()`; this
+  is sufficient because the primary route is a straight line, and was a
+  deliberate choice to avoid unnecessary complexity.
+
 ## August 14, 2026 addendum: support-lane rebuild (Resolution Desk)
 
 This addendum covers the full rebuild of the IT/technical support lane: a

@@ -1,0 +1,480 @@
+/* The Resolution Desk ------------------------------------------------------
+   Support-lane-only signature interaction. Scoped entirely to
+   .resolution-desk so it cannot leak into or depend on the shared design
+   system beyond the section/eyebrow/button/text-link wrappers it sits
+   inside. The scene is a fixed "support office after hours" palette that
+   does not react to the site's light/dark toggle, values below are the
+   already-contrast-checked body.support-page dark tokens (see styles.css
+   around line 217), copied as literal constants on purpose so this
+   component reads the same regardless of the visitor's theme choice.
+   No inline style attributes are used anywhere in the markup; every visual
+   state is a class toggle read by these rules. */
+
+.resolution-desk {
+  --rd-ink: #11110e;
+  --rd-panel: #191810;
+  --rd-panel-hi: #242016;
+  --rd-well: #0b0b08;
+  --rd-line: #5a5038;
+  --rd-line-hi: #7e7663;
+
+  --rd-text-hi: #f6f0e2;
+  --rd-text: #cdc4af;
+  --rd-text-dim: #a49779;
+
+  --rd-amb: #f2b84b;
+  --rd-amb-hi: #ffd27a;
+  --rd-amb-ink: #1d1400;
+  --rd-amb-soft: rgb(242 184 75 / 0.14);
+
+  --rd-resolved: #70cbb9;
+  --rd-resolved-ink: #062019;
+
+  --rd-radius: 2px;
+}
+
+.resolution-desk__intro {
+  color: var(--text-dim);
+  max-width: 58ch;
+  margin: 0.5rem 0 0;
+}
+
+.resolution-desk__intro strong {
+  color: var(--text-hi);
+  font-weight: 600;
+}
+
+/* Scene shell --------------------------------------------------------------
+   Everything below this line lives inside the fixed dark scene, framed like
+   a shopfront window onto the desk after hours. */
+
+.resolution-desk__scene {
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+  background: var(--rd-ink);
+  border: 1px solid var(--rd-line);
+  border-radius: var(--rd-radius);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.04), 0 18px 40px -28px rgb(0 0 0 / 0.8);
+  overflow: hidden;
+}
+
+.resolution-desk__scene-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.7rem 1.1rem;
+  background: var(--rd-panel-hi);
+  border-bottom: 1px solid var(--rd-line);
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rd-text-dim);
+}
+
+.resolution-desk__scene-lights {
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.resolution-desk__scene-lights span {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 50%;
+  background: var(--rd-line-hi);
+}
+
+.resolution-desk__scene-lights span:first-child {
+  background: var(--rd-amb);
+  box-shadow: 0 0 0 2px var(--rd-amb-soft);
+}
+
+.resolution-desk__scene-body {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  display: grid;
+  gap: 1.75rem;
+}
+
+/* Ticket picker --------------------------------------------------------- */
+
+.resolution-desk__picker-label {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rd-text-dim);
+  margin: 0 0 0.75rem;
+}
+
+.ticket-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.ticket-chip {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  line-height: 1.3;
+  text-align: left;
+  color: var(--rd-text);
+  background: var(--rd-panel);
+  border: 1px solid var(--rd-line);
+  border-radius: var(--rd-radius);
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease, color var(--dur-fast) ease,
+    background-color var(--dur-fast) ease;
+}
+
+.ticket-chip:hover,
+.ticket-chip:focus-visible,
+.ticket-chip.is-selected {
+  border-color: var(--rd-amb);
+  color: var(--rd-text-hi);
+  background: var(--rd-panel-hi);
+}
+
+.ticket-chip.is-selected {
+  box-shadow: inset 2px 0 0 var(--rd-amb);
+}
+
+.ticket-chip:focus-visible {
+  outline: 2px solid var(--rd-amb-hi);
+  outline-offset: 2px;
+}
+
+.resolution-desk__ticket-summary {
+  font-size: 0.92rem;
+  color: var(--rd-text);
+  max-width: 62ch;
+  margin: 0.9rem 0 0;
+}
+
+/* Floor: routes + stations ----------------------------------------------- */
+
+.resolution-desk__floor {
+  position: relative;
+}
+
+.resolution-desk__stage {
+  position: relative;
+  min-height: 21rem;
+}
+
+.route-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.route-line {
+  stroke: var(--rd-line-hi);
+  stroke-width: 1.5;
+  fill: none;
+}
+
+.route-stub {
+  stroke: var(--rd-line);
+  stroke-width: 1.25;
+  stroke-dasharray: 3 3;
+  fill: none;
+}
+
+.route-node {
+  fill: var(--rd-ink);
+  stroke: var(--rd-line-hi);
+  stroke-width: 1.5;
+}
+
+.route-marker rect {
+  fill: var(--rd-amb);
+  stroke: var(--rd-amb-ink);
+  stroke-width: 0.75;
+}
+
+.route-marker line {
+  stroke: var(--rd-amb-ink);
+  stroke-width: 0.9;
+  stroke-linecap: round;
+}
+
+.route-marker {
+  filter: drop-shadow(0 0 3px rgb(242 184 75 / 0.55));
+  transition: transform var(--dur-med) var(--ease);
+}
+
+.station-row {
+  position: relative;
+  z-index: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 21rem;
+}
+
+.station-row > li {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+}
+
+.station {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--rd-text);
+  background: var(--rd-panel);
+  border: 1px solid var(--rd-line);
+  border-radius: var(--rd-radius);
+  padding: 0.55rem 0.8rem;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease, color var(--dur-fast) ease,
+    background-color var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+}
+
+.station__index {
+  flex: none;
+  font-size: 0.68rem;
+  color: var(--rd-text-dim);
+  min-width: 1.1em;
+}
+
+.station__icon {
+  flex: none;
+  display: inline-flex;
+  color: var(--rd-text-dim);
+}
+
+.station__icon svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.station__label {
+  flex: 1 1 auto;
+}
+
+.station:hover,
+.station:focus-visible,
+.station.is-selected {
+  border-color: var(--rd-amb);
+  color: var(--rd-text-hi);
+  background: var(--rd-panel-hi);
+}
+
+.station:hover .station__icon,
+.station:focus-visible .station__icon,
+.station.is-selected .station__icon {
+  color: var(--rd-amb);
+}
+
+.station.is-selected {
+  box-shadow: inset 2px 0 0 var(--rd-amb);
+}
+
+.station:focus-visible {
+  outline: 2px solid var(--rd-amb-hi);
+  outline-offset: 2px;
+}
+
+.station.is-traversed .station__icon {
+  color: var(--rd-amb-hi);
+}
+
+.resolution-desk__secondary {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px dashed var(--rd-line);
+}
+
+.resolution-desk__secondary-label {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--rd-text-dim);
+  margin: 0 0 0.75rem;
+}
+
+.station-row--secondary {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  min-height: 0;
+}
+
+.station-row--secondary > li {
+  flex: 1 1 14rem;
+}
+
+.station--secondary {
+  border-style: dashed;
+}
+
+/* Evidence panel: styled like a terminal readout on the desk ------------- */
+
+.evidence-panel {
+  background: var(--rd-well);
+  border: 1px solid var(--rd-line);
+  border-radius: var(--rd-radius);
+  padding: 1.1rem 1.3rem 1.3rem;
+  box-shadow: inset 0 1px 12px rgb(0 0 0 / 0.5);
+}
+
+.evidence-panel__eyebrow {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rd-amb);
+  margin: 0 0 0.4rem;
+}
+
+.evidence-panel__title {
+  font-family: var(--display);
+  font-size: 1.35rem;
+  color: var(--rd-text-hi);
+  margin: 0 0 0.6rem;
+}
+
+.evidence-panel__overview {
+  color: var(--rd-text);
+  margin: 0 0 1rem;
+  max-width: 62ch;
+}
+
+.evidence-panel__fields {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+}
+
+.evidence-panel__fields dt {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rd-text-dim);
+  margin: 0 0 0.3rem;
+}
+
+.evidence-panel__fields dd {
+  margin: 0;
+  color: var(--rd-text-hi);
+  max-width: 62ch;
+}
+
+@media (min-width: 34rem) {
+  .evidence-panel__fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem 1.75rem;
+  }
+}
+
+/* Below the scene ---------------------------------------------------------*/
+
+.resolution-desk__disclosure {
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  max-width: 62ch;
+}
+
+.resolution-desk__continue {
+  margin-top: 1.5rem;
+}
+
+/* Desktop layout: horizontal floor ----------------------------------------
+   Mobile-first base above is the vertical path; from 48rem the floor turns
+   into the horizontal desk row and the SVG overlay swaps to the wide
+   viewBox that matches it. */
+
+.route-map--mobile {
+  display: block;
+}
+
+@media (min-width: 48rem) {
+  .route-map--mobile {
+    display: none;
+  }
+
+  .route-map--desktop {
+    display: block;
+  }
+
+  .resolution-desk__stage {
+    min-height: 11rem;
+  }
+
+  .station-row {
+    flex-direction: row;
+    min-height: 11rem;
+  }
+
+  .station-row > li {
+    justify-content: center;
+  }
+
+  .station {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.4rem;
+    max-width: 8.5rem;
+    padding: 0.7rem 0.6rem;
+  }
+
+  .station__index {
+    order: -1;
+  }
+
+  .resolution-desk__scene-body {
+    padding: 2rem 2.5rem 2.5rem;
+  }
+
+  .evidence-panel {
+    padding: 1.4rem 1.75rem 1.75rem;
+  }
+}
+
+@media (min-width: 60rem) {
+  .resolution-desk__scene-body {
+    grid-template-columns: minmax(14rem, 0.85fr) minmax(0, 1.7fr);
+    align-items: start;
+  }
+
+  .resolution-desk__picker {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .resolution-desk__floor {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .resolution-desk__evidence {
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* Reduced motion: the global rule in styles.css already zeroes transition
+   and animation durations for every element on the site, including the
+   marker glide and hover/selected transitions above. The only motion that
+   rule cannot reach is the JS requestAnimationFrame loop and the staggered
+   setTimeout station highlight in resolution-desk.js, both of which check
+   prefers-reduced-motion directly and skip straight to the final state. */

@@ -189,6 +189,8 @@ const requiredAssets = [
   "assets/rasheed-farhat-resume.pdf",
   "assets/support-social-card.png",
   "assets/rasheed-farhat-resume-support.pdf",
+  "support/resolution-desk.css",
+  "support/resolution-desk.js",
   "robots.txt",
   "sitemap.xml",
   "site.webmanifest"

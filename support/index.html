@@ -39,7 +39,9 @@
     />
     <script src="/theme-init.js?v=20260814a"></script>
     <link rel="stylesheet" href="/styles.css?v=20260814a" />
+    <link rel="stylesheet" href="/support/resolution-desk.css?v=20260814a" />
     <script src="/script.js?v=20260814a" defer></script>
+    <script src="/support/resolution-desk.js?v=20260814a" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -219,6 +221,181 @@
             </ol>
           </div>
         </figure>
+      </section>
+
+      <section
+        class="section shell resolution-desk"
+        data-resolution-desk
+        aria-labelledby="resolution-desk-title"
+      >
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Signature interaction</p>
+            <h2 id="resolution-desk-title">The Resolution Desk</h2>
+          </div>
+          <p class="resolution-desk__intro">
+            Pick a ticket and follow the amber marker through the same path a
+            real one takes: <strong>Intake, Triage, Investigation,
+            Resolution, Verification, Documentation</strong>, with a
+            Knowledge Base and an Escalation Desk close at hand. Open any
+            station to see what he would ask, check, and record.
+          </p>
+        </div>
+
+        <div class="resolution-desk__scene">
+          <div class="resolution-desk__scene-bar">
+            <span class="resolution-desk__scene-lights" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span>After-hours desk, one open ticket</span>
+          </div>
+          <div class="resolution-desk__scene-body">
+            <div class="resolution-desk__picker">
+              <p class="resolution-desk__picker-label" id="ticket-picker-label">Choose a representative example ticket</p>
+              <div class="ticket-picker" role="group" aria-labelledby="ticket-picker-label">
+                <button type="button" class="ticket-chip is-selected" data-ticket="lockout" aria-pressed="true">Account lockout or sign-in failure</button>
+                <button type="button" class="ticket-chip" data-ticket="vpn" aria-pressed="false">Unstable remote-access or VPN connection</button>
+                <button type="button" class="ticket-chip" data-ticket="workstation" aria-pressed="false">Slow or unreliable workstation</button>
+                <button type="button" class="ticket-chip" data-ticket="authentication" aria-pressed="false">Suspicious authentication activity</button>
+              </div>
+              <p class="resolution-desk__ticket-summary" data-ticket-summary aria-live="polite">A user cannot sign in. A locked account, a forgotten password, or a sign-in that fails without an obvious reason.</p>
+            </div>
+
+            <div class="resolution-desk__floor">
+              <div class="resolution-desk__stage">
+                <svg class="route-map route-map--mobile" viewBox="0 0 140 600" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                  <line class="route-line" x1="70" y1="50" x2="70" y2="550" />
+                  <line class="route-stub" x1="70" y1="200" x2="20" y2="200" />
+                  <line class="route-stub" x1="70" y1="300" x2="120" y2="300" />
+                  <circle class="route-node" cx="20" cy="200" r="4" />
+                  <circle class="route-node" cx="120" cy="300" r="4" />
+                  <g class="route-marker" data-route-marker transform="translate(70, 50)">
+                    <rect x="-5" y="-7" width="10" height="14" rx="2" />
+                    <line x1="-1.5" y1="-4" x2="-1.5" y2="4" />
+                    <line x1="1.5" y1="-4" x2="1.5" y2="1" />
+                  </g>
+                </svg>
+                <svg class="route-map route-map--desktop" viewBox="0 0 600 140" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                  <line class="route-line" x1="50" y1="70" x2="550" y2="70" />
+                  <line class="route-stub" x1="200" y1="70" x2="200" y2="20" />
+                  <line class="route-stub" x1="300" y1="70" x2="300" y2="120" />
+                  <circle class="route-node" cx="200" cy="20" r="4" />
+                  <circle class="route-node" cx="300" cy="120" r="4" />
+                  <g class="route-marker" data-route-marker transform="translate(50, 70)">
+                    <rect x="-7" y="-5" width="14" height="10" rx="2" />
+                    <line x1="-4" y1="-1.5" x2="4" y2="-1.5" />
+                    <line x1="-4" y1="1.5" x2="1" y2="1.5" />
+                  </g>
+                </svg>
+
+                <ol class="station-row">
+                  <li>
+                    <button type="button" class="station is-selected" data-station="intake" aria-pressed="true" aria-controls="evidence-panel">
+                      <span class="station__index">1</span>
+                      <span class="station__icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false"><path d="M3 2h7l3 3v9H3z" /><path d="M10 2v3h3" /><path d="M5.5 8h5M5.5 10.5h3" /></svg>
+                      </span>
+                      <span class="station__label">Intake</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="station" data-station="triage" aria-pressed="false" aria-controls="evidence-panel">
+                      <span class="station__index">2</span>
+                      <span class="station__icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false"><path d="M4 11V9M8 11V6M12 11V3" /></svg>
+                      </span>
+                      <span class="station__label">Triage</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="station" data-station="investigation" aria-pressed="false" aria-controls="evidence-panel">
+                      <span class="station__index">3</span>
+                      <span class="station__icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false"><circle cx="6.5" cy="6.5" r="4" /><path d="M9.5 9.5 13 13" /></svg>
+                      </span>
+                      <span class="station__label">Investigation</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="station" data-station="resolution" aria-pressed="false" aria-controls="evidence-panel">
+                      <span class="station__index">4</span>
+                      <span class="station__icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false"><path d="M3 8.5 6.5 12 13 4" /></svg>
+                      </span>
+                      <span class="station__label">Resolution</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="station" data-station="verification" aria-pressed="false" aria-controls="evidence-panel">
+                      <span class="station__index">5</span>
+                      <span class="station__icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false"><circle cx="8" cy="8" r="6" /><path d="M5 8.2 7.2 10.5 11.2 5.8" /></svg>
+                      </span>
+                      <span class="station__label">Verification</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="station" data-station="documentation" aria-pressed="false" aria-controls="evidence-panel">
+                      <span class="station__index">6</span>
+                      <span class="station__icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false"><rect x="3" y="2" width="10" height="12" rx="1" /><path d="M5.5 5.5h5M5.5 8h5M5.5 10.5h3" /></svg>
+                      </span>
+                      <span class="station__label">Documentation</span>
+                    </button>
+                  </li>
+                </ol>
+              </div>
+
+              <div class="resolution-desk__secondary">
+                <p class="resolution-desk__secondary-label">Reachable from any station</p>
+                <ol class="station-row station-row--secondary">
+                  <li>
+                    <button type="button" class="station station--secondary" data-station="knowledgeBase" aria-pressed="false" aria-controls="evidence-panel">
+                      <span class="station__icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false"><path d="M3 3.5c1.5-.8 3.3-.8 5 0v9c-1.7-.8-3.5-.8-5 0z" /><path d="M13 3.5c-1.5-.8-3.3-.8-5 0v9c1.7-.8 3.5-.8 5 0z" /></svg>
+                      </span>
+                      <span class="station__label">Knowledge Base</span>
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="station station--secondary" data-station="escalationDesk" aria-pressed="false" aria-controls="evidence-panel">
+                      <span class="station__icon" aria-hidden="true">
+                        <svg viewBox="0 0 16 16" focusable="false"><path d="M4 3c0 5 4 9 9 9l1-2.3-3-1.2-1 1.3c-1.7-.9-3-2.2-3.9-3.9l1.3-1L6.2 2 4 3z" /></svg>
+                      </span>
+                      <span class="station__label">Escalation Desk</span>
+                    </button>
+                  </li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="resolution-desk__evidence">
+              <div class="evidence-panel" id="evidence-panel" data-evidence-panel aria-live="polite" aria-atomic="true">
+                <p class="evidence-panel__eyebrow" data-evidence-eyebrow>Account lockout or sign-in failure / Intake</p>
+                <h3 class="evidence-panel__title" data-evidence-title>Intake</h3>
+                <p class="evidence-panel__overview" data-evidence-overview>Confirm who is affected, on what device, before assuming a cause.</p>
+                <dl class="evidence-panel__fields" data-evidence-fields>
+                  <div>
+                    <dt>What he would clarify with the user</dt>
+                    <dd>Whether it is one account or several, which device and app they are signing into, and whether anything changed recently, a new password, a new device, recent travel.</dd>
+                  </div>
+                  <div>
+                    <dt>What he would check</dt>
+                    <dd>The account status and whether the lockout counter or recent failed attempts line up with what the user describes.</dd>
+                  </div>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p class="resolution-desk__disclosure">
+          These four tickets are representative example scenarios built to
+          show how Rasheed approaches a case. They are not individual case
+          records. The documented cases, with real evidence and sources, are
+          in support casework.
+        </p>
+        <p class="resolution-desk__continue">
+          <a class="button button-secondary" href="/support/casework/">Read the documented support casework</a>
+        </p>
       </section>
 
       <section class="section shell" aria-labelledby="proof-title">

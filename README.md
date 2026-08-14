@@ -11,6 +11,10 @@ Static, dependency-free portfolio hosted with GitHub Pages at [rasheedfarhat.git
 - Self-hosted variable fonts (Big Shoulders, Public Sans, IBM Plex Mono) with no third-party requests
 - No build step
 - No runtime dependencies
+- One support-lane-only signature interaction, "The Resolution Desk," in
+  `support/resolution-desk.css` and `support/resolution-desk.js`. Both are
+  hand-authored, no-build-step files scoped entirely to `/support/`; nothing
+  outside that route loads or depends on them.
 - No analytics, cookies, form processors, or tracking of any kind
 
 ## Public routes
@@ -47,6 +51,7 @@ Dependency-free site checks:
 node scripts/validate-site.mjs
 node --check script.js
 node --check theme-init.js
+node --check support/resolution-desk.js
 ```
 
 HTML validation used during release (page routes only; `scripts/` holds

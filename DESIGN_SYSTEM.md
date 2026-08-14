@@ -285,6 +285,65 @@ security site's six-cell title-block footer: identity, contact, one
 `.support-footer__crossover` text link back to `/`, nothing else. One
 crossover link, not a nav duplication.
 
+### The Resolution Desk (signature interaction)
+
+Between the hero and the proof section on `/support/` sits one deliberately
+bolder piece: an interactive resolution-workflow visualization, `.resolution-desk`
+in `support/resolution-desk.css` and `support/resolution-desk.js`. It is the
+one place in the support lane the design spends real visual boldness, on
+purpose, so the surrounding sections can stay quiet and this becomes the
+memorable centerpiece rather than one of several loud things.
+
+**Fixed palette, not theme-reactive.** Unlike every other support-page
+component, `.resolution-desk` does not repoint `--sig`/`--amb`. It defines
+its own local custom properties (`--rd-ink`, `--rd-panel`, `--rd-amb`,
+`--rd-text`, and so on), literal hex copies of the already contrast-checked
+`body.support-page` dark tokens. The scene stays a fixed "support office
+after hours" graphite-and-amber tableau regardless of the visitor's
+light/dark toggle, the same way a lit window looks the same whether you are
+standing on a bright street or a dark one. Everything outside the scene
+(the section heading, the intro paragraph, the disclosure text below it)
+still uses the ordinary theme-reactive tokens.
+
+**Data drives the content, not the markup.** A single object in
+`resolution-desk.js` (`TICKETS`) holds all four representative example
+tickets, each with copy for all 8 stations (6 primary plus Knowledge Base
+and Escalation Desk). Adding a fifth ticket is a data-object edit, not a
+markup or layout change. Each station surfaces exactly 2 of the 6 evidence
+categories (what he'd clarify, what he'd check, the troubleshooting logic,
+what gets documented, when escalation applies, how resolution is verified),
+chosen so the full set of 6 appears somewhere across every ticket's path
+without repeating all 6 at every stop, keeping each open panel concise.
+
+**Routing is arithmetic, not measured.** The station buttons lay out with
+flexbox so station *n* of 6 sits at the `(n-0.5)/6` fraction of the row's
+length. The inline SVG route line's coordinates were chosen to land on that
+exact same fraction (desktop viewBox `0 0 600 140`, mobile `0 0 140 600`),
+so the drawn line always passes through the button centers with no
+`ResizeObserver` or DOM measurement involved. The traveling marker moves by
+linear interpolation between those same coordinates, not
+`SVGGeometryElement.getPointAtLength()`, a deliberate simplification since
+the route is a straight line. The two secondary connectors (Knowledge Base,
+Escalation Desk) are schematic, a short stub to a small node dot, not a
+literal wire to the card, matching how the rest of the system treats
+connective lines as gesture rather than engineering diagram.
+
+One layout trap worth remembering if this component is touched again: the
+two route SVGs are `position: absolute; inset: 0` against `.resolution-desk__stage`,
+so anything placed inside that stage stretches the SVGs' coordinate space
+with it. The secondary-station block is a sibling of `.resolution-desk__stage`
+inside `.resolution-desk__floor`, not a child of the stage, specifically so
+its extra height cannot inflate the SVG's rendered box and throw the route
+line out of alignment with the primary station row.
+
+**Content is never animation-gated.** Selecting a ticket or station updates
+the evidence panel immediately; a short, cancelable marker glide plays on
+top as a decorative preview and is skipped entirely under
+`prefers-reduced-motion: reduce`. The panel's resting state always matches
+the marker's resting position, so a visitor who never sees the animation
+(reduced motion, or simply reading a static screenshot) gets the same
+information as one who does.
+
 ---
 
 ## Interaction and accessibility
