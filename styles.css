@@ -1167,7 +1167,7 @@ html[data-loaded="true"] .hero-bezel {
 
 html[data-loaded="true"] .hero-name__readout {
   opacity: 0;
-  transition: opacity 2400ms var(--ease);
+  transition: opacity 10000ms var(--ease);
   transition-delay: 500ms;
 }
 
