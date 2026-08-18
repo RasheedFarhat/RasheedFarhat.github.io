@@ -19,7 +19,10 @@ The homepage lede reads "Detection engineering, tested and bounded," with
 `tested` set in `--sig` and `bounded` set in `--amb` using the same
 `.article-title__signal` word-highlight idiom used elsewhere for article
 titles. That sentence is the whole color code, taught in eight words, before
-any component demonstrates it.
+any component demonstrates it. A plain-language `.hero-role` line follows it
+immediately, translating the visual thesis into recruiter terms before the
+supporting technical detail and actions appear. The action hierarchy is one
+primary portfolio path, one résumé path, then GitHub as supporting evidence.
 
 ---
 
@@ -110,12 +113,16 @@ Three self-hosted variable faces, each with one job:
   the face a reader should stop noticing.
 - **IBM Plex Mono** — data and labels, in three deliberate tiers rather than
   one size used everywhere:
-  - `0.625rem`, `600` weight, `0.18em` tracking — engraved plate labels
+  - `0.7rem`, `600` weight, `0.15em` tracking — engraved plate labels
     (`.plate-label`), the smallest recurring detail on the site, always paired
     with a hairline rule underneath standing in for an etched groove.
   - `0.72rem`-`0.8rem` — eyebrows and section kickers.
-  - `0.8rem`-`1rem` — inline data lines and readouts (case metrics, coverage
-    values).
+  - `0.82rem`-`1rem` — interactive labels, inline data lines, and readouts
+    (case navigation, workflow controls, case metrics, coverage values).
+
+Interactive mono never uses the engraved-label floor. Buttons, navigation,
+case-study section links, ticket choices, phases, and workflow steps all keep
+a minimum `44px` target even when their visible lettering remains compact.
 
 Tracking on mono labels stays at or under `0.18em`. Chrome splits a text run
 into one node per glyph above roughly `2px` of letter-spacing on small type,
@@ -267,10 +274,12 @@ the site uses, never as an ambient color.
   between the two audiences a visible artifact instead of an assertion.
 
 The casework page reuses `.case-layout` / `.case-content` / `.case-sidebar`
-and `.stage-list` (with its `li--amb` boundary variant) unchanged from the
-`/projects/` case-study pattern, at the whole-page level rather than
-per-case, so the sticky "On this page" index covers all three cases plus the
-workflow-lab module from one sidebar.
+and `.stage-list` (with its `li--amb` boundary variant) from the `/projects/`
+case-study pattern, at the whole-page level rather than per-case. On wide
+screens the sticky index remains beside the reading path. On narrow screens a
+collapsed `.mobile-case-nav` appears before the content in DOM and focus
+order, while the desktop sidebar is hidden, so long case pages expose
+wayfinding before asking for a long scroll.
 
 The brand lockup gets one scoped variant, `.brand--support`: "RF" stays the
 identical size as the security site's mark, with a smaller mono
@@ -307,34 +316,30 @@ still uses the ordinary theme-reactive tokens.
 
 **Data drives the content, not the markup.** A single object in
 `resolution-desk.js` (`TICKETS`) holds all four representative example
-tickets, each with copy for all 8 stations (6 primary plus Knowledge Base
-and Escalation Desk). Adding a fifth ticket is a data-object edit, not a
-markup or layout change. Each station surfaces exactly 2 of the 6 evidence
-categories (what he'd clarify, what he'd check, the troubleshooting logic,
+tickets, each with copy for all 8 detailed stations. The six primary stations
+are progressively disclosed inside three recruiter-readable phases:
+Diagnose (Intake, Triage, Investigation), Resolve (Resolution, Verification),
+and Close (Documentation). Knowledge Base and Escalation Desk sit behind one
+optional "More paths" disclosure. Adding a fifth ticket is a data-object edit,
+not a markup or layout change. Each station surfaces exactly 2 of the 6 evidence
+categories (what I'd clarify, what I'd check, the troubleshooting logic,
 what gets documented, when escalation applies, how resolution is verified),
 chosen so the full set of 6 appears somewhere across every ticket's path
 without repeating all 6 at every stop, keeping each open panel concise.
 
-**Routing is arithmetic, not measured.** The station buttons lay out with
-flexbox so station *n* of 6 sits at the `(n-0.5)/6` fraction of the row's
-length. The inline SVG route line's coordinates were chosen to land on that
-exact same fraction (desktop viewBox `0 0 600 140`, mobile `0 0 140 600`),
-so the drawn line always passes through the button centers with no
-`ResizeObserver` or DOM measurement involved. The traveling marker moves by
-linear interpolation between those same coordinates, not
-`SVGGeometryElement.getPointAtLength()`, a deliberate simplification since
-the route is a straight line. The two secondary connectors (Knowledge Base,
-Escalation Desk) are schematic, a short stub to a small node dot, not a
-literal wire to the card, matching how the rest of the system treats
-connective lines as gesture rather than engineering diagram.
+**Routing is arithmetic, not measured.** The three phase buttons share fixed
+fractions of one straight route. Their SVG coordinates match those fractions
+in a `600 × 120` desktop viewBox and a `120 × 360` mobile viewBox, so the
+traveling marker moves between Diagnose, Resolve, and Close without DOM
+measurement. Detailed station changes update the evidence in place while the
+marker stays on the active phase, keeping the technical metaphor without
+presenting eight simultaneous route decisions.
 
-One layout trap worth remembering if this component is touched again: the
-two route SVGs are `position: absolute; inset: 0` against `.resolution-desk__stage`,
-so anything placed inside that stage stretches the SVGs' coordinate space
-with it. The secondary-station block is a sibling of `.resolution-desk__stage`
-inside `.resolution-desk__floor`, not a child of the stage, specifically so
-its extra height cannot inflate the SVG's rendered box and throw the route
-line out of alignment with the primary station row.
+One layout trap worth remembering if this component is touched again: the two
+route SVGs are `position: absolute; inset: 0` against
+`.resolution-desk__stage`, so detailed station controls and the optional paths
+remain siblings of the stage. Their height cannot inflate the SVG's rendered
+box or throw the route line out of alignment with the phase row.
 
 **Content is never animation-gated.** Selecting a ticket or station updates
 the evidence panel immediately; a short, cancelable marker glide plays on

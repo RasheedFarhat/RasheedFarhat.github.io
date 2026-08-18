@@ -99,8 +99,8 @@
 
 .resolution-desk__picker-label {
   font-family: var(--mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.18em;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--rd-text-dim);
   margin: 0 0 0.75rem;
@@ -114,7 +114,7 @@
 
 .ticket-chip {
   font-family: var(--mono);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   line-height: 1.3;
   text-align: left;
   color: var(--rd-text);
@@ -122,6 +122,7 @@
   border: 1px solid var(--rd-line);
   border-radius: var(--rd-radius);
   padding: 0.6rem 0.9rem;
+  min-height: 2.75rem;
   cursor: pointer;
   transition: border-color var(--dur-fast) ease, color var(--dur-fast) ease,
     background-color var(--dur-fast) ease;
@@ -157,9 +158,22 @@
   position: relative;
 }
 
+.resolution-desk__workflow-label,
+.resolution-desk__steps-label {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rd-text-dim);
+}
+
+.resolution-desk__workflow-label {
+  margin: 0 0 0.75rem;
+}
+
 .resolution-desk__stage {
   position: relative;
-  min-height: 21rem;
+  min-height: 16rem;
 }
 
 .route-map {
@@ -173,13 +187,6 @@
 .route-line {
   stroke: var(--rd-line-hi);
   stroke-width: 1.5;
-  fill: none;
-}
-
-.route-stub {
-  stroke: var(--rd-line);
-  stroke-width: 1.25;
-  stroke-dasharray: 3 3;
   fill: none;
 }
 
@@ -202,11 +209,11 @@
 }
 
 .route-marker {
-  filter: drop-shadow(0 0 3px rgb(242 184 75 / 0.55));
+  filter: drop-shadow(0 2px 2px rgb(242 184 75 / 0.45));
   transition: transform var(--dur-med) var(--ease);
 }
 
-.station-row {
+.phase-row {
   position: relative;
   z-index: 1;
   list-style: none;
@@ -214,13 +221,102 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  min-height: 21rem;
+  min-height: 16rem;
 }
 
-.station-row > li {
+.phase-row > li {
   flex: 1 1 0;
   display: flex;
   align-items: center;
+}
+
+.phase {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.85rem;
+  text-align: left;
+  color: var(--rd-text);
+  background: var(--rd-panel);
+  border: 1px solid var(--rd-line);
+  border-radius: var(--rd-radius);
+  cursor: pointer;
+  transition: border-color var(--dur-fast) ease, color var(--dur-fast) ease,
+    background-color var(--dur-fast) ease;
+}
+
+.phase > span:last-child {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.phase strong {
+  color: inherit;
+  font-family: var(--mono);
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+}
+
+.phase small {
+  color: var(--rd-text-dim);
+  font-size: 0.78rem;
+}
+
+.phase__index {
+  flex: none;
+  width: 1.7rem;
+  height: 1.7rem;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--rd-line-hi);
+  border-radius: 50%;
+  color: var(--rd-text-dim);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+}
+
+.phase:hover,
+.phase:focus-visible,
+.phase.is-selected {
+  border-color: var(--rd-amb);
+  color: var(--rd-text-hi);
+  background: var(--rd-panel-hi);
+}
+
+.phase.is-selected .phase__index {
+  color: var(--rd-amb-ink);
+  border-color: var(--rd-amb);
+  background: var(--rd-amb);
+}
+
+.phase:focus-visible {
+  outline: 2px solid var(--rd-amb-hi);
+  outline-offset: 2px;
+}
+
+.resolution-desk__steps {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rd-line);
+}
+
+.resolution-desk__steps-label {
+  margin: 0 0 0.7rem;
+}
+
+.station-row {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.6rem;
+}
+
+.station-row[hidden] {
+  display: none;
 }
 
 .station {
@@ -228,9 +324,10 @@
   align-items: center;
   gap: 0.65rem;
   width: 100%;
+  min-height: 2.75rem;
   text-align: left;
   font-family: var(--mono);
-  font-size: 0.82rem;
+  font-size: 0.84rem;
   color: var(--rd-text);
   background: var(--rd-panel);
   border: 1px solid var(--rd-line);
@@ -248,22 +345,6 @@
   min-width: 1.1em;
 }
 
-.station__icon {
-  flex: none;
-  display: inline-flex;
-  color: var(--rd-text-dim);
-}
-
-.station__icon svg {
-  width: 1.05rem;
-  height: 1.05rem;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.3;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
 .station__label {
   flex: 1 1 auto;
 }
@@ -276,12 +357,6 @@
   background: var(--rd-panel-hi);
 }
 
-.station:hover .station__icon,
-.station:focus-visible .station__icon,
-.station.is-selected .station__icon {
-  color: var(--rd-amb);
-}
-
 .station.is-selected {
   box-shadow: inset 2px 0 0 var(--rd-amb);
 }
@@ -291,34 +366,31 @@
   outline-offset: 2px;
 }
 
-.station.is-traversed .station__icon {
-  color: var(--rd-amb-hi);
-}
-
 .resolution-desk__secondary {
   margin-top: 1.25rem;
   padding-top: 1.25rem;
   border-top: 1px dashed var(--rd-line);
 }
 
-.resolution-desk__secondary-label {
+.resolution-desk__secondary summary {
+  min-height: 2.75rem;
+  display: flex;
+  align-items: center;
   font-family: var(--mono);
-  font-size: 0.625rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--rd-text-dim);
-  margin: 0 0 0.75rem;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  color: var(--rd-text);
+  cursor: pointer;
+}
+
+.resolution-desk__secondary summary:hover,
+.resolution-desk__secondary summary:focus-visible {
+  color: var(--rd-amb-hi);
 }
 
 .station-row--secondary {
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  min-height: 0;
-}
-
-.station-row--secondary > li {
-  flex: 1 1 14rem;
+  margin-top: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
 }
 
 .station--secondary {
@@ -337,7 +409,7 @@
 
 .evidence-panel__eyebrow {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.74rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--rd-amb);
@@ -365,7 +437,7 @@
 
 .evidence-panel__fields dt {
   font-family: var(--mono);
-  font-size: 0.625rem;
+  font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--rd-text-dim);
@@ -398,10 +470,7 @@
   margin-top: 1.5rem;
 }
 
-/* Desktop layout: horizontal floor ----------------------------------------
-   Mobile-first base above is the vertical path; from 48rem the floor turns
-   into the horizontal desk row and the SVG overlay swaps to the wide
-   viewBox that matches it. */
+/* Desktop layout: horizontal three-phase path ---------------------------- */
 
 .route-map--mobile {
   display: block;
@@ -417,27 +486,31 @@
   }
 
   .resolution-desk__stage {
-    min-height: 11rem;
+    min-height: 8.5rem;
   }
 
-  .station-row {
+  .phase-row {
     flex-direction: row;
-    min-height: 11rem;
+    min-height: 8.5rem;
   }
 
-  .station-row > li {
+  .phase-row > li {
     justify-content: center;
   }
 
-  .station {
+  .phase {
     flex-direction: column;
     text-align: center;
     gap: 0.4rem;
-    max-width: 8.5rem;
-    padding: 0.7rem 0.6rem;
+    max-width: 11rem;
+    padding: 0.75rem 0.7rem;
   }
 
-  .station__index {
+  .phase > span:last-child {
+    justify-items: center;
+  }
+
+  .phase__index {
     order: -1;
   }
 

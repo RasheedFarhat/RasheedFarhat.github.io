@@ -6,7 +6,7 @@
  * security-portfolio routes are untouched.
  *
  * All four tickets below are representative example scenarios that show how
- * Rasheed approaches a ticket. They are not individual case records; the
+ * I approach a ticket. They are not individual case records; the
  * documented cases live at /support/casework/.
  */
 (() => {
@@ -15,14 +15,24 @@
   const root = document.querySelector("[data-resolution-desk]");
   if (!root) return;
 
-  const STATION_ORDER = [
-    "intake",
-    "triage",
-    "investigation",
-    "resolution",
-    "verification",
-    "documentation"
-  ];
+  const PHASES = {
+    diagnose: ["intake", "triage", "investigation"],
+    resolve: ["resolution", "verification"],
+    close: ["documentation"]
+  };
+
+  const PHASE_LABELS = {
+    diagnose: "Diagnose",
+    resolve: "Resolve",
+    close: "Close"
+  };
+
+  const STATION_PHASES = Object.entries(PHASES).reduce((map, [phaseKey, stationKeys]) => {
+    stationKeys.forEach((stationKey) => {
+      map[stationKey] = phaseKey;
+    });
+    return map;
+  }, {});
 
   const STATION_LABELS = {
     intake: "Intake",
@@ -50,12 +60,12 @@
   };
 
   const FIELD_LABELS = {
-    clarify: "What he would clarify with the user",
-    check: "What he would check",
-    logic: "The troubleshooting logic",
-    document: "What gets documented",
-    escalate: "When escalation would be appropriate",
-    verify: "How resolution would be verified"
+    clarify: "What I would clarify with the user",
+    check: "What I would check",
+    logic: "How I would narrow the cause",
+    document: "What I would document",
+    escalate: "When I would escalate",
+    verify: "How I would verify resolution"
   };
 
   const SECONDARY_FIELDS = {
@@ -64,37 +74,26 @@
   };
 
   const SECONDARY_FIELD_LABELS = {
-    consult: "What he would reference",
-    update: "What he would add or update",
-    trigger: "What triggers escalation",
-    handoff: "What goes in the handoff",
-    retain: "What stays with him"
+    consult: "What I would reference",
+    update: "What I would add or update",
+    trigger: "What would trigger escalation",
+    handoff: "What I would include in the handoff",
+    retain: "What I would continue to own"
   };
 
-  // Coordinates share the SVG viewBox for each layout, so the marker can
-  // move between primary and secondary stations without re-measuring the
-  // DOM. Desktop is a horizontal line (viewBox 0 0 600 140); mobile is the
-  // same shape turned vertical (viewBox 0 0 140 600).
+  // Coordinates share the SVG viewBox for each layout. The marker now moves
+  // between three recruiter-readable phases; the detailed station buttons
+  // inside each phase update the evidence without adding more route choices.
   const DESKTOP_POS = {
-    intake: { x: 50, y: 70 },
-    triage: { x: 150, y: 70 },
-    investigation: { x: 250, y: 70 },
-    resolution: { x: 350, y: 70 },
-    verification: { x: 450, y: 70 },
-    documentation: { x: 550, y: 70 },
-    knowledgeBase: { x: 300, y: 120 },
-    escalationDesk: { x: 200, y: 20 }
+    diagnose: { x: 100, y: 60 },
+    resolve: { x: 300, y: 60 },
+    close: { x: 500, y: 60 }
   };
 
   const MOBILE_POS = {
-    intake: { x: 70, y: 50 },
-    triage: { x: 70, y: 150 },
-    investigation: { x: 70, y: 250 },
-    resolution: { x: 70, y: 350 },
-    verification: { x: 70, y: 450 },
-    documentation: { x: 70, y: 550 },
-    knowledgeBase: { x: 120, y: 300 },
-    escalationDesk: { x: 20, y: 200 }
+    diagnose: { x: 60, y: 40 },
+    resolve: { x: 60, y: 180 },
+    close: { x: 60, y: 320 }
   };
 
   const TICKETS = {
@@ -161,7 +160,7 @@
           "Multiple related lockouts, or a lockout tied to activity the user does not recognize.",
         handoff:
           "Everything gathered so far, timestamps, affected accounts, and what has already been ruled out, so the receiving team is not starting over.",
-        retain: "Rasheed stays the point of contact for the user even after escalating the account-security piece."
+        retain: "I stay the point of contact for the user even after escalating the account-security piece."
       }
     },
 
@@ -224,7 +223,7 @@
           "The client will not hold a connection on any known-good network, or several users are affected at once.",
         handoff:
           "Confirmation that the user's own device and network were ruled out, plus timestamps and what was tested.",
-        retain: "Rasheed keeps the user updated while the infrastructure side is investigated."
+        retain: "I keep the user updated while the infrastructure side is investigated."
       }
     },
 
@@ -282,7 +281,7 @@
         trigger: "Hardware diagnostics point to failing components, or the same symptom appears across multiple machines.",
         handoff:
           "What has already been ruled out and the specific diagnostic results, so a hardware or deeper software review does not start from zero.",
-        retain: "Rasheed keeps the ticket and the user informed while a hardware review is pending."
+        retain: "I keep the ticket and the user informed while a hardware review is pending."
       }
     },
 
@@ -342,18 +341,22 @@
         overview: "The security handoff this category almost always needs.",
         trigger: "Any activity the user cannot fully and firsthand explain.",
         handoff: "Full sign-in history reviewed, what containment was already done, and exactly what remains unexplained.",
-        retain: "Rasheed's role ends at containment and a clean handoff; the security review itself belongs to the team that owns it."
+        retain: "My role ends at containment and a clean handoff; the security review itself belongs to the team that owns it."
       }
     }
   };
 
   const DEFAULT_TICKET = "lockout";
+  const DEFAULT_PHASE = "diagnose";
   const DEFAULT_STATION = "intake";
 
   const ticketButtons = Array.from(root.querySelectorAll("[data-ticket]"));
+  const phaseButtons = Array.from(root.querySelectorAll("[data-phase]"));
+  const phasePanels = Array.from(root.querySelectorAll("[data-phase-panel]"));
   const stationButtons = Array.from(root.querySelectorAll("[data-station]"));
   const summaryEl = root.querySelector("[data-ticket-summary]");
-  const panel = root.querySelector("[data-evidence-panel]");
+  const phaseLabel = root.querySelector("[data-phase-label]");
+  const secondaryDetails = root.querySelector(".resolution-desk__secondary");
   const panelEyebrow = root.querySelector("[data-evidence-eyebrow]");
   const panelTitle = root.querySelector("[data-evidence-title]");
   const panelOverview = root.querySelector("[data-evidence-overview]");
@@ -363,11 +366,12 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   let currentTicket = DEFAULT_TICKET;
+  let currentPhase = DEFAULT_PHASE;
   let currentStation = DEFAULT_STATION;
   let animationToken = 0;
 
-  function posFor(map, stationKey) {
-    return map[stationKey] || map.intake;
+  function posFor(map, phaseKey) {
+    return map[phaseKey] || map.diagnose;
   }
 
   function isVisible(el) {
@@ -384,19 +388,19 @@
     }));
   }
 
-  function coordsForLayout(svgEl, stationKey) {
+  function coordsForLayout(svgEl, phaseKey) {
     const isMobile = svgEl.classList.contains("route-map--mobile");
-    return posFor(isMobile ? MOBILE_POS : DESKTOP_POS, stationKey);
+    return posFor(isMobile ? MOBILE_POS : DESKTOP_POS, phaseKey);
   }
 
   function setMarkerTransform(marker, x, y) {
     marker.setAttribute("transform", `translate(${x}, ${y})`);
   }
 
-  function placeMarkersInstant(stationKey) {
+  function placeMarkersInstant(phaseKey) {
     activeMarkers().forEach(({ marker }) => {
       const svg = marker.closest("svg");
-      const pos = coordsForLayout(svg, stationKey);
+      const pos = coordsForLayout(svg, phaseKey);
       setMarkerTransform(marker, pos.x, pos.y);
     });
   }
@@ -475,6 +479,20 @@
     });
   }
 
+  function setPhasePresentation(phaseKey) {
+    phaseButtons.forEach((button) => {
+      const isCurrent = button.dataset.phase === phaseKey;
+      button.setAttribute("aria-pressed", String(isCurrent));
+      button.classList.toggle("is-selected", isCurrent);
+    });
+
+    phasePanels.forEach((phasePanel) => {
+      phasePanel.hidden = phasePanel.dataset.phasePanel !== phaseKey;
+    });
+
+    phaseLabel.textContent = `${PHASE_LABELS[phaseKey]} · choose a step`;
+  }
+
   function setTicketPressedState(ticketKey) {
     ticketButtons.forEach((button) => {
       const isCurrent = button.dataset.ticket === ticketKey;
@@ -485,69 +503,73 @@
 
   function selectStation(stationKey, options = {}) {
     const { animate = true } = options;
-    const previousStation = currentStation;
+    const stationPhase = STATION_PHASES[stationKey];
+    const previousPhase = currentPhase;
+
+    if (stationPhase && stationPhase !== currentPhase) {
+      currentPhase = stationPhase;
+      setPhasePresentation(currentPhase);
+    }
+
+    currentStation = stationKey;
+    renderPanel(currentTicket, stationKey);
+    setStationPressedState(stationKey);
+
+    if (!stationPhase || stationPhase === previousPhase) return;
+
+    if (!animate || reduceMotion.matches) {
+      placeMarkersInstant(currentPhase);
+      return;
+    }
+
+    animationToken += 1;
+    glideMarkers(previousPhase, currentPhase, 320, animationToken);
+  }
+
+  function selectPhase(phaseKey, options = {}) {
+    if (!PHASES[phaseKey]) return;
+    const { animate = true } = options;
+    const previousPhase = currentPhase;
+    currentPhase = phaseKey;
+    setPhasePresentation(phaseKey);
+
+    const stationKey = PHASES[phaseKey][0];
     currentStation = stationKey;
     renderPanel(currentTicket, stationKey);
     setStationPressedState(stationKey);
 
     if (!animate || reduceMotion.matches) {
-      placeMarkersInstant(stationKey);
+      placeMarkersInstant(phaseKey);
       return;
     }
 
     animationToken += 1;
-    glideMarkers(previousStation, stationKey, 320, animationToken);
-  }
-
-  function runTraversalPreview(ticketKey, token) {
-    root.classList.add("is-traversing");
-    STATION_ORDER.forEach((stationKey, index) => {
-      window.setTimeout(() => {
-        if (token !== animationToken) return;
-        stationButtons.forEach((button) => {
-          if (button.dataset.station === stationKey) {
-            button.classList.add("is-traversed");
-          }
-        });
-      }, index * 130);
-    });
-
-    const previewDuration = (STATION_ORDER.length - 1) * 130 + 220;
-    glideMarkers("intake", "documentation", previewDuration, token);
-
-    window.setTimeout(() => {
-      if (token !== animationToken) return;
-      root.classList.remove("is-traversing");
-    }, previewDuration + 60);
+    glideMarkers(previousPhase, phaseKey, 320, animationToken);
   }
 
   function selectTicket(ticketKey) {
     if (!TICKETS[ticketKey]) return;
     currentTicket = ticketKey;
+    currentPhase = DEFAULT_PHASE;
     currentStation = DEFAULT_STATION;
 
     setTicketPressedState(ticketKey);
     const ticket = TICKETS[ticketKey];
     summaryEl.textContent = ticket.summary;
     renderPanel(ticketKey, DEFAULT_STATION);
+    setPhasePresentation(DEFAULT_PHASE);
     setStationPressedState(DEFAULT_STATION);
-
-    stationButtons.forEach((button) => button.classList.remove("is-traversed"));
-
+    secondaryDetails.open = false;
     animationToken += 1;
-    const token = animationToken;
-
-    if (reduceMotion.matches) {
-      placeMarkersInstant(DEFAULT_STATION);
-      return;
-    }
-
-    placeMarkersInstant("intake");
-    runTraversalPreview(ticketKey, token);
+    placeMarkersInstant(DEFAULT_PHASE);
   }
 
   ticketButtons.forEach((button) => {
     button.addEventListener("click", () => selectTicket(button.dataset.ticket));
+  });
+
+  phaseButtons.forEach((button) => {
+    button.addEventListener("click", () => selectPhase(button.dataset.phase));
   });
 
   stationButtons.forEach((button) => {
@@ -561,6 +583,7 @@
   // Initialize to match the statically rendered default (lockout / intake)
   // with no motion, so nothing has to animate before the panel is correct.
   setTicketPressedState(DEFAULT_TICKET);
+  setPhasePresentation(DEFAULT_PHASE);
   setStationPressedState(DEFAULT_STATION);
-  placeMarkersInstant(DEFAULT_STATION);
+  placeMarkersInstant(DEFAULT_PHASE);
 })();

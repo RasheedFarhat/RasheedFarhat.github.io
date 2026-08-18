@@ -37,7 +37,7 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260812l" />
+    <link rel="stylesheet" href="/styles.css?v=20260818a" />
     <script src="/script.js?v=20260812a" defer></script>
     <script type="application/ld+json">
       {
@@ -159,7 +159,8 @@
           </div>
         </div>
 
-        <div class="shell">
+        <section class="case-glance shell" aria-labelledby="case-glance-title">
+          <h2 id="case-glance-title">At a glance</h2>
           <div class="assessment">
             <div class="assessment__cell">
               <p class="assessment__label">Claim</p>
@@ -184,9 +185,23 @@
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
         <div class="case-layout shell">
+          <details class="mobile-case-nav">
+            <summary>On this page</summary>
+            <nav aria-label="Detection-as-Code sections">
+              <ul>
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#compiler">Inside the compiler</a></li>
+                <li><a href="#decisions">Decisions</a></li>
+                <li><a href="#validation">Validation</a></li>
+                <li><a href="#limits">Known limits</a></li>
+                <li><a href="#source">Source</a></li>
+              </ul>
+            </nav>
+          </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
               <p class="eyebrow">The problem</p>
