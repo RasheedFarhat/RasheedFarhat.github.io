@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Three documented support and troubleshooting cases from Rasheed Farhat, shown from report through resolution, plus a synthetic support-workflow lab built on Control Plane." />
+    <meta name="description" content="Three documented support and troubleshooting cases from Rasheed Farhat, shown from report through resolution, plus two synthetic workflow labs built on Control Plane and Assertion Desk." />
     <meta name="theme-color" content="#f4efe5" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#191810" media="(prefers-color-scheme: dark)" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:title" content="Support Casework | Rasheed Farhat" />
-    <meta property="og:description" content="Three documented support and troubleshooting cases, shown from report through resolution, plus a synthetic support-workflow lab built on Control Plane." />
+    <meta property="og:description" content="Three documented support and troubleshooting cases, shown from report through resolution, plus two synthetic workflow labs built on Control Plane and Assertion Desk." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://rasheedfarhat.github.io/support/casework/" />
     <meta property="og:image" content="https://rasheedfarhat.github.io/assets/support-social-card.png" />
@@ -17,7 +17,7 @@
     <meta property="og:image:alt" content="Rasheed Farhat. IT and technical support, 17 months frontline help desk experience." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Support Casework | Rasheed Farhat" />
-    <meta name="twitter:description" content="Three documented support and troubleshooting cases, shown from report through resolution, plus a synthetic support-workflow lab built on Control Plane." />
+    <meta name="twitter:description" content="Three documented support and troubleshooting cases, shown from report through resolution, plus two synthetic workflow labs built on Control Plane and Assertion Desk." />
     <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/support-social-card.png" />
     <link rel="canonical" href="https://rasheedfarhat.github.io/support/casework/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -38,7 +38,7 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260814a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260818a" />
+    <link rel="stylesheet" href="/styles.css?v=20260823a" />
     <script src="/script.js?v=20260814a" defer></script>
     <script type="application/ld+json">
       {
@@ -135,7 +135,7 @@
         <h2 id="casework-glance-title">At a glance</h2>
         <ul>
           <li><strong>Three documented cases</strong><span>Real problems with evidence, decisions, and outcomes.</span></li>
-          <li><strong>One synthetic workflow lab</strong><span>A safe environment for showing ticket, approval, and closure discipline.</span></li>
+          <li><strong>Two synthetic workflow labs</strong><span>Safe environments for showing ticket, approval, and closure discipline, and for showing diagnosis held to evidence.</span></li>
           <li><strong>What this demonstrates</strong><span>Patient troubleshooting, clear communication, and an honest handoff when ownership changes.</span></li>
         </ul>
       </section>
@@ -149,6 +149,7 @@
               <li><a href="#case-2">Silent API write</a></li>
               <li><a href="#case-3">Self-hosted access stack</a></li>
               <li><a href="#workflow-lab">Workflow lab</a></li>
+              <li><a href="#assertion-lab">Assertion lab</a></li>
             </ul>
           </nav>
         </details>
@@ -396,6 +397,75 @@
               <a href="/projects/control-plane/">Control Plane</a> project page.
             </p>
           </section>
+
+          <section class="case-file case-file--lab" id="assertion-lab" aria-labelledby="assertion-lab-title">
+            <div class="case-file__head">
+              <p class="eyebrow eyebrow--amb">Workflow lab</p>
+              <h2 id="assertion-lab-title">How I modeled a diagnosis that has to prove itself.</h2>
+              <p class="scope-note">
+                <strong>Scope</strong>
+                <span>Synthetic SAML corpus against a self-hosted Keycloak identity provider, not a production IdP. Customer narratives are authored text standing in for real tickets, not real conversations.</span>
+              </p>
+            </div>
+            <p>
+              A ticket that says sign-in is broken can have close to a
+              dozen distinct causes that look identical from the person's
+              chair, an expired certificate, a mismatched audience value, a
+              stale attribute mapping. I built Assertion Desk to work
+              through that ambiguity in order, and to make sure the answer
+              handed back names the specific check that failed instead of
+              a guess dressed up as confidence.
+            </p>
+            <ol class="stage-list">
+              <li>
+                <span class="stage-label">Intake</span>
+                <strong>Custody and quarantine</strong>
+                <small>Artifacts are scanned for secret patterns before anything else touches them.</small>
+              </li>
+              <li>
+                <span class="stage-label">Verify</span>
+                <strong>Deterministic checks</strong>
+                <small>Signature, audience, NameID, conditions, and clock skew are checked against the actual assertion.</small>
+              </li>
+              <li>
+                <span class="stage-label">Extract</span>
+                <strong>Read the report</strong>
+                <small>The customer's own description is turned into structured facts: onset, recent change, what they believe is wrong.</small>
+              </li>
+              <li>
+                <span class="stage-label">Draft</span>
+                <strong>Draft the explanation</strong>
+                <small>A summary and a root-cause explanation are drafted, grounded only in what the checks found.</small>
+              </li>
+              <li>
+                <span class="stage-label">Gate</span>
+                <strong>Verify the explanation itself</strong>
+                <small>Every claim in the draft is checked against a verified finding, and a claim that points at a gap gets rejected.</small>
+              </li>
+              <li>
+                <span class="stage-label">Decide</span>
+                <strong>Case disposition</strong>
+                <small>The outcome is computed from the checks and the grounding verdict, never from parsed model text.</small>
+              </li>
+              <li>
+                <span class="stage-label">Approve</span>
+                <strong>Human review</strong>
+                <small>A person reviews the grounded draft and its evidence before anything is marked ready.</small>
+              </li>
+              <li>
+                <span class="stage-label">Close</span>
+                <strong>Publish with evidence</strong>
+                <small>What ships names the specific check that failed and the artifact that proved it, not just that the case is resolved.</small>
+              </li>
+            </ol>
+            <p class="case-file__source">
+              Concepts modeled: evidence custody ahead of investigation;
+              deterministic checks ahead of generated explanations; a
+              validator that rejects an unsupported claim before a human
+              sees it; and closure evidence over a closure claim. Source:
+              <a href="/projects/assertion-desk/">Assertion Desk</a> project page.
+            </p>
+          </section>
         </div>
 
         <aside class="case-sidebar" aria-labelledby="case-nav-title">
@@ -405,6 +475,7 @@
             <li><a href="#case-2">Silent API write</a></li>
             <li><a href="#case-3">Self-hosted access stack</a></li>
             <li><a href="#workflow-lab">Workflow lab</a></li>
+            <li><a href="#assertion-lab">Assertion lab</a></li>
           </ul>
           <ul class="tag-list">
             <li class="tag">ADB</li>
@@ -417,6 +488,8 @@
             <li class="tag">Authentik</li>
             <li class="tag">Keycloak</li>
             <li class="tag">PostgreSQL</li>
+            <li class="tag">SAML</li>
+            <li class="tag">Gemini / Ollama</li>
           </ul>
         </aside>
       </div>

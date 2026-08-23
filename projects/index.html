@@ -3,11 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Security engineering projects by Rasheed Farhat: a Sigma-to-Wazuh detection compiler, an approval-gated IT and security operations control plane, an MCP security review framework, an identity deception lab, and a published malware investigation." />
+    <meta name="description" content="Security engineering projects by Rasheed Farhat: a Sigma-to-Wazuh detection compiler, an approval-gated IT and security operations control plane, an MCP security review framework, an identity deception lab, an evidence-gated SSO diagnosis pipeline, and a published malware investigation." />
     <meta name="theme-color" content="#edebe5" />
     <meta name="color-scheme" content="light dark" />
     <meta property="og:title" content="Projects | Rasheed Farhat" />
-    <meta property="og:description" content="Security engineering projects by Rasheed Farhat: a Sigma-to-Wazuh detection compiler, an approval-gated IT and security operations control plane, an MCP security review framework, an identity deception lab, and a published malware investigation." />
+    <meta property="og:description" content="Security engineering projects by Rasheed Farhat: a Sigma-to-Wazuh detection compiler, an approval-gated IT and security operations control plane, an MCP security review framework, an identity deception lab, an evidence-gated SSO diagnosis pipeline, and a published malware investigation." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://rasheedfarhat.github.io/projects/" />
     <meta property="og:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
@@ -16,7 +16,7 @@
     <meta property="og:image:alt" content="Rasheed Farhat. Security operations, detection automation, and assurance." />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Projects | Rasheed Farhat" />
-    <meta name="twitter:description" content="Security engineering projects by Rasheed Farhat: a Sigma-to-Wazuh detection compiler, an approval-gated IT and security operations control plane, an MCP security review framework, an identity deception lab, and a published malware investigation." />
+    <meta name="twitter:description" content="Security engineering projects by Rasheed Farhat: a Sigma-to-Wazuh detection compiler, an approval-gated IT and security operations control plane, an MCP security review framework, an identity deception lab, an evidence-gated SSO diagnosis pipeline, and a published malware investigation." />
     <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/social-card.png" />
     <link rel="canonical" href="https://rasheedfarhat.github.io/projects/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -37,7 +37,7 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260818a" />
+    <link rel="stylesheet" href="/styles.css?v=20260823a" />
     <script src="/script.js?v=20260812a" defer></script>
     <title>Projects | Rasheed Farhat</title>
   </head>
@@ -195,6 +195,28 @@
           </article>
           <article class="work-row">
             <div class="work-row__meta">
+              <span class="status lamp lamp--sig">Active open source</span>
+              <span class="work-row__year">2026</span>
+            </div>
+            <div class="work-row__body">
+              <h3><a href="/projects/assertion-desk/">Assertion Desk</a></h3>
+              <p>
+                A SAML sign-in failure diagnosis pipeline where a
+                deterministic verifier establishes the facts and a
+                grounding gate rejects any model claim the facts do not
+                support.
+              </p>
+            </div>
+            <p class="work-row__evidence">
+              <strong>55 SAML cases, 94.5% disposition accuracy</strong><br />
+              6 of 6 reachable injection payloads resisted<br />
+              0 secrets across 280 recorded prompts
+              <span class="bound">Keycloak only, and the AI path still trails the deterministic path</span>
+            </p>
+            <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
+          </article>
+          <article class="work-row">
+            <div class="work-row__meta">
               <span class="status lamp lamp--sig">Published investigation</span>
               <span class="work-row__year">2025</span>
             </div>
@@ -222,7 +244,7 @@
           </article>
         </div>
         <p class="mono-note">
-          Common method across all five: make the logic inspectable, run it
+          Common method across all six: make the logic inspectable, run it
           against evidence, and document what it cannot resolve.
         </p>
       </section>
