@@ -2657,7 +2657,10 @@ ul.tag-list {
    leaves an orphan cell alone in the last row; the mosaic's own gap-as-line
    background shows through the empty tracks beside it as a bare block of
    color. If the last metric starts a row by itself, stretch it across the
-   remaining columns instead of leaving them empty. */
+   remaining columns instead of leaving them empty. The same gap shows up
+   with two metrics left over in a three-column row: the first of the pair
+   spans two tracks and the last one keeps its own, so the row fills exactly
+   instead of leaving one bare track beside it. */
 .metric-list .metric:last-child {
   grid-column: auto;
 }
@@ -2667,12 +2670,20 @@ ul.tag-list {
 }
 
 @media (min-width: 48rem) {
-  .metric-list .metric:last-child {
+  /* :nth-child(n) matches every child, so this reset carries the same two
+     pseudo-class specificity as the mobile :last-child:nth-child(2n + 1)
+     rule above and actually overrides it here, instead of losing to it on
+     source order versus the plain :last-child reset that used to sit here. */
+  .metric-list .metric:last-child:nth-child(n) {
     grid-column: auto;
   }
 
   .metric-list .metric:last-child:nth-child(3n + 1) {
     grid-column: 1 / -1;
+  }
+
+  .metric-list .metric:nth-last-child(2):nth-child(3n + 1) {
+    grid-column: span 2;
   }
 }
 
@@ -2797,6 +2808,80 @@ ul.tag-list {
 .limit-list strong {
   color: var(--amb-hi);
   font-weight: 600;
+}
+
+/* Grounding gate: a three-band instrument showing a model's claim, the
+   deterministic check that rejected it, and what actually published. The
+   third band is deliberately empty; that emptiness is the point of the
+   gate, not a missing state. */
+.grounding-gate {
+  display: grid;
+  margin: 1.5rem 0;
+  border: 1px solid var(--line-hi);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.grounding-gate__band {
+  padding: var(--pad-tight);
+  border-bottom: 1px solid var(--line);
+}
+
+.grounding-gate__band:last-child {
+  border-bottom: none;
+}
+
+.grounding-gate__band--draft {
+  background: var(--panel);
+}
+
+.grounding-gate__band--draft p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--text);
+  max-width: none;
+}
+
+.grounding-gate__band--gate {
+  background: var(--well);
+  box-shadow: inset 0 1px 3px var(--well-top);
+  border-left: 3px solid var(--amb);
+}
+
+.grounding-gate__band--gate .plate-label {
+  border-bottom-color: var(--amb);
+}
+
+.grounding-gate__verdict {
+  font-family: var(--display);
+  font-size: 1.3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--amb-hi);
+  margin: 0 0 0.5rem;
+}
+
+.grounding-gate__reason {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  max-width: none;
+}
+
+.grounding-gate__band--published {
+  background: var(--well);
+  box-shadow: inset 0 1px 3px var(--well-top);
+  text-align: center;
+  padding: 1.6rem var(--pad-tight);
+}
+
+.grounding-gate__empty {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  font-style: italic;
 }
 
 /* Contact page ---------------------------------------------------------- */

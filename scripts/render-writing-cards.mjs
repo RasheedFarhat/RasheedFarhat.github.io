@@ -14,7 +14,9 @@ const output = resolve(root, "assets", "writing");
 const cards = [
   { article: "1", name: "agent-rogue" },
   { article: "2", name: "five-detections" },
-  { article: "3", name: "legitimate-call" }
+  { article: "3", name: "legitimate-call" },
+  { article: "4", name: "claim-was-wrong" },
+  { article: "5", name: "support-answer" }
 ];
 
 await mkdir(output, { recursive: true });
@@ -35,4 +37,4 @@ for (const card of cards) {
 }
 
 await browser.close();
-console.log("Rendered 6 writing cards.");
+console.log("Rendered 10 writing cards.");

@@ -5,7 +5,7 @@
  * /support/ and intentionally kept out of the shared script.js so the
  * security-portfolio routes are untouched.
  *
- * All four tickets below are representative example scenarios that show how
+ * All five tickets below are representative example scenarios that show how
  * I approach a ticket. They are not individual case records; the
  * documented cases live at /support/casework/.
  */
@@ -342,6 +342,70 @@
         trigger: "Any activity the user cannot fully and firsthand explain.",
         handoff: "Full sign-in history reviewed, what containment was already done, and exactly what remains unexplained.",
         retain: "My role ends at containment and a clean handoff; the security review itself belongs to the team that owns it."
+      }
+    },
+
+    federated: {
+      label: "Federated sign-in fails for one application",
+      summary:
+        "A user can sign into most things but a single federated application rejects them, or an alert flags a SAML assertion that never should have failed.",
+      stations: {
+        intake: {
+          overview: "Scope the failure before assuming which side of the trust is broken.",
+          clarify:
+            "Whether this is one application or every federated app, one user or the whole tenant, and whether anything changed recently, a certificate rotation, an app update, a new attribute mapping.",
+          check:
+            "Whether the same user can sign into other federated applications without trouble, which narrows the problem to this one trust relationship."
+        },
+        triage: {
+          overview: "The failure's shape points at which side of the trust to investigate first.",
+          logic:
+            "Everyone failing on one application points at the trust between the identity provider and that service provider. One user failing everywhere points at that user's own attributes instead.",
+          escalate:
+            "If every user on an application is affected, or the identity provider's own certificate recently rotated, it goes to whoever owns that trust configuration rather than being treated as a single account."
+        },
+        investigation: {
+          overview: "Capture the actual assertion instead of guessing from the error message.",
+          check:
+            "The signature, the audience restriction, the NameID, the conditions window, and the clock skew, in that order, since a certificate rotation and an expired assertion produce the same sign-in failure to the user.",
+          logic:
+            "A green sign-in at the identity provider does not clear the service provider. The failure has to be isolated to one specific condition in the assertion, not assumed from where the user says it broke."
+        },
+        resolution: {
+          overview: "Fix the condition that actually failed, not the category it falls under.",
+          logic:
+            "The fix follows the specific failed check, an updated certificate, a corrected audience value, a NameID mapping fix, rather than a generic re-provision that may not touch the real cause.",
+          document:
+            "Which check failed and its identifier, not a general note that sign-in was broken, so the fix is traceable to the assertion field that caused it."
+        },
+        verification: {
+          overview: "A passing check at the identity provider is not proof the application accepts the user back.",
+          verify:
+            "Have the user complete an actual sign-in on the affected application, since a clean identity-provider test says nothing about the service provider's own audience restriction.",
+          escalate:
+            "If the same condition fails again after the fix, that points at a deeper trust misconfiguration and moves to the escalation desk rather than a second identical fix."
+        },
+        documentation: {
+          overview: "Leave a record that names the exact check, not the general symptom.",
+          document:
+            "The specific check that failed, its identifier, and the artifact, the assertion or the log line, that proved it, so the same failure surfaces faster next time.",
+          clarify:
+            "Confirm with the user that they can sign into the application on their normal device, not just that a test sign-in succeeded."
+        }
+      },
+      knowledgeBase: {
+        overview: "The identity provider's own runbooks, checked before treating this as novel.",
+        consult: "The identity provider's certificate rotation runbook and any documented attribute mapping for that service provider.",
+        update:
+          "The failing condition's identifier, added if it is not already covered, so the next occurrence of the same signature takes ten minutes instead of two hours."
+      },
+      escalationDesk: {
+        overview: "The trust-configuration handoff, when the fault sits on the service provider's side.",
+        trigger:
+          "The failure traces to a condition the service provider controls, an audience mismatch or an unmapped attribute, rather than something fixable from the identity provider alone.",
+        handoff:
+          "The decoded assertion and the specific condition that failed, so the receiving team starts from the finding, not from the ticket.",
+        retain: "I stay the point of contact for the user while the trust configuration itself is corrected."
       }
     }
   };

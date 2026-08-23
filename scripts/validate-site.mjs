@@ -10,10 +10,13 @@ const requiredRoutes = [
   "projects/detection-as-code/index.html",
   "projects/mcp-security/index.html",
   "projects/identity-deception/index.html",
+  "projects/assertion-desk/index.html",
   "writing/index.html",
   "writing/how-do-you-know-your-agent-isnt-going-rogue/index.html",
   "writing/i-built-five-mcp-detections-then-broke-them/index.html",
   "writing/the-mcp-call-looked-legitimate/index.html",
+  "writing/the-claim-i-published-was-wrong/index.html",
+  "writing/a-support-answer-you-can-prove/index.html",
   "about/index.html",
   "resume/index.html",
   "contact/index.html",
@@ -26,13 +29,28 @@ const failures = [];
 const articleRoutes = [
   "writing/how-do-you-know-your-agent-isnt-going-rogue/index.html",
   "writing/i-built-five-mcp-detections-then-broke-them/index.html",
-  "writing/the-mcp-call-looked-legitimate/index.html"
+  "writing/the-mcp-call-looked-legitimate/index.html",
+  "writing/the-claim-i-published-was-wrong/index.html",
+  "writing/a-support-answer-you-can-prove/index.html"
 ];
 
 const articleWordTargets = new Map([
   ["writing/how-do-you-know-your-agent-isnt-going-rogue/index.html", [2200, 2700]],
   ["writing/i-built-five-mcp-detections-then-broke-them/index.html", [2700, 3300]],
-  ["writing/the-mcp-call-looked-legitimate/index.html", [2200, 2700]]
+  ["writing/the-mcp-call-looked-legitimate/index.html", [2200, 2700]],
+  ["writing/the-claim-i-published-was-wrong/index.html", [2200, 2700]],
+  ["writing/a-support-answer-you-can-prove/index.html", [1600, 2000]]
+]);
+
+// Each article belongs to a named series, and its page must say so. Keyed
+// per route rather than hardcoded once, since this site now runs more than
+// one series.
+const articleSeriesTitles = new Map([
+  ["writing/how-do-you-know-your-agent-isnt-going-rogue/index.html", "Inside MCP Detect"],
+  ["writing/i-built-five-mcp-detections-then-broke-them/index.html", "Inside MCP Detect"],
+  ["writing/the-mcp-call-looked-legitimate/index.html", "Inside MCP Detect"],
+  ["writing/the-claim-i-published-was-wrong/index.html", "Inside Assertion Desk"],
+  ["writing/a-support-answer-you-can-prove/index.html", "Inside Assertion Desk"]
 ]);
 
 const forbiddenArticlePhrases = [
@@ -146,7 +164,7 @@ for (const route of articleRoutes) {
   const wordCount = articleText.split(" ").filter(Boolean).length;
   const [minimumWords, maximumWords] = articleWordTargets.get(route);
 
-  if (!html.includes("Inside MCP Detect")) fail(file, "series title is missing");
+  if (!html.includes(articleSeriesTitles.get(route))) fail(file, "series title is missing");
   if (!/synthetic/i.test(html)) fail(file, "synthetic evidence label is missing");
   if (!html.includes('id="limits"')) fail(file, "visible limitations section is missing");
   if (!html.includes('class="at-a-glance"')) fail(file, "at-a-glance summary is missing");
@@ -185,6 +203,10 @@ const requiredAssets = [
   "assets/writing/five-detections-linkedin.png",
   "assets/writing/legitimate-call-preview.png",
   "assets/writing/legitimate-call-linkedin.png",
+  "assets/writing/claim-was-wrong-preview.png",
+  "assets/writing/claim-was-wrong-linkedin.png",
+  "assets/writing/support-answer-preview.png",
+  "assets/writing/support-answer-linkedin.png",
   "assets/apple-touch-icon.png",
   "assets/rasheed-farhat-resume.pdf",
   "assets/support-social-card.png",

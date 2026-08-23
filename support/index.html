@@ -38,10 +38,10 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260814a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260818a" />
+    <link rel="stylesheet" href="/styles.css?v=20260823a" />
     <link rel="stylesheet" href="/support/resolution-desk.css?v=20260818a" />
     <script src="/script.js?v=20260814a" defer></script>
-    <script src="/support/resolution-desk.js?v=20260818a" defer></script>
+    <script src="/support/resolution-desk.js?v=20260823a" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -253,6 +253,7 @@
                 <button type="button" class="ticket-chip" data-ticket="vpn" aria-pressed="false">Unstable remote-access or VPN connection</button>
                 <button type="button" class="ticket-chip" data-ticket="workstation" aria-pressed="false">Slow or unreliable workstation</button>
                 <button type="button" class="ticket-chip" data-ticket="authentication" aria-pressed="false">Suspicious authentication activity</button>
+                <button type="button" class="ticket-chip" data-ticket="federated" aria-pressed="false">Federated sign-in fails for one application</button>
               </div>
               <p class="resolution-desk__ticket-summary" data-ticket-summary aria-live="polite">A user cannot sign in. A locked account, a forgotten password, or a sign-in that fails without an obvious reason.</p>
             </div>
@@ -389,7 +390,7 @@
         </div>
 
         <p class="resolution-desk__disclosure">
-          These four tickets are representative example scenarios built to
+          These five tickets are representative example scenarios built to
           show how I approach a case. They are not individual case
           records. The documented cases, with real evidence and sources, are
           in support casework.
@@ -526,6 +527,13 @@
           Wireless Essentials &middot; Linux Professional Certification,
           Butte College &middot; A.S. Cybersecurity and Information
           Assurance, Butte College
+        </p>
+        <p>
+          Outside that role, I built a synthetic SSO diagnosis lab,
+          <a class="text-link" href="/projects/assertion-desk/">Assertion Desk</a>, to keep that same discipline sharp against SAML
+          failures: work through the checks in order, name the specific
+          one that actually failed, and never mark something resolved on
+          a guess.
         </p>
       </section>
 

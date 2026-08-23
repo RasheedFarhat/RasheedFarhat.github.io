@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Eight different SAML failures can all look like 'SSO is broken' to the person filing the ticket. I built a synthetic lab to test whether an AI-drafted answer could name the right one and prove it." />
+    <meta name="theme-color" content="#edebe5" />
+    <meta name="color-scheme" content="light dark" />
+    <meta property="og:title" content="A Support Answer You Can Prove" />
+    <meta property="og:description" content="Eight different SAML failures can all look like 'SSO is broken' to the person filing the ticket. I built a synthetic lab to test whether an AI-drafted answer could name the right one and prove it." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://rasheedfarhat.github.io/writing/a-support-answer-you-can-prove/" />
+    <meta property="og:image" content="https://rasheedfarhat.github.io/assets/writing/support-answer-preview.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Article two of Inside Assertion Desk: a support diagnosis traced back to the one check that actually failed." />
+    <meta property="article:author" content="Rasheed Farhat" />
+    <meta property="article:published_time" content="2026-08-23T10:00:00+03:00" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A Support Answer You Can Prove" />
+    <meta name="twitter:description" content="Eight different SAML failures can all look like 'SSO is broken' to the person filing the ticket. I built a synthetic lab to test whether an AI-drafted answer could name the right one and prove it." />
+    <meta name="twitter:image" content="https://rasheedfarhat.github.io/assets/writing/support-answer-preview.png" />
+    <link rel="canonical" href="https://rasheedfarhat.github.io/writing/a-support-answer-you-can-prove/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" href="/assets/fonts/big-shoulders-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/public-sans-var.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="/theme-init.js?v=20260812a"></script>
+    <link rel="stylesheet" href="/styles.css?v=20260823a" />
+    <script src="/script.js?v=20260812a" defer></script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TechArticle",
+        "headline": "A Support Answer You Can Prove",
+        "description": "Eight different SAML failures can all look like 'SSO is broken' to the person filing the ticket. I built a synthetic lab to test whether an AI-drafted answer could name the right one and prove it.",
+        "datePublished": "2026-08-23T10:00:00+03:00",
+        "dateModified": "2026-08-23T10:00:00+03:00",
+        "author": {"@type": "Person", "name": "Rasheed Farhat", "url": "https://rasheedfarhat.github.io/"},
+        "image": "https://rasheedfarhat.github.io/assets/writing/support-answer-preview.png",
+        "isPartOf": {"@type": "CreativeWorkSeries", "name": "Inside Assertion Desk"}
+      }
+    </script>
+    <title>A Support Answer You Can Prove | Rasheed Farhat</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
+    <header class="site-header">
+      <div class="site-header__inner shell">
+        <a class="brand" href="/" aria-label="Rasheed Farhat, home">RF</a>
+        <button class="theme-toggle theme-toggle--bar" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Toggle navigation</span></button>
+        <nav class="site-nav" id="site-nav" aria-label="Primary" data-menu data-open="false">
+          <div class="site-nav__links">
+          <a href="/">Home</a><a href="/projects/">Projects</a><a href="/writing/" aria-current="page">Writing</a><a href="/about/">About</a><a href="/contact/">Contact</a>
+          </div>
+          <div class="site-nav__actions">
+          <button class="theme-toggle" type="button" aria-pressed="false" data-theme-toggle><span class="theme-toggle__icon" aria-hidden="true"></span><span data-theme-label>Dark</span></button>
+          <a class="nav-resume" href="/resume/">Resume</a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <article>
+        <header class="article-hero shell">
+          <nav class="breadcrumb" aria-label="Breadcrumb"><a href="/writing/">Writing</a><span aria-hidden="true">/</span><span>Inside Assertion Desk, part 2</span></nav>
+          <p class="series-kicker">Inside Assertion Desk <span>Part 2 of 2</span></p>
+          <h1>A Support Answer You Can <span class="article-title__signal">Prove</span></h1>
+          <p class="article-hero__dek">Eight different SAML failures can all look like "SSO is broken" to the person filing the ticket. The answer they get back has to name which one, and point at the artifact that proves it.</p>
+          <dl class="article-meta">
+            <div><dt>Written by</dt><dd>Rasheed Farhat</dd></div>
+            <div><dt>Published</dt><dd><time datetime="2026-08-23">August 23, 2026</time></dd></div>
+            <div><dt>Reading time</dt><dd>9 minutes</dd></div>
+            <div><dt class="dt--amb">Evidence</dt><dd>Synthetic and self-authored</dd></div>
+          </dl>
+        </header>
+
+        <div class="article-layout shell">
+          <aside class="article-rail" aria-labelledby="article-nav-1">
+            <h2 id="article-nav-1">In this article</h2>
+            <ol>
+              <li><a href="#eight-causes">Eight things "broken" can mean</a></li>
+              <li><a href="#worth">What a diagnosis is worth</a></li>
+              <li><a href="#example">A confident, wrong answer</a></li>
+              <li><a href="#human-loop">Why a person still signs off</a></li>
+              <li><a href="#honest-close">"Fixed" is not an answer</a></li>
+              <li><a href="#limits">What this lab does not claim</a></li>
+              <li><a href="#run">Run it</a></li>
+            </ol>
+          </aside>
+
+          <div class="article-body">
+            <div class="at-a-glance">
+              <h2>At a glance</h2>
+              <ul>
+                <li>A federated sign-in ticket that says "SSO is broken" can mean any of roughly eight different SAML conditions, and most of them look identical from the user's chair.</li>
+                <li>I built Assertion Desk, a synthetic diagnosis lab, to test whether an AI-drafted explanation could name the specific one and cite the check that proved it, never a guess.</li>
+                <li>In one recorded case, the model's draft was confident and well-formed. A deterministic gate rejected it anyway, because the check it cited had not actually failed.</li>
+                <li><code>make eval-replay</code> reproduces the recorded run offline, no live model call required.</li>
+              </ul>
+            </div>
+
+            <section id="eight-causes" aria-labelledby="eight-causes-title">
+              <h2 id="eight-causes-title">Eight things "SSO is broken" can mean</h2>
+              <p>A user cannot sign in to one federated application. The ticket says "SSO is broken." That sentence is true and it tells you almost nothing, because a SAML sign-in has roughly eight different, independent ways to fail, and to the person typing the ticket, every one of them looks the same: a spinning wheel, then an error page.</p>
+              <p>An expired certificate on the identity provider looks like a broken sign-in. A signature that no longer validates because a certificate rotated on one side but not the other looks like a broken sign-in. An assertion that arrived a few seconds outside its validity window because two servers' clocks disagree looks like a broken sign-in. A missing or duplicated identity attribute, a mismatched audience restriction, a wrong destination URL after an application moved to a new address, all of it looks like a broken sign-in. Some of these are the identity provider's problem. Some are the application's. Several of them will resolve on their own in a few minutes and several will not resolve until someone finds and fixes the specific field that is wrong.</p>
+              <p>I spent real time in a help desk role learning that the fastest way to make a ticket like this worse is to guess at a category and start troubleshooting the wrong layer. I built Assertion Desk to see whether a deterministic verifier plus a supervised model could do what a careful analyst does: read the actual signed assertion, check it against the specific conditions that can fail, and say which one did, instead of restating that something, somewhere, is broken.</p>
+            </section>
+
+            <section id="worth" aria-labelledby="worth-title">
+              <h2 id="worth-title">What a diagnosis is worth if you cannot say which one</h2>
+              <p>A diagnosis that cannot name the failing condition is not a diagnosis. It is a longer way of restating the ticket. "SSO login failures after a bulk sync" is a summary of the symptom, not a finding, and a support answer built only on a summary sends the customer's IT admin down whatever path the wording happens to suggest, which is not necessarily the path the actual data supports.</p>
+              <p>Assertion Desk's pipeline never lets a model's summary stand in for a finding. A deterministic verifier checks the captured assertion against roughly twenty named conditions first, things like signature validity, certificate expiry, clock skew tolerance, audience restriction, and destination match, and every one of those checks resolves to one of six states before a model ever sees the case. Only then does a drafting step write the customer-facing explanation, and it is only allowed to cite a check that the verifier actually marked as failed or needing review. It cannot invent a finding. It cannot promote a passing check into the cause. The gap between "here is a plausible-sounding explanation" and "here is the specific check that failed and the evidence behind it" is the entire reason this lab exists.</p>
+            </section>
+
+            <section id="example" aria-labelledby="example-title">
+              <h2 id="example-title">A confident, wrong answer, and the gate that caught it</h2>
+              <p>The clearest example I have is a recorded case named <code>missing_nameid</code>. The synthetic fault was a SAML assertion missing its <code>NameID</code> element, the field that identifies who is actually signing in. The verifier ran its full set of checks and correctly flagged the missing element, along with two related signature checks that failed as a downstream consequence of the same edit.</p>
+              <p>The model's draft did not cite any of that. It wrote a fluent, well-formed explanation: "The customer is experiencing SSO login failures after a bulk user directory sync," and named the root cause as a check about whether the response was replying to a request the service provider had actually sent. That check had not failed. It had not been checked at all, because nothing in this case's flow required it, which is an ordinary, unremarkable state for that particular condition. The model's claim was confident, grammatically clean, schema-valid, and pointed at a check that had nothing wrong with it.</p>
+              <p>A gate sitting between the draft and anything a customer would see caught that on its own terms, without ever being told the right answer. Its one job is to check whether a claim's cited state actually matches what the verifier recorded, and here it did not: the model had pointed at an unverified gap and called it a finding. The gate rejected the draft outright. Nothing published. No answer went to the customer that week, in that recorded run, because no answer had actually been earned yet.</p>
+              <p>That is the version of this lab I want a support reader to sit with. It is not a story about a model getting the SAML details wrong, most of the draft's language was reasonable. It is a story about a system that refuses to let confidence substitute for evidence, even when the confidence is well written.</p>
+            </section>
+
+            <section id="human-loop" aria-labelledby="human-loop-title">
+              <h2 id="human-loop-title">Why a person still signs off</h2>
+              <p>Even a draft that clears the grounding gate does not go out on its own. A human reviews the grounded explanation and the specific checks it rests on before anything is marked ready to publish, and the pipeline design treats an unrecognized or ambiguous state as needing that review by default, never as a silent pass-through. A gate that checks whether a claim matches a finding is not the same thing as a person deciding this is the right call for this customer, and I did not want to build something that quietly blurred the two.</p>
+              <p>I also do not want to overstate what "verification complete" means at the end of this flow. Having the IdP-side condition pass again is not proof the person can actually sign in, because the failure could be on the service provider's side of the trust relationship instead, an audience restriction or an access URL that the identity provider's own test would never see. The honest verification step is watching the affected user complete a real sign-in on the specific application that was failing, not trusting a green result from one side of a two-sided trust.</p>
+            </section>
+
+            <section id="honest-close" aria-labelledby="honest-close-title">
+              <h2 id="honest-close-title">"Fixed" is not an answer. A check identifier and an artifact is.</h2>
+              <p>The habit I most wanted this lab to reinforce in myself is a documentation habit, not a modeling one. Closing a ticket with "SSO was broken, it's fixed now" is not traceable to anything. It gives the next person who touches this application, or the same person the next time it happens, nothing to go on. Closing it with the specific check identifier that failed, the artifact that proved it, and the change that resolved that exact condition means the next occurrence of "SSO is broken" for this application starts from a known list of what it was not, instead of starting from zero.</p>
+              <p>That is the same discipline the rest of my support casework tries to hold to: name the check, not the vibe. It is also why this project belongs in a support portfolio and not only a security one. The identity provider here is a self-hosted Keycloak instance, not Entra, Okta, or Ping, and the customer narratives are authored text standing in for real tickets, not real conversations I have had. What is real is the standard: work the checks in order, cite the one that actually failed, and never publish a guess.</p>
+              <p>The full eight-stage pipeline behind this, intake through publish, is written up as a workflow lab on my <a href="/support/casework/#assertion-lab">casework page</a>, in the same register as the rest of that page's documented problems. The architecture, the numbers, and the code sit on the <a href="/projects/assertion-desk/">Assertion Desk project page</a>.</p>
+            </section>
+
+            <section id="limits" aria-labelledby="limits-title">
+              <h2 id="limits-title">What this lab does not claim</h2>
+              <div class="research-note"><strong>Synthetic lab boundary</strong><p>Every case in this project runs against a self-hosted Keycloak identity provider with deliberately injected faults, not a production IdP, and every customer narrative is authored text, not a real support conversation.</p></div>
+              <ul class="limit-list">
+                <li>No claim of Entra, Okta, or Ping production experience is made anywhere in this project. Any vendor-specific behavior named in it is, at most, modeled from public documentation.</li>
+                <li>There is no live customer intake in this build. A demo endpoint wraps one of 55 frozen, pre-built cases; there is no path yet for a customer to upload a real artifact bundle or reply to a request for more evidence.</li>
+                <li>The published disposition accuracy is 94.5 percent across 55 cases, and 3 of the misses each have a specific, written structural reason rather than being unexplained noise. It is not a claim that every SAML failure resolves cleanly.</li>
+                <li>This is a demonstration of a method, careful verification before a model speaks, and a gate that can refuse a fluent answer, not a production help desk tool.</li>
+              </ul>
+            </section>
+
+            <section id="run" aria-labelledby="run-title">
+              <h2 id="run-title">Run the recorded case yourself</h2>
+              <p>Python 3.11 or newer. No API key or live IdP needed to replay what was already recorded.</p>
+              <figure class="code-figure">
+                <figcaption>Offline reproduction</figcaption>
+                <pre tabindex="0"><code>git clone https://github.com/RasheedFarhat/assertion-desk.git
+cd assertion-desk
+python3 -m venv .venv
+.venv/bin/python3 -m pip install -r requirements.txt
+make eval-replay</code></pre>
+              </figure>
+              <p><code>make ground</code> runs <code>pytest tests/ground/ -v</code>, which exercises the grounding gate directly against a root cause pointing at an unverified gap, the same rejection kind that caught the <code>missing_nameid</code> draft in this article, without needing the full corpus run.</p>
+            </section>
+
+            <section id="references" class="references" aria-labelledby="references-title">
+              <h2 id="references-title">Sources</h2>
+              <ol>
+                <li><a href="https://github.com/RasheedFarhat/assertion-desk/blob/main/docs/LIMITATIONS.md" target="_blank" rel="noopener noreferrer">Assertion Desk limitations file<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="https://github.com/RasheedFarhat/assertion-desk/blob/main/desk/ground/validator.py" target="_blank" rel="noopener noreferrer">The grounding gate's source<span class="sr-only"> (opens in a new tab)</span></a></li>
+                <li><a href="/writing/the-claim-i-published-was-wrong/">Part one: the claim I published was wrong</a></li>
+                <li><a href="/support/casework/#assertion-lab">The workflow lab on my casework page</a></li>
+                <li><a href="/projects/assertion-desk/">Assertion Desk project page</a></li>
+              </ol>
+            </section>
+
+            <nav class="series-nav" aria-label="Series conclusion">
+              <span class="series-nav__label">Inspect the complete project</span>
+              <a href="https://github.com/RasheedFarhat/assertion-desk" target="_blank" rel="noopener noreferrer">Run Assertion Desk, read the checks, and replay the corpus.<span class="sr-only"> (opens in a new tab)</span></a>
+            </nav>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell"><div class="title-block">
+        <div class="title-block__cell"><span class="title-block__label">Series</span><p>Inside Assertion Desk</p><span class="mono-note">Part 2 of 2</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Project</span><p>SSO failure diagnosis, evidence-gated AI pipeline</p></div>
+        <div class="title-block__cell"><span class="title-block__label">Evidence</span><p>Synthetic, reproducible, openly published</p></div>
+        <div class="title-block__cell"><span class="title-block__label">Author</span><p>Rasheed Farhat</p><span class="mono-note">Security operations | detection engineering</span></div>
+        <div class="title-block__cell"><span class="title-block__label">Source</span><ul><li><a href="https://github.com/RasheedFarhat/assertion-desk" target="_blank" rel="noopener noreferrer">Repository<span class="sr-only"> (opens in a new tab)</span></a></li><li><a href="/projects/assertion-desk/">Project page</a></li></ul></div>
+        <div class="title-block__cell"><span class="title-block__label">Document</span><p>rasheedfarhat.github.io</p><span class="mono-note">Rev 2026.08 / &#169; <span data-year></span> Rasheed Farhat</span> <a class="mono-note" href="/support/">IT support and help desk resume</a></div>
+      </div></div>
+    </footer>
+  </body>
+</html>

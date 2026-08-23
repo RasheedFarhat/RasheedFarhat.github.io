@@ -42,6 +42,20 @@
   body[data-article="2"] h1 { font-size: clamp(52px, 5.85vw, 112px); line-height: 0.92; max-width: 12ch; }
   body[data-article="3"] .trace-line { background: linear-gradient(90deg, #6fbfb4 0 62%, #38423f 62% 100%); }
   body[data-article="3"] .node:nth-child(4) { border-color: #e0a75e; background: repeating-linear-gradient(135deg, #2a2118 0 5px, #171b1a 5px 9px); }
+  body[data-article="4"] .node:nth-child(2)::after,
+  body[data-article="5"] .node:nth-child(2)::after { content: "VERIFY"; }
+  body[data-article="4"] .node:nth-child(3)::after,
+  body[data-article="5"] .node:nth-child(3)::after { content: "DRAFT"; }
+  body[data-article="4"] .node:nth-child(4)::after,
+  body[data-article="5"] .node:nth-child(4)::after { content: "GATE"; }
+  body[data-article="4"] .node:nth-child(5)::after,
+  body[data-article="5"] .node:nth-child(5)::after { content: "PUBLISH"; }
+  body[data-article="4"] .trace-line { background: linear-gradient(90deg, #6fbfb4 0 30%, #e0a75e 30% 45%, #6fbfb4 45% 100%); }
+  body[data-article="4"] .node:nth-child(3) { border-color: #e0a75e; border-style: dashed; }
+  body[data-article="4"] h1 { font-size: clamp(40px, 4.4vw, 84px); line-height: 1.05; max-width: 15ch; }
+  body[data-article="5"] .trace-line { background: linear-gradient(90deg, #6fbfb4 0 62%, #e0a75e 62% 78%, #38423f 78% 100%); }
+  body[data-article="5"] .node:nth-child(4) { border-color: #e0a75e; }
+  body[data-article="5"] .node:nth-child(5) { border-color: #38423f; background: transparent; }
   @media (max-aspect-ratio: 1.3/1) {
     .trace { top: 9%; width: 42%; }
     .proof { gap: 1.2vw; }
@@ -87,6 +101,22 @@
       titleAfter: " the only field that mattered.",
       support: "Follow identity through the handler.",
       proof: ["tenant-red", "tenant-blue", "denied retest"]
+    },
+    "4": {
+      kicker: "Inside Assertion Desk / 01",
+      titleBefore: "The claim I published was wrong. My own code ",
+      titleSignal: "proved",
+      titleAfter: " it.",
+      support: "Reading my own prompt builder found a second live path.",
+      proof: ["55 SAML cases", "6/6 payloads resisted", "0/47 rejected"]
+    },
+    "5": {
+      kicker: "Inside Assertion Desk / 02",
+      titleBefore: "A support answer you can ",
+      titleSignal: "prove",
+      titleAfter: "",
+      support: "Eight causes look identical. Only a proven one gets published.",
+      proof: ["8 look-alike causes", "1 rejected draft", "0 unproven fixes"]
     }
   };
   const article = new URLSearchParams(location.search).get("article") || "1";

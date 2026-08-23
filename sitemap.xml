@@ -1,18 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://rasheedfarhat.github.io/</loc><lastmod>2026-08-10</lastmod></url>
-  <url><loc>https://rasheedfarhat.github.io/projects/</loc><lastmod>2026-08-10</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/projects/</loc><lastmod>2026-08-23</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/projects/control-plane/</loc><lastmod>2026-08-10</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/projects/detection-as-code/</loc><lastmod>2026-07-17</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/projects/mcp-security/</loc><lastmod>2026-08-03</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/projects/identity-deception/</loc><lastmod>2026-07-17</lastmod></url>
-  <url><loc>https://rasheedfarhat.github.io/writing/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/projects/assertion-desk/</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/writing/</loc><lastmod>2026-08-23</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/writing/how-do-you-know-your-agent-isnt-going-rogue/</loc><lastmod>2026-08-03</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/writing/i-built-five-mcp-detections-then-broke-them/</loc><lastmod>2026-08-03</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/writing/the-mcp-call-looked-legitimate/</loc><lastmod>2026-08-03</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/writing/the-claim-i-published-was-wrong/</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/writing/a-support-answer-you-can-prove/</loc><lastmod>2026-08-23</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/about/</loc><lastmod>2026-08-10</lastmod></url>
-  <url><loc>https://rasheedfarhat.github.io/support/</loc><lastmod>2026-08-14</lastmod></url>
-  <url><loc>https://rasheedfarhat.github.io/support/casework/</loc><lastmod>2026-08-14</lastmod></url>
-  <url><loc>https://rasheedfarhat.github.io/resume/</loc><lastmod>2026-08-10</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/support/</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/support/casework/</loc><lastmod>2026-08-23</lastmod></url>
+  <url><loc>https://rasheedfarhat.github.io/resume/</loc><lastmod>2026-08-23</lastmod></url>
   <url><loc>https://rasheedfarhat.github.io/contact/</loc><lastmod>2026-07-17</lastmod></url>
 </urlset>
