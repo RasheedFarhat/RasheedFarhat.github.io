@@ -580,6 +580,33 @@ li {
   }
 }
 
+/* Live GitHub signal: filled in by repo-status.js after a successful fetch.
+   Stays hidden (and inert to layout) on load, on fetch failure, and while
+   offline, so the page reads correctly with no script and no network. */
+.repo-live {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  flex-basis: 100%;
+}
+
+.repo-live[hidden] {
+  display: none;
+}
+
+.repo-live .lamp {
+  white-space: nowrap;
+}
+
+.repo-live__time {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
 /* Buttons ----------------------------------------------------------------- */
 
 .button {
@@ -1868,6 +1895,15 @@ html[data-loaded="true"] .plate__bound {
 
   .work-row__evidence {
     padding-right: 2.5rem;
+  }
+
+  /* Undoes the mobile full-row trick below. Once .work-row__meta is a
+     column, its main axis is height, not width, and .work-row__meta still
+     carries flex-wrap: wrap from the base rule, so a height-basis of 100%
+     against a grid-stretched (tall) column forces .repo-live to overflow
+     and wrap sideways into a second line, on top of the title. */
+  .repo-live {
+    flex-basis: auto;
   }
 }
 
