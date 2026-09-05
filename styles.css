@@ -2595,6 +2595,23 @@ ul.tag-list {
   color: var(--amb-hi);
 }
 
+/* A stage whose outcome forks: the same record, two possible verdicts. */
+.stage-list .stage-list__gate::before {
+  background: linear-gradient(90deg, var(--sig) 50%, var(--amb) 50%);
+  box-shadow: 0 0 0 3px var(--line-hi);
+}
+
+.stage-list .stage-list__gate:not(:last-child)::after {
+  left: 0.075rem;
+  width: 0.4rem;
+  background: linear-gradient(
+    to right,
+    var(--sig) 0 1px,
+    transparent 1px calc(100% - 1px),
+    var(--amb) calc(100% - 1px) 100%
+  );
+}
+
 .stage-list strong {
   color: var(--text-hi);
   font-weight: 600;
