@@ -659,31 +659,37 @@ li {
 }
 
 .brand {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-right: auto;
+}
+
+/* Machined tile, the same raised object as favicon.svg at header scale:
+   .panel-hi against the header's .panel so it reads as a brighter surface
+   set into the bar, edge-lit like .plate rather than glowing like .lamp.
+   Padding is asymmetric to correct two optical illusions, not to taste:
+   the trailing letter-spacing after "F" reads as left-of-center unless the
+   right pad is trimmed, and Big Shoulders' cap height sits high in its own
+   box unless the bottom pad is thicker than the top. */
+.brand__mark {
   font-family: var(--display);
   font-weight: 700;
   font-size: 1.5rem;
   letter-spacing: 0.09em;
   text-transform: uppercase;
-  color: var(--text-hi);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin-right: auto;
+  color: var(--sig);
+  line-height: 1;
+  padding: 0.6rem 0.55rem 0.7rem 0.75rem;
+  border: 1px solid var(--line-hi);
+  border-radius: var(--radius);
+  background: var(--panel-hi);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
-.brand:hover {
-  color: var(--text-hi);
-}
-
-.brand::before {
-  content: "";
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--radius-lamp);
-  background: var(--sig);
-  box-shadow: 0 0 0 3px var(--sig-soft);
-  align-self: center;
+.brand:hover .brand__mark {
+  border-color: var(--sig);
 }
 
 .site-nav {
