@@ -40,8 +40,10 @@
     <script src="/theme-init.js?v=20260814a"></script>
     <link rel="stylesheet" href="/styles.css?v=20260823a" />
     <link rel="stylesheet" href="/support/resolution-desk.css?v=20260818a" />
+    <link rel="stylesheet" href="/support/workstation.css?v=20260906a" />
     <script src="/script.js?v=20260814a" defer></script>
     <script src="/support/resolution-desk.js?v=20260823a" defer></script>
+    <script src="/support/workstation.js?v=20260906a" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -222,6 +224,19 @@
         </figure>
       </section>
 
+      <!-- The Resolution Desk ----------------------------------------------
+           Above the 90rem gate the scene below is mounted inside a rendered
+           desktop machine. Every .ws-* rule in support/workstation.css lives
+           inside that one media query, so below the gate these wrappers are
+           inert divs and the scene renders as the plain page section it has
+           always been. That is the whole mobile story: not a second code
+           path, just an absence of rules.
+
+           The heading above the machine and the disclosure below it stay in
+           the page at every width on purpose. Neither belongs inside a
+           window a visitor can close, and the disclosure in particular is
+           the line that keeps the five tickets honestly labelled as
+           examples rather than case records. -->
       <section
         class="section shell resolution-desk"
         data-resolution-desk
@@ -240,151 +255,291 @@
           </p>
         </div>
 
-        <div class="resolution-desk__scene">
-          <div class="resolution-desk__scene-bar">
-            <span class="resolution-desk__scene-lights" aria-hidden="true"><span></span><span></span><span></span></span>
-            <span>After-hours desk, one open ticket</span>
+        <div class="ws-chassis">
+          <div class="ws-bezel">
+            <div class="ws-screen">
+              <!-- Boot cover. It sits over an already laid-out desktop rather
+                   than replacing it, so resolution-desk.js can measure its
+                   route markers on the first paint. workstation.js runs it
+                   when the machine first scrolls into view, and skips it
+                   entirely under prefers-reduced-motion. -->
+              <div class="ws-boot" data-ws-boot aria-hidden="true">
+                <span class="ws-boot__line">FARHAT SYSTEMS 1200</span>
+                <span class="ws-boot__line">Memory OK</span>
+                <span class="ws-boot__line"
+                  >Starting support workstation<span class="ws-boot__cursor"></span
+                ></span>
+              </div>
+
+              <div class="ws-desktop" data-ws-desktop>
+                <div class="ws-menubar">
+                  <button type="button" class="ws-menubar__item ws-menubar__mark" data-ws-open="readme">
+                    FS
+                  </button>
+                  <button type="button" class="ws-menubar__item" data-ws-open="desk">Resolution Desk</button>
+                  <span class="ws-menubar__clock" data-ws-clock></span>
+                </div>
+
+                <ul class="ws-icons">
+                  <li>
+                    <button type="button" class="ws-icon" data-ws-open="desk">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <rect x="2.5" y="4" width="19" height="13" rx="1.5" />
+                        <path d="M9 20h6M12 17v3" />
+                        <path d="M6 8h7M6 11h4" />
+                      </svg>
+                      Resolution Desk
+                    </button>
+                  </li>
+                  <li>
+                    <button type="button" class="ws-icon" data-ws-open="readme">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M6 2.5h8l4.5 4.5v14.5H6z" />
+                        <path d="M14 2.5V7h4.5" />
+                        <path d="M9 12h6M9 15h6M9 18h4" />
+                      </svg>
+                      README
+                    </button>
+                  </li>
+                  <li>
+                    <a class="ws-icon" href="/support/casework/">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M2.5 6.5h7l2 2.5h10v11.5h-19z" />
+                        <path d="M2.5 6.5V4h7v2.5" />
+                      </svg>
+                      Casework
+                    </a>
+                  </li>
+                  <li>
+                    <a class="ws-icon" href="/assets/rasheed-farhat-resume-support.pdf">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M5 2.5h9l5 5v16H5z" />
+                        <path d="M14 2.5V8h5" />
+                        <path d="M8 13h8M8 16h8M8 19h5" />
+                      </svg>
+                      Resume PDF
+                    </a>
+                  </li>
+                </ul>
+
+                <!-- The windows are plain divs, not sections. A named section
+                     would register a second "Resolution Desk" landmark inside
+                     the one this page already has, which is noise rather than
+                     structure. The title bar button carries the description a
+                     screen reader needs to move the window. -->
+                <div class="ws-window" data-ws-window="desk">
+                  <div class="ws-window__bar">
+                    <button type="button" class="ws-window__close" aria-label="Close the Resolution Desk window"></button>
+                    <button type="button" class="ws-window__grip" aria-label="Resolution Desk window. Drag it, or press the arrow keys to move it.">
+                      <span class="ws-window__streaks" aria-hidden="true"></span>
+                      <span class="ws-window__title">Resolution Desk</span>
+                      <span class="ws-window__streaks" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <div class="ws-window__body">
+                    <div class="resolution-desk__scene">
+                      <div class="resolution-desk__scene-bar">
+                        <span class="resolution-desk__scene-lights" aria-hidden="true"><span></span><span></span><span></span></span>
+                        <span>After-hours desk, one open ticket</span>
+                      </div>
+                      <div class="resolution-desk__scene-body">
+                        <div class="resolution-desk__picker">
+                          <p class="resolution-desk__picker-label" id="ticket-picker-label">Choose a representative example ticket</p>
+                          <div class="ticket-picker" role="group" aria-labelledby="ticket-picker-label">
+                            <!-- Ordered longest label to shortest so the stack reads as a deliberate
+                                 staircase rather than a ragged column. Selection is keyed, not
+                                 positional (DEFAULT_TICKET in resolution-desk.js), so "lockout" stays
+                                 the pre-selected ticket even though it is no longer first. -->
+                            <button type="button" class="ticket-chip" data-ticket="federated" aria-pressed="false">Federated sign-in fails for one application</button>
+                            <button type="button" class="ticket-chip" data-ticket="vpn" aria-pressed="false">Unstable remote-access or VPN connection</button>
+                            <button type="button" class="ticket-chip is-selected" data-ticket="lockout" aria-pressed="true">Account lockout or sign-in failure</button>
+                            <button type="button" class="ticket-chip" data-ticket="authentication" aria-pressed="false">Suspicious authentication activity</button>
+                            <button type="button" class="ticket-chip" data-ticket="workstation" aria-pressed="false">Slow or unreliable workstation</button>
+                          </div>
+                          <p class="resolution-desk__ticket-summary" data-ticket-summary aria-live="polite">A user cannot sign in. A locked account, a forgotten password, or a sign-in that fails without an obvious reason.</p>
+                        </div>
+
+                        <div class="resolution-desk__floor">
+                          <p class="resolution-desk__workflow-label" id="workflow-label">Follow the ticket in three phases</p>
+                          <div class="resolution-desk__stage">
+                            <svg class="route-map route-map--mobile" viewBox="0 0 120 360" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                              <line class="route-line" x1="60" y1="40" x2="60" y2="320" />
+                              <circle class="route-node" cx="60" cy="40" r="4" />
+                              <circle class="route-node" cx="60" cy="180" r="4" />
+                              <circle class="route-node" cx="60" cy="320" r="4" />
+                              <g class="route-marker" data-route-marker transform="translate(60, 40)">
+                                <rect x="-5" y="-7" width="10" height="14" rx="2" />
+                                <line x1="-1.5" y1="-4" x2="-1.5" y2="4" />
+                                <line x1="1.5" y1="-4" x2="1.5" y2="1" />
+                              </g>
+                            </svg>
+                            <svg class="route-map route-map--desktop" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+                              <line class="route-line" x1="100" y1="60" x2="500" y2="60" />
+                              <circle class="route-node" cx="100" cy="60" r="4" />
+                              <circle class="route-node" cx="300" cy="60" r="4" />
+                              <circle class="route-node" cx="500" cy="60" r="4" />
+                              <g class="route-marker" data-route-marker transform="translate(100, 60)">
+                                <rect x="-7" y="-5" width="14" height="10" rx="2" />
+                                <line x1="-4" y1="-1.5" x2="4" y2="-1.5" />
+                                <line x1="-4" y1="1.5" x2="1" y2="1.5" />
+                              </g>
+                            </svg>
+
+                            <ol class="phase-row" aria-labelledby="workflow-label">
+                              <li>
+                                <button type="button" class="phase is-selected" data-phase="diagnose" aria-pressed="true" aria-controls="phase-details">
+                                  <span class="phase__index">1</span>
+                                  <span><strong>Diagnose</strong><small>Intake, triage, investigate</small></span>
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" class="phase" data-phase="resolve" aria-pressed="false" aria-controls="phase-details">
+                                  <span class="phase__index">2</span>
+                                  <span><strong>Resolve</strong><small>Act, then verify</small></span>
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" class="phase" data-phase="close" aria-pressed="false" aria-controls="phase-details">
+                                  <span class="phase__index">3</span>
+                                  <span><strong>Close</strong><small>Document and hand back</small></span>
+                                </button>
+                              </li>
+                            </ol>
+                          </div>
+
+                          <div class="resolution-desk__steps" id="phase-details">
+                            <p class="resolution-desk__steps-label" data-phase-label>Diagnose · choose a step</p>
+                            <ol class="station-row" data-phase-panel="diagnose">
+                              <li>
+                                <button type="button" class="station is-selected" data-station="intake" data-station-phase="diagnose" aria-pressed="true" aria-controls="evidence-panel">
+                                  <span class="station__index">1</span>
+                                  <span class="station__label">Intake</span>
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" class="station" data-station="triage" data-station-phase="diagnose" aria-pressed="false" aria-controls="evidence-panel">
+                                  <span class="station__index">2</span>
+                                  <span class="station__label">Triage</span>
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" class="station" data-station="investigation" data-station-phase="diagnose" aria-pressed="false" aria-controls="evidence-panel">
+                                  <span class="station__index">3</span>
+                                  <span class="station__label">Investigation</span>
+                                </button>
+                              </li>
+                            </ol>
+                            <ol class="station-row" data-phase-panel="resolve" hidden>
+                              <li>
+                                <button type="button" class="station" data-station="resolution" data-station-phase="resolve" aria-pressed="false" aria-controls="evidence-panel">
+                                  <span class="station__index">4</span>
+                                  <span class="station__label">Resolution</span>
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" class="station" data-station="verification" data-station-phase="resolve" aria-pressed="false" aria-controls="evidence-panel">
+                                  <span class="station__index">5</span>
+                                  <span class="station__label">Verification</span>
+                                </button>
+                              </li>
+                            </ol>
+                            <ol class="station-row" data-phase-panel="close" hidden>
+                              <li>
+                                <button type="button" class="station" data-station="documentation" data-station-phase="close" aria-pressed="false" aria-controls="evidence-panel">
+                                  <span class="station__index">6</span>
+                                  <span class="station__label">Documentation</span>
+                                </button>
+                              </li>
+                            </ol>
+                          </div>
+
+                          <details class="resolution-desk__secondary">
+                            <summary>More paths: knowledge base and escalation</summary>
+                            <ol class="station-row station-row--secondary">
+                              <li>
+                                <button type="button" class="station station--secondary" data-station="knowledgeBase" aria-pressed="false" aria-controls="evidence-panel">
+                                  <span class="station__label">Knowledge Base</span>
+                                </button>
+                              </li>
+                              <li>
+                                <button type="button" class="station station--secondary" data-station="escalationDesk" aria-pressed="false" aria-controls="evidence-panel">
+                                  <span class="station__label">Escalation Desk</span>
+                                </button>
+                              </li>
+                            </ol>
+                          </details>
+                        </div>
+
+                        <div class="resolution-desk__evidence">
+                          <div class="evidence-panel" id="evidence-panel" data-evidence-panel aria-live="polite" aria-atomic="true">
+                            <p class="evidence-panel__eyebrow" data-evidence-eyebrow>Account lockout or sign-in failure / Intake</p>
+                            <h3 class="evidence-panel__title" data-evidence-title>Intake</h3>
+                            <p class="evidence-panel__overview" data-evidence-overview>Confirm who is affected, on what device, before assuming a cause.</p>
+                            <dl class="evidence-panel__fields" data-evidence-fields>
+                              <div>
+                                <dt>What I would clarify with the user</dt>
+                                <dd>Whether it is one account or several, which device and app they are signing into, and whether anything changed recently, a new password, a new device, recent travel.</dd>
+                              </div>
+                              <div>
+                                <dt>What I would check</dt>
+                                <dd>The account status and whether the lockout counter or recent failed attempts line up with what the user describes.</dd>
+                              </div>
+                            </dl>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="ws-window" data-ws-window="readme" hidden>
+                  <div class="ws-window__bar">
+                    <button type="button" class="ws-window__close" aria-label="Close the README window"></button>
+                    <button type="button" class="ws-window__grip" aria-label="README window. Drag it, or press the arrow keys to move it.">
+                      <span class="ws-window__streaks" aria-hidden="true"></span>
+                      <span class="ws-window__title">README</span>
+                      <span class="ws-window__streaks" aria-hidden="true"></span>
+                    </button>
+                  </div>
+                  <div class="ws-window__body">
+                    <div class="ws-readme">
+                      <h3>README</h3>
+                      <p>
+                        The desk in the next window is the same one this page
+                        runs without the machine around it. I built the
+                        machine because I wanted to build one, and because a
+                        help desk is a reasonable place to keep an old
+                        computer.
+                      </p>
+                      <p>
+                        Nothing here reproduces any manufacturer's hardware or
+                        software. The case, the screen, and the windows were
+                        drawn from scratch in CSS, and the type is the same
+                        IBM Plex Mono the rest of the site uses.
+                      </p>
+                      <p>
+                        The five tickets are representative examples that show
+                        how I work a case. They are not case records. The
+                        documented cases, with real evidence and sources, are
+                        in <a href="/support/casework/">the casework file</a>.
+                      </p>
+                      <p>
+                        Drag a window by its title bar, or focus one and use
+                        the arrow keys. On a narrower screen the machine steps
+                        aside and the desk runs on the page directly.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="resolution-desk__scene-body">
-            <div class="resolution-desk__picker">
-              <p class="resolution-desk__picker-label" id="ticket-picker-label">Choose a representative example ticket</p>
-              <div class="ticket-picker" role="group" aria-labelledby="ticket-picker-label">
-                <button type="button" class="ticket-chip is-selected" data-ticket="lockout" aria-pressed="true">Account lockout or sign-in failure</button>
-                <button type="button" class="ticket-chip" data-ticket="vpn" aria-pressed="false">Unstable remote-access or VPN connection</button>
-                <button type="button" class="ticket-chip" data-ticket="workstation" aria-pressed="false">Slow or unreliable workstation</button>
-                <button type="button" class="ticket-chip" data-ticket="authentication" aria-pressed="false">Suspicious authentication activity</button>
-                <button type="button" class="ticket-chip" data-ticket="federated" aria-pressed="false">Federated sign-in fails for one application</button>
-              </div>
-              <p class="resolution-desk__ticket-summary" data-ticket-summary aria-live="polite">A user cannot sign in. A locked account, a forgotten password, or a sign-in that fails without an obvious reason.</p>
-            </div>
 
-            <div class="resolution-desk__floor">
-              <p class="resolution-desk__workflow-label" id="workflow-label">Follow the ticket in three phases</p>
-              <div class="resolution-desk__stage">
-                <svg class="route-map route-map--mobile" viewBox="0 0 120 360" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                  <line class="route-line" x1="60" y1="40" x2="60" y2="320" />
-                  <circle class="route-node" cx="60" cy="40" r="4" />
-                  <circle class="route-node" cx="60" cy="180" r="4" />
-                  <circle class="route-node" cx="60" cy="320" r="4" />
-                  <g class="route-marker" data-route-marker transform="translate(60, 40)">
-                    <rect x="-5" y="-7" width="10" height="14" rx="2" />
-                    <line x1="-1.5" y1="-4" x2="-1.5" y2="4" />
-                    <line x1="1.5" y1="-4" x2="1.5" y2="1" />
-                  </g>
-                </svg>
-                <svg class="route-map route-map--desktop" viewBox="0 0 600 120" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-                  <line class="route-line" x1="100" y1="60" x2="500" y2="60" />
-                  <circle class="route-node" cx="100" cy="60" r="4" />
-                  <circle class="route-node" cx="300" cy="60" r="4" />
-                  <circle class="route-node" cx="500" cy="60" r="4" />
-                  <g class="route-marker" data-route-marker transform="translate(100, 60)">
-                    <rect x="-7" y="-5" width="14" height="10" rx="2" />
-                    <line x1="-4" y1="-1.5" x2="4" y2="-1.5" />
-                    <line x1="-4" y1="1.5" x2="1" y2="1.5" />
-                  </g>
-                </svg>
-
-                <ol class="phase-row" aria-labelledby="workflow-label">
-                  <li>
-                    <button type="button" class="phase is-selected" data-phase="diagnose" aria-pressed="true" aria-controls="phase-details">
-                      <span class="phase__index">1</span>
-                      <span><strong>Diagnose</strong><small>Intake, triage, investigate</small></span>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="phase" data-phase="resolve" aria-pressed="false" aria-controls="phase-details">
-                      <span class="phase__index">2</span>
-                      <span><strong>Resolve</strong><small>Act, then verify</small></span>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="phase" data-phase="close" aria-pressed="false" aria-controls="phase-details">
-                      <span class="phase__index">3</span>
-                      <span><strong>Close</strong><small>Document and hand back</small></span>
-                    </button>
-                  </li>
-                </ol>
-              </div>
-
-              <div class="resolution-desk__steps" id="phase-details">
-                <p class="resolution-desk__steps-label" data-phase-label>Diagnose · choose a step</p>
-                <ol class="station-row" data-phase-panel="diagnose">
-                  <li>
-                    <button type="button" class="station is-selected" data-station="intake" data-station-phase="diagnose" aria-pressed="true" aria-controls="evidence-panel">
-                      <span class="station__index">1</span>
-                      <span class="station__label">Intake</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="station" data-station="triage" data-station-phase="diagnose" aria-pressed="false" aria-controls="evidence-panel">
-                      <span class="station__index">2</span>
-                      <span class="station__label">Triage</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="station" data-station="investigation" data-station-phase="diagnose" aria-pressed="false" aria-controls="evidence-panel">
-                      <span class="station__index">3</span>
-                      <span class="station__label">Investigation</span>
-                    </button>
-                  </li>
-                </ol>
-                <ol class="station-row" data-phase-panel="resolve" hidden>
-                  <li>
-                    <button type="button" class="station" data-station="resolution" data-station-phase="resolve" aria-pressed="false" aria-controls="evidence-panel">
-                      <span class="station__index">4</span>
-                      <span class="station__label">Resolution</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="station" data-station="verification" data-station-phase="resolve" aria-pressed="false" aria-controls="evidence-panel">
-                      <span class="station__index">5</span>
-                      <span class="station__label">Verification</span>
-                    </button>
-                  </li>
-                </ol>
-                <ol class="station-row" data-phase-panel="close" hidden>
-                  <li>
-                    <button type="button" class="station" data-station="documentation" data-station-phase="close" aria-pressed="false" aria-controls="evidence-panel">
-                      <span class="station__index">6</span>
-                      <span class="station__label">Documentation</span>
-                    </button>
-                  </li>
-                </ol>
-              </div>
-
-              <details class="resolution-desk__secondary">
-                <summary>More paths: knowledge base and escalation</summary>
-                <ol class="station-row station-row--secondary">
-                  <li>
-                    <button type="button" class="station station--secondary" data-station="knowledgeBase" aria-pressed="false" aria-controls="evidence-panel">
-                      <span class="station__label">Knowledge Base</span>
-                    </button>
-                  </li>
-                  <li>
-                    <button type="button" class="station station--secondary" data-station="escalationDesk" aria-pressed="false" aria-controls="evidence-panel">
-                      <span class="station__label">Escalation Desk</span>
-                    </button>
-                  </li>
-                </ol>
-              </details>
-            </div>
-
-            <div class="resolution-desk__evidence">
-              <div class="evidence-panel" id="evidence-panel" data-evidence-panel aria-live="polite" aria-atomic="true">
-                <p class="evidence-panel__eyebrow" data-evidence-eyebrow>Account lockout or sign-in failure / Intake</p>
-                <h3 class="evidence-panel__title" data-evidence-title>Intake</h3>
-                <p class="evidence-panel__overview" data-evidence-overview>Confirm who is affected, on what device, before assuming a cause.</p>
-                <dl class="evidence-panel__fields" data-evidence-fields>
-                  <div>
-                    <dt>What I would clarify with the user</dt>
-                    <dd>Whether it is one account or several, which device and app they are signing into, and whether anything changed recently, a new password, a new device, recent travel.</dd>
-                  </div>
-                  <div>
-                    <dt>What I would check</dt>
-                    <dd>The account status and whether the lockout counter or recent failed attempts line up with what the user describes.</dd>
-                  </div>
-                </dl>
-              </div>
+          <div class="ws-chin">
+            <p class="ws-nameplate">Farhat Systems &middot; Support Workstation</p>
+            <div class="ws-chin__right">
+              <span class="ws-led" aria-hidden="true"></span>
+              <span class="ws-chin__slot" aria-hidden="true"></span>
             </div>
           </div>
         </div>

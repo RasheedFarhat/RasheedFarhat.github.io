@@ -213,6 +213,8 @@ const requiredAssets = [
   "assets/rasheed-farhat-resume-support.pdf",
   "support/resolution-desk.css",
   "support/resolution-desk.js",
+  "support/workstation.css",
+  "support/workstation.js",
   "robots.txt",
   "sitemap.xml",
   "site.webmanifest"

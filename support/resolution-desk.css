@@ -453,7 +453,10 @@
 @media (min-width: 34rem) {
   .evidence-panel__fields {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1.25rem 1.75rem;
+    /* Column gap trimmed from 1.75rem on 2026-09-06 to return 8px to the
+       two field columns, which is what keeps the longest dt label on one
+       line after the picker column widened. */
+    gap: 1.25rem 1.25rem;
   }
 }
 
@@ -525,8 +528,32 @@
 
 @media (min-width: 60rem) {
   .resolution-desk__scene-body {
-    grid-template-columns: minmax(14rem, 0.85fr) minmax(0, 1.7fr);
+    /* Picker share raised from 0.85fr on 2026-09-06, then re-measured the
+       same day once a fifth ticket landed. The chips are ordered longest
+       label to shortest, which only reads as a staircase if each one sits on
+       a single line. 0.85fr gave the column 334px and wrapped the top two;
+       0.95fr gives it 359px on the page and 362px inside the workstation
+       window, which clears the four shorter chips outright. The longest chip
+       is handled by the font-size rule below rather than by widening this
+       column any further, because every pixel taken here comes out of the
+       evidence panel opposite, where the longest field label needs 283 of
+       its 285px to stay on one line (see .evidence-panel__fields above).
+       Narrower viewports wrap either way, and there every chip goes full
+       width so the stack reads as an even column instead of a ragged one. */
+    grid-template-columns: minmax(14rem, 0.95fr) minmax(0, 1.7fr);
     align-items: start;
+  }
+
+  /* The longest ticket label is 43 characters and measures 378px at the
+     0.84rem the chips use elsewhere, which is wider than the picker column
+     at every viewport, on the page and inside the workstation window alike.
+     It wrapped into a squared-off two-line block at the top of a stack whose
+     whole point is the descending staircase. 0.78rem brings it to 353px and
+     puts all five chips back on single lines with room to spare. Scoped to
+     this breakpoint deliberately: below it the chips are full width and have
+     no reason to be smaller. */
+  .ticket-chip {
+    font-size: 0.78rem;
   }
 
   .resolution-desk__picker {

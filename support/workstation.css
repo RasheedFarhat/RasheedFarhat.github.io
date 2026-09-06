@@ -1,0 +1,785 @@
+/* The Support Workstation ---------------------------------------------------
+   A rendered 1980s desk machine that holds the Resolution Desk scene on
+   /support/ at wide viewports. It is furniture, not content: the section
+   heading above it, the example-ticket disclosure below it, and the desk
+   itself all exist on the page whether or not a single rule in this file
+   applies.
+
+   THE ONE STRUCTURAL RULE. Every decorative rule here lives inside the gate
+   media query at the foot of the file. Below the gate nothing in this file
+   matches except the short "off" block immediately below, which switches off
+   the pieces that are furniture rather than content. The wrappers in the
+   markup are then just inert divs and the scene renders as the ordinary page
+   section it has always been. That is the entire narrow-screen story: not a
+   second layout, not a fallback card, just an absence of rules. Anything
+   added here must go inside the media query or it will leak onto phones.
+
+   Two constraints drive most of the numbers.
+
+   1. The chassis is generic 1980s beige industrial design, not any
+      manufacturer's product. No vendor mark, wordmark, system font, or boot
+      icon is reproduced anywhere. The type is the site's own IBM Plex Mono.
+
+   2. The desk scene carries viewport media queries (34rem, 48rem and 60rem
+      in resolution-desk.css) tuned against the site shell's 1112px content
+      plateau. Inside a draggable window "viewport width" is the wrong
+      signal, so rather than rewrite that tuned CSS the window body pins its
+      canvas to 1112px and the gate only opens where all three of those
+      queries are true anyway. No override of resolution-desk.css is needed.
+   ------------------------------------------------------------------------ */
+
+/* Off by default -----------------------------------------------------------
+   The safe direction: a browser that matches nothing gets the plain page.
+   Only the furniture is listed. .ws-chassis, .ws-bezel, .ws-screen,
+   .ws-desktop, .ws-window and .ws-window__body are deliberately absent
+   because unstyled they are transparent wrappers that pass their child
+   through to the page unchanged. */
+
+.ws-boot,
+.ws-menubar,
+.ws-icons,
+.ws-chin,
+.ws-window__bar,
+.ws-window[data-ws-window="readme"] {
+  display: none;
+}
+
+@media (min-width: 90rem) {
+  /* The chassis ------------------------------------------------------------
+     A single moulded box in early-90s beige: a deep screen bezel on top and a
+     chin carrying the name plate, vents, power LED and a disk slot below. No
+     manufacturer's product is reproduced; the silhouette is the generic one
+     every beige monitor of the period shared. The dotted overlay is
+     aged-plastic speckle, at a low enough alpha to leave text alone.
+
+     Rebuilt 2026-09-06, because the first pass read as a white border rather
+     than a machine. Three causes, all addressed below and none of them raw
+     thickness: the plastic ramp topped out at #e2dbcb, close enough to white
+     that the case dissolved into the page; the glass sat flush in the frame
+     with a 4px radius and no aperture, so it looked painted on rather than
+     recessed; and nothing lit the bezel from the screen, which is the single
+     strongest cue that a dark rectangle is a display and not a hole.
+
+     The machine is wider than the 1112px column it sits in, so it breaks out
+     of .shell with a negative inline margin computed from its own width.
+     100% here is the shell's content box, which is why this centres rather
+     than hangs off the right edge the way margin-inline: auto would. */
+
+  .ws-chassis {
+    /* Plastic, warmed and darkened on 2026-09-06. Every stop moved down the
+       value scale; the top highlight moved furthest, because it was doing the
+       most damage. The gradient below is also directional now rather than a
+       flat vertical wash, so the shell reads as moulded.
+
+       Calibrated by sampling the render rather than by eye. The first attempt
+       still measured #dcd2bd across the top strip, which is 86 per cent of
+       white and reads as a border whatever the swatch is nominally called;
+       the specular wash and the top inset highlight were stacking on an
+       already-pale ramp. Ramp, wash and highlight all came down together. */
+    --ws-plastic: #bfb298;
+    --ws-plastic-hi: #cec2a6;
+    --ws-plastic-lo: #8e8369;
+    --ws-plastic-edge: #756b56;
+    --ws-bezel: #9e9179;
+    --ws-bezel-lo: #837760;
+
+    --ws-screen: #0b0b08;
+    --ws-screen-hi: #16150f;
+    --ws-amb: #f2b84b;
+    --ws-amb-hi: #ffd27a;
+    --ws-amb-mid: #c9973a;
+    --ws-amb-soft: rgb(242 184 75 / 0.16);
+    --ws-ink: #1d1400;
+
+    --ws-gutter: 96px;
+
+    /* The page's own content width. 100vw counts the classic scrollbar that
+       Windows and Linux draw outside it, so using it raw makes the machine
+       around 15px too wide and gives the whole page a horizontal scrollbar.
+       workstation.js overwrites this with documentElement.clientWidth, which
+       is exact; the fallback here subtracts a generous scrollbar so the
+       no-JS case errs narrow instead of overflowing. */
+    --ws-viewport: calc(100vw - 20px);
+
+    /* Frame thickness, made responsive 2026-09-06 -------------------------
+       A real monitor spends 6 to 10 per cent of its width on frame. This one
+       cannot, at the gate: the desk window is 1164px wide and its icon gutter
+       wants another 116px, so the screen has a hard 1296px floor and every
+       pixel of frame at 90rem comes straight out of it. So the frame is
+       pinned at the old 22/14 where it is scarce and grows to 40/26 where it
+       is not, topping out around a 1720px viewport. Below that the case gets
+       its weight from lighting and moulding rather than from thickness.
+
+       1424px is the reference point rather than 1440: the gate is a media
+       query, which measures the layout viewport including the scrollbar,
+       while --ws-viewport is clientWidth, which excludes it. 1424 is 90rem
+       minus a classic 16px bar. Anything narrower lands on the clamp floor
+       anyway, so the exact choice only affects the first pixel of growth. */
+    --ws-pad: clamp(22px, calc(22px + (var(--ws-viewport) - 1424px) / 16), 40px);
+    --ws-bez: clamp(14px, calc(14px + (var(--ws-viewport) - 1424px) / 25), 26px);
+    --ws-chin-h: clamp(56px, calc(56px + (var(--ws-viewport) - 1424px) / 11), 84px);
+    --ws-foot-h: min(16px, calc(var(--ws-pad) * 0.45));
+
+    /* Horizontal plastic: chassis padding plus bezel padding, doubled because
+       both are two-sided. It used to carry an extra 32px of slack because
+       .ws-screen sized itself from the viewport and needed room to disagree
+       with the chassis; it no longer disagrees (see .ws-screen), so the slack
+       is gone and the bezel is now uniformly --ws-bez on all four sides. */
+    --ws-frame: calc(2 * var(--ws-pad) + 2 * var(--ws-bez));
+
+    /* Vertical plastic, plus the 44px top margin and 2px of air. Derived
+       rather than hard-coded, which is the point: the screen height subtracts
+       this from the viewport, and the old literal 140px silently went stale
+       the moment any of its four components moved. */
+    --ws-vreserve: calc(var(--ws-pad) + 2 * var(--ws-bez) + var(--ws-chin-h) + 46px);
+
+    /* Three terms, and the order they resolve in matters.
+       1420 + frame is the ceiling, so the machine stops growing on a very
+       wide display instead of stretching to a shape no desk ever had. It is
+       also what guarantees the bezel's content box never exceeds 1420px,
+       which is what lets .ws-screen simply be 100% wide.
+       viewport - 48 keeps roughly 24px of page either side of the case, so
+       it reads as an object placed on the page rather than one that ran out
+       of room; 1404 is the floor under that, because at exactly 90rem a full
+       48px deduction would squeeze the screen below the 1296px the desk
+       window and its icon gutter need and put a scrollbar inside it. The bare
+       viewport is last and is the safety net: whatever the other two argue
+       for, the case can never be wider than the page, which is what keeps a
+       wide scrollbar from giving the whole document a horizontal scroll. */
+    --ws-width: min(
+      1420px + var(--ws-frame),
+      max(1404px, var(--ws-viewport) - 48px),
+      var(--ws-viewport)
+    );
+
+    position: relative;
+    width: var(--ws-width);
+    margin-inline: calc((100% - var(--ws-width)) / 2);
+    margin-block: clamp(2rem, 4vw, 2.75rem) 0;
+    border-radius: 18px;
+    padding: var(--ws-pad) var(--ws-pad) 0;
+
+    /* Speckle first so it sits over the plastic, then a top-left specular
+       wash, then the body colour. The speckle used to be a separate ::after
+       at opacity 0.35; folding it in here frees that pseudo-element for the
+       feet, and the alpha is baked into the dot colour instead. */
+    background-image:
+      radial-gradient(rgb(88 78 58 / 0.2) 0.5px, transparent 0.5px),
+      radial-gradient(125% 95% at 22% 0%, rgb(255 255 255 / 0.2) 0%, transparent 55%),
+      linear-gradient(
+        168deg,
+        var(--ws-plastic-hi) 0%,
+        var(--ws-plastic) 36%,
+        var(--ws-plastic) 62%,
+        var(--ws-plastic-lo) 100%
+      );
+    background-size: 3px 3px, auto, auto;
+    box-shadow:
+      inset 0 2px 0 rgb(255 255 255 / 0.22),
+      inset 0 -2px 0 rgb(0 0 0 / 0.28),
+      inset 0 0 0 1px rgb(255 255 255 / 0.08),
+      0 1px 0 var(--ws-plastic-edge),
+      0 14px 22px -12px rgb(0 0 0 / 0.5),
+      0 42px 70px -32px rgb(0 0 0 / 0.85);
+  }
+
+  /* Feet. Two pads under the case, drawn as two shaded gradients pinned to
+     the ends of one strip. They matter more than they look: a drop shadow
+     alone reads as a card lifted off the page, while two contact points read
+     as an object standing on something. */
+
+  .ws-chassis::before {
+    content: "";
+    position: absolute;
+    left: 7%;
+    right: 7%;
+    bottom: calc(var(--ws-foot-h) * -1);
+    height: var(--ws-foot-h);
+    pointer-events: none;
+    border-radius: 0 0 5px 5px;
+    background-repeat: no-repeat;
+    background-size: 17% 100%;
+    background-position: left bottom, right bottom;
+    background-image:
+      linear-gradient(180deg, var(--ws-plastic-lo) 0%, #625a49 100%),
+      linear-gradient(180deg, var(--ws-plastic-lo) 0%, #625a49 100%);
+  }
+
+  /* The bezel --------------------------------------------------------------
+     The moulding the glass sits in. The inset shadow at the top is the
+     overhang the shell casts into the recess; the white line at the bottom is
+     the lip catching light off the desk. The hairline ring is the seam where
+     the bezel plate meets the shell, which is the detail that stops the two
+     reading as one flat surface. */
+
+  .ws-bezel {
+    position: relative;
+    border-radius: 12px;
+    padding: var(--ws-bez);
+    background:
+      radial-gradient(150% 130% at 50% -25%, rgb(255 255 255 / 0.2) 0%, transparent 48%),
+      linear-gradient(180deg, var(--ws-bezel) 0%, var(--ws-bezel-lo) 100%);
+    box-shadow:
+      0 0 0 1px rgb(0 0 0 / 0.16),
+      0 1px 0 rgb(255 255 255 / 0.28),
+      inset 0 3px 7px rgb(0 0 0 / 0.4),
+      inset 0 -2px 0 rgb(255 255 255 / 0.2);
+  }
+
+  /* Four recessed corner screws, drawn rather than marked up because they
+     carry no meaning and belong nowhere in the accessibility tree. The box
+     spans the whole bezel but paints only four 6px dots at its corners, and
+     the inset keeps every one of them inside the padding ring: at the
+     narrowest bezel a dot ends 10px in and the glass starts at 14px. */
+
+  .ws-bezel::before {
+    content: "";
+    position: absolute;
+    inset: max(4px, calc(var(--ws-bez) * 0.3));
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 6px 6px;
+    background-position: left top, right top, left bottom, right bottom;
+    background-image:
+      radial-gradient(circle, rgb(0 0 0 / 0.34) 0 38%, rgb(255 255 255 / 0.22) 52% 66%, transparent 68%),
+      radial-gradient(circle, rgb(0 0 0 / 0.34) 0 38%, rgb(255 255 255 / 0.22) 52% 66%, transparent 68%),
+      radial-gradient(circle, rgb(0 0 0 / 0.34) 0 38%, rgb(255 255 255 / 0.22) 52% 66%, transparent 68%),
+      radial-gradient(circle, rgb(0 0 0 / 0.34) 0 38%, rgb(255 255 255 / 0.22) 52% 66%, transparent 68%);
+  }
+
+  /* The screen -------------------------------------------------------------
+     The height is viewport-relative even though the machine sits mid-page,
+     because you scroll to it: sizing it to the viewport is what makes the
+     whole machine visible at once when you arrive. The 960px cap stops the
+     screen growing past a believable monitor, and is tall enough to show the
+     desk scene whole rather than scrolled.
+
+     The width comes from the bezel's content box rather than from the
+     viewport. It used to be min(1420px, viewport - frame), which was an
+     independent second opinion about the same measurement, and the two
+     disagreed whenever --ws-width landed on its 1404px floor: on a browser
+     that draws no scrollbar (clientWidth 1440 at the gate) that formula asked
+     for a screen about 4px wider than the bezel could hold and the glass hung
+     out of the frame. 100% cannot overflow by construction. The 1420px cap is
+     belt and braces and never binds, because --ws-width's first term already
+     caps the content box at 1420. */
+
+  .ws-screen {
+    position: relative;
+    width: min(1420px, 100%);
+    margin-inline: auto;
+    height: min(960px, calc(100vh - var(--ws-vreserve)));
+    min-height: 520px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--ws-screen);
+    box-shadow:
+      /* the aperture: a hard dark lip right around the glass, then the
+         shadow that lip casts onto the bezel */
+      0 0 0 2px rgb(24 20 12 / 0.75),
+      0 3px 8px 2px rgb(0 0 0 / 0.42),
+      /* the screen lighting its own surround. This is the cue that turns a
+         dark rectangle into a display; without it the bezel is plastic with
+         a hole in it. Kept low so it never competes with the content. */
+      0 0 30px 8px rgb(242 184 75 / 0.11),
+      /* and inside, a tube darker at its edges than in the middle */
+      inset 0 0 0 1px rgb(0 0 0 / 0.85),
+      inset 0 2px 12px 2px rgb(0 0 0 / 0.7),
+      inset 0 0 44px 12px rgb(0 0 0 / 0.8);
+  }
+
+  /* Scanlines, a faint centre bloom, and the corner vignette. All three are
+     static: no flicker animation, because this page is read, not watched, and
+     a moving overlay behind body copy is a headache at best and a trigger at
+     worst. The scanline alpha went from 0.16 to 0.22 on 2026-09-06, which
+     darkens the average pixel by about 7 per cent rather than 5. The bloom is
+     deliberately at 0.05: any higher and it lifts the black the body text
+     depends on. */
+
+  .ws-screen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    background:
+      repeating-linear-gradient(
+        180deg,
+        rgb(0 0 0 / 0.22) 0px,
+        rgb(0 0 0 / 0.22) 1px,
+        transparent 1px,
+        transparent 3px
+      ),
+      radial-gradient(58% 44% at 50% 40%, rgb(242 184 75 / 0.05) 0%, transparent 72%),
+      radial-gradient(118% 108% at 50% 50%, transparent 52%, rgb(0 0 0 / 0.6) 100%);
+  }
+
+  /* The chin ---------------------------------------------------------------
+     Given an explicit height rather than padding, so --ws-vreserve above can
+     account for it exactly instead of guessing at a line box. */
+
+  .ws-chin {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: var(--ws-chin-h);
+    padding: 0 10px;
+  }
+
+  /* Ventilation slots, centred in the gap the flex layout already leaves
+     between the name plate and the LED cluster. Each slot is a dark line with
+     a lit right edge, which is what makes it read as a cut rather than a
+     stripe. Drawn, not marked up: no meaning, no accessibility tree. */
+
+  .ws-chin::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(240px, 22%);
+    height: calc(var(--ws-chin-h) * 0.3);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      90deg,
+      rgb(0 0 0 / 0.22) 0 2px,
+      rgb(255 255 255 / 0.26) 2px 3px,
+      transparent 3px 8px
+    );
+  }
+
+  /* Engraved, not printed: the dark face sits above a white lower edge, which
+     is the shadow a stamped letter throws when the light comes from above. */
+
+  .ws-nameplate {
+    margin: 0;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #443c2c;
+    text-shadow:
+      0 1px 0 rgb(255 255 255 / 0.55),
+      0 -1px 0 rgb(0 0 0 / 0.12);
+  }
+
+  .ws-chin__slot {
+    width: 132px;
+    height: 10px;
+    border-radius: 2px;
+    background: linear-gradient(180deg, #453e31 0%, #665c4a 100%);
+    box-shadow:
+      inset 0 3px 4px rgb(0 0 0 / 0.6),
+      inset 0 -1px 0 rgb(255 255 255 / 0.12),
+      0 1px 0 rgb(255 255 255 / 0.42);
+  }
+
+  /* A lit LED in a moulded socket: the ring is the recess it sits in, the
+     inner radial is the dome, and the two outer shadows are the near glow and
+     the wider spill. */
+
+  .ws-led {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 36% 30%, #d8ffdb 0%, #7fdc8a 46%, #349d48 100%);
+    box-shadow:
+      0 0 0 2px rgb(0 0 0 / 0.18),
+      0 0 3px 0 rgb(127 220 138 / 0.9),
+      0 0 10px 2px rgb(127 220 138 / 0.5),
+      inset 0 0 2px rgb(0 0 0 / 0.3);
+  }
+
+  .ws-chin__right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  /* The desktop ----------------------------------------------------------- */
+
+  .ws-desktop {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Boot -------------------------------------------------------------------
+     A cover over the desktop rather than a replacement for it, so the desk
+     is laid out from the first paint and resolution-desk.js can measure its
+     route markers normally. workstation.js runs it when the machine first
+     scrolls into view and removes it afterwards; under reduced motion it is
+     removed without ever being shown. */
+
+  .ws-boot {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+    display: grid;
+    place-content: center;
+    gap: 0.5rem;
+    background: var(--ws-screen);
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.9;
+    color: var(--ws-amb);
+    transition: opacity 260ms ease;
+  }
+
+  .ws-boot.is-clearing {
+    opacity: 0;
+  }
+
+  .ws-boot__line {
+    opacity: 0;
+  }
+
+  .ws-boot__line.is-shown {
+    opacity: 1;
+  }
+
+  .ws-boot__cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1em;
+    margin-left: 0.15em;
+    vertical-align: -0.12em;
+    background: var(--ws-amb);
+  }
+
+  /* Menu bar -------------------------------------------------------------- */
+
+  .ws-menubar {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    height: 26px;
+    padding: 0 0.5rem;
+    border-bottom: 1px solid var(--ws-amb-mid);
+    background: #16140d;
+    font-family: var(--mono);
+    font-size: 0.72rem;
+  }
+
+  .ws-menubar__item {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: var(--ws-amb);
+    text-decoration: none;
+    padding: 0.2rem 0.55rem;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .ws-menubar__item:hover,
+  .ws-menubar__item:focus-visible {
+    background: var(--ws-amb);
+    color: var(--ws-ink);
+  }
+
+  .ws-menubar__mark {
+    font-weight: 600;
+    letter-spacing: 0.12em;
+  }
+
+  .ws-menubar__clock {
+    margin-left: auto;
+    padding-right: 0.35rem;
+    color: var(--ws-amb-hi);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Desktop icons ----------------------------------------------------------
+     A column down the right edge, in the gutter the windows are clamped out
+     of by workstation.js. */
+
+  .ws-icons {
+    position: absolute;
+    top: 38px;
+    right: 10px;
+    z-index: 20;
+    width: var(--ws-gutter);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .ws-icon {
+    display: grid;
+    justify-items: center;
+    gap: 0.3rem;
+    width: 100%;
+    padding: 0.5rem 0.25rem;
+    appearance: none;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    background: transparent;
+    color: var(--ws-amb);
+    font-family: var(--mono);
+    font-size: 0.66rem;
+    line-height: 1.3;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .ws-icon:hover,
+  .ws-icon:focus-visible {
+    border-color: var(--ws-amb-mid);
+    background: var(--ws-amb-soft);
+    color: var(--ws-amb-hi);
+  }
+
+  .ws-icon svg {
+    width: 30px;
+    height: 30px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  /* Windows ----------------------------------------------------------------
+     Absolutely positioned inside the screen. workstation.js owns left/top,
+     size and z-index at runtime through inline styles, but the desk window
+     carries a full static placement below so that it is correctly positioned
+     before that file runs and stays correct if it never runs at all. */
+
+  .ws-window {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    max-width: calc(100% - 12px);
+    max-height: calc(100% - 44px);
+    border: 1px solid var(--ws-amb-mid);
+    border-radius: 3px;
+    background: var(--ws-screen-hi);
+    box-shadow: 0 18px 34px -22px rgb(0 0 0 / 0.95);
+  }
+
+  /* The no-JS placement, and it must stay in step with LAYOUT.desk in
+     support/workstation.js. 1164 = the 1112px canvas + 2px of window border
+     + 32px of body padding + 18px for a classic vertical scrollbar. That last
+     term is the one that is easy to forget: the desk scene is taller than the
+     window on any normal laptop, so the body always scrolls vertically, and
+     an unbudgeted scrollbar eats into the canvas until the window scrolls
+     sideways too. 34px clears the 26px menu bar with a little air. */
+  .ws-window[data-ws-window="desk"] {
+    left: 16px;
+    top: 34px;
+    width: 1164px;
+    height: calc(100% - 50px);
+  }
+
+  /* .ws-desktop is carried here purely for specificity: the off-block hides
+     this window at (0,2,0) and the plain .ws-window rule above is (0,1,0), so
+     without the extra class the window could never open inside the gate. */
+  .ws-desktop .ws-window[data-ws-window="readme"] {
+    display: flex;
+    left: 220px;
+    top: 260px;
+    width: 480px;
+    height: 320px;
+  }
+
+  /* Last of the display rules on purpose. .ws-window sets display:flex, which
+     beats the browser default sheet's [hidden]{display:none}, so a closed
+     window needs this to actually close, and it has to outrank the README
+     rule directly above it. workstation.js toggles el.hidden and nothing
+     else. */
+  .ws-desktop .ws-window[hidden] {
+    display: none;
+  }
+
+  .ws-window.is-focused {
+    border-color: var(--ws-amb);
+  }
+
+  .ws-window__bar {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.45rem;
+    border-bottom: 1px solid var(--ws-amb-mid);
+    background: #191710;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+  }
+
+  .ws-window__bar:active {
+    cursor: grabbing;
+  }
+
+  /* The grip is a real button rather than a focusable div so the window is
+     movable from the keyboard through an element that announces itself as a
+     control. Clicking it raises the window, which is the same thing clicking
+     a title bar does anywhere else. */
+  .ws-window__grip {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+    padding: 0.1rem 0.15rem;
+    appearance: none;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    cursor: inherit;
+  }
+
+  /* The pinstripes are the focused state, which is the only visual
+     difference between an active and an inactive window besides the border
+     brightness. */
+  .ws-window__streaks {
+    flex: 1;
+    height: 9px;
+    opacity: 0;
+    background: repeating-linear-gradient(
+      180deg,
+      var(--ws-amb-mid) 0px,
+      var(--ws-amb-mid) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  }
+
+  .ws-window.is-focused .ws-window__streaks {
+    opacity: 0.75;
+  }
+
+  .ws-window__title {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--ws-amb-hi);
+    white-space: nowrap;
+  }
+
+  .ws-window__close {
+    flex: none;
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    appearance: none;
+    border: 1px solid var(--ws-amb-mid);
+    border-radius: 1px;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .ws-window__close:hover,
+  .ws-window__close:focus-visible {
+    background: var(--ws-amb);
+  }
+
+  .ws-window__body {
+    flex: 1;
+    min-height: 0;
+    overflow: auto;
+    /* The desk is taller than the window, so this always scrolls vertically.
+       Reserving the gutter means the canvas below is sized against a width
+       that does not change the moment the scrollbar appears. It is a no-op
+       where the platform draws overlay scrollbars, which is exactly right:
+       there is nothing to reserve there. */
+    scrollbar-gutter: stable;
+    padding: 16px;
+    background: var(--ws-screen);
+  }
+
+  /* The desk scene inside the window ---------------------------------------
+     The pinned 1112px canvas described in the header comment. On the page
+     the scene inherits that width from .shell; in here .shell is nowhere in
+     its ancestry, so the width has to be stated. min-width rather than width
+     so a wider window is filled rather than left with a dead margin, and the
+     scene's own top margin is dropped because the window bar already
+     separates it from everything above.
+
+     min() rather than a bare 1112px so the floor can never be the thing that
+     makes the window scroll sideways. If a platform's scrollbar is wider than
+     the 18px budgeted above, the canvas gives up those few pixels instead,
+     and resolution-desk.css keeps its wide layout regardless because its
+     breakpoints read the viewport rather than this container. A slightly
+     compressed desk is a far better failure than a horizontal scrollbar. */
+
+  .ws-window__body > .resolution-desk__scene {
+    min-width: min(1112px, 100%);
+    margin-top: 0;
+    border: 0;
+    box-shadow: none;
+  }
+
+  /* README window --------------------------------------------------------- */
+
+  .ws-readme {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--ws-amb-hi);
+  }
+
+  .ws-readme h3 {
+    margin: 0 0 0.75rem;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ws-amb);
+  }
+
+  .ws-readme p {
+    margin: 0 0 0.85rem;
+    max-width: 58ch;
+  }
+
+  .ws-readme p:last-child {
+    margin-bottom: 0;
+  }
+
+  .ws-readme a {
+    color: var(--ws-amb);
+  }
+
+  /* Focus visibility on the amber screen ---------------------------------- */
+
+  .ws-desktop :focus-visible {
+    outline: 2px solid var(--ws-amb-hi);
+    outline-offset: 2px;
+  }
+
+  /* The page under the machine ---------------------------------------------
+     The disclosure follows the chassis directly. Its own 1.25rem was tuned
+     against the desk scene, which is a dark panel of the same weight as the
+     text; a beige case is a much heavier object and the paragraph reads as
+     stuck to it at that distance. Only the leading gap changes, so the
+     spacing between the disclosure and the casework link stays as it is
+     everywhere else on the site. */
+  .resolution-desk__disclosure {
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+  }
+}
+
+/* The blinking cursor is the one animation on the machine, and it only ever
+   runs while the boot cover is up. Outside the gate the cover is display:none
+   so this never animates on a phone. */
+@media (min-width: 90rem) and (prefers-reduced-motion: no-preference) {
+  .ws-boot__cursor {
+    animation: ws-blink 1s steps(1, end) infinite;
+  }
+}
+
+@keyframes ws-blink {
+  50% { opacity: 0; }
+}
