@@ -1326,17 +1326,21 @@ html[data-loaded="true"] .hero-name__rule {
      above, so it is scoped to this query and the one below rather than
      applied unconditionally: an unmatched named line at the single-
      column mobile width (no grid-template-areas defined there) throws
-     placement off and stacks every hero child on top of the others. */
-  .hero-copy {
+     placement off and stacks every hero child on top of the others.
+     Scoped to .hero-grid as well, added 2026-09-06: .hero-id is reused by
+     the /support hero, whose own grid defines no areas, so the bare
+     selector pushed that portrait into an implicit row below the copy and
+     opened a large hole in the middle of the page. */
+  .hero-grid .hero-copy {
     grid-area: copy;
   }
 
-  .hero-id {
+  .hero-grid .hero-id {
     grid-area: id;
     margin-top: 0.5rem;
   }
 
-  .hero-exhibit {
+  .hero-grid .hero-exhibit {
     grid-area: exhibit;
   }
 }
@@ -1356,22 +1360,22 @@ html[data-loaded="true"] .hero-name__rule {
     gap: 2.5rem;
   }
 
-  .hero-copy {
+  .hero-grid .hero-copy {
     grid-area: copy;
   }
 
-  .hero-id {
+  .hero-grid .hero-id {
     grid-area: id;
     justify-self: stretch;
     margin-top: 0;
   }
 
-  .hero-exhibit {
+  .hero-grid .hero-exhibit {
     grid-area: exhibit;
   }
 
-  .hero-id__frame,
-  .hero-id__plate {
+  .hero-grid .hero-id__frame,
+  .hero-grid .hero-id__plate {
     width: 100%;
   }
 }
@@ -3685,10 +3689,26 @@ ul.tag-list {
   margin-bottom: 2.25rem;
 }
 
+/* Copy leads at the top left, portrait sits at the top right, and the case
+   desk spans full width underneath both. The figure stays first in the DOM
+   so the single-column phone layout keeps the small identity badge above
+   the headline; explicit placement, not `order`, does the two-column swap,
+   which keeps the intent readable. */
 @media (min-width: 42rem) {
   .support-hero {
-    grid-template-columns: auto minmax(0, 1fr);
-    gap: 2.25rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2.25rem 2.75rem;
+  }
+
+  .support-hero__copy {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .hero-id--support {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
   }
 }
 
@@ -3701,14 +3721,28 @@ ul.tag-list {
   margin-bottom: 0.25rem;
 }
 
-/* Portrait sizing for the support hero: taller and narrower than the
-   homepage's folded-in identity photo, since here it is a primary hero
-   element, not a secondary column. Frame, mat, and plate-label CSS is
-   shared with .hero-id sitewide; only the width changes (aspect-ratio 4/5
-   on .hero-id__frame derives the height from it). */
+/* Portrait sizing for the support hero: this is a primary hero element,
+   not the homepage's folded-in identity badge, so past the two-column
+   breakpoint it scales with the viewport up to 16rem, which is 256px
+   against a 320px source PNG and so never upscales. Frame, mat, and
+   plate-label CSS is shared with .hero-id sitewide; only the width changes
+   (aspect-ratio 4/5 on .hero-id__frame derives the height from it). */
+.hero-id--support {
+  /* .hero-id's sitewide bottom margin exists to separate it from the copy
+     it folds under. Beside the copy instead, it only pads the hero out. */
+  margin-bottom: 0;
+}
+
 .hero-id--support .hero-id__frame,
 .hero-id--support .hero-id__plate {
   width: 9.5rem;
+}
+
+@media (min-width: 42rem) {
+  .hero-id--support .hero-id__frame,
+  .hero-id--support .hero-id__plate {
+    width: clamp(9.5rem, 19vw, 16rem);
+  }
 }
 
 @media (max-width: 30rem) {
