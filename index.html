@@ -292,6 +292,65 @@
         </div>
       </section>
 
+      <!-- Added 2026-09-07. The root page is the portfolio link on the SOC,
+           detection, and GRC resumes, and until now its body carried almost no
+           measured evidence: every figure that proves the work lived one click
+           deeper on the project pages, so a recruiter who scanned and left saw
+           the claims without the numbers behind them. The /support hero already
+           had its own coverage rail; this is the security lane's equivalent.
+           Placed above Selected work deliberately, since it is what a short
+           visit reaches first.
+
+           Every figure here is copied from the project page it belongs to
+           rather than restated, so the two can never drift into disagreeing.
+           Change a number on a project page and change it here in the same
+           edit. -->
+      <section class="section shell" aria-labelledby="proof-title">
+        <div class="section-heading section-heading--split">
+          <div>
+            <p class="eyebrow">Measured results</p>
+            <h2 id="proof-title">What the work actually produced.</h2>
+          </div>
+          <p class="section-note">4 systems / measured, not estimated</p>
+        </div>
+        <div class="metric-list">
+          <div class="metric">
+            <strong>216</strong>
+            <span>Wazuh rules compiled from 58 Sigma sources</span>
+          </div>
+          <div class="metric">
+            <strong>119</strong>
+            <span>ATT&amp;CK techniques, all 14 tactics covered</span>
+          </div>
+          <div class="metric">
+            <strong>87</strong>
+            <span>Automated tests gating the pipeline</span>
+          </div>
+          <div class="metric">
+            <strong>4,727</strong>
+            <span>Benign records, zero false positives</span>
+          </div>
+          <div class="metric">
+            <strong>94.5%</strong>
+            <span>Disposition accuracy, 52 of 55 SAML cases</span>
+          </div>
+          <div class="metric">
+            <strong>2,092</strong>
+            <span>Cases checked through both policy engines</span>
+          </div>
+          <!-- The one metric that reports a limit rather than a result. It is
+               the same figure the resume page carries, and it is on the page on
+               purpose: the projects it summarizes are the ones that name what
+               they cannot see. .metric--amb colors it as a ceiling, and the
+               component's own orphan rule spans this seventh cell across the
+               row at both breakpoints. -->
+          <div class="metric metric--amb">
+            <strong>3 / 12</strong>
+            <span>MCP evasion classes with no detectable signature</span>
+          </div>
+        </div>
+      </section>
+
       <section class="section shell" aria-labelledby="work-title">
         <div class="section-heading section-heading--split">
           <div>
