@@ -1272,12 +1272,6 @@ html[data-loaded="true"] .hero-name__rule {
   margin: 0;
 }
 
-.hero-support {
-  color: var(--text-dim);
-  max-width: 52ch;
-  text-wrap: balance;
-}
-
 .hero-source {
   color: var(--text-dim);
   font-size: 0.9rem;
@@ -1285,98 +1279,99 @@ html[data-loaded="true"] .hero-name__rule {
   max-width: 52ch;
 }
 
-/* Homepage-only rhythm: the copy column's natural content is shorter than
-   the exhibit beside it (a brief identity statement next to a full code
-   instrument, deliberately). Rather than add a module to fill that gap,
-   open the existing spacing so the column reads as generously paced, not
-   cut short. Scoped to .hero-copy so the shared .hero-lede/.hero-support/
-   .action-row/.hero-status components keep their tighter defaults on every
-   other page's hero. */
+/* Homepage-only rhythm. These margins used to be deliberately loose: the
+   copy column stood beside the compile plate, ran shorter than it, and the
+   extra spacing kept it from reading as cut short next to a tall neighbour.
+   Retuned 2026-09-07, when the plate moved to its own full-width row below.
+   Nothing tall sits beside this column any more, so the same values now
+   just stretch three short paragraphs down the page. Pulled back to a
+   normal reading rhythm instead. Scoped to .hero-copy so the shared
+   .hero-lede / .action-row / .hero-status components keep their defaults on
+   every other page's hero. */
 .hero-copy .hero-lede {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
 .hero-copy .hero-role {
-  margin-bottom: 0.85rem;
-}
-
-.hero-copy .hero-support {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0;
 }
 
 .hero-copy .action-row {
-  margin-top: 2.25rem;
+  margin-top: 1.75rem;
 }
 
 .hero-copy .hero-status {
   margin-top: 1.1rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: 0;
 }
 
+/* Rebuilt 2026-09-07 as two rows: copy and portrait side by side, compile
+   plate spanning the full shell beneath them. This replaces a three-column
+   "copy id exhibit" arrangement that put the portrait in the middle column,
+   between the copy it belonged to and the instrument it had nothing to do
+   with. A centered face reads as watching the visitor rather than
+   introducing the work, and the middle column left a tall void under the
+   photo because nothing else in the hero was short enough to share it.
+
+   Giving the plate its own row is what pays for most of the change. As a
+   column it was a narrow vertical stack of three panes; across the full
+   shell the same three panes sit side by side (see .hero-exhibit
+   .plate__grid below) and the plate itself drops from 686px to 351px, with
+   the copy column falling 731px to 437px alongside it.
+
+   Measured 2026-09-07 against the previous version, because the height
+   claim here was originally written the other way round and was wrong.
+   Both pieces shrank, but two rows replace a max() with a sum, so the
+   desktop hero is 94px TALLER on balance: 970px to 1064px at 1512px wide.
+   Below this gate, where the old layout was already stacked and only the
+   pieces changed, it is genuinely shorter (1381px to 1263px at 900px,
+   1514px to 1370px at 500px). The 94px buys a portrait that introduces the
+   work instead of staring down the visitor, and a plate that reads left to
+   right in the direction the data moves. If that height ever needs
+   reclaiming, the lever is the plate's own padding and pane heights, not
+   this grid. Same arrangement as the /support hero, deliberately. */
 @media (min-width: 64rem) {
   .hero-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(24rem, 1.05fr);
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
-      "copy exhibit"
-      "id exhibit";
-    gap: 3.5rem;
+      "copy id"
+      "exhibit exhibit";
+    /* Asymmetric on purpose. The column gap separates two unrelated things
+       (copy and portrait) and wants air; the row gap separates the copy from
+       the instrument that illustrates it, which reads as one thought, and
+       stacked rows cost height the old side-by-side layout did not pay. */
+    gap: 2.25rem 3rem;
   }
 
-  /* grid-area only means anything alongside the grid-template-areas
-     above, so it is scoped to this query and the one below rather than
-     applied unconditionally: an unmatched named line at the single-
-     column mobile width (no grid-template-areas defined there) throws
-     placement off and stacks every hero child on top of the others.
-     Scoped to .hero-grid as well, added 2026-09-06: .hero-id is reused by
-     the /support hero, whose own grid defines no areas, so the bare
-     selector pushed that portrait into an implicit row below the copy and
-     opened a large hole in the middle of the page. */
+  /* grid-area only means anything alongside the grid-template-areas above,
+     so it is scoped to this query rather than applied unconditionally: an
+     unmatched named line at the single-column mobile width (no
+     grid-template-areas defined there) throws placement off and stacks
+     every hero child on top of the others. Scoped to .hero-grid as well,
+     added 2026-09-06: .hero-id is reused by the /support hero, whose own
+     grid defines no areas, so the bare selector pushed that portrait into
+     an implicit row below the copy and opened a large hole in the middle
+     of the page. */
   .hero-grid .hero-copy {
     grid-area: copy;
   }
 
   .hero-grid .hero-id {
     grid-area: id;
-    margin-top: 0.5rem;
-  }
-
-  .hero-grid .hero-exhibit {
-    grid-area: exhibit;
-  }
-}
-
-/* Past 72rem the shell has room for the portrait to stand as its own
-   column beside the exhibit, real presence rather than a folded-in badge,
-   the most literal read of "mounted next to the device." Below this the
-   photo stays folded back under the copy column (previous rule) rather
-   than fighting the exhibit for width, see the 2026-08-12 --shell width
-   note above the compile plate: content plateaus at ~1112px past 75rem,
-   and 936px at the 64rem floor is too tight to give the photo its own
-   column without starving the exhibit's code panes. */
-@media (min-width: 72rem) {
-  .hero-grid {
-    grid-template-columns: minmax(0, 1fr) 12rem minmax(20rem, 1fr);
-    grid-template-areas: "copy id exhibit";
-    gap: 2.5rem;
-  }
-
-  .hero-grid .hero-copy {
-    grid-area: copy;
-  }
-
-  .hero-grid .hero-id {
-    grid-area: id;
-    justify-self: stretch;
+    justify-self: end;
     margin-top: 0;
+    margin-bottom: 0;
   }
 
   .hero-grid .hero-exhibit {
     grid-area: exhibit;
   }
 
+  /* Scales with the viewport up to 16rem, which is 256px against a 320px
+     source PNG and so never upscales. Same ceiling as the /support hero. */
   .hero-grid .hero-id__frame,
   .hero-grid .hero-id__plate {
-    width: 100%;
+    width: clamp(11rem, 17vw, 16rem);
   }
 }
 
@@ -1637,6 +1632,44 @@ html[data-loaded="true"] .plate__bound {
 .plate__stages ol {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0.9rem 1.5rem;
+}
+
+/* Past 64rem the plate has the full shell width to itself (see the hero
+   grid rebuild above) and runs as an actual pipeline: source on the left,
+   the transform stages as a vertical spine in the middle, compiled artifact
+   on the right, reading left to right in the direction the data moves.
+   Below this it stays the vertical stack the rules above describe, and the
+   artifact pane is hidden outright, since a phone has no room to show both
+   ends of a transform and half a pipeline is worse than one clear end of
+   it. Added 2026-09-07. */
+@media (min-width: 64rem) {
+  .plate__grid {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  /* The dividers turn with the layout. Stacked, they separate rows; side by
+     side, they separate columns. */
+  .plate__pane--src,
+  .plate__stages {
+    border-bottom: 0;
+    border-right: 1px solid var(--line-hi);
+  }
+
+  /* Four stages down one column, so the middle reads as a spine between the
+     two panes rather than the 2x2 block of labels it is when stacked. */
+  .plate__stages ol {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.7rem;
+  }
+
+  /* Raised from the 3.6rem the stacked layout uses. That cap existed to
+     stop the artifact pane lengthening the hero's right column past the
+     copy beside it, which is no longer the arrangement: the pane now sits
+     beside the source pane, where the two want to match. 8.1rem is the
+     source pane's seven lines at this font size and line height. */
+  .plate__code-clip {
+    max-height: 8.1rem;
+  }
 }
 
 /* Code tokens ----------------------------------------------------------- */
