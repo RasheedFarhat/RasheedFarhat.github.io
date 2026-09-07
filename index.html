@@ -292,63 +292,91 @@
         </div>
       </section>
 
-      <!-- Added 2026-09-07. The root page is the portfolio link on the SOC,
-           detection, and GRC resumes, and until now its body carried almost no
-           measured evidence: every figure that proves the work lived one click
-           deeper on the project pages, so a recruiter who scanned and left saw
-           the claims without the numbers behind them. The /support hero already
-           had its own coverage rail; this is the security lane's equivalent.
-           Placed above Selected work deliberately, since it is what a short
-           visit reaches first.
+      <!-- Replaced 2026-09-07. This slot previously held a seven-cell metric
+           grid. It was cut for two reasons. Every figure in it already
+           appeared, word for word, in the Selected work rows immediately
+           below, so it restated the page rather than adding to it. And a
+           wall of large numerals is the one section shape every generated
+           portfolio reaches for, which made the most scanned block on the
+           site read as the least considered.
 
-           Every figure here is copied from the project page it belongs to
-           rather than restated, so the two can never drift into disagreeing.
-           Change a number on a project page and change it here in the same
-           edit. -->
-      <section class="section shell" aria-labelledby="proof-title">
+           What replaced it is the thing the page could not get anywhere
+           else. The hero states the thesis, tested and bounded. Selected
+           work proves what got built. Nothing said how the claim is earned,
+           and the site's own boundary device did not appear on the homepage
+           at all, which left the one page a recruiter actually lands on as
+           the only page missing the argument the rest of the site makes.
+
+           Every receipt here names an artifact that exists and is checkable,
+           and none of them repeats a figure from the rows below. Change a
+           claim in the source repos and change it here in the same edit. -->
+      <section class="section shell" aria-labelledby="method-title">
         <div class="section-heading section-heading--split">
           <div>
-            <p class="eyebrow">Measured results</p>
-            <h2 id="proof-title">What the work actually produced.</h2>
+            <p class="eyebrow">Method</p>
+            <h2 id="method-title">
+              What <span class="method-heading__sig">tested</span> and
+              <span class="method-heading__bound">bounded</span> actually
+              costs.
+            </h2>
           </div>
-          <p class="section-note">4 systems / measured, not estimated</p>
+          <p class="section-note">4 rules / applied to every system below</p>
         </div>
-        <div class="metric-list">
-          <div class="metric">
-            <strong>216</strong>
-            <span>Wazuh rules compiled from 58 Sigma sources</span>
-          </div>
-          <div class="metric">
-            <strong>119</strong>
-            <span>ATT&amp;CK techniques, all 14 tactics covered</span>
-          </div>
-          <div class="metric">
-            <strong>87</strong>
-            <span>Automated tests gating the pipeline</span>
-          </div>
-          <div class="metric">
-            <strong>4,727</strong>
-            <span>Benign records, zero false positives</span>
-          </div>
-          <div class="metric">
-            <strong>94.5%</strong>
-            <span>Disposition accuracy, 52 of 55 SAML cases</span>
-          </div>
-          <div class="metric">
-            <strong>2,092</strong>
-            <span>Cases checked through both policy engines</span>
-          </div>
-          <!-- The one metric that reports a limit rather than a result. It is
-               the same figure the resume page carries, and it is on the page on
-               purpose: the projects it summarizes are the ones that name what
-               they cannot see. .metric--amb colors it as a ceiling, and the
-               component's own orphan rule spans this seventh cell across the
-               row at both breakpoints. -->
-          <div class="metric metric--amb">
-            <strong>3 / 12</strong>
-            <span>MCP evasion classes with no detectable signature</span>
-          </div>
-        </div>
+        <!-- Four rules, not four steps. Order carries no meaning, so the
+             rows are keyed by name rather than numbered and the markup is an
+             unordered list. Do not add 01 / 02 / 03 markers. -->
+        <ul class="method-list">
+          <li class="method-rule">
+            <span class="method-rule__key">Corpus</span>
+            <p class="method-rule__claim">A claim gets a corpus, not an example.</p>
+            <p class="method-rule__receipt">
+              Ten MCP detection rules were not called working until they ran
+              clean across 4,727 benign records and 541 sessions. A single
+              demo capture proves the plumbing works, not that the rule stays
+              quiet.
+            </p>
+          </li>
+          <!-- The boundary rule is the one the site's argument turns on, so
+               it gets a material change rather than a recolored word: the
+               same recessed well ground and 3px amber key as .scope-note,
+               the device every case study uses to name a limit. It sits
+               second on purpose. The limit arrives with the result, never
+               ahead of it. -->
+          <li class="method-rule method-rule--bound">
+            <span class="method-rule__key">Boundary</span>
+            <p class="method-rule__claim">The limit ships with the result.</p>
+            <p class="method-rule__receipt">
+              Three of twelve documented evasion classes have no signature I
+              can write against them. That count sits on the project page
+              beside the detections it qualifies, not in a footnote
+              underneath them.
+            </p>
+          </li>
+          <li class="method-rule">
+            <span class="method-rule__key">Retraction</span>
+            <p class="method-rule__claim">A wrong claim gets retracted, not quietly edited.</p>
+            <p class="method-rule__receipt">
+              Assertion Desk&#8217;s own limitations file claimed one
+              adversarial payload had a real path into a model prompt.
+              Reading the code found a second path the file never accounted
+              for. The corpus grew from four cases to nine, and
+              <a href="/writing/the-claim-i-published-was-wrong/"
+                >I published the correction</a
+              >
+              instead of editing the file quietly.
+            </p>
+          </li>
+          <li class="method-rule">
+            <span class="method-rule__key">Assurance</span>
+            <p class="method-rule__claim">Silence is not verification.</p>
+            <p class="method-rule__receipt">
+              The MCP review framework records control state on a six-value
+              model where an absence of telemetry indicators can never return
+              <code>verified</code>. Nothing alarmed is a fact about the
+              sensors, not about the control.
+            </p>
+          </li>
+        </ul>
       </section>
 
       <section class="section shell" aria-labelledby="work-title">

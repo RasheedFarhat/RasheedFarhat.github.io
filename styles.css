@@ -512,7 +512,8 @@ li {
    every metadata caption. Tiny uppercase mono, wide tracking, a hairline
    rule beneath it standing in for an etched groove. This is the shared base
    for .title-block__label, .case-meta dt, .scope-note strong,
-   .case-sidebar h2, .article-rail h2, and .plate__stages-label; each of
+   .case-sidebar h2, .article-rail h2, .method-rule__key, and
+   .plate__stages-label; each of
    those adds only its own weight, spacing, or color delta at its own
    location in this file. */
 .plate-label,
@@ -521,6 +522,7 @@ li {
 .scope-note strong,
 .case-sidebar h2,
 .article-rail h2,
+.method-rule__key,
 .plate__stages .plate__stages-label {
   font-family: var(--mono);
   font-size: 0.7rem;
@@ -1255,11 +1257,17 @@ html[data-loaded="true"] .hero-name__rule {
 
 /* The color code, taught in the first sentence a visitor reads. Same idiom
    as .article-title__signal, given a boundary-colored twin. */
-.hero-lede__sig {
+/* The method section's headline picks up the hero lede's own two words in
+   the hero lede's own two colors, so the thesis and the section that says
+   what the thesis costs are visibly the same sentence. One shared rule
+   each rather than a second pair of colour declarations. */
+.hero-lede__sig,
+.method-heading__sig {
   color: var(--sig);
 }
 
-.hero-lede__bound {
+.hero-lede__bound,
+.method-heading__bound {
   color: var(--amb-hi);
 }
 
@@ -1776,6 +1784,117 @@ html[data-loaded="true"] .plate__bound {
 
 .coverage__foot .lamp {
   gap: 0.4rem;
+}
+
+/* Method rules -----------------------------------------------------------
+   The homepage section between the hero exhibit and the work list. Four
+   parallel rules, not a sequence, so nothing here is numbered and the key
+   column carries a name instead of an index.
+
+   Two alignment decisions are deliberate. The key column is 11rem at the
+   same 60rem breakpoint as .work-row__meta, so the method rules and the
+   project rows beneath them share one vertical rule down the page rather
+   than each finding its own. And .method-rule__claim is set at the exact
+   size and optical size as .work-row h3, so a rule of method and a project
+   title read as peers: the argument of the section is that how the work is
+   checked ranks with what the work is.
+
+   One row is materially different rather than merely recolored.
+   .method-rule--bound sits on the same recessed well ground, 3px amber
+   key, and inset top shadow as .scope-note, the device this site uses on
+   every case study to name a limit, and the device that until now never
+   appeared on the homepage at all. That row is the section's whole
+   argument, so it is the one that gets the material change. */
+
+.method-list {
+  display: grid;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.method-rule {
+  display: grid;
+  align-items: start;
+  gap: 0.55rem 2.5rem;
+  margin: 0;
+  /* The base li rule caps every list item at 62ch. These rows are layout,
+     not prose, so the cap has to come off here or the whole section renders
+     at roughly half the shell width. The measure lives on the receipt. */
+  max-width: none;
+  padding: 1.75rem 1.1rem 1.75rem 1.5rem;
+  border-bottom: 1px solid var(--line);
+  /* Transparent on the unkeyed rows so the amber key on the boundary row
+     is a color change, not a width change, and the four claim columns stay
+     on one left edge. */
+  border-left: 3px solid transparent;
+}
+
+.method-rule__key {
+  font-weight: 600;
+  color: var(--sig);
+  align-self: start;
+}
+
+.method-rule__claim {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 2.6vw, 1.7rem);
+  font-weight: 650;
+  line-height: 1.06;
+  letter-spacing: 0.006em;
+  color: var(--text-hi);
+  font-variation-settings: "opsz" 40;
+  text-wrap: balance;
+}
+
+.method-rule__receipt {
+  margin: 0;
+  color: var(--text);
+  max-width: 52ch;
+}
+
+.method-rule__receipt code {
+  color: var(--text-hi);
+}
+
+.method-rule__receipt a {
+  color: var(--sig-hi);
+}
+
+.method-rule--bound {
+  background: var(--well);
+  border-left-color: var(--amb);
+  box-shadow: inset 0 1px 3px var(--well-top);
+}
+
+.method-rule--bound .method-rule__key {
+  color: var(--amb-hi);
+}
+
+@media (min-width: 60rem) {
+  /* Three columns, the same skeleton as .work-row below: a fixed key rail,
+     the statement, and the evidence beside it rather than under it. Stacked,
+     the four claims cannot be read as a set; in their own column they can be
+     scanned in one pass and the receipts read only if the reader wants them.
+     The rail width and the row padding match .work-row exactly so the two
+     sections share one left edge and one key column down the page. */
+  .method-rule {
+    grid-template-columns: 11rem minmax(0, 1fr) minmax(0, 1.35fr);
+    padding: 2rem 1.25rem 2rem 1.75rem;
+  }
+
+  /* Optical alignment, not metric: the key and the receipt are set at body
+     and caption sizes against a display line more than twice their height,
+     so both need a nudge down to sit on the claim's first baseline. */
+  .method-rule__key {
+    padding-top: 0.45rem;
+  }
+
+  .method-rule__receipt {
+    padding-top: 0.2rem;
+  }
 }
 
 /* Work rows --------------------------------------------------------------
