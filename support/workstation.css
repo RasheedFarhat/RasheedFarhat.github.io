@@ -533,16 +533,24 @@
      a machine that said Memory OK and never finished starting. Now the
      default is a working desk and the boot is the enhancement. */
 
+  /* Top left, not centred. A power-on self test writes into a text console
+     that starts in the corner and fills downward, so the lines sit against
+     the top left of the glass at the leading of consecutive console rows
+     rather than as a centred list with air between them. The padding clears
+     the screen's 14px corner radius and the vignette its inset shadows draw
+     around the edge, so the first character never lands in the dark. */
+
   .ws-boot {
     position: absolute;
     inset: 0;
     z-index: 50;
-    place-content: center;
-    gap: 0.5rem;
+    align-content: start;
+    justify-items: start;
+    padding: 1.5rem 1.75rem;
     background: var(--ws-screen);
     font-family: var(--mono);
     font-size: 0.8rem;
-    line-height: 1.9;
+    line-height: 1.6;
     color: var(--ws-amb);
     transition: opacity 260ms ease;
   }

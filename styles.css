@@ -3852,6 +3852,11 @@ ul.tag-list {
     gap: 2.25rem 2.75rem;
   }
 
+  /* .support-hero__copy deliberately does not reuse the homepage's
+     .hero-copy class: that class carries a large-name h1 override
+     (.hero-copy h1) meant only for the split RASHEED / FARHAT readout
+     treatment. The support hero's h1 is a plain sentence headline, so it
+     should inherit the standard .page-hero h1 sizing instead. */
   .support-hero__copy {
     grid-column: 1;
     grid-row: 1;
@@ -3862,15 +3867,6 @@ ul.tag-list {
     grid-row: 1;
     justify-self: end;
   }
-}
-
-/* .support-hero__copy deliberately does not reuse the homepage's
-   .hero-copy class: that class carries a large-name h1 override
-   (.hero-copy h1) meant only for the split RASHEED / FARHAT readout
-   treatment. The support hero's h1 is a plain sentence headline, so it
-   should inherit the standard .page-hero h1 sizing instead. */
-.support-hero__copy .hero-lede {
-  margin-bottom: 0.25rem;
 }
 
 /* Portrait sizing for the support hero: this is a primary hero element,

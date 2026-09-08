@@ -40,7 +40,7 @@
     <script src="/theme-init.js?v=20260814a"></script>
     <link rel="stylesheet" href="/styles.css?v=20260823a" />
     <link rel="stylesheet" href="/support/resolution-desk.css?v=20260818a" />
-    <link rel="stylesheet" href="/support/workstation.css?v=20260908a" />
+    <link rel="stylesheet" href="/support/workstation.css?v=20260908b" />
     <script src="/script.js?v=20260814a" defer></script>
     <script src="/support/resolution-desk.js?v=20260823a" defer></script>
     <script src="/support/workstation.js?v=20260908a" defer></script>
@@ -155,11 +155,6 @@
           <div class="support-hero__copy">
             <p class="eyebrow">Rasheed Farhat / IT and technical support</p>
             <h1>I stop IT problems from becoming people's problems.</h1>
-            <p class="hero-lede">
-              For 17 months, I was the first point of contact for students,
-              faculty, and staff, troubleshooting everyday IT problems and
-              documenting the fix or handing off a clear diagnosis.
-            </p>
             <div class="action-row">
               <a class="button button-primary" href="/support/casework/">View support casework</a>
               <a
@@ -225,7 +220,7 @@
       </section>
 
       <!-- The Resolution Desk ----------------------------------------------
-           Above the 90rem gate the scene below is mounted inside a rendered
+           Above the 80rem gate the scene below is mounted inside a rendered
            desktop machine. Every .ws-* rule in support/workstation.css lives
            inside that one media query, so below the gate these wrappers are
            inert divs and the scene renders as the plain page section it has
@@ -569,13 +564,16 @@
         </div>
         <ul class="proof-rail">
           <li>17 months</li>
-          <li>Students, faculty, and staff</li>
+          <li>20 to 30 requests a day</li>
+          <li>300+ students, faculty, and staff</li>
+          <li>Walk-up, phone, and email</li>
           <li>Windows 10/11 and macOS</li>
           <li>Hardware, software, peripherals</li>
           <li>Microsoft Office and Outlook</li>
           <li>Wi-Fi and WLAN troubleshooting</li>
-          <li>Intake, prioritization, routing, tracking, follow-up</li>
-          <li>Departmental reference documentation</li>
+          <li>TeamDynamix ticket tracking</li>
+          <li>Password resets and account unlocks</li>
+          <li>10+ troubleshooting guides written</li>
           <li>Live walkthroughs and real-time troubleshooting</li>
         </ul>
       </section>
@@ -671,13 +669,16 @@
             <dd>
               <strong>STEM Office Help Desk, Butte College</strong>
               <p>
-                First point of contact for students, faculty, and staff,
-                troubleshooting Windows 10 and 11, macOS, hardware,
-                peripherals, software, Microsoft Office and Outlook, and
-                WLAN connectivity. I logged, prioritized, routed, tracked,
-                and followed up on every request, explained causes and next
-                steps to people with very different technical backgrounds,
-                and kept the department's reference documents current.
+                First point of contact for the STEM department's 300+
+                students, faculty, and staff, taking 20 to 30 requests a day
+                at the walk-up desk, by phone, and over email. I troubleshot
+                Windows 10 and 11, macOS, hardware, peripherals, software,
+                Microsoft Office and Outlook, and WLAN connectivity, tracked
+                every request through TeamDynamix, and handled password
+                resets and account unlocks through the campus portal. I
+                explained causes and next steps to people with very different
+                technical backgrounds, and wrote 10 or more troubleshooting
+                guides and procedural references for the department.
               </p>
             </dd>
           </div>
@@ -705,37 +706,42 @@
           </div>
         </div>
         <p class="mono-note">
-          Writing sample based on a documented personal-project issue. No
-          customer data.
+          Writing sample drawn from the Android device investigation in
+          <a class="text-link" href="/support/casework/#case-1">Casework</a>,
+          written mid-investigation rather than after the fact. Not a
+          customer device. Identifiers and the sample stay redacted.
         </p>
         <div class="comms-sample">
           <div class="comms-sample__pane">
             <h3>Customer-facing update</h3>
             <p>
-              I reproduced the issue. The request is completing at the HTTP
-              layer, but the remote file is not changing. I am checking the
-              response body and current state rather than repeating the
-              same write. My next update will include either a verified
-              change or the exact failure conditions needed for escalation.
+              I have the phone off your other networks while I work on it, so
+              whatever it is doing stays on that one device. The pop-ups and
+              the battery drain are coming from an app that got installed, not
+              from the phone itself, and I have narrowed it to a single app by
+              matching install dates against when you first noticed the
+              problem. I will confirm what it was actually doing before I
+              remove anything, and I will tell you plainly whether anything
+              else needs to come off.
             </p>
           </div>
           <div class="comms-sample__pane">
             <h3>Engineering handoff</h3>
             <dl>
-              <dt>Endpoint or operation:</dt>
-              <dd>PUT rule file, existing filename</dd>
-              <dt>Expected state:</dt>
-              <dd>File content updated, body reports success</dd>
-              <dt>Observed state:</dt>
-              <dd>HTTP 200, body error: 1, file unchanged</dd>
-              <dt>Reproduction condition:</dt>
-              <dd>overwrite=true omitted from the request</dd>
-              <dt>Response body evidence:</dt>
-              <dd>error and total_failed_items fields, not status code alone</dd>
-              <dt>Successful control:</dt>
-              <dd>Explicit overwrite plus a post-write state check</dd>
-              <dt>Regression action:</dt>
-              <dd>Test added, deploy aborts on body-level failure</dd>
+              <dt>Device and scope:</dt>
+              <dd>Single Android handset, examined after the fact</dd>
+              <dt>Reported symptoms:</dt>
+              <dd>Unexpected pop-ups, faster than normal battery drain</dd>
+              <dt>Containment:</dt>
+              <dd>Device isolated from other networks before analysis</dd>
+              <dt>Narrowing method:</dt>
+              <dd>ADB package list, install timestamps against symptom onset</dd>
+              <dt>Static analysis:</dt>
+              <dd>APK decompiled with APKTool and JADX to confirm behavior</dd>
+              <dt>Corroboration:</dt>
+              <dd>Indicator correlation through VirusTotal and open-source research</dd>
+              <dt>Disclosure limit:</dt>
+              <dd>Package identifiers and the sample redacted for publication</dd>
             </dl>
           </div>
         </div>
@@ -774,8 +780,8 @@
           <article class="capability">
             <h3>Support operations</h3>
             <p>
-              Intake and prioritization, ticket tracking, escalation
-              evidence, walkthroughs, runbooks, knowledge-base and
+              Intake and prioritization, ticket tracking in TeamDynamix,
+              escalation evidence, walkthroughs, runbooks, knowledge-base and
               procedural writing.
             </p>
           </article>
