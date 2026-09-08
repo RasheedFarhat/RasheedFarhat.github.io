@@ -2,16 +2,18 @@
  * The Support Workstation shell
  *
  * A small window manager for the retro machine that holds the Resolution
- * Desk scene on /support/. It owns four things and nothing else: where
- * windows sit, which one is on top, the boot cover, and the exact page width
- * the CSS needs to size the case. The desk inside the window is still driven
- * entirely by resolution-desk.js, which neither knows nor cares that it is
- * running inside a window.
+ * Desk scene on /support/. It owns five things and nothing else: where
+ * windows sit, which one is on top, the scroll hold, the power-on, and the
+ * exact page width the CSS needs to size the case. The desk inside the window
+ * is still driven entirely by resolution-desk.js, which neither knows nor
+ * cares that it is running inside a window.
  *
  * Progressive enhancement is the rule. Every launcher is a real button or
  * link, every window is in the DOM, and support/workstation.css places the
  * desk window statically on its own. If this file never loads, the machine
- * still renders with the desk open inside it.
+ * still renders with the desk open inside it, powered on, with no hold: the
+ * boot cover and the scroll runway are both off until this file switches
+ * them on.
  *
  * The gate is the important idea. Below 90rem none of the workstation CSS
  * applies and the desk is an ordinary page section, so this file must not
@@ -141,6 +143,7 @@
       deskEntry.el.style.zIndex = String(topZ);
       deskEntry.el.classList.add("is-focused");
     }
+    hold();
   }
 
   function deactivate() {
@@ -154,6 +157,7 @@
       else entry.el.hidden = false;
     });
     lastOpener = null;
+    release();
   }
 
   /* Stacking and focus ---------------------------------------------------- */
@@ -290,65 +294,200 @@
     window.setInterval(tick, 20000);
   }
 
-  /* Boot -----------------------------------------------------------------
-     The machine sits well below the fold on this page, so a boot sequence
-     that ran on load would be over before anyone scrolled to it. It runs
-     when the case first comes into view instead. The cover sits over an
-     already laid-out desktop, so this is purely cosmetic and can be cut at
-     any point without leaving the page half-started. */
+  /* The scroll hold and the power-on -------------------------------------
+     The machine sits well below the fold, and a boot that ran on a timer was
+     over before anyone reached it. It is now scrubbed by the page's own
+     scroll position instead.
 
+     support/workstation.css makes .ws-stage taller than the case by
+     --ws-runway and pins the case at --ws-pin-top, so the machine holds still
+     while that runway scrolls past. This file measures the two values, reads
+     how far through the runway the page is, and moves the screen from off, to
+     striking, to on across it. Nothing here touches the scroll itself: no
+     wheel handler, no preventDefault, no scrollTo. Every input keeps its
+     normal distance and the visitor can leave at any moment, which is the
+     line between holding someone's attention and taking it.
+
+     The sequence only ever runs forward. Scrolling back up holds the machine
+     at whatever state it reached rather than putting it back to sleep, since
+     someone scrolling back up is usually re-reading the thing they just
+     watched come on, and a screen that switched itself off underneath them
+     would be a bug from where they sit. */
+
+  const stage = document.querySelector("[data-ws-stage]");
   const boot = document.querySelector("[data-ws-boot]");
-  if (boot) {
-    let started = false;
+  const bootLines = boot ? Array.from(boot.querySelectorAll(".ws-boot__line")) : [];
 
-    const run = () => {
-      if (started) return;
-      started = true;
+  // Progress points through the runway. Power strikes early so the case is
+  // still arriving when the screen catches, and the desk is on well before
+  // the runway ends, so the last stretch of the hold is spent looking at a
+  // working machine rather than at a boot message.
+  const STRIKE = 0.08;
+  const LINE_AT = [0.26, 0.44, 0.62];
+  const READY = 0.8;
 
-      if (reduceMotion.matches || !GATE.matches) {
-        boot.remove();
-        return;
-      }
+  const header = document.querySelector(".site-header");
 
-      const lines = Array.from(boot.querySelectorAll(".ws-boot__line"));
-      const timers = [];
-      let finished = false;
+  let held = false; // are the CSS custom properties currently published
+  let phase = -1; // -1 off, 0 striking, 1..3 lines lit, 4 ready
+  let caseH = 0;
+  let pinTop = 0;
+  let runway = 0;
+  let frame = 0;
 
-      const finish = () => {
-        if (finished) return;
-        finished = true;
-        timers.forEach(window.clearTimeout);
-        boot.classList.add("is-clearing");
-        window.setTimeout(() => boot.remove(), 300);
-        window.removeEventListener("keydown", finish);
-        desktop.removeEventListener("pointerdown", finish);
-      };
+  /* The page header is sticky, so the top of the window is not free space to
+     pin into. Measured rather than assumed, so a header that grows a row or
+     gets replaced does not silently push the machine behind it. */
 
-      lines.forEach((line, index) => {
-        timers.push(window.setTimeout(() => line.classList.add("is-shown"), 160 * (index + 1)));
-      });
-      timers.push(window.setTimeout(finish, 160 * (lines.length + 1) + 420));
-      window.addEventListener("keydown", finish);
-      desktop.addEventListener("pointerdown", finish);
-    };
+  function headerHeight() {
+    if (!header) return 0;
+    const position = window.getComputedStyle(header).position;
+    if (position !== "sticky" && position !== "fixed") return 0;
+    return Math.round(header.getBoundingClientRect().height);
+  }
 
-    if (typeof window.IntersectionObserver === "function") {
-      const watcher = new window.IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          watcher.disconnect();
-          run();
-        });
-      }, { threshold: 0.2 });
-      watcher.observe(chassis);
-    } else {
-      run();
+  function roomForHold() {
+    // --ws-hold-reserve has already taken the header out of the screen's
+    // height by the time this runs, so the case fits by construction. This is
+    // belt and braces for a window too short to hold anything at all.
+    return caseH > 0 && headerHeight() + caseH <= window.innerHeight;
+  }
+
+  function measure() {
+    caseH = Math.round(chassis.getBoundingClientRect().height);
+
+    // Centred in what the header leaves, then held to a narrow band so the
+    // case always reads as parked just under the nav rather than floating in
+    // a window tall enough to have opinions about where its middle is.
+    const head = headerHeight();
+    pinTop = head + clamp(Math.round((window.innerHeight - head - caseH) / 2), 8, 28);
+
+    // Long enough that a fast skim cannot outrun the sequence, short enough
+    // that it is one unhurried gesture rather than a corridor.
+    runway = Math.round(clamp(window.innerHeight * 0.8, 380, 620));
+  }
+
+  function setPhase(next) {
+    if (next <= phase) return; // forward only
+    phase = next;
+
+    // Any live phase means the tube has struck, not just phase 0. A scroll
+    // that lands between two animation frames, or a jump from a link, can
+    // arrive at phase 2 having never passed through 0, and gating the strike
+    // on phase 0 alone left the machine dark with lit boot lines behind it.
+    if (phase < 4) {
+      chassis.classList.remove("is-off");
+      chassis.classList.add("is-booting");
     }
+
+    bootLines.forEach((line, index) => {
+      if (index < phase) line.classList.add("is-shown");
+    });
+
+    if (phase >= 4) finish();
+  }
+
+  function finish() {
+    phase = 4;
+    chassis.classList.remove("is-off");
+    if (!boot) return;
+    // Kept in the DOM and hidden by state rather than removed, so the machine
+    // has one description of itself and re-arming after a gate change does
+    // not depend on markup this file destroyed.
+    boot.classList.add("is-clearing");
+    window.setTimeout(() => {
+      chassis.classList.remove("is-booting");
+      boot.classList.remove("is-clearing");
+      bootLines.forEach((line) => line.classList.remove("is-shown"));
+    }, 300);
+  }
+
+  function progress() {
+    const top = stage.getBoundingClientRect().top;
+    return clamp((pinTop - top) / runway, 0, 1);
+  }
+
+  function update() {
+    if (!held || phase >= 4) return;
+    const p = progress();
+    if (p >= READY) return setPhase(4);
+    if (p >= LINE_AT[2]) return setPhase(3);
+    if (p >= LINE_AT[1]) return setPhase(2);
+    if (p >= LINE_AT[0]) return setPhase(1);
+    if (p >= STRIKE) return setPhase(0);
+  }
+
+  function onScroll() {
+    if (frame) return;
+    frame = window.requestAnimationFrame(() => {
+      frame = 0;
+      update();
+    });
+  }
+
+  function hold() {
+    if (!stage || !boot) return;
+    if (!GATE.matches || reduceMotion.matches) return release();
+
+    // Publish the reserve before measuring, not after: shortening the case by
+    // the height of the header is what makes it fit under the header, so a
+    // measurement taken first would always report a machine too tall to hold.
+    // It is set here rather than alongside --ws-viewport so a reader who has
+    // asked for reduced motion, and so never gets a hold, also never gets a
+    // machine shrunk to make room for one.
+    chassis.style.setProperty("--ws-hold-reserve", `${headerHeight()}px`);
+    if (phase >= 4) return; // booted; keep the size, stop scrubbing
+
+    measure();
+    if (!roomForHold()) return release();
+    stage.style.setProperty("--ws-pin-top", `${pinTop}px`);
+    stage.style.setProperty("--ws-runway", `${runway}px`);
+    if (!held) {
+      held = true;
+      // Start dark only if the visitor has not already scrolled past. On a
+      // reload part way down the page the machine is simply on.
+      if (progress() < STRIKE) chassis.classList.add("is-off");
+      window.addEventListener("scroll", onScroll, { passive: true });
+    }
+    update();
+  }
+
+  function release() {
+    chassis.style.removeProperty("--ws-hold-reserve");
+    if (stage) {
+      stage.style.removeProperty("--ws-pin-top");
+      stage.style.removeProperty("--ws-runway");
+    }
+    if (!held) return;
+    held = false;
+    window.removeEventListener("scroll", onScroll);
+    chassis.classList.remove("is-off", "is-booting");
+    bootLines.forEach((line) => line.classList.remove("is-shown"));
+  }
+
+  // Anyone who reaches the machine deliberately gets it on at once: a
+  // keyboard visitor tabbing into the desk, or a pointer landing on it,
+  // has stopped skimming, and the hold has nothing left to do for them.
+  if (stage && boot) {
+    ["pointerdown", "keydown", "focusin"].forEach((type) => {
+      desktop.addEventListener(type, () => {
+        if (held && phase < 4) finish();
+      });
+    });
   }
 
   /* Initial state and gate tracking --------------------------------------- */
 
   if (GATE.matches) activate();
+
+  // Measure again once everything has settled. Two things move between the
+  // deferred run above and load: web fonts can change the height the pin is
+  // centred against, and a visitor who arrived on a #fragment has by then been
+  // scrolled to it. Without this second pass that visitor can land on a dark
+  // screen that has no scrolling left to do to switch itself on.
+  window.addEventListener("load", () => {
+    if (GATE.matches) hold();
+  });
 
   const onGateChange = () => (GATE.matches ? activate() : deactivate());
   if (typeof GATE.addEventListener === "function") {
@@ -364,6 +503,7 @@
       if (!GATE.matches) return;
       publishViewport();
       reclamp();
+      hold();
     }, 120);
   });
 })();

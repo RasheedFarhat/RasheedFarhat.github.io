@@ -45,6 +45,25 @@
 }
 
 @media (min-width: 90rem) {
+  /* The scroll hold --------------------------------------------------------
+     Native sticky and nothing else. The stage is the machine plus --ws-runway
+     of empty height, so the case pins itself at --ws-pin-top while that
+     runway scrolls past and releases on its own when the stage runs out.
+     Scroll is never intercepted: the wheel, the scrollbar, the keyboard and
+     the trackpad all keep their normal distance, and the only thing that
+     changes is what is on screen while they travel it. That is the difference
+     between holding a reader and trapping one.
+
+     Both custom properties default to values that switch the effect off, so
+     the hold exists only once workstation.js has measured the case and
+     decided there is room for it. */
+
+  .ws-stage::after {
+    content: "";
+    display: block;
+    height: var(--ws-runway, 0px);
+  }
+
   /* The chassis ------------------------------------------------------------
      A single moulded box in early-90s beige: a deep screen bezel on top and a
      chin carrying the name plate, vents, power LED and a disk slot below. No
@@ -127,11 +146,22 @@
        is gone and the bezel is now uniformly --ws-bez on all four sides. */
     --ws-frame: calc(2 * var(--ws-pad) + 2 * var(--ws-bez));
 
-    /* Vertical plastic, plus the 44px top margin and 2px of air. Derived
-       rather than hard-coded, which is the point: the screen height subtracts
-       this from the viewport, and the old literal 140px silently went stale
-       the moment any of its four components moved. */
-    --ws-vreserve: calc(var(--ws-pad) + 2 * var(--ws-bez) + var(--ws-chin-h) + 46px);
+    /* Vertical plastic, plus whichever is larger of the 44px top margin and
+       2px of air, or the room the sticky page header needs plus a strip of
+       air under it. Derived rather than hard-coded, which is the point: the
+       screen height subtracts this from the viewport, and the old literal
+       140px silently went stale the moment any of its four components moved.
+
+       The header term is what makes the scroll hold possible. While the case
+       is pinned it has to sit under a sticky 69px header, so a machine sized
+       to a bare 100vh is always about 70px too tall and spends the hold with
+       its lid behind the nav. workstation.js measures the header and
+       publishes --ws-hold-reserve; with no script the fallback is 0 and this
+       resolves to the plain 46px the machine has always used. */
+    --ws-vreserve: calc(
+      var(--ws-pad) + 2 * var(--ws-bez) + var(--ws-chin-h) +
+      max(46px, var(--ws-hold-reserve, 0px) + 16px)
+    );
 
     /* Three terms, and the order they resolve in matters.
        1420 + frame is the ceiling, so the machine stops growing on a very
@@ -152,7 +182,11 @@
       var(--ws-viewport)
     );
 
-    position: relative;
+    /* Sticky rather than relative, which is the whole scroll hold: it still
+       establishes the containing block the feet in ::after need, and it pins
+       the case for --ws-runway of travel inside .ws-stage above. */
+    position: sticky;
+    top: var(--ws-pin-top, 0px);
     width: var(--ws-width);
     margin-inline: calc((100% - var(--ws-width)) / 2);
     margin-block: clamp(2rem, 4vw, 2.75rem) 0;
@@ -281,7 +315,7 @@
       /* the screen lighting its own surround. This is the cue that turns a
          dark rectangle into a display; without it the bezel is plastic with
          a hole in it. Kept low so it never competes with the content. */
-      0 0 30px 8px rgb(242 184 75 / 0.11),
+      0 0 30px 8px rgb(242 184 75 / var(--ws-glow, 0.11)),
       /* and inside, a tube darker at its edges than in the middle */
       inset 0 0 0 1px rgb(0 0 0 / 0.85),
       inset 0 2px 12px 2px rgb(0 0 0 / 0.7),
@@ -310,7 +344,7 @@
         transparent 1px,
         transparent 3px
       ),
-      radial-gradient(58% 44% at 50% 40%, rgb(242 184 75 / 0.05) 0%, transparent 72%),
+      radial-gradient(58% 44% at 50% 40%, rgb(242 184 75 / var(--ws-bloom, 0.05)) 0%, transparent 72%),
       radial-gradient(118% 108% at 50% 50%, transparent 52%, rgb(0 0 0 / 0.6) 100%);
   }
 
@@ -410,15 +444,18 @@
   /* Boot -------------------------------------------------------------------
      A cover over the desktop rather than a replacement for it, so the desk
      is laid out from the first paint and resolution-desk.js can measure its
-     route markers normally. workstation.js runs it when the machine first
-     scrolls into view and removes it afterwards; under reduced motion it is
-     removed without ever being shown. */
+     route markers normally.
+
+     Shown only in the two states workstation.js drives, never by default.
+     The cover used to be visible from the first paint and removed by script,
+     which meant a browser above the gate with JS off or broken sat forever on
+     a machine that said Memory OK and never finished starting. Now the
+     default is a working desk and the boot is the enhancement. */
 
   .ws-boot {
     position: absolute;
     inset: 0;
     z-index: 50;
-    display: grid;
     place-content: center;
     gap: 0.5rem;
     background: var(--ws-screen);
@@ -448,6 +485,79 @@
     margin-left: 0.15em;
     vertical-align: -0.12em;
     background: var(--ws-amb);
+  }
+
+  /* Power ------------------------------------------------------------------
+     Three states, and the machine only ever moves forward through them:
+     is-off, is-booting, then nothing at all, which is a machine that is on.
+     Scrolling back up does not put it back to sleep, because a visitor who
+     has scrolled up has usually done it to re-read something on the screen
+     they just watched come on.
+
+     Off is not a black rectangle laid over the glass. It is the same glass
+     with everything the tube contributes taken away: the amber spill onto
+     the bezel, the centre bloom, and the LED in the chin. Those three are
+     what read as powered, so removing them reads as unplugged. */
+
+  .ws-chassis.is-off .ws-boot,
+  .ws-chassis.is-booting .ws-boot {
+    display: grid;
+  }
+
+  .ws-chassis.is-off {
+    --ws-glow: 0;
+    --ws-bloom: 0;
+  }
+
+  .ws-led {
+    transition:
+      background 220ms ease,
+      box-shadow 220ms ease;
+  }
+
+  /* The dome and its socket stay; only the lamp behind them goes out, so the
+     LED reads as a dark green bead rather than as a missing part. */
+
+  .ws-chassis.is-off .ws-led {
+    background: radial-gradient(circle at 36% 30%, #8d9a8e 0%, #4e5a50 46%, #2b332d 100%);
+    box-shadow:
+      0 0 0 2px rgb(0 0 0 / 0.18),
+      inset 0 0 2px rgb(0 0 0 / 0.35);
+  }
+
+  /* Turn-on. A CRT does not fade up, it strikes: a hard bright line across
+     the middle of the tube that snaps open to full height and settles. One
+     300ms pass on a pseudo-element above the boot cover (50) and below the
+     scanlines (60), so the scanlines are laid over it and it looks like it
+     happened inside the glass. */
+
+  .ws-chassis.is-booting .ws-screen::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 55;
+    pointer-events: none;
+    background: var(--ws-amb-hi);
+    animation: ws-power-on 300ms ease-out both;
+  }
+
+  @keyframes ws-power-on {
+    0% {
+      opacity: 0;
+      transform: scaleY(0.006);
+    }
+    36% {
+      opacity: 0.92;
+      transform: scaleY(0.006);
+    }
+    68% {
+      opacity: 0.42;
+      transform: scaleY(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scaleY(1);
+    }
   }
 
   /* Menu bar -------------------------------------------------------------- */
