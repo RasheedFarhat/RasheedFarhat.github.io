@@ -15,7 +15,7 @@
  * boot cover and the scroll runway are both off until this file switches
  * them on.
  *
- * The gate is the important idea. Below 90rem none of the workstation CSS
+ * The gate is the important idea. Below 80rem none of the workstation CSS
  * applies and the desk is an ordinary page section, so this file must not
  * touch window geometry there: an inline width on a plain div would be a
  * real layout bug on a phone. Everything below is therefore gated on the
@@ -37,7 +37,7 @@
 
   // Must match the gate in support/workstation.css. If these ever disagree,
   // the JS places windows the CSS is not positioning, or the reverse.
-  const GATE = window.matchMedia("(min-width: 90rem)");
+  const GATE = window.matchMedia("(min-width: 80rem)");
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const windows = new Map();
@@ -57,7 +57,7 @@
   // the arithmetic is what makes the window scroll sideways as well.
   const LAYOUT = {
     desk: { w: 1164, h: 10000, x: MARGIN, y: MENUBAR_H + 8 },
-    readme: { w: 480, h: 320, x: 220, y: 260 }
+    readme: { w: 480, h: 268, x: 220, y: 260 }
   };
 
   document.querySelectorAll("[data-ws-window]").forEach((el) => {
@@ -73,14 +73,36 @@
      documentElement.clientWidth excludes a classic scrollbar; 100vw does not.
      The stylesheet sizes the case from this, so publishing the exact number
      is what keeps the machine from overhanging the page on Windows and Linux
-     and giving the whole document a horizontal scrollbar. */
+     and giving the whole document a horizontal scrollbar.
+
+     --ws-page and not --ws-viewport. Between 80rem and 90rem the stylesheet
+     substitutes the gate width for --ws-viewport and shrinks the case to fit
+     with zoom, and an inline style written here would outrank that rule and
+     leave the machine reasoning about a page it is no longer drawn at. This
+     is the real number; what the machine does with it is the stylesheet's
+     decision. */
 
   function publishViewport() {
-    chassis.style.setProperty("--ws-viewport", `${document.documentElement.clientWidth}px`);
+    chassis.style.setProperty("--ws-page", `${document.documentElement.clientWidth}px`);
   }
 
   function screenBox() {
     return { w: desktop.clientWidth, h: desktop.clientHeight };
+  }
+
+  /* Two coordinate spaces ---------------------------------------------------
+     Between 80rem and 90rem the stylesheet shrinks the whole case with zoom,
+     which splits the machine's pixels from the page's. clientWidth,
+     offsetWidth and anything written to style.left are inside the zoom;
+     getBoundingClientRect and a pointer event's clientX are outside it, in
+     real page pixels. Mixing the two makes a dragged window travel 1/zoom
+     times as far as the cursor and drift out from under it, so the one place
+     that has to cross between them divides by this. It is 1 at full size, and
+     1 in a browser with no zoom support, where nothing is scaled anyway. */
+
+  function zoomFactor() {
+    const value = parseFloat(window.getComputedStyle(chassis).zoom);
+    return value > 0 ? value : 1;
   }
 
   function clamp(value, min, max) {
@@ -203,16 +225,22 @@
 
     raise(key);
 
+    // Where the pointer grabbed the bar, in real page pixels, alongside the
+    // desktop's own origin in the same space. The bounds are the other space:
+    // screenBox and offsetWidth are both inside the zoom, which is where
+    // style.left is about to be written. See zoomFactor above.
+    const zoom = zoomFactor();
     const rect = entry.el.getBoundingClientRect();
     const parent = desktop.getBoundingClientRect();
     const grabX = event.clientX - rect.left;
     const grabY = event.clientY - rect.top;
-    const maxX = Math.max(0, parent.width - rect.width);
-    const maxY = Math.max(MENUBAR_H, parent.height - rect.height);
+    const box = screenBox();
+    const maxX = Math.max(0, box.w - entry.el.offsetWidth);
+    const maxY = Math.max(MENUBAR_H, box.h - entry.el.offsetHeight);
 
     function move(moveEvent) {
-      const x = clamp(moveEvent.clientX - parent.left - grabX, 0, maxX);
-      const y = clamp(moveEvent.clientY - parent.top - grabY, MENUBAR_H, maxY);
+      const x = clamp((moveEvent.clientX - parent.left - grabX) / zoom, 0, maxX);
+      const y = clamp((moveEvent.clientY - parent.top - grabY) / zoom, MENUBAR_H, maxY);
       entry.el.style.left = `${x}px`;
       entry.el.style.top = `${y}px`;
     }
@@ -432,7 +460,7 @@
     // Publish the reserve before measuring, not after: shortening the case by
     // the height of the header is what makes it fit under the header, so a
     // measurement taken first would always report a machine too tall to hold.
-    // It is set here rather than alongside --ws-viewport so a reader who has
+    // It is set here rather than alongside --ws-page so a reader who has
     // asked for reduced motion, and so never gets a hold, also never gets a
     // machine shrunk to make room for one.
     chassis.style.setProperty("--ws-hold-reserve", `${headerHeight()}px`);

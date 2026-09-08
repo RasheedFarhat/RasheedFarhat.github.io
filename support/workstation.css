@@ -44,7 +44,7 @@
   display: none;
 }
 
-@media (min-width: 90rem) {
+@media (min-width: 80rem) {
   /* The scroll hold --------------------------------------------------------
      Native sticky and nothing else. The stage is the machine plus --ws-runway
      of empty height, so the case pins itself at --ws-pin-top while that
@@ -118,7 +118,23 @@
        workstation.js overwrites this with documentElement.clientWidth, which
        is exact; the fallback here subtracts a generous scrollbar so the
        no-JS case errs narrow instead of overflowing. */
-    --ws-viewport: calc(100vw - 20px);
+    --ws-page: calc(100vw - 20px);
+
+    /* Optical scale, and the page width the machine reasons in.
+
+       Between 80rem and 90rem the case is drawn at full 90rem size and shrunk
+       to fit by zoom, so every length below has to be measured against the
+       room it would have had at the gate rather than the room it actually
+       has. Pinning --ws-viewport to the gate figure is what does that, and
+       --ws-zoom then does the fitting. At 90rem and up both are inert and the
+       machine reads the real page. The step rules under .ws-chassis set them.
+
+       Two properties rather than one because workstation.js writes the real
+       width as an inline style, and an inline style outranks any stylesheet
+       rule trying to substitute the gate figure for it. So the script writes
+       --ws-page and the stylesheet decides what to do with it. */
+    --ws-zoom: 1;
+    --ws-viewport: var(--ws-page);
 
     /* Frame thickness, made responsive 2026-09-06 -------------------------
        A real monitor spends 6 to 10 per cent of its width on frame. This one
@@ -186,7 +202,13 @@
        establishes the containing block the feet in ::after need, and it pins
        the case for --ws-runway of travel inside .ws-stage above. */
     position: sticky;
-    top: var(--ws-pin-top, 0px);
+
+    /* --ws-pin-top is measured against the real window by workstation.js and
+       lands here inside the zoom, so it is divided back out. Dividing a
+       length by a plain number is ordinary calc; it is the reverse, one
+       length over another, that this file avoids (see the step rules). */
+    top: calc(var(--ws-pin-top, 0px) / var(--ws-zoom));
+    zoom: var(--ws-zoom);
     width: var(--ws-width);
     margin-inline: calc((100% - var(--ws-width)) / 2);
     margin-block: clamp(2rem, 4vw, 2.75rem) 0;
@@ -215,6 +237,65 @@
       0 1px 0 var(--ws-plastic-edge),
       0 14px 22px -12px rgb(0 0 0 / 0.5),
       0 42px 70px -32px rgb(0 0 0 / 0.85);
+  }
+
+  /* Fitting the machine onto a laptop --------------------------------------
+     Everything above is sized for a 90rem page, which is the narrowest one
+     where the desk window's 1164px and its icon gutter stop asking for more
+     room than there is. A 1280 or 1366 wide laptop, the two commonest sizes
+     in use, falls short of that by a hundred-odd pixels and used to get the
+     plain page instead. Rather than reflow the desk to fit them, which would
+     mean retuning the scene's own breakpoints and the ticket-chip staircase
+     that hangs off them, the case keeps its full 90rem geometry and is shrunk
+     optically. That is exactly what a reader zooming the browser out is
+     already doing by hand, which is how the problem was found.
+
+     Discrete steps rather than one continuous ratio. A ratio needs a length
+     divided by a length, which calc only gained recently, and it is not worth
+     the compatibility risk to land within 2px of what two steps already give:
+
+       1280 to 1360   0.88   case renders 1236px, 22px of page each side
+       1360 to 1440   0.94   case renders 1320px, 20px of page each side
+
+     against the 18px the full-size case keeps at the gate. The floor is
+     legibility, not arithmetic. The smallest type in the desk is 0.68rem, so
+     0.88 renders it near 9.6px and anything below that stops being readable
+     on the machine it is meant to rescue. That is why the gate stops at 80rem
+     rather than going lower.
+
+     1424px is the gate figure the clamps above are already tuned against,
+     90rem less a classic 16px scrollbar. Substituting it puts every clamp on
+     its floor and --ws-width on its 1404px floor, which is the geometry the
+     step ratios are calculated from. */
+
+  @media (max-width: 89.99rem) {
+    .ws-chassis {
+      --ws-zoom: 0.94;
+      --ws-viewport: 1424px;
+    }
+  }
+
+  @media (max-width: 84.99rem) {
+    .ws-chassis {
+      --ws-zoom: 0.88;
+    }
+  }
+
+  /* A browser with no zoom support would take the 1424px substitution above
+     at face value and draw a 1404px case on a 1280px page, giving the whole
+     document a horizontal scrollbar. Firefox only gained zoom in 126, so this
+     is a real if shrinking population. Here the substitution is taken back
+     and the case sizes itself from the real page again. The screen then comes
+     up short of the 1296px the desk window and its icon gutter want and
+     scrolls sideways inside the glass, which is a worse machine but a page
+     that still behaves. */
+
+  @supports not (zoom: 1) {
+    @media (max-width: 89.99rem) {
+      .ws-chassis {
+        --ws-viewport: var(--ws-page);
+      }
+    }
   }
 
   /* Feet. Two pads under the case, drawn as two shaded gradients pinned to
@@ -699,7 +780,7 @@
     left: 220px;
     top: 260px;
     width: 480px;
-    height: 320px;
+    height: 268px;
   }
 
   /* Last of the display rules on purpose. .ws-window sets display:flex, which
@@ -884,7 +965,7 @@
 /* The blinking cursor is the one animation on the machine, and it only ever
    runs while the boot cover is up. Outside the gate the cover is display:none
    so this never animates on a phone. */
-@media (min-width: 90rem) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 80rem) and (prefers-reduced-motion: no-preference) {
   .ws-boot__cursor {
     animation: ws-blink 1s steps(1, end) infinite;
   }
