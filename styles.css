@@ -43,7 +43,6 @@
   color-scheme: dark;
 
   --ink: #0f1211;
-  --ink-0: rgb(15 18 17 / 0);
   --panel: #171b1a;
   --panel-hi: #1d2221;
   --well: #0a0d0c;
@@ -51,7 +50,6 @@
   --line-hi: #728680;
   --edge-top: rgb(255 255 255 / 0.055);
   --edge-bottom: rgb(0 0 0 / 0.4);
-  --edge-side: rgb(255 255 255 / 0.03);
   --well-top: rgb(0 0 0 / 0.5);
   --well-bottom: rgb(255 255 255 / 0.035);
 
@@ -81,48 +79,6 @@
   --body: "Public Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", "SF Mono", Menlo, monospace;
 
-  /* Type scale. Seven steps, each with one job.
-
-     Before this existed the stylesheet carried thirteen different sizes
-     between 0.66rem and 0.92rem, nudged per component, and nothing at all
-     between 1.3rem and 3.1rem. That is why the page read flat: no system
-     in the range that does the most work, and no middle voice above it.
-     Sizes below are the only ones a component may use. If a new component
-     seems to need something between two steps, the step is wrong, not the
-     scale. */
-  --t-micro: 0.6875rem;  /* mono micro labels: eyebrows, status, table heads */
-  --t-meta: 0.75rem;     /* mono meta and data lines */
-  --t-ui: 0.8125rem;     /* nav, buttons, links, controls */
-  --t-aux: 0.9375rem;    /* secondary prose: cards, definitions, captions */
-  --t-body: 1rem;        /* body copy */
-  --t-lede: 1.1875rem;   /* section ledes and pull quotes, the missing voice */
-  --t-sub: 1.375rem;     /* h3 and sub-display */
-
-  /* Display scale. Four steps for Big Shoulders, same reasoning as above:
-     the file previously carried eighteen distinct clamp() values, one per
-     component, so no two headings on different pages agreed on a size. */
-  --d-hero: clamp(2.75rem, 6.2vw, 4.6rem);   /* page-opening h1 */
-  --d-section: clamp(1.9rem, 4.2vw, 2.8rem); /* top-level section h2 */
-  --d-block: clamp(1.5rem, 3vw, 2rem);       /* in-content h2 on case pages */
-  --d-row: clamp(1.4rem, 2.7vw, 1.8rem);     /* row and card headings */
-  --d-lede: clamp(1.1rem, 2.1vw, 1.375rem);  /* hero and section ledes */
-  --d-verdict: clamp(3.25rem, 7.4vw, 5.5rem); /* the homepage verdict word */
-
-  /* Surface material. Three named materials, so a component asks for one
-     instead of hand-writing the same pair of insets a fortieth time. Every
-     value is inset: on this site nothing floats and nothing casts a shadow
-     onto its neighbour, the way nothing on a machined fascia does.
-
-     --lift     a face sitting proud of its ground
-     --lift-hi  the same face with its side edges cut, for objects big
-                enough that the sides read
-     --sink     a recess milled into the ground */
-  --lift: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
-  --lift-hi: inset 0 1px 0 var(--edge-top), inset 1px 0 0 var(--edge-side),
-    inset -1px 0 0 var(--edge-side), inset 0 -2px 0 var(--edge-bottom);
-  --sink: inset 0 2px 5px var(--well-top), inset 0 1px 0 var(--well-top),
-    inset 0 -1px 0 var(--well-bottom);
-
   --shell: 75rem;
   --pad: clamp(1.25rem, 5vw, 2.75rem);
   --header-h: 4.25rem;
@@ -146,6 +102,16 @@
   --pad-tight: 1.15rem 1.3rem;
   --pad-panel: 1.4rem 1.5rem;
 
+  /* Type scale, 7 steps. Values match the sizes already in use across the
+     site (micro mono labels through the largest case-page heading) rather
+     than introducing new ones. */
+  --t-1: 0.625rem;
+  --t-2: 0.78rem;
+  --t-3: 0.92rem;
+  --t-4: 1rem;
+  --t-5: 1.25rem;
+  --t-6: 1.8rem;
+  --t-7: 2.5rem;
 
   --dur-fast: 140ms;
   --dur-med: 320ms;
@@ -162,7 +128,6 @@
   color-scheme: light;
 
   --ink: #dcdad3;
-  --ink-0: rgb(220 218 211 / 0);
   --panel: #edebe5;
   --panel-hi: #f5f3ee;
   --well: #cfcec6;
@@ -170,7 +135,6 @@
   --line-hi: #6e6b60;
   --edge-top: rgb(255 255 255 / 0.75);
   --edge-bottom: rgb(0 0 0 / 0.08);
-  --edge-side: rgb(0 0 0 / 0.05);
   --well-top: rgb(0 0 0 / 0.14);
   --well-bottom: rgb(255 255 255 / 0.55);
 
@@ -198,7 +162,6 @@
   :root:not([data-theme="dark"]) {
     color-scheme: light;
     --ink: #dcdad3;
-    --ink-0: rgb(220 218 211 / 0);
     --panel: #edebe5;
     --panel-hi: #f5f3ee;
     --well: #cfcec6;
@@ -206,7 +169,6 @@
     --line-hi: #6e6b60;
     --edge-top: rgb(255 255 255 / 0.75);
     --edge-bottom: rgb(0 0 0 / 0.08);
-    --edge-side: rgb(0 0 0 / 0.05);
     --well-top: rgb(0 0 0 / 0.14);
     --well-bottom: rgb(255 255 255 / 0.55);
     --text-hi: #161a19;
@@ -254,7 +216,6 @@
    DESIGN_SYSTEM.md for the full note. */
 body.support-page {
   --ink: #11110e;
-  --ink-0: rgb(17 17 14 / 0);
   --panel: #191810;
   --panel-hi: #242016;
   --well: #0b0b08;
@@ -283,7 +244,6 @@ body.support-page {
 
 html[data-theme="light"] body.support-page {
   --ink: #e7e0d1;
-  --ink-0: rgb(231 224 209 / 0);
   --panel: #f4efe5;
   --panel-hi: #fff9ed;
   --well: #d7cfbe;
@@ -313,7 +273,6 @@ html[data-theme="light"] body.support-page {
 @media (prefers-color-scheme: light) {
   html:not([data-theme="dark"]) body.support-page {
     --ink: #e7e0d1;
-    --ink-0: rgb(231 224 209 / 0);
     --panel: #f4efe5;
     --panel-hi: #fff9ed;
     --well: #d7cfbe;
@@ -360,7 +319,7 @@ body {
   background: var(--ink);
   color: var(--text);
   font-family: var(--body);
-  font-size: var(--t-body);
+  font-size: 1rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -407,11 +366,11 @@ h3 {
 }
 
 h2 {
-  font-size: var(--d-section);
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
 }
 
 h3 {
-  font-size: var(--t-sub);
+  font-size: 1.3rem;
   font-variation-settings: "opsz" 32;
 }
 
@@ -509,7 +468,7 @@ li {
   background: var(--sig);
   color: var(--sig-ink);
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.8rem;
   padding: 0.55rem 0.9rem;
   text-decoration: none;
 }
@@ -521,7 +480,7 @@ li {
 
 .eyebrow {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -544,7 +503,7 @@ li {
 
 .mono-note {
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.78rem;
   color: var(--text-dim);
   letter-spacing: 0.02em;
 }
@@ -566,7 +525,7 @@ li {
 .method-rule__key,
 .plate__stages .plate__stages-label {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.7rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-dim);
@@ -644,7 +603,7 @@ li {
 
 .repo-live__time {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   letter-spacing: 0.06em;
   color: var(--text-dim);
   white-space: nowrap;
@@ -658,7 +617,7 @@ li {
   justify-content: center;
   min-height: 2.75rem;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -703,7 +662,7 @@ li {
 
 .text-link {
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.82rem;
   letter-spacing: 0.05em;
   text-transform: uppercase;
 }
@@ -755,7 +714,7 @@ li {
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel-hi);
-  box-shadow: var(--lift);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 .brand:hover .brand__mark {
@@ -805,7 +764,7 @@ li {
   align-items: center;
   min-height: 2.75rem;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.82rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text);
@@ -853,7 +812,7 @@ li {
   gap: 0.5rem;
   padding: 0.45rem 0.7rem;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   line-height: 1;
@@ -981,7 +940,7 @@ li {
   .site-nav a {
     padding: 0.9rem 0.25rem;
     border-bottom: 1px solid var(--line);
-    font-size: var(--t-ui);
+    font-size: 0.85rem;
   }
 
   .site-nav a[aria-current="page"] {
@@ -1036,58 +995,6 @@ li {
   background: var(--sig);
 }
 
-/* Section rhythm. Before this the five homepage sections all carried the
-   same padding-block, which put an identical band of empty ground between
-   every pair of them, five times down the page. Even spacing reads as a
-   template. Spacing that argues reads as a composition, so a section that
-   answers the one above it opens tight against it, and a section that
-   starts a new movement gets real air first. */
-.section--tight {
-  padding-top: clamp(2.25rem, 5vw, 3.5rem);
-}
-
-.section--open {
-  padding-top: clamp(5rem, 11vw, 8.5rem);
-}
-
-/* Instrument bay. The bench is the only live thing on this page, so it is
-   the only section milled into the fascia rather than printed on it. The
-   recess runs full bleed on purpose: a machined bay meets the edges of the
-   plate it is cut into, and stopping it at the shell would turn it back
-   into a card. Its own boundaries are the cut and the catch, so it skips
-   the hairline and the signal tick every other section carries. */
-.section--bay {
-  background: var(--well);
-  /* --sink is sized for a component. A recess this wide needs its walls
-     read from across the page, so the shadow falls off over 6px instead of
-     2 and the far lip carries the only light on the boundary. */
-  box-shadow: inset 0 7px 14px -7px rgb(0 0 0 / 0.8),
-    inset 0 -1px 0 var(--edge-top);
-  border-top: 1px solid var(--edge-bottom);
-  padding-block: clamp(4.25rem, 9vw, 7rem);
-}
-
-/* The section above a bay stops short. Its own bottom padding plus the
-   bay's top padding otherwise stack into the largest gap on the page at
-   the exact joint that should read as one thing meeting another. */
-.section:has(+ .section--bay) {
-  padding-bottom: clamp(2rem, 4vw, 3rem);
-}
-
-.section--bay::before {
-  display: none;
-}
-
-/* Measure. Every section used to run the full shell width, so a two-line
-   prose row and a three-column data row occupied the same 1112px and the
-   page never varied horizontally. A reading column should be narrower than
-   a data column. Applied to the whole section rather than the list alone so
-   the heading and its right-hand note stay on the same two edges as the
-   rows underneath. */
-.section--read > * {
-  max-width: 54rem;
-}
-
 .section-heading {
   display: grid;
   gap: 0.5rem 3rem;
@@ -1110,7 +1017,7 @@ li {
   margin: 0.5rem 0 0;
   max-width: 52ch;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.85rem;
 }
 
 @media (min-width: 60rem) {
@@ -1126,17 +1033,9 @@ li {
 }
 
 /* Hero -----------------------------------------------------------------
-   The page opens on the work rather than on the person. A bezel strip, a
-   masthead band with the name at nameplate scale in the corner where a
-   nameplate belongs, and then the engine: a real MCP tool call read by the
-   real deployed rules, cycling on its own, resolving to a verdict.
-
-   Deliberately not a device. The bench section further down is already a
-   panel with a bar and inset screens, and so is the compile plate, so a
-   third bezel here would have made the homepage a stack of identical
-   boxes. This is set straight onto the page ground as type. The only large
-   element in it is the verdict word, which is the one thing a visitor
-   should be able to read from across the room. */
+   Top bezel with tick marks, name lockup and pitch on the left, the compile
+   exhibit set into the right column under the same rail. Below 60rem it
+   stacks name-first and the exhibit shows only its source pane. */
 
 .hero {
   padding-block: clamp(2.5rem, 5vw, 3.5rem) clamp(3.5rem, 7vw, 5rem);
@@ -1148,28 +1047,15 @@ li {
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 0.9rem;
-  margin-bottom: 1.15rem;
+  margin-bottom: clamp(2rem, 5vw, 3.25rem);
   border-bottom: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-dim);
-  /* p carries a 66ch measure sitewide. This one is a bezel strip, and its
-     rule has to reach both edges of the shell or it stops reading as the
-     top of a panel. */
-  max-width: none;
   transform: scaleX(0);
   transform-origin: left center;
-}
-
-/* Three facts, not one sentence, so the middle one can leave at phone width
-   without stranding a separator. The separators are drawn rather than typed
-   for the same reason. */
-.hero-bezel__id > span + span::before {
-  content: "\00b7";
-  padding: 0 0.62em;
-  color: var(--line-hi);
 }
 
 .hero-bezel__ticks {
@@ -1188,309 +1074,179 @@ li {
   height: 0.9rem;
 }
 
-/* Below this width the full strip wraps to three lines and the tick block
-   ends up floating beside the middle one, which reads as a mistake rather
-   than as a bezel. The discipline is the one fact the masthead underneath
-   already states, so it is the one that leaves. */
-@media (max-width: 43.999rem) {
-  .hero-bezel__discipline {
-    display: none;
-  }
-}
-
 html[data-loaded="true"] .hero-bezel {
   transform: scaleX(1);
   transition: transform 520ms var(--ease);
 }
 
-/* Masthead. The name is no longer the headline, so it stops behaving like
-   one. It sits at nameplate scale against the thesis line, between the
-   bezel rule and its own, which is what makes the two read as one band
-   rather than as a heading with a subtitle under it. */
-.hero-mast {
+.hero-status {
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem 2.5rem;
-  padding-bottom: 1.15rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.hero-mast h1 {
-  font-size: clamp(1.45rem, 2.5vw, 2rem);
-  font-weight: 760;
-  text-transform: uppercase;
-  letter-spacing: 0.015em;
-  line-height: 1;
-  margin: 0;
-  color: var(--text-hi);
-  font-variation-settings: "opsz" 40;
-}
-
-.hero-mast .hero-lede {
-  margin: 0;
-  max-width: 34ch;
-}
-
-/* Engine ---------------------------------------------------------------
-   Three parts on one grid: the record that arrived, the rules that read
-   it, and what the rule set concluded. The heights are fixed rather than
-   fitted because the block rewrites itself every few seconds and a column
-   that resizes with its content would walk the rest of the page up and
-   down while someone is trying to read it. */
-
-.hero-engine {
-  margin-top: clamp(2rem, 4.5vw, 3.25rem);
-  transition: opacity 300ms var(--ease);
-}
-
-.hero-engine[data-state="clearing"] {
-  opacity: 0.2;
-}
-
-.hero-engine__meta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 1.1rem;
-  font-family: var(--mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin: 0 0 1.5rem;
-  max-width: none;
-}
-
-/* The one circle in the hero, and it means the same thing every circle on
-   this site means. Written locally rather than reusing .lamp because that
-   is a list-item component and this is a single span inside a meta line. */
-.hero-engine__live {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--text-hi);
-}
-
-.hero-engine__live::before {
-  content: "";
-  flex: none;
-  width: 0.5rem;
-  height: 0.5rem;
-  border-radius: var(--radius-lamp);
-  background: var(--sig);
-  box-shadow: 0 0 0 3px var(--sig-soft);
-  animation: lamp-breathe 4s ease-in-out infinite;
-}
-
-.hero-engine__label {
-  display: block;
-  font-family: var(--mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin-bottom: 0.85rem;
-}
-
-.hero-engine__record {
-  position: relative;
-  min-width: 0;
-  /* Hugs its own content instead of stretching to the taller of the two
-     columns, so the fade below sits on the last line of the record rather
-     than floating in the empty space under it. */
-  align-self: start;
-}
-
-/* Narrow screens drop to the micro size because at this measure the same
-   record wraps to roughly twice as many lines, and a taller window costs a
-   reader more than a smaller face does. Measured at 390px the three records
-   come out 188px, 358px and 358px tall, so this window shows the short one
-   whole with room under it and takes the last line or so of the long ones
-   into the fade. That is the honest reading of a record window anyway. */
-.hero-engine__record pre {
-  margin: 0;
-  height: 21rem;
-  overflow: hidden;
-  font-family: var(--mono);
-  font-size: var(--t-micro);
-  line-height: 1.55;
-  color: var(--text);
-  /* The evasion payloads are single strings hundreds of characters long
-     with no spaces near the break point, so both are needed: pre-wrap to
-     keep the JSON indentation, anywhere to stop one token from setting the
-     width of the column. */
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  tab-size: 2;
-}
-
-/* The record is clipped, not summarised. The fade says so honestly instead
-   of letting a line end mid-glyph and read as a rendering fault. */
-.hero-engine__record::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 2.5rem;
-  background: linear-gradient(to bottom, var(--ink-0), var(--ink));
-  pointer-events: none;
-}
-
-.hero-engine__rules {
-  min-width: 0;
-}
-
-.hero-engine__scan {
-  margin: 0;
+  gap: 0.55rem 1.5rem;
+  margin: 0 0 1.85rem;
   padding: 0;
   list-style: none;
 }
 
-.hero-engine__step {
-  display: grid;
-  grid-template-columns: 3.6rem minmax(0, 1fr) auto;
-  gap: 0.9rem;
-  align-items: baseline;
-  padding: 0.36rem 0 0.36rem 0.85rem;
-  border-left: 2px solid transparent;
-  border-bottom: 1px solid var(--line);
-  font-family: var(--mono);
-  font-size: var(--t-meta);
-  line-height: 1.5;
-  color: var(--text-dim);
-  transition: opacity 200ms var(--ease), transform 200ms var(--ease),
-    color 200ms var(--ease), border-color 200ms var(--ease);
+.hero-status li {
+  margin: 0;
 }
 
-.hero-engine__step:last-child {
-  border-bottom: 0;
-}
-
-/* Rows are painted all at once and revealed on a timer, so the block never
-   relays out mid-scan. */
-.hero-engine__step[data-pending] {
-  opacity: 0;
-  transform: translateX(-0.4rem);
-}
-
-/* A rule that matched, in the colour matching means everywhere else here.
-   On the case that gets missed the parent rule still lights, because it
-   still matches; what is missing is a child rule behind it. That is the
-   whole argument of the section below, stated once in two colours. */
-.hero-engine__step.is-hit {
-  border-left-color: var(--sig);
-  color: var(--text-hi);
-}
-
-.hero-engine__step-id {
-  color: var(--text);
-}
-
-.hero-engine__step.is-hit .hero-engine__step-id {
-  color: var(--sig);
-}
-
-.hero-engine__step-reads {
-  min-width: 0;
-  overflow-wrap: anywhere;
-}
-
-.hero-engine__step-state {
-  font-size: var(--t-micro);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  text-align: right;
-  white-space: nowrap;
-}
-
-.hero-engine__step.is-hit .hero-engine__step-state {
-  color: var(--sig);
-}
-
-.hero-engine__verdict {
+/* Portrait, mounted like the rest of the hardware: a raised bezel (same
+   edge-lit panel treatment as .plate) holding a mat and an inset photo, with
+   an engraved plate label underneath in the same idiom as the exhibit's
+   SOURCE / ARTIFACT pane labels. Desaturated to sit inside the two-accent
+   color system rather than introducing a third, arbitrary palette of skin
+   tone and necktie navy. On wide layouts it becomes its own column between
+   the copy and the exhibit, real size, not a small addendum; on narrower
+   layouts it folds back under the copy column at a smaller size. */
+.hero-id {
   display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.4rem 1.25rem;
-  margin: clamp(1.75rem, 4vw, 2.5rem) 0 0;
-  padding-top: clamp(1.25rem, 3vw, 1.85rem);
-  border-top: 1px solid var(--line-hi);
-  max-width: none;
-  /* Reserved before there is a word to put in it. Without this the page
-     below would rise by a full display line every time a case clears. */
-  min-height: calc(var(--d-verdict) * 0.92);
+  flex-direction: column;
+  gap: 0.65rem;
+  justify-self: start;
+  margin: 0 0 1.85rem;
 }
 
-.hero-engine__word {
-  font-family: var(--display);
-  font-size: var(--d-verdict);
-  font-weight: 780;
-  font-variation-settings: "opsz" 72;
+.hero-id__frame {
+  width: 7.25rem;
+  aspect-ratio: 4 / 5;
+  padding: 0.4rem;
+  border: 1px solid var(--line-hi);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
+}
+
+.hero-id__frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1px;
+  box-shadow: inset 0 0 0 1px var(--line);
+  /* The source PNG is baked to true 8-bit grayscale at the pixel level
+     (not just filtered), so dragging or viewing the raw file never
+     exposes a color version. This filter only tunes contrast/brightness. */
+  filter: contrast(1.08) brightness(1.03);
+}
+
+.hero-id__plate {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
   text-transform: uppercase;
-  line-height: 0.9;
-  letter-spacing: -0.005em;
+  color: var(--text-dim);
+  margin: 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line);
+  width: 7.25rem;
+}
+
+.hero-grid {
+  display: grid;
+  gap: 2.75rem;
+  align-items: start;
+}
+
+.hero-copy h1 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.03em;
+  font-size: clamp(2.75rem, 5.6vw, 4.4rem);
+  font-weight: 780;
+  text-transform: uppercase;
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.5rem;
+  font-variation-settings: "opsz" 60;
+}
+
+/* Precision Register: the name is set once, at its final display cut
+   (wght 780 / opsz 60, this element's own text, in normal flow so it
+   controls layout). A lighter "proof" cut of the same instance sits over
+   it as a decorative, aria-hidden duplicate, and on load a single
+   left-to-right clip-path pass reveals the settled display cut beneath,
+   like two plates coming into exact registration, with a 1px var(--sig)
+   rule traveling at the boundary. The proof layer never changes size or
+   position, only what fraction of it is clipped, so the pass produces
+   zero layout shift. Default state (no JS, no clip-path support, or
+   prefers-reduced-motion) is the settled display cut with the proof
+   layer already fully clipped away. */
+.hero-name__given,
+.hero-name__family {
+  position: relative;
+  display: inline-block;
   color: var(--text-hi);
 }
 
-.hero-engine[data-verdict="sig"] .hero-engine__word {
-  color: var(--sig);
+.hero-name__proof {
+  position: absolute;
+  inset: 0;
+  color: var(--text-hi);
+  font-weight: 580;
+  font-variation-settings: "opsz" 18;
+  clip-path: inset(0 0 0 100%);
+  pointer-events: none;
 }
 
-.hero-engine[data-verdict="amb"] .hero-engine__word {
-  color: var(--amb-hi);
+.hero-name__rule {
+  position: absolute;
+  top: -0.05em;
+  bottom: -0.05em;
+  left: 0;
+  width: 2px;
+  background: var(--sig);
+  opacity: 0;
+  pointer-events: none;
 }
 
-.hero-engine__detail {
-  font-family: var(--mono);
-  font-size: var(--t-meta);
-  letter-spacing: 0.04em;
-  color: var(--text-dim);
-}
-
-/* Past this width the record and the rules that read it sit side by side,
-   which is the only arrangement in which a visitor can see a pattern in
-   one column and the field it matched in the other at the same time. The
-   record column is the wider of the two: the payload lines are long, and a
-   narrow column turns one of them into six. */
-@media (min-width: 56rem) {
-  .hero-engine {
-    display: grid;
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    column-gap: clamp(2rem, 5vw, 4rem);
+@keyframes hero-name-register {
+  from {
+    clip-path: inset(0 0 0 0%);
   }
-
-  .hero-engine__meta,
-  .hero-engine__verdict {
-    grid-column: 1 / -1;
-  }
-
-  /* Tall enough that the longest of the three records clears the fade at
-     this width rather than sitting under it. The height is fixed rather
-     than fitted because the block rewrites itself every few seconds, and a
-     column that resized with its content would walk the rest of the page up
-     and down under the reader. */
-  .hero-engine__record pre {
-    height: 21rem;
-    font-size: var(--t-meta);
-    line-height: 1.7;
+  to {
+    clip-path: inset(0 0 0 100%);
   }
 }
 
-.hero-engine__rules {
-  margin-top: 2rem;
+@keyframes hero-name-rule-travel {
+  0% {
+    left: 0%;
+    opacity: 1;
+  }
+  92% {
+    left: 96%;
+    opacity: 1;
+  }
+  100% {
+    left: 100%;
+    opacity: 0;
+  }
 }
 
-@media (min-width: 56rem) {
-  .hero-engine__rules {
-    margin-top: 0;
+html[data-loaded="true"] .hero-name__proof {
+  animation: hero-name-register 1170ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
+}
+
+html[data-loaded="true"] .hero-name__rule {
+  animation: hero-name-rule-travel 1170ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
+}
+
+@supports not (clip-path: inset(0 0 0 0)) {
+  .hero-name__proof,
+  .hero-name__rule {
+    display: none;
   }
 }
 
 .hero-lede {
-  font-size: var(--d-lede);
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
   line-height: 1.5;
   color: var(--text-hi);
   max-width: 42ch;
@@ -1515,83 +1271,133 @@ html[data-loaded="true"] .hero-bezel {
   color: var(--amb-hi);
 }
 
-/* The person, after the work. This paragraph used to open the page and was
-   sized for that job; it now answers the verdict a visitor has just
-   watched land, so it reads at body scale with the weight doing the
-   holding rather than the size. */
-.hero-copy {
-  margin-top: clamp(1.5rem, 3vw, 2.25rem);
-  max-width: 58ch;
-}
-
 .hero-role {
   color: var(--text-hi);
-  font-size: var(--t-body);
-  font-weight: 560;
-  line-height: 1.6;
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  font-weight: 600;
+  line-height: 1.55;
+  max-width: 54ch;
   margin: 0;
 }
 
 .hero-source {
   color: var(--text-dim);
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
   margin: 0.9rem 0 0;
   max-width: 52ch;
+}
+
+/* Homepage-only rhythm. These margins used to be deliberately loose: the
+   copy column stood beside the compile plate, ran shorter than it, and the
+   extra spacing kept it from reading as cut short next to a tall neighbour.
+   Retuned 2026-09-07, when the plate moved to its own full-width row below.
+   Nothing tall sits beside this column any more, so the same values now
+   just stretch three short paragraphs down the page. Pulled back to a
+   normal reading rhythm instead. Scoped to .hero-copy so the shared
+   .hero-lede / .action-row / .hero-status components keep their defaults on
+   every other page's hero. */
+.hero-copy .hero-lede {
+  margin-bottom: 0.6rem;
+}
+
+.hero-copy .hero-role {
+  margin-bottom: 0;
 }
 
 .hero-copy .action-row {
   margin-top: 1.75rem;
 }
 
-/* Portrait, mounted like the rest of the hardware: a raised bezel (same
-   edge-lit panel treatment as .plate) holding a mat and an inset photo, with
-   an engraved plate label underneath in the same idiom as the exhibit's
-   SOURCE / ARTIFACT pane labels. Desaturated to sit inside the two-accent
-   color system rather than introducing a third, arbitrary palette of skin
-   tone and necktie navy. Used on /about and /support, the two pages where a
-   reader has asked who is behind the work. It is deliberately absent from
-   the homepage, whose hero is the rules engine. */
-.hero-id {
-  display: flex;
-  flex-direction: column;
-  gap: 0.65rem;
-  justify-self: start;
-  margin: 0 0 1.85rem;
+.hero-copy .hero-status {
+  margin-top: 1.1rem;
+  margin-bottom: 0;
 }
 
-.hero-id__frame {
-  width: 7.25rem;
-  aspect-ratio: 4 / 5;
-  padding: 0.4rem;
-  border: 1px solid var(--line-hi);
-  border-radius: var(--radius);
-  background: var(--panel);
-  box-shadow: var(--lift-hi);
+/* Rebuilt 2026-09-07 as two rows: copy and portrait side by side, compile
+   plate spanning the full shell beneath them. This replaces a three-column
+   "copy id exhibit" arrangement that put the portrait in the middle column,
+   between the copy it belonged to and the instrument it had nothing to do
+   with. A centered face reads as watching the visitor rather than
+   introducing the work, and the middle column left a tall void under the
+   photo because nothing else in the hero was short enough to share it.
+
+   Giving the plate its own row is what pays for most of the change. As a
+   column it was a narrow vertical stack of three panes; across the full
+   shell the same three panes sit side by side (see .hero-exhibit
+   .plate__grid below) and the plate itself drops from 686px to 351px, with
+   the copy column falling 731px to 437px alongside it.
+
+   Measured 2026-09-07 against the previous version, because the height
+   claim here was originally written the other way round and was wrong.
+   Both pieces shrank, but two rows replace a max() with a sum, so the
+   desktop hero is 94px TALLER on balance: 970px to 1064px at 1512px wide.
+   Below this gate, where the old layout was already stacked and only the
+   pieces changed, it is genuinely shorter (1381px to 1263px at 900px,
+   1514px to 1370px at 500px). The 94px buys a portrait that introduces the
+   work instead of staring down the visitor, and a plate that reads left to
+   right in the direction the data moves. If that height ever needs
+   reclaiming, the lever is the plate's own padding and pane heights, not
+   this grid. Same arrangement as the /support hero, deliberately. */
+@media (min-width: 64rem) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "copy id"
+      "exhibit exhibit";
+    /* Asymmetric on purpose. The column gap separates two unrelated things
+       (copy and portrait) and wants air; the row gap separates the copy from
+       the instrument that illustrates it, which reads as one thought, and
+       stacked rows cost height the old side-by-side layout did not pay. */
+    gap: 2.25rem 3rem;
+  }
+
+  /* grid-area only means anything alongside the grid-template-areas above,
+     so it is scoped to this query rather than applied unconditionally: an
+     unmatched named line at the single-column mobile width (no
+     grid-template-areas defined there) throws placement off and stacks
+     every hero child on top of the others. Scoped to .hero-grid as well,
+     added 2026-09-06: .hero-id is reused by the /support hero, whose own
+     grid defines no areas, so the bare selector pushed that portrait into
+     an implicit row below the copy and opened a large hole in the middle
+     of the page. */
+  .hero-grid .hero-copy {
+    grid-area: copy;
+  }
+
+  .hero-grid .hero-id {
+    grid-area: id;
+    justify-self: end;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .hero-grid .hero-exhibit {
+    grid-area: exhibit;
+  }
+
+  /* Scales with the viewport up to 16rem, which is 256px against a 320px
+     source PNG and so never upscales. Same ceiling as the /support hero. */
+  .hero-grid .hero-id__frame,
+  .hero-grid .hero-id__plate {
+    width: clamp(11rem, 17vw, 16rem);
+  }
 }
 
-.hero-id__frame img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 1px;
-  box-shadow: inset 0 0 0 1px var(--line);
-  /* The source PNG is baked to true 8-bit grayscale at the pixel level
-     (not just filtered), so dragging or viewing the raw file never
-     exposes a color version. This filter only tunes contrast/brightness. */
-  filter: contrast(1.08) brightness(1.03);
+@media (max-width: 47.999rem) {
+  .hero-copy h1 {
+    gap: 0;
+    font-size: clamp(3.1rem, 17vw, 4.6rem);
+    letter-spacing: 0.002em;
+  }
 }
 
-.hero-id__plate {
-  font-family: var(--mono);
-  font-size: var(--t-meta);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin: 0;
-  padding-top: 0.6rem;
-  border-top: 1px solid var(--line);
-  width: 7.25rem;
+/* On narrow layouts the exhibit collapses to the source pane only, still a
+   real screen but a shorter one. */
+@media (max-width: 63.999rem) {
+  .hero-exhibit .plate__pane--out,
+  .hero-exhibit .plate__caption {
+    display: none;
+  }
 }
 
 /* Compile plate (signature) -------------------------------------------
@@ -1600,16 +1406,16 @@ html[data-loaded="true"] .hero-bezel {
    footer. Same real Sigma-to-Wazuh content, treated as hardware. */
 
 .plate {
-  /* .plate is a bare <figure>, and the UA default figure margin (1em 40px
-     in Chrome) would inset it from the shell on both sides, so it would
-     stop sharing its left and right edges with the section heading above
-     and the work rows below. The bottom margin is its own: it opens the
-     Selected work section and the rows follow it. */
-  margin: 0 0 clamp(2rem, 4vw, 3rem);
+  /* .plate is a bare <figure>; without this the UA default figure margin
+     (1em 40px in Chrome) insets it from its grid cell on all four sides,
+     which reads as its top edge sitting lower than .hero-id's (that one
+     zeroes its own margin explicitly) even though both start in the same
+     grid row. */
+  margin: 0;
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel);
-  box-shadow: var(--lift-hi);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 .plate__bar {
@@ -1625,7 +1431,7 @@ html[data-loaded="true"] .hero-bezel {
 
 .plate__title {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -1639,7 +1445,7 @@ html[data-loaded="true"] .hero-bezel {
    bar's brightest element should read as .plate__title (teal), not this
    stat line competing with it. */
 .plate__bar .mono-note {
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   color: var(--text-dim);
 }
 
@@ -1651,12 +1457,12 @@ html[data-loaded="true"] .hero-bezel {
   min-width: 0;
   padding: 0.75rem 1.25rem 0.85rem;
   background: var(--well);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
 }
 
 .plate__pane-label {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.7rem;
   letter-spacing: 0.05em;
   color: var(--text-dim);
   display: block;
@@ -1676,7 +1482,7 @@ html[data-loaded="true"] .hero-bezel {
 .plate__pane pre {
   margin: 0;
   overflow-x: auto;
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   line-height: 1.7;
   color: var(--text);
   -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 1.5rem), transparent);
@@ -1726,7 +1532,7 @@ html[data-loaded="true"] .hero-bezel {
 }
 
 .plate__stages .plate__stages-label {
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   letter-spacing: 0.16em;
   display: block;
   margin-bottom: 0.6rem;
@@ -1742,7 +1548,7 @@ html[data-loaded="true"] .hero-bezel {
 
 .plate__stages li {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   letter-spacing: 0.04em;
   color: var(--text-dim);
   margin: 0;
@@ -1792,7 +1598,7 @@ html[data-loaded="true"] .plate__stages li::before {
 .plate__caption {
   border-top: 1px solid var(--line-hi);
   padding: 0.6rem 1.25rem;
-  font-size: var(--t-aux);
+  font-size: 0.88rem;
   color: var(--text-dim);
   background: var(--panel-hi);
 }
@@ -1925,7 +1731,7 @@ html[data-loaded="true"] .plate__bound {
 
 .coverage__label {
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.76rem;
   color: var(--text-dim);
   max-width: 34ch;
 }
@@ -1971,7 +1777,7 @@ html[data-loaded="true"] .plate__bound {
   gap: 0.4rem 1.25rem;
   margin-top: 0.6rem;
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   letter-spacing: 0.04em;
   color: var(--text-dim);
 }
@@ -2034,7 +1840,7 @@ html[data-loaded="true"] .plate__bound {
 .method-rule__claim {
   margin: 0;
   font-family: var(--display);
-  font-size: var(--d-row);
+  font-size: clamp(1.4rem, 2.6vw, 1.7rem);
   font-weight: 650;
   line-height: 1.06;
   letter-spacing: 0.006em;
@@ -2060,7 +1866,7 @@ html[data-loaded="true"] .plate__bound {
 .method-rule--bound {
   background: var(--well);
   border-left-color: var(--amb);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
 }
 
 .method-rule--bound .method-rule__key {
@@ -2145,7 +1951,7 @@ html[data-loaded="true"] .plate__bound {
 
 .status {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2163,13 +1969,13 @@ html[data-loaded="true"] .plate__bound {
 
 .work-row__year {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   letter-spacing: 0.08em;
   color: var(--text-dim);
 }
 
 .work-row h3 {
-  font-size: var(--d-row);
+  font-size: clamp(1.4rem, 2.6vw, 1.7rem);
   margin: 0 0 0.4rem;
   font-variation-settings: "opsz" 40;
 }
@@ -2197,7 +2003,7 @@ html[data-loaded="true"] .plate__bound {
 
 .work-row__evidence {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.74rem;
   line-height: 1.8;
   color: var(--text-dim);
   align-self: center;
@@ -2275,7 +2081,7 @@ html[data-loaded="true"] .plate__bound {
 
 .record-row dt {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.74rem;
   letter-spacing: 0.08em;
   color: var(--sig);
   padding-top: 0.2rem;
@@ -2293,7 +2099,7 @@ html[data-loaded="true"] .plate__bound {
 .record-row dd p {
   margin: 0;
   color: var(--text-dim);
-  font-size: var(--t-aux);
+  font-size: 0.92rem;
 }
 
 @media (min-width: 48rem) {
@@ -2315,7 +2121,7 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .capability h3 {
-  font-size: var(--t-sub);
+  font-size: 1.2rem;
   margin-bottom: 0.6rem;
 }
 
@@ -2332,7 +2138,7 @@ html[data-loaded="true"] .plate__bound {
 
 .capability p {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.92rem;
   color: var(--text-dim);
   max-width: none;
 }
@@ -2382,7 +2188,7 @@ html[data-loaded="true"] .plate__bound {
 
 .writing-row__meta {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   letter-spacing: 0.06em;
   color: var(--text-dim);
   display: flex;
@@ -2395,7 +2201,7 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .writing-row h3 {
-  font-size: var(--d-row);
+  font-size: clamp(1.25rem, 2.3vw, 1.5rem);
   margin: 0 0 0.35rem;
   font-variation-settings: "opsz" 34;
 }
@@ -2418,7 +2224,7 @@ html[data-loaded="true"] .plate__bound {
 .writing-row p {
   margin: 0;
   max-width: 60ch;
-  font-size: var(--t-aux);
+  font-size: 0.94rem;
   color: var(--text-dim);
 }
 
@@ -2435,7 +2241,7 @@ html[data-loaded="true"] .plate__bound {
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel);
-  box-shadow: var(--lift-hi);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
   padding: clamp(1.75rem, 4vw, 3rem);
   position: relative;
 }
@@ -2451,80 +2257,13 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .contact-panel h2 {
-  font-size: var(--d-section);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
   max-width: 24ch;
 }
 
-.contact-panel > p,
-.contact-panel__copy > p {
+.contact-panel > p {
   color: var(--text-dim);
   max-width: 58ch;
-}
-
-/* The availability lamps used to open the page, where they answered a
-   question nobody had asked yet. They belong beside the ask, which is where
-   a reader forms it, and they give the panel a right-hand column: without
-   one it was a 1112px box with copy filling the left half and nothing in
-   the other, which reads as an unfinished container rather than a panel. */
-.contact-panel__board {
-  margin-top: 2rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid var(--line);
-}
-
-.contact-panel__board-label {
-  font-family: var(--mono);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  margin: 0 0 1rem;
-}
-
-.contact-panel__status {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.75rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: var(--mono);
-  font-size: var(--t-ui);
-  letter-spacing: 0.06em;
-  color: var(--text-dim);
-}
-
-.contact-panel__status li {
-  margin: 0;
-}
-
-/* Only the homepage panel splits. The same component on /contact, /about, and
-   /support carries the ask alone, and those keep the single column. */
-@media (min-width: 56rem) {
-  .contact-panel--split {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(15rem, 20rem);
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: start;
-  }
-
-  .contact-panel__board {
-    margin-top: 0;
-    padding-top: 0;
-    padding-left: clamp(2rem, 5vw, 4rem);
-    border-top: 0;
-    /* The divider is the panel's own inner edge, cut rather than drawn: a
-       dark line with a lit one beside it, the same way every other seam on
-       this fascia is made. */
-    border-left: 1px solid var(--edge-bottom);
-    box-shadow: inset 1px 0 0 var(--edge-top);
-    align-self: stretch;
-  }
-
-  .contact-panel__status {
-    flex-direction: column;
-    gap: 0.85rem;
-  }
 }
 
 /* Footer title block ---------------------------------------------------- */
@@ -2556,7 +2295,7 @@ html[data-loaded="true"] .plate__bound {
 
 .title-block__cell p {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
   color: var(--text-hi);
   max-width: none;
 }
@@ -2575,13 +2314,13 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .title-block__cell a {
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
 }
 
 .title-block__cell .mono-note {
   display: block;
   margin-top: 0.35rem;
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
 }
 
 @media (min-width: 48rem) {
@@ -2602,7 +2341,7 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .page-hero h1 {
-  font-size: var(--d-hero);
+  font-size: clamp(2.5rem, 6.5vw, 4rem);
   font-weight: 700;
   line-height: 1;
   max-width: 20ch;
@@ -2611,13 +2350,13 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .page-hero .hero-lede {
-  font-size: var(--d-lede);
+  font-size: clamp(1.05rem, 2vw, 1.25rem);
   max-width: 56ch;
 }
 
 .breadcrumb {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--text-dim);
@@ -2643,7 +2382,7 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .case-hero__summary {
-  font-size: var(--t-lede);
+  font-size: 1.1rem;
   line-height: 1.6;
   color: var(--text);
   max-width: 56ch;
@@ -2659,7 +2398,7 @@ html[data-loaded="true"] .plate__bound {
   gap: 1.1rem;
   align-self: start;
   background: var(--panel);
-  box-shadow: var(--lift);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 .case-meta div {
@@ -2669,7 +2408,7 @@ html[data-loaded="true"] .plate__bound {
 
 .case-meta dd {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.92rem;
   color: var(--text-hi);
 }
 
@@ -2688,7 +2427,7 @@ html[data-loaded="true"] .plate__bound {
   border-left: 3px solid var(--amb);
   border-radius: var(--radius);
   background: var(--well);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
   padding: var(--pad-tight);
   margin-top: 1.5rem;
   max-width: 58ch;
@@ -2703,7 +2442,7 @@ html[data-loaded="true"] .plate__bound {
 
 .scope-note p {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.92rem;
   color: var(--text);
   max-width: none;
 }
@@ -2718,7 +2457,7 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .case-glance h2 {
-  font-size: var(--d-block);
+  font-size: clamp(1.45rem, 3vw, 2rem);
   margin-bottom: 1rem;
 }
 
@@ -2729,7 +2468,7 @@ html[data-loaded="true"] .plate__bound {
 
 .assessment__cell .assessment__label {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -2743,7 +2482,7 @@ html[data-loaded="true"] .plate__bound {
 
 .assessment__cell p {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.92rem;
   max-width: none;
 }
 
@@ -2773,7 +2512,7 @@ html[data-loaded="true"] .plate__bound {
   padding: 0.75rem 0.9rem;
   color: var(--text-hi);
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.84rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   cursor: pointer;
@@ -2801,7 +2540,7 @@ html[data-loaded="true"] .plate__bound {
   align-items: center;
   color: var(--text);
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.84rem;
   text-decoration: none;
   border-bottom: 1px solid var(--line);
 }
@@ -2830,7 +2569,7 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .case-content section h2 {
-  font-size: var(--d-block);
+  font-size: clamp(1.6rem, 3vw, 2rem);
   max-width: 28ch;
   font-variation-settings: "opsz" 40;
 }
@@ -2870,7 +2609,7 @@ html[data-loaded="true"] .plate__bound {
 
 .case-sidebar a {
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.84rem;
   letter-spacing: 0.04em;
   color: var(--text);
   text-decoration: none;
@@ -2900,7 +2639,7 @@ ul.tag-list {
 
 .tag {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   letter-spacing: 0.06em;
   color: var(--text-dim);
   background: var(--panel);
@@ -2940,7 +2679,7 @@ ul.tag-list {
 }
 
 .casework-glance h2 {
-  font-size: var(--d-block);
+  font-size: clamp(1.45rem, 3vw, 2rem);
   margin-bottom: 1rem;
 }
 
@@ -3030,7 +2769,7 @@ ul.tag-list {
 
 .stage-list .stage-label {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3073,7 +2812,7 @@ ul.tag-list {
 }
 
 .stage-list small {
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
   color: var(--text-dim);
   display: block;
   max-width: 56ch;
@@ -3122,7 +2861,7 @@ ul.tag-list {
 
 .metric span {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.7rem;
   letter-spacing: 0.05em;
   color: var(--text-dim);
   display: block;
@@ -3200,7 +2939,7 @@ ul.tag-list {
   content: "+";
   font-family: var(--mono);
   color: var(--sig);
-  font-size: var(--t-body);
+  font-size: 1rem;
   flex: none;
 }
 
@@ -3229,14 +2968,14 @@ ul.tag-list {
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--well);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
   margin: 1.5rem 0;
   overflow: hidden;
 }
 
 .code-figure figcaption {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.7rem;
   letter-spacing: 0.05em;
   color: var(--text);
   padding: 0.7rem 1.1rem;
@@ -3248,7 +2987,7 @@ ul.tag-list {
   margin: 0;
   padding: 1.1rem;
   overflow-x: auto;
-  font-size: var(--t-ui);
+  font-size: 0.78rem;
   line-height: 1.65;
 }
 
@@ -3265,7 +3004,7 @@ ul.tag-list {
   border-left: 3px solid var(--amb);
   border-radius: var(--radius);
   background: var(--well);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
 }
 
 .limit-list li {
@@ -3273,7 +3012,7 @@ ul.tag-list {
   border-bottom: 1px solid var(--line);
   margin: 0;
   max-width: none;
-  font-size: var(--t-aux);
+  font-size: 0.95rem;
   color: var(--text-dim);
 }
 
@@ -3313,14 +3052,14 @@ ul.tag-list {
 
 .grounding-gate__band--draft p {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.92rem;
   color: var(--text);
   max-width: none;
 }
 
 .grounding-gate__band--gate {
   background: var(--well);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
   border-left: 3px solid var(--amb);
 }
 
@@ -3330,7 +3069,7 @@ ul.tag-list {
 
 .grounding-gate__verdict {
   font-family: var(--display);
-  font-size: var(--t-sub);
+  font-size: 1.3rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -3340,14 +3079,14 @@ ul.tag-list {
 
 .grounding-gate__reason {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.88rem;
   color: var(--text-dim);
   max-width: none;
 }
 
 .grounding-gate__band--published {
   background: var(--well);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
   text-align: center;
   padding: 1.6rem var(--pad-tight);
 }
@@ -3355,7 +3094,7 @@ ul.tag-list {
 .grounding-gate__empty {
   margin: 0;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.85rem;
   color: var(--text-dim);
   font-style: italic;
 }
@@ -3384,19 +3123,19 @@ ul.tag-list {
 }
 
 .channel h3 {
-  font-size: var(--t-sub);
+  font-size: 1.25rem;
   margin-bottom: 0.4rem;
 }
 
 .channel p {
-  font-size: var(--t-aux);
+  font-size: 0.92rem;
   color: var(--text-dim);
   margin-bottom: 0.9rem;
 }
 
 .channel .channel-kind {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3464,7 +3203,7 @@ ul.tag-list {
 }
 
 .article-hero h1 {
-  font-size: var(--d-hero);
+  font-size: clamp(2.8rem, 6.8vw, 4.8rem);
   line-height: 0.96;
   letter-spacing: -0.012em;
   max-width: 16.5ch;
@@ -3478,7 +3217,7 @@ ul.tag-list {
 
 .article-hero__dek {
   max-width: 58ch;
-  font-size: var(--d-lede);
+  font-size: clamp(1.15rem, 2.3vw, 1.45rem);
   line-height: 1.48;
   color: var(--text);
   text-wrap: balance;
@@ -3491,7 +3230,7 @@ ul.tag-list {
   align-items: center;
   margin-bottom: 1.25rem;
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3509,7 +3248,7 @@ ul.tag-list {
   padding: 1rem 0;
   border-block: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   color: var(--text-dim);
 }
 
@@ -3556,7 +3295,7 @@ ul.tag-list {
 }
 
 .article-body h2 {
-  font-size: var(--d-section);
+  font-size: clamp(2rem, 4.6vw, 3rem);
   line-height: 1;
   max-width: 19ch;
   margin: clamp(3.5rem, 8vw, 6rem) 0 1.35rem;
@@ -3564,7 +3303,7 @@ ul.tag-list {
 }
 
 .article-body h3 {
-  font-size: var(--d-row);
+  font-size: clamp(1.4rem, 2.8vw, 1.85rem);
   margin: 2.5rem 0 0.85rem;
 }
 
@@ -3616,7 +3355,7 @@ ul.tag-list {
   padding: 0.5rem 0;
   border-bottom: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.82rem;
   line-height: 1.4;
   color: var(--text);
   text-decoration: none;
@@ -3650,7 +3389,7 @@ ul.tag-list {
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel);
-  box-shadow: var(--lift);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
   padding: clamp(1.3rem, 3vw, 1.8rem);
   margin-bottom: 2.5rem;
 }
@@ -3658,7 +3397,7 @@ ul.tag-list {
 .at-a-glance h2 {
   margin: 0 0 0.85rem;
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3682,7 +3421,7 @@ ul.tag-list {
   border: 1px solid var(--amb);
   border-radius: var(--radius);
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.67rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -3704,7 +3443,7 @@ ul.tag-list {
 .chip--bound {
   display: inline-block;
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   padding: 0.4rem 0.7rem;
@@ -3731,7 +3470,7 @@ ul.tag-list {
   display: block;
   margin-bottom: 0.35rem;
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--amb);
@@ -3756,7 +3495,7 @@ ul.tag-list {
   padding: 0.85rem 1.1rem;
   border-top: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   line-height: 1.55;
   color: var(--text-dim);
 }
@@ -3806,7 +3545,7 @@ ul.tag-list {
   display: block;
   margin-bottom: 0.6rem;
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3863,7 +3602,7 @@ ul.tag-list {
   display: block;
   margin-bottom: 0.45rem;
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3889,7 +3628,7 @@ ul.tag-list {
 .result-card p,
 .retest-card p {
   margin: 0.7rem 0 0;
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
   line-height: 1.55;
   color: var(--text-dim);
 }
@@ -3962,7 +3701,7 @@ ul.tag-list {
   width: 100%;
   min-width: 44rem;
   border-collapse: collapse;
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
   line-height: 1.5;
 }
 
@@ -3976,7 +3715,7 @@ ul.tag-list {
 
 .coverage-table th {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--sig);
@@ -4012,7 +3751,7 @@ ul.tag-list {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--sig);
@@ -4023,7 +3762,7 @@ ul.tag-list {
   margin: 0;
   padding: 1rem;
   overflow-x: auto;
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   line-height: 1.6;
 }
 
@@ -4043,7 +3782,7 @@ ul.tag-list {
   display: block;
   margin-bottom: 0.6rem;
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--sig);
@@ -4052,7 +3791,7 @@ ul.tag-list {
 .series-nav a {
   display: inline-block;
   font-family: var(--display);
-  font-size: var(--d-row);
+  font-size: clamp(1.6rem, 3.8vw, 2.4rem);
   line-height: 1.05;
   color: var(--text-hi);
   text-decoration: none;
@@ -4064,7 +3803,7 @@ ul.tag-list {
 }
 
 .references {
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
 }
 
 .references li {
@@ -4095,11 +3834,7 @@ ul.tag-list {
   text-transform: uppercase;
 }
 
-/* Shared by /support and /about: copy at the top left, portrait at the top
-   right, anything the page adds spanning both underneath. Two pages, one
-   arrangement, one set of rules. */
-.support-hero,
-.about-hero {
+.support-hero {
   display: grid;
   gap: 1.75rem;
   align-items: start;
@@ -4112,8 +3847,7 @@ ul.tag-list {
    the headline; explicit placement, not `order`, does the two-column swap,
    which keeps the intent readable. */
 @media (min-width: 42rem) {
-  .support-hero,
-  .about-hero {
+  .support-hero {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 2.25rem 2.75rem;
   }
@@ -4123,14 +3857,12 @@ ul.tag-list {
      (.hero-copy h1) meant only for the split RASHEED / FARHAT readout
      treatment. The support hero's h1 is a plain sentence headline, so it
      should inherit the standard .page-hero h1 sizing instead. */
-  .support-hero__copy,
-  .about-hero__copy {
+  .support-hero__copy {
     grid-column: 1;
     grid-row: 1;
   }
 
-  .hero-id--support,
-  .hero-id--about {
+  .hero-id--support {
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
@@ -4143,34 +3875,27 @@ ul.tag-list {
    against a 320px source PNG and so never upscales. Frame, mat, and
    plate-label CSS is shared with .hero-id sitewide; only the width changes
    (aspect-ratio 4/5 on .hero-id__frame derives the height from it). */
-.hero-id--support,
-.hero-id--about {
+.hero-id--support {
   /* .hero-id's sitewide bottom margin exists to separate it from the copy
      it folds under. Beside the copy instead, it only pads the hero out. */
   margin-bottom: 0;
 }
 
 .hero-id--support .hero-id__frame,
-.hero-id--support .hero-id__plate,
-.hero-id--about .hero-id__frame,
-.hero-id--about .hero-id__plate {
+.hero-id--support .hero-id__plate {
   width: 9.5rem;
 }
 
 @media (min-width: 42rem) {
   .hero-id--support .hero-id__frame,
-  .hero-id--support .hero-id__plate,
-  .hero-id--about .hero-id__frame,
-  .hero-id--about .hero-id__plate {
+  .hero-id--support .hero-id__plate {
     width: clamp(9.5rem, 19vw, 16rem);
   }
 }
 
 @media (max-width: 30rem) {
   .hero-id--support .hero-id__frame,
-  .hero-id--support .hero-id__plate,
-  .hero-id--about .hero-id__frame,
-  .hero-id--about .hero-id__plate {
+  .hero-id--support .hero-id__plate {
     width: 5rem;
   }
 }
@@ -4188,7 +3913,7 @@ ul.tag-list {
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel);
-  box-shadow: var(--lift);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
   overflow: hidden;
 }
 
@@ -4205,7 +3930,7 @@ ul.tag-list {
 
 .case-desk__title {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -4214,7 +3939,7 @@ ul.tag-list {
 
 .case-desk__provenance {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   letter-spacing: 0.02em;
   color: var(--text-dim);
 }
@@ -4238,7 +3963,7 @@ ul.tag-list {
 
 .case-desk__facts dt {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.64rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4248,7 +3973,7 @@ ul.tag-list {
 .case-desk__facts dd {
   margin: 0;
   color: var(--text);
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
   max-width: 48ch;
 }
 
@@ -4258,7 +3983,7 @@ ul.tag-list {
   padding: 1.25rem 1.25rem 1.25rem 1.6rem;
   display: grid;
   background: var(--well);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
 }
 
 .case-desk__stage {
@@ -4298,7 +4023,7 @@ ul.tag-list {
 .case-desk__stage-label {
   display: block;
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4310,7 +4035,7 @@ ul.tag-list {
 .case-desk__stage p {
   margin: 0;
   color: var(--text-hi);
-  font-size: var(--t-aux);
+  font-size: 0.88rem;
   font-family: var(--mono);
 }
 
@@ -4356,7 +4081,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   margin: 0;
   max-width: none;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.78rem;
   line-height: 1.4;
   color: var(--text);
   background: var(--panel);
@@ -4385,7 +4110,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .comms-sample__pane h3 {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4395,7 +4120,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .comms-sample__pane p {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.9rem;
   color: var(--text);
   max-width: none;
 }
@@ -4408,7 +4133,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .comms-sample__pane dt {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.68rem;
   color: var(--text-dim);
   display: inline;
 }
@@ -4417,7 +4142,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   margin: 0 0 0 0;
   display: inline;
   color: var(--text-hi);
-  font-size: var(--t-aux);
+  font-size: 0.88rem;
 }
 
 .comms-sample__pane dd::after {
@@ -4461,7 +4186,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .support-footer__crossover {
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.78rem;
   color: var(--text-dim);
   text-decoration: none;
   align-self: center;
@@ -4512,7 +4237,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .case-file__fields dt {
   font-family: var(--mono);
-  font-size: var(--t-micro);
+  font-size: 0.66rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4522,7 +4247,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 .case-file__fields dd {
   margin: 0;
   color: var(--text);
-  font-size: var(--t-aux);
+  font-size: 0.95rem;
   max-width: 66ch;
 }
 
@@ -4533,7 +4258,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 .case-file__source {
   margin-top: 1.25rem;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.78rem;
   color: var(--text-dim);
 }
 
@@ -4605,7 +4330,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-rail__group-name {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -4627,7 +4352,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   width: 100%;
   text-align: left;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.76rem;
   line-height: 1.35;
   color: var(--text-dim);
   background: transparent;
@@ -4658,7 +4383,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   color: var(--text-hi);
   background: var(--panel-hi);
   border-color: var(--line-hi);
-  box-shadow: var(--lift);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 /* Instrument --------------------------------------------------------------*/
@@ -4668,7 +4393,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   border: 1px solid var(--line-hi);
   border-radius: var(--radius);
   background: var(--panel);
-  box-shadow: var(--lift-hi);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 .bench-device__bar {
@@ -4684,7 +4409,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-device__title {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.74rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4695,7 +4420,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-device__file {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   color: var(--text-dim);
   margin: 0;
   overflow-wrap: anywhere;
@@ -4715,7 +4440,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   min-width: 0;
   padding: 0.75rem 1.25rem 1rem;
   background: var(--well);
-  box-shadow: var(--sink);
+  box-shadow: inset 0 1px 3px var(--well-top);
 }
 
 @media (min-width: 48rem) {
@@ -4736,7 +4461,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-pane__label {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.7rem;
   letter-spacing: 0.05em;
   color: var(--text-dim);
   display: block;
@@ -4760,7 +4485,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   resize: none;
   overflow: hidden;
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.74rem;
   line-height: 1.6;
   tab-size: 2;
   color: var(--text-hi);
@@ -4787,7 +4512,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-pane__empty {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.74rem;
   line-height: 1.65;
   color: var(--text-dim);
   margin: 0;
@@ -4817,7 +4542,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   align-items: baseline;
   gap: 0 0.75rem;
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   line-height: 1.5;
   color: var(--text-dim);
   transition: opacity 140ms ease, transform 140ms ease;
@@ -4879,7 +4604,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-verdict__headline {
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -4893,7 +4618,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-verdict__rule {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.72rem;
   color: var(--text-dim);
   margin: 0.5rem 0 0;
   padding-left: 1.05rem;
@@ -4908,7 +4633,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-verdict__note {
   margin: 0.5rem 0 0;
-  font-size: var(--t-aux);
+  font-size: 0.92rem;
   color: var(--text);
   max-width: 68ch;
 }
@@ -4930,7 +4655,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-verdict__meta dt {
   font-family: var(--mono);
-  font-size: var(--t-meta);
+  font-size: 0.7rem;
   font-weight: 600;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -4940,7 +4665,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .bench-verdict__meta dd {
   margin: 0;
-  font-size: var(--t-aux);
+  font-size: 0.88rem;
   color: var(--text-dim);
 }
 
@@ -4949,7 +4674,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 .bench-source {
   margin: 1.25rem 0 0;
   font-family: var(--mono);
-  font-size: var(--t-ui);
+  font-size: 0.78rem;
   color: var(--text-dim);
 }
 
@@ -4965,6 +4690,18 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
+  }
+
+  /* The 0.01ms collapse above still lets the registration pass run (and
+     briefly show the proof cut during its animation-delay, since
+     fill-mode: both applies the from-state through the delay). Reduced
+     motion asks for the settled wordmark immediately with no pass at
+     all, so the entrance animation is disabled outright here rather than
+     just shortened; the elements fall back to their default state, which
+     is already the fully-registered display cut. */
+  .hero-name__proof,
+  .hero-name__rule {
+    animation: none !important;
   }
 
   .hero-bezel {

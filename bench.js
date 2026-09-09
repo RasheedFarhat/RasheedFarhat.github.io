@@ -22,6 +22,9 @@
 (function () {
   "use strict";
 
+  var root = document.querySelector("[data-bench]");
+  if (!root) return;
+
   /* Patterns, copied from the deployed rules ----------------------------- */
 
   var SECRET_SHAPE = /(postgres(ql)?:\/\/|BEGIN (OPENSSH|RSA|EC|DSA|PGP) PRIVATE KEY|\bsk-[A-Za-z0-9_-]{6,}|API_KEY\s*=|DATABASE_URL\s*=|AKIA[0-9A-Z]{16})/i;
@@ -442,29 +445,7 @@
     }
   ];
 
-  /* Format characters are invisible by definition, so they are shown as
-     escapes. JSON.parse turns them back into the real thing on the way in,
-     which means the visitor can see the trick and still run it. Homoglyphs
-     are deliberately not escaped. */
-  var INVISIBLE = /[­؜܏᠎​-‏‪-‮⁠-⁤⁪-⁯﻿]/g;
-
-  function show(record) {
-    return JSON.stringify(record, null, 2).replace(INVISIBLE, function (ch) {
-      return "\\u" + ("000" + ch.charCodeAt(0).toString(16)).slice(-4);
-    });
-  }
-
-  /* The engine above is the whole of the port. Everything below it is one
-     consumer of that engine, and the hero on the homepage is another, so
-     the two share this object rather than each carrying its own copy of
-     the rules. Read-only by convention: nothing outside this file mutates
-     RULES or CASES. */
-  window.MCPBench = { RULES: RULES, CASES: CASES, evaluate: evaluate, show: show };
-
   /* Rendering ------------------------------------------------------------ */
-
-  var root = document.querySelector("[data-bench]");
-  if (!root) return;
 
   var railEl = root.querySelector("[data-bench-rail]");
   var editorEl = root.querySelector("[data-bench-editor]");
@@ -495,11 +476,22 @@
     editorEl.style.height = editorEl.scrollHeight + "px";
   }
 
+  /* Format characters are invisible by definition, so they are shown as
+     escapes. JSON.parse turns them back into the real thing on the way in,
+     which means the visitor can see the trick and still run it. Homoglyphs
+     are deliberately not escaped. */
+  var INVISIBLE = /[­؜܏᠎​-‏‪-‮⁠-⁤⁪-⁯﻿]/g;
+
   function clearTimers() {
     timers.forEach(clearTimeout);
     timers = [];
   }
 
+  function show(record) {
+    return JSON.stringify(record, null, 2).replace(INVISIBLE, function (ch) {
+      return "\\u" + ("000" + ch.charCodeAt(0).toString(16)).slice(-4);
+    });
+  }
 
   function el(tag, className, content) {
     var node = document.createElement(tag);
