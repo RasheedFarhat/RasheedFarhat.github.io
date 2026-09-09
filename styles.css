@@ -4290,6 +4290,394 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   }
 }
 
+/* Adversary bench (signature) ---------------------------------------------
+   The page's one interactive instrument, and deliberately the one section
+   that breaks the eyebrow/headline/three-column rhythm everything else
+   runs on. Left rail is the attack corpus, right is a single device: the
+   record going in, the rule trace coming out, the finding underneath.
+
+   The rail is the argument. Every chip carries a lamp, and eleven of the
+   fourteen are amber before anyone touches anything. A visitor who reads
+   nothing here still sees a detection project whose centerpiece is mostly
+   the color reserved for what a system cannot see. */
+
+.bench-lede {
+  color: var(--text-dim);
+  max-width: 60ch;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.bench {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 62rem) {
+  .bench {
+    grid-template-columns: 15.5rem minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+}
+
+/* Rail --------------------------------------------------------------------*/
+
+.bench-rail {
+  display: grid;
+  gap: 1.5rem;
+  align-content: start;
+}
+
+.bench-rail__group-name {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.bench-rail__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.3rem;
+}
+
+.bench-chip {
+  width: 100%;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  line-height: 1.35;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  padding: 0.5rem 0.6rem;
+  cursor: pointer;
+  transition: color 120ms ease, background-color 120ms ease, border-color 120ms ease;
+}
+
+/* Rendered before bench.js takes over, and the whole rail stays readable
+   without it: the amber wall is the argument, so it must not depend on
+   scripting to appear. */
+.bench-chip--static {
+  cursor: default;
+}
+
+.bench-chip:not(.bench-chip--static):hover {
+  color: var(--text-hi);
+  background: var(--panel);
+  border-color: var(--line);
+}
+
+/* Selected reads as a seated switch: raised fascia, edge lighting top and
+   bottom, and the accent moved into the text so the lamp is not doing the
+   job twice. */
+.bench-chip[aria-pressed="true"] {
+  color: var(--text-hi);
+  background: var(--panel-hi);
+  border-color: var(--line-hi);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
+}
+
+/* Instrument --------------------------------------------------------------*/
+
+.bench-device {
+  min-width: 0;
+  border: 1px solid var(--line-hi);
+  border-radius: var(--radius);
+  background: var(--panel);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
+}
+
+.bench-device__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 1.5rem;
+  padding: 0.4rem 1.25rem;
+  border-bottom: 1px solid var(--line-hi);
+  background: var(--panel-hi);
+}
+
+.bench-device__title {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--sig);
+  margin: 0;
+  max-width: none;
+}
+
+.bench-device__file {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.bench-device__grid {
+  display: grid;
+}
+
+@media (min-width: 48rem) {
+  .bench-device__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+.bench-pane {
+  min-width: 0;
+  padding: 0.75rem 1.25rem 1rem;
+  background: var(--well);
+  box-shadow: inset 0 1px 3px var(--well-top);
+}
+
+@media (min-width: 48rem) {
+  .bench-pane + .bench-pane {
+    border-left: 1px solid var(--line);
+  }
+}
+
+.bench-pane + .bench-pane {
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 48rem) {
+  .bench-pane + .bench-pane {
+    border-top: 0;
+  }
+}
+
+.bench-pane__label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  color: var(--text-dim);
+  display: block;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.bench-pane__label strong {
+  color: var(--text-hi);
+  font-weight: 600;
+}
+
+/* Record editor -----------------------------------------------------------*/
+
+.bench-editor {
+  display: block;
+  width: 100%;
+  min-height: 12rem;
+  /* Height is set from content by bench.js, so there is nothing to drag. */
+  resize: none;
+  overflow: hidden;
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  tab-size: 2;
+  color: var(--text-hi);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  /* pre-wrap rather than pre: a clipped record reads as a broken panel, and
+     the horizontal scrollbar it would need is worse than a wrapped line.
+     Wrapping costs nothing here because JSON.parse ignores the wrap. */
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.bench-editor:focus-visible {
+  outline: 2px solid var(--sig);
+  outline-offset: 4px;
+}
+
+/* display: block above outranks the UA's [hidden] rule, so the empty case
+   needs this or the collapsed editor still reserves its min-height. */
+.bench-editor[hidden] {
+  display: none;
+}
+
+.bench-pane__empty {
+  font-family: var(--mono);
+  font-size: 0.74rem;
+  line-height: 1.65;
+  color: var(--text-dim);
+  margin: 0;
+  max-width: 46ch;
+}
+
+/* Trace -------------------------------------------------------------------*/
+
+.bench-trace {
+  min-height: 15rem;
+}
+
+.bench-trace__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.2rem;
+}
+
+/* Flex rather than grid so the verdict column wraps whole when the pane is
+   narrow. A three-column grid broke tool_arguments.path across two lines,
+   which made a field name look like a typo. */
+.bench-trace__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.5;
+  color: var(--text-dim);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+/* Printed one line at a time, so a line waiting its turn is laid out but
+   not yet lit. Layout never shifts; only opacity moves. */
+.bench-trace__line.is-pending {
+  opacity: 0;
+  transform: translateY(2px);
+}
+
+.bench-trace__id {
+  flex: none;
+  width: 3.4rem;
+  color: var(--text);
+}
+
+.bench-trace__field {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bench-trace__result {
+  flex: none;
+  margin-left: auto;
+  color: var(--text-dim);
+}
+
+.bench-trace__line--plain .bench-trace__field,
+.bench-trace__line--plain {
+  display: block;
+}
+
+.bench-trace__line.is-hit {
+  color: var(--text-hi);
+}
+
+.bench-trace__line.is-hit .bench-trace__id,
+.bench-trace__line.is-hit .bench-trace__result {
+  color: var(--sig-hi);
+}
+
+/* Verdict -----------------------------------------------------------------*/
+
+.bench-verdict {
+  border-top: 1px solid var(--line-hi);
+}
+
+.bench-verdict__panel {
+  padding: var(--pad-tight);
+  border-left: 3px solid var(--amb);
+  background: var(--panel);
+}
+
+.bench-verdict__panel--sig {
+  border-left-color: var(--sig);
+}
+
+.bench-verdict__headline {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amb-hi);
+  margin: 0;
+}
+
+.bench-verdict__panel--sig .bench-verdict__headline {
+  color: var(--sig-hi);
+}
+
+.bench-verdict__rule {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  margin: 0.5rem 0 0;
+  padding-left: 1.05rem;
+}
+
+.bench-verdict__mechanism {
+  margin: 0.75rem 0 0;
+  color: var(--text-hi);
+  font-weight: 500;
+  max-width: 62ch;
+}
+
+.bench-verdict__note {
+  margin: 0.5rem 0 0;
+  font-size: 0.92rem;
+  color: var(--text);
+  max-width: 68ch;
+}
+
+.bench-verdict__meta {
+  display: grid;
+  gap: 0.35rem 1rem;
+  margin: 1rem 0 0;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--line);
+  max-width: 68ch;
+}
+
+@media (min-width: 40rem) {
+  .bench-verdict__meta {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+}
+
+.bench-verdict__meta dt {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding-top: 0.15rem;
+}
+
+.bench-verdict__meta dd {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+}
+
+/* Reading the rules ------------------------------------------------------ */
+
+.bench-source {
+  margin: 1.25rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
 /* Reduced motion ----------------------------------------------------------*/
 
 @media (prefers-reduced-motion: reduce) {

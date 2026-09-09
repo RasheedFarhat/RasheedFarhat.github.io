@@ -55,9 +55,10 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260823a" />
-    <script src="/script.js?v=20260812a" defer></script>
+    <link rel="stylesheet" href="/styles.css?v=20260909a" />
+    <script src="/script.js?v=20260909a" defer></script>
     <script src="/repo-status.js?v=20260905a" defer></script>
+    <script src="/bench.js?v=20260909a" defer></script>
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -377,6 +378,250 @@
             </p>
           </li>
         </ul>
+      </section>
+
+      <!-- Added 2026-09-09. The page had one rhythm before this: eyebrow,
+           headline, right-aligned meta, hairline rule, three-column rows,
+           repeated top to bottom. Scrolling stopped producing surprise
+           around the second section, and the whole site asserted rigor in
+           prose while showing it exactly once, in the static hero trace.
+
+           This is the section that shows it. The rules in bench.js are the
+           deployed Wazuh rules ported to JavaScript, not a scripted
+           animation, and replaying the real 196-record evasion corpus
+           through them reproduces every verdict in PHASE5-REPORT.md. So a
+           visitor can pick any attack, watch the real rules fail to catch
+           it, and read what the repo already said about why.
+
+           The rail is the argument, and it works before a single click:
+           eleven of fourteen chips are amber at rest. Deliberately no
+           count is restated here. The classes report their own verdicts in
+           the report's words, and the "three of twelve" figure stays where
+           it already lives, on the project page. -->
+      <section class="section shell" aria-labelledby="bench-title" data-bench>
+        <div class="section-heading section-heading--split">
+          <div>
+            <p class="eyebrow eyebrow--amb">Red team</p>
+            <h2 id="bench-title">
+              Ten rules.
+              <span class="method-heading__bound">Twelve ways past them.</span>
+            </h2>
+          </div>
+          <p class="section-note">12 classes / 10 still work</p>
+        </div>
+        <p class="bench-lede">
+          Every rule below is the one deployed in MCP Detect, ported to run in
+          this page. Pick an attack from the corpus, or edit the record and
+          run something of your own against it.
+        </p>
+        <div class="bench">
+          <div class="bench-rail" data-bench-rail>
+            <div class="bench-rail__group">
+              <h3 class="bench-rail__group-name">Baseline</h3>
+              <ul class="bench-rail__list">
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--sig"
+                    >Unmodified credential read</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="bench-rail__group">
+              <h3 class="bench-rail__group-name">Tool poisoning</h3>
+              <ul class="bench-rail__list">
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E1 keyword avoiding</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E2 no HTML comment</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--sig"
+                    >E3a zero-width insertion</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E3b homoglyph</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E4 distance bound</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="bench-rail__group">
+              <h3 class="bench-rail__group-name">Credential exfiltration</h3>
+              <ul class="bench-rail__list">
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E5 tool-name spoof</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E6 untested key</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E7 secret shape</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E8 encoded payload</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E9 read-path variant</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div class="bench-rail__group">
+              <h3 class="bench-rail__group-name">Rug pull</h3>
+              <ul class="bench-rail__list">
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E10 legitimate upgrade</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--amb"
+                    >E11 behavior only</span
+                  >
+                </li>
+                <li>
+                  <span class="bench-chip bench-chip--static lamp lamp--sig"
+                    >E12 session-conditional</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="bench-device">
+            <div class="bench-device__bar">
+              <p class="bench-device__title">wazuh-logtest</p>
+              <p class="bench-device__file" data-bench-record-title>
+                telemetry.jsonl / Unmodified credential read
+              </p>
+            </div>
+            <div class="bench-device__grid">
+              <div class="bench-pane">
+                <label class="bench-pane__label" for="bench-record"
+                  >Record <strong>in</strong></label
+                >
+                <textarea
+                  class="bench-editor"
+                  id="bench-record"
+                  spellcheck="false"
+                  autocomplete="off"
+                  autocapitalize="off"
+                  data-bench-editor
+                >
+{
+  "session_id": "9d462afe-ce7c-4e98-9a8f-fefa0386b7b4",
+  "method": "tools/call",
+  "server_command": "python3 attacks/servers/exfil_sink_server.py",
+  "tool_name": "read_text_file",
+  "tool_arguments": {
+    "path": ".env"
+  }
+}</textarea
+                >
+              </div>
+              <div class="bench-pane">
+                <span class="bench-pane__label"
+                  >Rules <strong>evaluated</strong></span
+                >
+                <div class="bench-trace" data-bench-trace>
+                  <ul class="bench-trace__list">
+                    <li class="bench-trace__line is-hit">
+                      <span class="bench-trace__id">100100</span>
+                      <span class="bench-trace__field">session_id, server_command</span>
+                      <span class="bench-trace__result">matched, level 0, no alert</span>
+                    </li>
+                    <li class="bench-trace__line is-hit">
+                      <span class="bench-trace__id">100101</span>
+                      <span class="bench-trace__field">tool_arguments.path</span>
+                      <span class="bench-trace__result">MATCH, level 12, T1552.001</span>
+                    </li>
+                    <li class="bench-trace__line">
+                      <span class="bench-trace__id">100102</span>
+                      <span class="bench-trace__field">raw.result.tools</span>
+                      <span class="bench-trace__result">no match</span>
+                    </li>
+                    <li class="bench-trace__line">
+                      <span class="bench-trace__id">100103</span>
+                      <span class="bench-trace__field">tool_arguments.data</span>
+                      <span class="bench-trace__result">no match</span>
+                    </li>
+                    <li class="bench-trace__line">
+                      <span class="bench-trace__id">100104</span>
+                      <span class="bench-trace__field">tool_arguments.payload</span>
+                      <span class="bench-trace__result">no match</span>
+                    </li>
+                    <li class="bench-trace__line">
+                      <span class="bench-trace__id">100105</span>
+                      <span class="bench-trace__field">tool_arguments.content</span>
+                      <span class="bench-trace__result">no match</span>
+                    </li>
+                    <li class="bench-trace__line">
+                      <span class="bench-trace__id">100106</span>
+                      <span class="bench-trace__field">tool_arguments.body</span>
+                      <span class="bench-trace__result">no match</span>
+                    </li>
+                    <li class="bench-trace__line">
+                      <span class="bench-trace__id">100107</span>
+                      <span class="bench-trace__field">tool_arguments.message</span>
+                      <span class="bench-trace__result">no match</span>
+                    </li>
+                    <li class="bench-trace__line">
+                      <span class="bench-trace__id">100108</span>
+                      <span class="bench-trace__field">tool_arguments.path</span>
+                      <span class="bench-trace__result">no match</span>
+                    </li>
+                    <li class="bench-trace__line">
+                      <span class="bench-trace__id">100109</span>
+                      <span class="bench-trace__field">tool_arguments.path</span>
+                      <span class="bench-trace__result">no match</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="bench-verdict" aria-live="polite" data-bench-verdict>
+              <div class="bench-verdict__panel bench-verdict__panel--sig">
+                <p class="bench-verdict__headline lamp lamp--sig">Caught by 100101</p>
+                <p class="bench-verdict__rule">rule 100101 level 12 T1552.001</p>
+                <p class="bench-verdict__mechanism">
+                  No evasion applied. The attack as originally written.
+                </p>
+                <p class="bench-verdict__note">
+                  This is the shape every class below is trying to get past.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="bench-source">
+          Verdicts and mechanisms come from the project&#8217;s own Phase 5
+          red-team report. The reasoning behind them is in
+          <a href="/writing/i-built-five-mcp-detections-then-broke-them/"
+            >Catching Your Own Attack Only Proves the Plumbing Works</a
+          >, and the rules themselves are on the
+          <a href="/projects/mcp-security/">MCP Security Review Framework</a>
+          page.
+        </p>
       </section>
 
       <section class="section shell" aria-labelledby="work-title">
