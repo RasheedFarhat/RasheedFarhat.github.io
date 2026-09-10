@@ -120,7 +120,6 @@
           </nav>
           <div class="case-hero__grid">
             <div>
-              <p class="eyebrow">Agentic AI security / Detection research</p>
               <h1>MCP Detect</h1>
               <p class="case-hero__summary">
                 MCP-DETECT captures Model Context Protocol tool traffic,
@@ -152,6 +151,7 @@
               </div>
             </div>
             <dl class="case-meta">
+              <div><dt>Domain</dt><dd>Agentic AI security, detection research</dd></div>
               <div><dt>Status</dt><dd><span class="lamp lamp--sig">Open source under MIT</span> <span class="repo-live" data-repo="mcp-detect" data-ci="true" hidden></span></dd></div>
               <div><dt>Role</dt><dd>Sole engineer, architecture through measurement</dd></div>
               <div>
@@ -167,28 +167,32 @@
         </div>
 
         <section class="case-glance shell" aria-labelledby="case-glance-title">
-          <h2 id="case-glance-title">At a glance</h2>
-          <div class="assessment">
-            <div class="assessment__cell">
-              <p class="assessment__label">Claim</p>
-              <p>
-                Makes selected MCP behaviors observable and produces
-                reproducible evidence for five implemented abuse techniques.
-              </p>
+          <div class="glance-plate">
+            <div class="glance-plate__face">
+              <h2 id="case-glance-title">At a glance</h2>
             </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Evidence</p>
-              <p>
-                Ten rules plus two parent anchors, a 4,727-record benign
-                corpus, five compiler gates, and a 12-class evasion corpus.
-              </p>
-            </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Boundary</p>
-              <p>
-                All data is self-authored, 5 of roughly 85 SAF-MCP techniques
-                are implemented, and there is no semantic detection backend.
-              </p>
+            <div class="assessment">
+              <div class="assessment__cell">
+                <p class="assessment__label">Claim</p>
+                <p>
+                  Makes selected MCP behaviors observable and produces
+                  reproducible evidence for five implemented abuse techniques.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Evidence</p>
+                <p>
+                  Ten rules plus two parent anchors, a 4,727-record benign
+                  corpus, five compiler gates, and a 12-class evasion corpus.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Boundary</p>
+                <p>
+                  All data is self-authored, 5 of roughly 85 SAF-MCP techniques
+                  are implemented, and there is no semantic detection backend.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -211,7 +215,6 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <p class="eyebrow">The problem</p>
               <h2 id="problem-title">MCP tool calls need inspectable evidence.</h2>
               <p>
                 MCP connects agents to filesystems, ticketing, memory stores,
@@ -230,7 +233,6 @@
             </section>
 
             <section id="architecture" aria-labelledby="architecture-title">
-              <p class="eyebrow">Architecture</p>
               <h2 id="architecture-title">Capture once, analyze through bounded paths.</h2>
               <ol class="stage-list">
                 <li>
@@ -262,7 +264,6 @@
             </section>
 
             <section id="coverage" aria-labelledby="coverage-title">
-              <p class="eyebrow">Implemented coverage</p>
               <h2 id="coverage-title">Five techniques, each with a named evasion.</h2>
               <div class="coverage">
                 <div class="coverage__head">
@@ -342,7 +343,6 @@
             </section>
 
             <section id="measurement" aria-labelledby="measurement-title">
-              <p class="eyebrow">Measurement discipline</p>
               <h2 id="measurement-title">Gates tied to real historical bugs.</h2>
               <p>
                 Each detection declares its backends, rules, session join,
@@ -377,8 +377,7 @@
               </div>
             </section>
 
-            <section id="abom" aria-labelledby="abom-title">
-              <p class="eyebrow eyebrow--amb">Trust boundaries</p>
+            <section id="abom" class="case-bound" aria-labelledby="abom-title">
               <h2 id="abom-title">An AI Bill of Materials from observed traffic.</h2>
               <p>
                 The framework inventories observed MCP servers, tool names,
@@ -390,8 +389,7 @@
               </p>
             </section>
 
-            <section id="limits" aria-labelledby="limits-title">
-              <p class="eyebrow eyebrow--amb">Known limits</p>
+            <section id="limits" class="case-bound" aria-labelledby="limits-title">
               <h2 id="limits-title">The blind spots are part of the result.</h2>
               <ul class="limit-list">
                 <li>
@@ -424,7 +422,6 @@
             </section>
 
             <section id="series" aria-labelledby="series-title">
-              <p class="eyebrow">Technical series</p>
               <h2 id="series-title">Inside MCP Detect, from baseline to denied retest.</h2>
               <p>
                 I documented the project in three first-person articles. The
@@ -452,7 +449,6 @@
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <p class="eyebrow">Source</p>
               <h2 id="source-title">Inspect it yourself.</h2>
               <p>
                 The proxy, schema, complete synthetic corpora, rules, drift

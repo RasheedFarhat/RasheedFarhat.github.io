@@ -2419,18 +2419,33 @@ html[data-loaded="true"] .plate__bound {
   }
 }
 
-/* Boundary panel (signature): recessed ground, amber hairline key, an
-   engraved BOUNDARY plate label. The limits get the same design
-   investment as the claims. */
+/* Boundary panel (signature): recessed ground, an amber tab across the top
+   edge, an engraved BOUNDARY plate label. The limits get the same design
+   investment as the claims.
+
+   The tab is the site's one accent idiom, the same 2.5rem by 2px key the
+   rack faceplates (.module__face::after) and the interior section rules
+   (.section::before) already use. It replaces a 3px amber left border, which
+   was a second idiom doing the same job in a different vocabulary. */
 .scope-note {
+  position: relative;
   border: 1px solid var(--line);
-  border-left: 3px solid var(--amb);
   border-radius: var(--radius);
   background: var(--well);
-  box-shadow: inset 0 1px 3px var(--well-top);
+  box-shadow: inset 0 1px 3px var(--well-top), inset 0 -1px 0 var(--well-bottom);
   padding: var(--pad-tight);
   margin-top: 1.5rem;
   max-width: 58ch;
+}
+
+.scope-note::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--amb);
 }
 
 .scope-note strong {
@@ -2447,23 +2462,69 @@ html[data-loaded="true"] .plate__bound {
   max-width: none;
 }
 
+/* At-a-glance plate. The case page's one piece of rack hardware, built from
+   the same raised plate and engraved faceplate the homepage modules are, and
+   holding the claim, the evidence for it, and the boundary around it. */
+.glance-plate {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
+}
+
+.glance-plate__face {
+  position: relative;
+  padding: 1.35rem 1.4rem 1rem;
+  background: linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border-bottom: 1px solid var(--line);
+}
+
+.glance-plate__face::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--sig);
+}
+
 .assessment {
   display: grid;
   gap: 1px;
-  background: var(--line-hi);
-  border: 1px solid var(--line-hi);
-  border-radius: var(--radius);
+  background: var(--line);
   overflow: hidden;
 }
 
 .case-glance h2 {
   font-size: clamp(1.45rem, 3vw, 2rem);
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
 .assessment__cell {
+  position: relative;
   background: var(--panel);
   padding: 1.25rem 1.4rem;
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
+}
+
+/* The boundary cell is recessed where the two claim cells are raised, so the
+   one cell on this plate that is not a claim is a different object rather
+   than a third card with a different label color. */
+.assessment__cell:last-child {
+  background: var(--well);
+  box-shadow: inset 0 1px 3px var(--well-top), inset 0 -1px 0 var(--well-bottom);
+}
+
+.assessment__cell:last-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--amb);
 }
 
 .assessment__cell .assessment__label {
@@ -2501,6 +2562,7 @@ html[data-loaded="true"] .plate__bound {
 .mobile-case-nav {
   border-block: 1px solid var(--line-hi);
   background: var(--panel);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 .mobile-case-nav summary {
@@ -2561,11 +2623,51 @@ html[data-loaded="true"] .plate__bound {
 .case-content {
   min-width: 0;
   display: grid;
-  gap: clamp(2.5rem, 5vw, 3.75rem);
+  gap: clamp(2.25rem, 4.5vw, 3.25rem);
 }
 
 .case-content > section {
   min-width: 0;
+}
+
+/* Where a section starts is structural information, so it gets the hairline
+   and the 2.5rem tab the rest of the site uses for a section boundary. That
+   mark is what makes a label above the heading unnecessary: teal for a
+   section that reports a result, amber where it reports what the system
+   cannot see.
+
+   ROLLOUT SCAFFOLDING: the :not(:has(.eyebrow)) guard keeps case pages that
+   still carry an eyebrow on their old flat spacing, so they never render a
+   rule, a tab and a label all at once. Delete the guard once no page with a
+   .case-content has an .eyebrow left in it. */
+.case-content > section:not(:has(.eyebrow)) {
+  position: relative;
+  border-top: 1px solid var(--line);
+  padding-top: clamp(1.5rem, 3vw, 2rem);
+}
+
+.case-content > section:not(:has(.eyebrow))::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--sig);
+}
+
+.case-content > section.case-bound:not(:has(.eyebrow))::before {
+  background: var(--amb);
+}
+
+/* A boundary panel sitting inside a section the rule has already keyed amber
+   would print the same 2.5rem mark twice in one column, which reads as a repeat
+   rather than as a hierarchy. Inside such a section the recess carries the
+   boundary on its own, so the panel drops its tab. Everywhere else, including
+   an amber panel inside a teal section, the panel keeps it. */
+.case-content > section.case-bound:not(:has(.eyebrow)) .scope-note::before,
+.case-content > section.case-bound:not(:has(.eyebrow)) .limit-list::before {
+  content: none;
 }
 
 .case-content section h2 {
@@ -2587,6 +2689,7 @@ html[data-loaded="true"] .plate__bound {
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--panel);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
   padding: var(--pad-panel);
 }
 
@@ -2841,6 +2944,7 @@ ul.tag-list {
 .metric {
   background: var(--panel);
   padding: var(--pad-tight);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 .metric strong {
@@ -2908,10 +3012,12 @@ ul.tag-list {
   border: 1px solid var(--line);
   border-bottom: 0;
   background: var(--panel);
+  box-shadow: inset 0 1px 0 var(--edge-top);
 }
 
 .disclosure:last-of-type {
   border-bottom: 1px solid var(--line);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 .disclosure summary {
@@ -2954,6 +3060,7 @@ ul.tag-list {
 .disclosure__body {
   padding: 1.1rem 1.25rem 1.25rem;
   background: var(--well);
+  box-shadow: inset 0 1px 3px var(--well-top), inset 0 -1px 0 var(--well-bottom);
 }
 
 .disclosure__body p:last-child,
@@ -2993,18 +3100,28 @@ ul.tag-list {
 
 /* Limit lists on case pages ------------------------------------------------*/
 
-/* Boundary panel (signature), list form: recessed ground, amber hairline
-   key on the container, each limit still divided by a hairline rule. The
-   limits get the same design investment as the claims. */
+/* Boundary panel (signature), list form: recessed ground, the same amber tab
+   .scope-note takes, each limit still divided by a hairline rule. The limits
+   get the same design investment as the claims. */
 .limit-list {
+  position: relative;
   list-style: none;
   padding: var(--pad-tight);
   margin-top: 1.5rem;
   border: 1px solid var(--line);
-  border-left: 3px solid var(--amb);
   border-radius: var(--radius);
   background: var(--well);
-  box-shadow: inset 0 1px 3px var(--well-top);
+  box-shadow: inset 0 1px 3px var(--well-top), inset 0 -1px 0 var(--well-bottom);
+}
+
+.limit-list::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--amb);
 }
 
 .limit-list li {
