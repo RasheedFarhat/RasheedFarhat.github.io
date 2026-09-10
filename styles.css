@@ -1428,7 +1428,11 @@ html[data-loaded="true"] .id-name__rule {
    hero's right column stops competing with the left column on length. */
 .plate__code-clip {
   position: relative;
-  max-height: 3.6rem;
+  /* 0.68rem set at a 1.7 line height. The clip is counted in whole lines
+     plus the fade, so the last readable line is a whole line and the cut
+     lands inside the fade instead of through a row of letters. */
+  --code-line: 1.156rem;
+  max-height: calc(var(--code-line) * 2 + 1.5rem);
   overflow: hidden;
 }
 
@@ -1539,13 +1543,40 @@ html[data-loaded="true"] .plate__stages li::before {
   max-width: none;
 }
 
-/* Fifth load-sequence step: the boundary chip fades in after the four teal
+/* Fifth load-sequence step: the boundary line fades in after the four teal
    stage lamps finish (540ms + 220ms settle), so the limit arrives with the
-   result rather than replacing it. */
+   result rather than replacing it.
+
+   It takes the same hairline-and-key form every work row uses, because it is
+   the same kind of statement. As a filled chip it read as a button, which
+   put a call to action where a limit belongs and made the sentence the
+   loudest thing in the exhibit. */
 .plate__caption p.plate__bound {
-  margin-top: 0.55rem;
+  margin: 0.9rem 0 0;
+  padding: 0.75rem 0 0;
+  max-width: none;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  color: var(--amb-hi);
   opacity: 0;
   transition: opacity var(--dur-med) var(--ease);
+}
+
+.plate__bound .bound {
+  display: inline;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.plate__bound .bound::before {
+  content: "Bound ";
+  color: var(--text-dim);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 html[data-loaded="true"] .plate__bound {
@@ -1601,13 +1632,13 @@ html[data-loaded="true"] .plate__bound {
     gap: 0.7rem;
   }
 
-  /* Raised from the 3.6rem the stacked layout uses. That cap existed to
+  /* Raised from the two lines the stacked layout uses. That cap existed to
      stop the artifact pane lengthening the hero's right column past the
-     copy beside it, which is no longer the arrangement: the pane now sits
-     beside the source pane, where the two want to match. 8.1rem is the
-     source pane's seven lines at this font size and line height. */
+     copy beside it, which is no longer the arrangement. The pane now sits
+     beside the source pane, where the two want to match, and six whole
+     lines plus the fade is the source pane's height. */
   .plate__code-clip {
-    max-height: 8.1rem;
+    max-height: calc(var(--code-line) * 6 + 1.5rem);
   }
 }
 
@@ -1802,6 +1833,24 @@ html[data-loaded="true"] .plate__bound {
 
 .method-rule--bound .method-rule__key {
   color: var(--amb-hi);
+}
+
+/* Stacked, the key lands directly above the claim and turns into a label
+   announcing the heading under it, which is the one device this page never
+   uses. It moves below the receipt instead, where it reads as the row's tag
+   rather than as an introduction to a heading that needs none. */
+@media (max-width: 59.999rem) {
+  .method-rule__key {
+    order: 3;
+    margin-top: 0.4rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
 }
 
 @media (min-width: 60rem) {
@@ -3368,22 +3417,6 @@ ul.tag-list {
   background: var(--amb);
 }
 
-/* Boundary chip (signature): the filled amber twin of .button-primary, for a
-   single fact stated inline rather than a scope card. The one place
-   --amb-ink earns its keep. */
-.chip--bound {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  padding: 0.4rem 0.7rem;
-  border-radius: var(--radius);
-  background: var(--amb);
-  color: var(--amb-ink);
-  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -2px 0 rgb(0 0 0 / 0.18);
-}
-
 /* Boundary panel (signature), inline form: every research-note in the
    articles is a scope/limitation statement (see its usage), so it takes
    the same amber key as .scope-note and .limit-list rather than teal. */
@@ -4703,6 +4736,10 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   border-radius: var(--radius-lamp);
   background: var(--bolt-face);
   box-shadow: 0 0 0 1px var(--line), inset 0 1px 0 var(--edge-top);
+  /* Both bolts sit over their rail. Without this the left one paints before
+     the rail does and the rail runs across its face, so a matched pair
+     reads as two different parts. */
+  z-index: 1;
 }
 
 .rack__rails::before {
@@ -4870,7 +4907,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
    previously a bare <p>, which the global 66ch measure silently clipped to
    about 431px; max-width: none is what lets it actually span the plate. */
 .stamp {
-  margin: calc(var(--mod-pad-b) * -1) calc(var(--mod-pad-i) * -1) clamp(1.75rem, 3.5vw, 2.5rem);
+  margin: calc(var(--mod-pad-b) * -1) calc(var(--mod-pad-i) * -1) clamp(1.4rem, 3vw, 2rem);
   padding: 0.85rem var(--mod-pad-i);
   max-width: none;
   color: var(--text);
@@ -4908,6 +4945,13 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   gap: 0.9rem;
 }
 
+/* The source link rides the actions row rather than sitting above it. It is
+   an action, it was already the last thing read before the buttons, and its
+   own paragraph cost the plate a line the first viewport could not spare. */
+.id-actions .id-source {
+  margin: 0;
+}
+
 /* Past 62rem the plate is a real plate: portrait spanning both rows at the
    left, name and claim beside it, actions seated on the plate's right edge.
    The résumé button precedes the primary in the DOM so that visual order,
@@ -4922,7 +4966,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
       "portrait actions";
     align-items: start;
     column-gap: clamp(2rem, 4vw, 3.25rem);
-    row-gap: 1.75rem;
+    row-gap: 1.25rem;
   }
 
   .id-plate .hero-id {
@@ -4939,6 +4983,12 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
     justify-content: flex-end;
   }
 
+  /* Pushed to the far left of the row so the plate's bottom edge reads as
+     one line: the quiet route on the left, the two buttons on the right. */
+  .id-plate .id-source {
+    margin-right: auto;
+  }
+
   .id-plate .hero-id__frame,
   .id-plate .hero-id__plate {
     width: clamp(11rem, 15vw, 14.5rem);
@@ -4953,6 +5003,14 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
    actually hold read as teal lamps rather than marks. Every state here is
    keyed directly to the bench data below it, so the readout cannot drift
    from what the bench demonstrates. */
+
+/* Every other module's faceplate is a label over prose, so it wants the full
+   module gutter under it. This one is a label over its own instrument, and
+   the strike bank has to clear the fold on a 13in laptop, so the plate sits
+   closer to the readout it names. */
+.module--readout .module__face {
+  margin-bottom: clamp(1.2rem, 3vw, 1.75rem);
+}
 
 .readout {
   display: grid;
@@ -5034,32 +5092,47 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   position: relative;
   width: 2px;
   height: 1.45rem;
-  background: var(--amb);
+  /* Muted against the well. The mark is decorative (aria-hidden) and the
+     state word carries the meaning, so the open rows give up their tick
+     weight and let the three filled cells count themselves. */
+  background: color-mix(in srgb, var(--amb) 60%, var(--well));
   transform: rotate(15deg);
 }
 
+/* Three of the twelve are the ones worth stopping on, and at skim distance
+   an eleven-pixel word does not separate from the word beside it. So the
+   cell fills. The count is legible before a single label is read, which is
+   the whole job of a readout. */
 .readout__strike--hard {
   border-color: var(--amb);
+  background: var(--amb);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14),
+    inset 0 -2px 0 rgb(0 0 0 / 0.18);
+}
+
+.readout__strike--hard .readout__strike-id,
+.readout__strike--hard .readout__strike-state {
+  color: var(--amb-ink);
 }
 
 .readout__strike--hard .readout__strike-mark {
-  background: var(--amb-hi);
+  background: var(--amb-ink);
 }
 
 .readout__strike--hard .readout__strike-mark::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: var(--amb-hi);
+  background: var(--amb-ink);
   transform: rotate(-30deg);
 }
 
-.readout__strike--hard .readout__strike-state {
-  color: var(--amb-hi);
-}
-
+/* The middle weight. Held is neither open nor unfixable, so it takes a teal
+   wash rather than a fill, visible as a third group in the same glance
+   without competing with the amber. */
 .readout__strike--closed {
   border-color: color-mix(in srgb, var(--sig) 45%, var(--line));
+  background: color-mix(in srgb, var(--sig) 9%, var(--well));
 }
 
 .readout__strike--closed .readout__strike-mark,
