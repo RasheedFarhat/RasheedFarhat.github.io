@@ -5301,12 +5301,6 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 /* Tenure module ---------------------------------------------------------- */
 
-/* Claim on one line, what the claim is worth on the next, the same way the
-   readout plate splits its pair. */
-.module--tenure .module__face h2 .method-heading__sig {
-  display: block;
-}
-
 .tenure-scale {
   margin: 0 0 clamp(1.5rem, 3.5vw, 2rem);
 }
@@ -5324,11 +5318,6 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--text-dim);
-}
-
-.tenure-scale__count {
-  color: var(--sig);
-  font-weight: 600;
 }
 
 /* A ruler, not a filled bar. Seventeen ticks rise off a teal baseline inside
@@ -5396,35 +5385,6 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   font-size: 0.78rem;
   line-height: 1.9;
   color: var(--text-dim);
-}
-
-/* The same hairline and dim key every bounded claim on this page carries.
-   The limit a security reader needs is that this was a help desk, so it is
-   stated here rather than left to be asked about. */
-.tenure-bound {
-  margin: clamp(1.5rem, 3.5vw, 2rem) 0 0;
-  padding: 0.75rem 0 0;
-  max-width: none;
-  border-top: 1px solid var(--line);
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  letter-spacing: 0.02em;
-  line-height: 1.6;
-  color: var(--amb-hi);
-}
-
-.tenure-bound .bound {
-  display: inline;
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
-
-.tenure-bound .bound::before {
-  content: "Bound ";
-  color: var(--text-dim);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 
 @media (min-width: 60rem) {
