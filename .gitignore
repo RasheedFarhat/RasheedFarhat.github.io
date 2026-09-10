@@ -1,1 +1,5 @@
 .DS_Store
+
+# Impeccable working files and product notes, not part of the published site
+.impeccable/
+PRODUCT.md

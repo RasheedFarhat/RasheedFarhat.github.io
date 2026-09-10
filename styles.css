@@ -140,7 +140,7 @@
 
   --text-hi: #161a19;
   --text: #3a403d;
-  --text-dim: #545b57;
+  --text-dim: #4e544f;
 
   --sig: #085b5e;
   --sig-hi: #074e50;
@@ -173,7 +173,7 @@
     --well-bottom: rgb(255 255 255 / 0.55);
     --text-hi: #161a19;
     --text: #3a403d;
-    --text-dim: #545b57;
+    --text-dim: #4e544f;
     --sig: #085b5e;
     --sig-hi: #074e50;
     --sig-ink: #f4faf9;
@@ -473,9 +473,13 @@ li {
   text-decoration: none;
 }
 
+.skip-link:hover,
+.skip-link:focus-visible {
+  color: var(--sig-ink);
+}
+
 .skip-link:focus-visible {
   top: 0.75rem;
-  color: var(--sig-ink);
 }
 
 .eyebrow {
@@ -1032,16 +1036,14 @@ li {
   }
 }
 
-/* Hero -----------------------------------------------------------------
-   Top bezel with tick marks, name lockup and pitch on the left, the compile
-   exhibit set into the right column under the same rail. Below 60rem it
-   stacks name-first and the exhibit shows only its source pane. */
-
-.hero {
-  padding-block: clamp(2.5rem, 5vw, 3.5rem) clamp(3.5rem, 7vw, 5rem);
-}
-
-.hero-bezel {
+/* ID plate ----------------------------------------------------------------
+   The rack's first module. An engraved stamp strip across the top, the
+   portrait recessed at the left inside its bezel, the name lockup and the
+   claim beside it, the actions seated on the plate's right edge. Layout
+   lives with the rest of the rack at the bottom of this file; what is here
+   is the lettering, the lamps, the bezel and the registration pass, which
+   predate the rack and are unchanged by it. */
+.stamp {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1058,28 +1060,28 @@ li {
   transform-origin: left center;
 }
 
-.hero-bezel__ticks {
+.stamp__ticks {
   display: flex;
   gap: 3px;
 }
 
-.hero-bezel__ticks span {
+.stamp__ticks span {
   width: 1px;
   height: 0.65rem;
   background: var(--line-hi);
 }
 
-.hero-bezel__ticks span:nth-child(4n) {
+.stamp__ticks span:nth-child(4n) {
   background: var(--sig);
   height: 0.9rem;
 }
 
-html[data-loaded="true"] .hero-bezel {
+html[data-loaded="true"] .stamp {
   transform: scaleX(1);
   transition: transform 520ms var(--ease);
 }
 
-.hero-status {
+.id-lamps {
   font-family: var(--mono);
   font-size: 0.76rem;
   letter-spacing: 0.06em;
@@ -1092,7 +1094,7 @@ html[data-loaded="true"] .hero-bezel {
   list-style: none;
 }
 
-.hero-status li {
+.id-lamps li {
   margin: 0;
 }
 
@@ -1147,13 +1149,7 @@ html[data-loaded="true"] .hero-bezel {
   width: 7.25rem;
 }
 
-.hero-grid {
-  display: grid;
-  gap: 2.75rem;
-  align-items: start;
-}
-
-.hero-copy h1 {
+.id-ident h1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1178,14 +1174,14 @@ html[data-loaded="true"] .hero-bezel {
    zero layout shift. Default state (no JS, no clip-path support, or
    prefers-reduced-motion) is the settled display cut with the proof
    layer already fully clipped away. */
-.hero-name__given,
-.hero-name__family {
+.id-name__given,
+.id-name__family {
   position: relative;
   display: inline-block;
   color: var(--text-hi);
 }
 
-.hero-name__proof {
+.id-name__proof {
   position: absolute;
   inset: 0;
   color: var(--text-hi);
@@ -1195,7 +1191,7 @@ html[data-loaded="true"] .hero-bezel {
   pointer-events: none;
 }
 
-.hero-name__rule {
+.id-name__rule {
   position: absolute;
   top: -0.05em;
   bottom: -0.05em;
@@ -1230,17 +1226,17 @@ html[data-loaded="true"] .hero-bezel {
   }
 }
 
-html[data-loaded="true"] .hero-name__proof {
+html[data-loaded="true"] .id-name__proof {
   animation: hero-name-register 1170ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
 }
 
-html[data-loaded="true"] .hero-name__rule {
+html[data-loaded="true"] .id-name__rule {
   animation: hero-name-rule-travel 1170ms cubic-bezier(0.22, 1, 0.36, 1) 130ms both;
 }
 
 @supports not (clip-path: inset(0 0 0 0)) {
-  .hero-name__proof,
-  .hero-name__rule {
+  .id-name__proof,
+  .id-name__rule {
     display: none;
   }
 }
@@ -1271,7 +1267,7 @@ html[data-loaded="true"] .hero-name__rule {
   color: var(--amb-hi);
 }
 
-.hero-role {
+.id-role {
   color: var(--text-hi);
   font-size: clamp(1rem, 1.5vw, 1.12rem);
   font-weight: 600;
@@ -1280,7 +1276,7 @@ html[data-loaded="true"] .hero-name__rule {
   margin: 0;
 }
 
-.hero-source {
+.id-source {
   color: var(--text-dim);
   font-size: 0.9rem;
   margin: 0.9rem 0 0;
@@ -1293,110 +1289,45 @@ html[data-loaded="true"] .hero-name__rule {
    Retuned 2026-09-07, when the plate moved to its own full-width row below.
    Nothing tall sits beside this column any more, so the same values now
    just stretch three short paragraphs down the page. Pulled back to a
-   normal reading rhythm instead. Scoped to .hero-copy so the shared
-   .hero-lede / .action-row / .hero-status components keep their defaults on
+   normal reading rhythm instead. Scoped to .id-ident so the shared
+   .hero-lede / .action-row / .id-lamps components keep their defaults on
    every other page's hero. */
-.hero-copy .hero-lede {
+.id-ident .hero-lede {
   margin-bottom: 0.6rem;
 }
 
-.hero-copy .hero-role {
+.id-ident .id-role {
   margin-bottom: 0;
 }
 
-.hero-copy .action-row {
+.id-ident .action-row {
   margin-top: 1.75rem;
 }
 
-.hero-copy .hero-status {
+.id-ident .id-lamps {
   margin-top: 1.1rem;
   margin-bottom: 0;
 }
 
-/* Rebuilt 2026-09-07 as two rows: copy and portrait side by side, compile
-   plate spanning the full shell beneath them. This replaces a three-column
-   "copy id exhibit" arrangement that put the portrait in the middle column,
-   between the copy it belonged to and the instrument it had nothing to do
-   with. A centered face reads as watching the visitor rather than
-   introducing the work, and the middle column left a tall void under the
-   photo because nothing else in the hero was short enough to share it.
-
-   Giving the plate its own row is what pays for most of the change. As a
-   column it was a narrow vertical stack of three panes; across the full
-   shell the same three panes sit side by side (see .hero-exhibit
-   .plate__grid below) and the plate itself drops from 686px to 351px, with
-   the copy column falling 731px to 437px alongside it.
-
-   Measured 2026-09-07 against the previous version, because the height
-   claim here was originally written the other way round and was wrong.
-   Both pieces shrank, but two rows replace a max() with a sum, so the
-   desktop hero is 94px TALLER on balance: 970px to 1064px at 1512px wide.
-   Below this gate, where the old layout was already stacked and only the
-   pieces changed, it is genuinely shorter (1381px to 1263px at 900px,
-   1514px to 1370px at 500px). The 94px buys a portrait that introduces the
-   work instead of staring down the visitor, and a plate that reads left to
-   right in the direction the data moves. If that height ever needs
-   reclaiming, the lever is the plate's own padding and pane heights, not
-   this grid. Same arrangement as the /support hero, deliberately. */
-@media (min-width: 64rem) {
-  .hero-grid {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas:
-      "copy id"
-      "exhibit exhibit";
-    /* Asymmetric on purpose. The column gap separates two unrelated things
-       (copy and portrait) and wants air; the row gap separates the copy from
-       the instrument that illustrates it, which reads as one thought, and
-       stacked rows cost height the old side-by-side layout did not pay. */
-    gap: 2.25rem 3rem;
-  }
-
-  /* grid-area only means anything alongside the grid-template-areas above,
-     so it is scoped to this query rather than applied unconditionally: an
-     unmatched named line at the single-column mobile width (no
-     grid-template-areas defined there) throws placement off and stacks
-     every hero child on top of the others. Scoped to .hero-grid as well,
-     added 2026-09-06: .hero-id is reused by the /support hero, whose own
-     grid defines no areas, so the bare selector pushed that portrait into
-     an implicit row below the copy and opened a large hole in the middle
-     of the page. */
-  .hero-grid .hero-copy {
-    grid-area: copy;
-  }
-
-  .hero-grid .hero-id {
-    grid-area: id;
-    justify-self: end;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
-  .hero-grid .hero-exhibit {
-    grid-area: exhibit;
-  }
-
-  /* Scales with the viewport up to 16rem, which is 256px against a 320px
-     source PNG and so never upscales. Same ceiling as the /support hero. */
-  .hero-grid .hero-id__frame,
-  .hero-grid .hero-id__plate {
-    width: clamp(11rem, 17vw, 16rem);
-  }
-}
-
 @media (max-width: 47.999rem) {
-  .hero-copy h1 {
+  .id-ident h1 {
     gap: 0;
     font-size: clamp(3.1rem, 17vw, 4.6rem);
     letter-spacing: 0.002em;
   }
 }
 
-/* On narrow layouts the exhibit collapses to the source pane only, still a
-   real screen but a shorter one. */
+/* On narrow layouts the exhibit drops the artifact pane, since a phone has
+   no room to show both ends of a transform and half a pipeline is worse
+   than one clear end of it. The caption stays: the boundary line under the
+   exhibit is the point of the exhibit. */
 @media (max-width: 63.999rem) {
-  .hero-exhibit .plate__pane--out,
-  .hero-exhibit .plate__caption {
+  .module--compile .plate__pane--out {
     display: none;
+  }
+
+  .module--compile .plate__stages {
+    border-bottom: 0;
   }
 }
 
@@ -3853,8 +3784,8 @@ ul.tag-list {
   }
 
   /* .support-hero__copy deliberately does not reuse the homepage's
-     .hero-copy class: that class carries a large-name h1 override
-     (.hero-copy h1) meant only for the split RASHEED / FARHAT readout
+     .id-ident class: that class carries a large-name h1 override
+     (.id-ident h1) meant only for the split RASHEED / FARHAT readout
      treatment. The support hero's h1 is a plain sentence headline, so it
      should inherit the standard .page-hero h1 sizing instead. */
   .support-hero__copy {
@@ -4388,12 +4319,16 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 /* Instrument --------------------------------------------------------------*/
 
+/* The device sheds its own raised fascia here. The module underneath is
+   already a panel with the same edge lighting, and a panel seated on a panel
+   is the card habit this page exists to refuse. What is left is the
+   instrument itself, a labelled strip over recessed wells, with a hairline
+   to hold it clear of the rail beside it. */
 .bench-device {
   min-width: 0;
-  border: 1px solid var(--line-hi);
+  overflow: hidden;
+  border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--panel);
-  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
 }
 
 .bench-device__bar {
@@ -4678,6 +4613,678 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   color: var(--text-dim);
 }
 
+/* =========================================================================
+   The rack
+   -------------------------------------------------------------------------
+   The homepage is one machine seen head on rather than a stack of floating
+   cards. Two milled rails run from under the header to the bottom of the
+   page and never break. Every module bolts to them at the same two left and
+   right edges, so the gaps between modules read as exposed rail instead of
+   empty page, and a module's height is free to vary because its width is
+   not. The rails sit inside the shell's own gutter, centred in it, which
+   lets .rack__stack use exactly the .shell box every other route uses: the
+   content column does not move, only the hardware around it is new.
+   ========================================================================= */
+
+.rack {
+  position: relative;
+
+  /* Rail and bolt geometry. --pad is the shell gutter, so a bolt centred at
+     --pad/2 sits exactly between the rail and the module edge at every
+     breakpoint without a second set of clamps. */
+  --rail-w: 0.75rem;
+  --rack-gap: 1.15rem;
+  --bolt: 0.82rem;
+  --mod-pad-i: clamp(1.15rem, 4vw, 2.25rem);
+  --mod-pad-b: clamp(1.6rem, 4vw, 2.5rem);
+
+  /* A slotted head: one dark groove across a domed face lit from above.
+     Circles are the only round object in this world, and this is one. */
+  --bolt-face: linear-gradient(
+      180deg,
+      transparent calc(50% - 0.75px),
+      var(--well) calc(50% - 0.75px),
+      var(--well) calc(50% + 0.75px),
+      transparent calc(50% + 0.75px)
+    ),
+    radial-gradient(circle at 50% 28%, var(--panel-hi), var(--panel) 46%, var(--well) 100%);
+
+  padding-block: var(--rack-gap) clamp(3rem, 7vw, 4.5rem);
+}
+
+.rack__rails {
+  position: absolute;
+  inset: 0;
+  max-width: var(--shell);
+  margin-inline: auto;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Extruded aluminium: a horizontal light gradient across the face for the
+   round of the extrusion, and a repeating hairline for the mill marks. */
+.rack__rail {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: var(--rail-w);
+  background: repeating-linear-gradient(180deg, var(--well-top) 0 1px, transparent 1px 1.45rem),
+    linear-gradient(
+      90deg,
+      var(--well) 0%,
+      var(--panel) 22%,
+      var(--panel-hi) 44%,
+      var(--panel) 72%,
+      var(--well) 100%
+    );
+  /* The 1px outline is what makes the rail read. Without it an 8px band of
+     --panel on --ink is a hairline at page scale; with it the rail carries
+     the same machined edge the modules bolted to it carry. */
+  box-shadow: 0 0 0 1px var(--line), inset 0 1px 0 var(--edge-top);
+}
+
+.rack__rail--l {
+  left: calc((var(--pad) - var(--rail-w)) / 2);
+}
+
+.rack__rail--r {
+  right: calc((var(--pad) - var(--rail-w)) / 2);
+}
+
+/* The rails terminate in a bolt rather than fading out, so the bottom of
+   the page reads as the bottom of the machine. */
+.rack__rails::before,
+.rack__rails::after {
+  content: "";
+  position: absolute;
+  bottom: clamp(1.5rem, 3.5vw, 2.25rem);
+  width: var(--bolt);
+  height: var(--bolt);
+  border-radius: var(--radius-lamp);
+  background: var(--bolt-face);
+  box-shadow: 0 0 0 1px var(--line), inset 0 1px 0 var(--edge-top);
+}
+
+.rack__rails::before {
+  left: calc(var(--pad) / 2 - var(--bolt) / 2);
+}
+
+.rack__rails::after {
+  right: calc(var(--pad) / 2 - var(--bolt) / 2);
+}
+
+/* Rail travel. One machined indicator rides the left rail with the scroll
+   and is the only thing on the page that moves continuously. It is drawn
+   only once the script has taken over, so a no-JS page shows a clean rail
+   rather than a dead part parked at the top. */
+.rack__indicator {
+  position: absolute;
+  top: 0;
+  left: calc(var(--pad) / 2 - (var(--rail-w) + 0.44rem) / 2);
+  width: calc(var(--rail-w) + 0.44rem);
+  height: 1.7rem;
+  border: 1px solid var(--line-hi);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--panel-hi), var(--panel));
+  box-shadow: inset 0 1px 0 var(--edge-top), 0 2px 6px var(--edge-bottom);
+  opacity: 0;
+  will-change: transform;
+}
+
+.rack[data-rack-live="true"] .rack__indicator {
+  opacity: 1;
+}
+
+.rack__indicator::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 0.32rem;
+  bottom: 0.32rem;
+  width: 2px;
+  margin-left: -1px;
+  background: var(--sig);
+}
+
+.rack__stack {
+  position: relative;
+  z-index: 1;
+  max-width: var(--shell);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+  display: flex;
+  flex-direction: column;
+  gap: var(--rack-gap);
+}
+
+/* Modules ---------------------------------------------------------------- */
+
+.module {
+  position: relative;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--mod-pad-b) var(--mod-pad-i);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
+}
+
+.module::before,
+.module::after {
+  content: "";
+  position: absolute;
+  top: 0.85rem;
+  width: var(--bolt);
+  height: var(--bolt);
+  border-radius: var(--radius-lamp);
+  background: var(--bolt-face);
+  box-shadow: 0 0 0 1px var(--line), inset 0 1px 0 var(--edge-top);
+}
+
+/* Offset by the module's own border so the bolt centre lands on the rail
+   centre, at --pad/2 from the shell edge. */
+.module::before {
+  left: calc(-1px - var(--pad) / 2 - var(--bolt) / 2);
+}
+
+.module::after {
+  right: calc(-1px - var(--pad) / 2 - var(--bolt) / 2);
+}
+
+/* Two modules that are one assembly bolt together with no rail showing
+   between them. Used for the identity plate and the bench readout under it,
+   which are a single claim and its evidence. */
+.module--flush {
+  margin-top: calc((var(--rack-gap) + 1px) * -1);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.module:has(+ .module--flush) {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.module--flush::before,
+.module--flush::after {
+  top: 1.35rem;
+}
+
+/* The engraved faceplate. The heading and its measurement line sit on one
+   baseline across the plate rather than stacked, so the plate reads as a
+   label strip on hardware and no element above the heading is doing the
+   work the heading should do. */
+.module__face {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.45rem 1.75rem;
+  margin: calc(var(--mod-pad-b) * -1) calc(var(--mod-pad-i) * -1) var(--mod-pad-b);
+  padding: 1.55rem var(--mod-pad-i) 1.1rem;
+  background: linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border-bottom: 1px solid var(--line);
+}
+
+.module__face::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--sig);
+}
+
+.module--amb .module__face::after {
+  background: var(--amb);
+}
+
+.module__face h2 {
+  margin: 0;
+  max-width: 34ch;
+  font-size: clamp(1.5rem, 2.7vw, 2.05rem);
+}
+
+/* Claim on one line, counter-claim on the next. At any measure that fits
+   both sentences the browser breaks mid-phrase instead, which reads as an
+   accident rather than as the pair of statements it is. */
+.module--readout .module__face h2 .method-heading__bound {
+  display: block;
+}
+
+.module__meta {
+  margin: 0;
+  max-width: none;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+/* ID plate --------------------------------------------------------------- */
+
+/* The stamp is the identity module's faceplate, so it takes the same bleed
+   and the same engraved gradient the other modules' plates take. It was
+   previously a bare <p>, which the global 66ch measure silently clipped to
+   about 431px; max-width: none is what lets it actually span the plate. */
+.stamp {
+  margin: calc(var(--mod-pad-b) * -1) calc(var(--mod-pad-i) * -1) clamp(1.75rem, 3.5vw, 2.5rem);
+  padding: 0.85rem var(--mod-pad-i);
+  max-width: none;
+  color: var(--text);
+  background: linear-gradient(180deg, var(--panel-hi), var(--panel));
+  border-bottom: 1px solid var(--line);
+}
+
+/* The tick strip is a measurement rule with nothing to measure once the
+   stamp wraps to three lines; on a phone it lands mid-sentence and reads as
+   damage. Dropped rather than shrunk. */
+@media (max-width: 47.999rem) {
+  .stamp__ticks {
+    display: none;
+  }
+}
+
+.id-plate {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 4vw, 2rem);
+  align-items: flex-start;
+}
+
+/* The portrait is recessed rather than raised: a face set into the fascia,
+   the one well on the plate. */
+.id-plate .hero-id__frame {
+  background: var(--well);
+  box-shadow: inset 0 1px 0 var(--well-top), inset 0 -1px 0 var(--well-bottom);
+}
+
+.id-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+/* Past 62rem the plate is a real plate: portrait spanning both rows at the
+   left, name and claim beside it, actions seated on the plate's right edge.
+   The résumé button precedes the primary in the DOM so that visual order,
+   reading order, and tab order all agree while the primary still lands at
+   the outside edge. */
+@media (min-width: 62rem) {
+  .id-plate {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      "portrait ident"
+      "portrait actions";
+    align-items: start;
+    column-gap: clamp(2rem, 4vw, 3.25rem);
+    row-gap: 1.75rem;
+  }
+
+  .id-plate .hero-id {
+    grid-area: portrait;
+    margin: 0;
+  }
+
+  .id-plate .id-ident {
+    grid-area: ident;
+  }
+
+  .id-plate .id-actions {
+    grid-area: actions;
+    justify-content: flex-end;
+  }
+
+  .id-plate .hero-id__frame,
+  .id-plate .hero-id__plate {
+    width: clamp(11rem, 15vw, 14.5rem);
+  }
+}
+
+/* Bench readout ---------------------------------------------------------- */
+
+/* An instrument, not a table of numbers: twelve strikes above ten lamps,
+   each cell a recessed well in the fascia. The strike marks are struck
+   through, the ones with no fix are struck twice, and the two the rules
+   actually hold read as teal lamps rather than marks. Every state here is
+   keyed directly to the bench data below it, so the readout cannot drift
+   from what the bench demonstrates. */
+
+.readout {
+  display: grid;
+  gap: 1.15rem;
+}
+
+.readout__strikes,
+.readout__lamps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.4rem;
+}
+
+/* Twelve strike cells and ten six-digit rule IDs cannot sit across a phone,
+   and the lettering in them is already at its legibility floor, so the
+   instrument reflows to more banks rather than shrinking. Four across on a
+   phone, six through the middle, and the full single row only once a cell
+   can hold the widest word in it at reading size. */
+.readout__strikes {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.readout__lamps {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+@media (min-width: 40rem) {
+  .readout__strikes {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 62rem) {
+  .readout__strikes {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .readout__lamps {
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+  }
+}
+
+.readout__strike,
+.readout__lamp {
+  max-width: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0.7rem 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--well);
+  box-shadow: inset 0 1px 0 var(--well-top), inset 0 -1px 0 var(--well-bottom);
+}
+
+.readout__strike-id,
+.readout__lamp-id {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  line-height: 1;
+}
+
+.readout__strike-state {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text);
+  line-height: 1;
+}
+
+.readout__strike-mark {
+  position: relative;
+  width: 2px;
+  height: 1.45rem;
+  background: var(--amb);
+  transform: rotate(15deg);
+}
+
+.readout__strike--hard {
+  border-color: var(--amb);
+}
+
+.readout__strike--hard .readout__strike-mark {
+  background: var(--amb-hi);
+}
+
+.readout__strike--hard .readout__strike-mark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--amb-hi);
+  transform: rotate(-30deg);
+}
+
+.readout__strike--hard .readout__strike-state {
+  color: var(--amb-hi);
+}
+
+.readout__strike--closed {
+  border-color: color-mix(in srgb, var(--sig) 45%, var(--line));
+}
+
+.readout__strike--closed .readout__strike-mark,
+.readout__lamp-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: var(--radius-lamp);
+  background: var(--sig);
+  box-shadow: 0 0 0 3px var(--sig-soft);
+}
+
+.readout__strike--closed .readout__strike-mark {
+  margin-block: 0.45rem;
+  transform: none;
+}
+
+.readout__note {
+  margin: 0;
+  max-width: 68ch;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+
+.readout__note--amb strong {
+  color: var(--amb-hi);
+  font-weight: 620;
+}
+
+/* Rows inside modules ---------------------------------------------------- */
+
+/* The work, writing and method rows bleed to the module edge so their
+   dividers run the full width of the fascia, the way a rack's own
+   separations do. Their top rules go: the faceplate above already
+   terminates in one. */
+.module--work .work-list,
+.module--writing .writing-list,
+.module--method .method-list {
+  margin-inline: calc(var(--mod-pad-i) * -1);
+  border-top: 0;
+}
+
+.module--work .work-row,
+.module--writing .writing-row,
+.module--method .method-rule {
+  padding-inline: var(--mod-pad-i);
+}
+
+/* The boundary row is already a recessed well with an amber key. The 3px
+   stripe on top of that is a second signal for one fact. */
+.module--method .method-rule {
+  border-left: 0;
+}
+
+.module--method .method-rule:last-of-type {
+  border-bottom: 0;
+}
+
+/* Both of these sat under the functional-text floor, which a machine label
+   can afford at its own scale but not at the reader's. */
+.module--work .status {
+  font-size: 0.72rem;
+}
+
+.module--work .work-row__evidence {
+  font-size: 0.78rem;
+}
+
+.module--work .work-row__arrow {
+  right: var(--mod-pad-i);
+}
+
+@media (min-width: 60rem) {
+  .module--work .work-row,
+  .module--writing .writing-row,
+  .module--method .method-rule {
+    padding-inline: var(--mod-pad-i);
+  }
+}
+
+/* What the system cannot do, engraved under the claim rather than boxed
+   beside it. The module is already the frame, so a bordered, filled, rounded
+   box here would be a card inside a card, which is the one container habit
+   this page exists to refuse. A hairline and the amber lettering carry it. */
+.work-row__bound {
+  grid-column: 1 / -1;
+  margin: 0.9rem 0 0;
+  padding: 0.75rem 0 0;
+  max-width: none;
+  border-top: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+  color: var(--amb-hi);
+}
+
+.work-row__bound .bound {
+  display: inline;
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.work-row__bound .bound::before {
+  content: "Bound ";
+  color: var(--text-dim);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Bench module ----------------------------------------------------------- */
+
+/* The verdict panel used to carry a 3px amber edge. Inside the rack that is
+   a second signal for one fact, and the headline above it is already amber.
+   It recesses instead, which is the device the rest of the page uses for
+   anything the machine reports back. */
+.module--bench .bench-verdict__panel {
+  border-left: 0;
+  background: var(--well);
+  box-shadow: inset 0 1px 3px var(--well-top);
+}
+
+/* Compile module --------------------------------------------------------- */
+
+/* The plate loses its own frame here because the module is already the
+   frame; nesting one panel in another is the card habit this page exists to
+   refuse. What is left is the plate's wells, bled to the fascia edges, with
+   their reading column pulled back in to the module's own gutter. */
+.module--compile .plate {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  margin-inline: calc(var(--mod-pad-i) * -1);
+  margin-bottom: calc(var(--mod-pad-b) * -1);
+}
+
+.module--compile .plate__stages-label {
+  font-size: 0.72rem;
+}
+
+.module--compile .plate__pane,
+.module--compile .plate__stages,
+.module--compile .plate__caption {
+  padding-inline: var(--mod-pad-i);
+}
+
+@media (min-width: 64rem) {
+  .module--compile .plate__pane--src {
+    padding-inline: var(--mod-pad-i) 1.25rem;
+  }
+
+  .module--compile .plate__pane--out {
+    padding-inline: 1.25rem var(--mod-pad-i);
+  }
+
+  .module--compile .plate__stages {
+    padding-inline: 1.25rem;
+  }
+}
+
+.module--contact > p {
+  color: var(--text);
+  max-width: 58ch;
+}
+
+/* Seat and hold ---------------------------------------------------------- */
+
+/* The whole motion grammar. A module arrives with its edge lighting off and
+   its border pulled back; when its top edge crosses the rail indicator, the
+   light comes up over 320ms and its two bolts seat with one short teal
+   flash. Each fires once and never reverses. Nothing rewrites itself,
+   nothing auto-advances, nothing types. */
+.rack[data-rack="armed"] .module {
+  border-color: color-mix(in srgb, var(--line) 45%, transparent);
+  box-shadow: none;
+  transition: border-color var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease);
+}
+
+.rack[data-rack="armed"] .module.is-seated {
+  border-color: var(--line);
+  box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom);
+}
+
+.rack[data-rack="armed"] .module.is-seated::before,
+.rack[data-rack="armed"] .module.is-seated::after {
+  animation: bolt-seat 460ms var(--ease) both;
+}
+
+.rack[data-rack="armed"] .module--amb.is-seated::before,
+.rack[data-rack="armed"] .module--amb.is-seated::after {
+  animation-name: bolt-seat-amb;
+}
+
+/* The peak lands at 30% of 460ms, which is the 140ms seating strike; the
+   rest is the ring falling back to metal. A literal 140ms round trip is
+   below the threshold at which a 4px ring reads as anything at all. */
+@keyframes bolt-seat {
+  0% {
+    box-shadow: 0 0 0 1px var(--line), inset 0 1px 0 var(--edge-top), 0 0 0 0 transparent;
+  }
+
+  30% {
+    box-shadow: 0 0 0 1px var(--sig), inset 0 1px 0 var(--edge-top), 0 0 0 4px var(--sig-soft);
+  }
+
+  100% {
+    box-shadow: 0 0 0 1px var(--line), inset 0 1px 0 var(--edge-top), 0 0 0 0 transparent;
+  }
+}
+
+@keyframes bolt-seat-amb {
+  0% {
+    box-shadow: 0 0 0 1px var(--line), inset 0 1px 0 var(--edge-top), 0 0 0 0 transparent;
+  }
+
+  30% {
+    box-shadow: 0 0 0 1px var(--amb), inset 0 1px 0 var(--edge-top), 0 0 0 4px var(--amb-soft);
+  }
+
+  100% {
+    box-shadow: 0 0 0 1px var(--line), inset 0 1px 0 var(--edge-top), 0 0 0 0 transparent;
+  }
+}
+
 /* Reduced motion ----------------------------------------------------------*/
 
 @media (prefers-reduced-motion: reduce) {
@@ -4699,12 +5306,12 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
      all, so the entrance animation is disabled outright here rather than
      just shortened; the elements fall back to their default state, which
      is already the fully-registered display cut. */
-  .hero-name__proof,
-  .hero-name__rule {
+  .id-name__proof,
+  .id-name__rule {
     animation: none !important;
   }
 
-  .hero-bezel {
+  .stamp {
     transform: scaleX(1) !important;
   }
 
@@ -4728,5 +5335,24 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   .case-desk__stage--resolve .case-desk__stage-label {
     color: var(--resolved-hi) !important;
     transition-delay: 0ms !important;
+  }
+
+  /* Rail travel is the one authored moment on this page, so reduced motion
+     gets the settled machine rather than a faster version of the arrival:
+     every module renders already seated and already lit, the bolt flash
+     never runs, and the indicator that would ride the rail is removed
+     instead of parked. */
+  .rack[data-rack="armed"] .module {
+    border-color: var(--line) !important;
+    box-shadow: inset 0 1px 0 var(--edge-top), inset 0 -1px 0 var(--edge-bottom) !important;
+  }
+
+  .module::before,
+  .module::after {
+    animation: none !important;
+  }
+
+  .rack__indicator {
+    display: none !important;
   }
 }

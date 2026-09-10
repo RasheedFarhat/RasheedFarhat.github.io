@@ -112,3 +112,66 @@ if (menuButton && menu) {
     if (event.matches) closeMenu();
   });
 }
+
+/* Rail travel.
+   One machined indicator rides the left rail with the scroll, and a module
+   seats its bolts the instant its top edge crosses the indicator. Seat and
+   hold is the whole grammar: each module fires once and never reverses,
+   nothing rewrites itself and nothing auto-advances. Under reduced motion
+   the rack renders already seated and the indicator is not drawn at all. */
+const rack = document.querySelector("[data-rack]");
+
+if (rack) {
+  const indicator = rack.querySelector("[data-rack-indicator]");
+  const modules = Array.from(rack.querySelectorAll(".module"));
+  const stillQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  const seatAll = () => {
+    modules.forEach((module) => module.classList.add("is-seated"));
+  };
+
+  if (stillQuery.matches) {
+    seatAll();
+  } else {
+    let ticking = false;
+
+    const travel = () => {
+      ticking = false;
+      /* The indicator sits at 42% of the viewport, high enough that a module
+         is already reading when it seats rather than seating after it has
+         been read. */
+      const line = window.innerHeight * 0.42;
+      const box = rack.getBoundingClientRect();
+
+      if (indicator) {
+        const offset = Math.min(Math.max(line - box.top, 0), Math.max(box.height - 28, 0));
+        indicator.style.transform = `translateY(${offset}px)`;
+      }
+
+      for (const module of modules) {
+        if (module.classList.contains("is-seated")) continue;
+        if (module.getBoundingClientRect().top <= line) module.classList.add("is-seated");
+      }
+    };
+
+    const schedule = () => {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(travel);
+    };
+
+    /* Armed and the first pass run in the same task, so whatever is already
+       on screen is seated before the browser paints and the page never
+       flashes through its unlit state. */
+    rack.dataset.rack = "armed";
+    rack.dataset.rackLive = "true";
+    travel();
+
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+
+    stillQuery.addEventListener("change", (event) => {
+      if (event.matches) seatAll();
+    });
+  }
+}

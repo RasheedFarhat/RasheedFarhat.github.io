@@ -150,667 +150,789 @@
       </div>
     </header>
 
-    <main id="main">
-      <section class="hero shell" aria-labelledby="hero-title">
-        <p class="hero-bezel">
-          <span>Rochester, MN &middot; Security Engineering &amp; Operations &middot; Rev 2026.09</span>
-          <span class="hero-bezel__ticks" aria-hidden="true">
-            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
-          </span>
-        </p>
-        <div class="hero-grid">
-          <div class="hero-copy">
-            <h1 id="hero-title">
-              <span class="hero-name__given"
-                >Rasheed<span class="hero-name__proof" aria-hidden="true">Rasheed</span><span
-                  class="hero-name__rule"
-                  aria-hidden="true"
-                ></span></span
-              >
-              <span class="hero-name__family"
-                >Farhat<span class="hero-name__proof" aria-hidden="true">Farhat</span><span
-                  class="hero-name__rule"
-                  aria-hidden="true"
-                ></span></span
-              >
-            </h1>
-            <p class="hero-lede">
-              Security engineering, <span class="hero-lede__sig">tested</span>
-              and <span class="hero-lede__bound">bounded</span>.
-            </p>
-            <p class="hero-role">
-              Detection engineering, security operations, and assurance work
-              built around careful investigation, tested automation, and clear
-              documentation.
-            </p>
-            <div class="action-row">
-              <a class="button button-primary" href="/projects/"
-                >Review selected work</a
-              >
+    <!-- Rebuilt 2026-09-09. The page was a vertical deck of independent
+         centered sections, which is the arrangement every generated
+         portfolio ships and the reason this one read as assembled rather
+         than built. It is now one rack: two milled rails hold fixed inline
+         positions from under the header to the footer and never break,
+         every module bolts to them at the same two edges, and the space
+         between modules is exposed rail rather than empty page. Modules
+         vary in height and width; their left and right edges never do.
+
+         Order carries the argument. The ID plate says who. The readout,
+         bolted to it with no gap, is the thesis in one glance: twelve
+         documented ways past ten rules I deployed, three of them with no
+         fix I can write. Everything below is that claim being paid for.
+
+         Every figure on this page traces to a repo. Change a claim in the
+         source and change it here in the same edit. -->
+    <main id="main" class="rack" data-rack>
+      <div class="rack__rails" aria-hidden="true">
+        <span class="rack__rail rack__rail--l"></span>
+        <span class="rack__rail rack__rail--r"></span>
+        <span class="rack__indicator" data-rack-indicator></span>
+      </div>
+
+      <div class="rack__stack">
+        <section class="module module--id" aria-labelledby="hero-title">
+          <p class="stamp">
+            <span>Rochester, MN &middot; Security Engineering &amp; Operations &middot; Rev 2026.09</span>
+            <span class="stamp__ticks" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            </span>
+          </p>
+          <div class="id-plate">
+            <figure class="hero-id">
+              <div class="hero-id__frame">
+                <img
+                  src="/assets/rasheed-portrait.png"
+                  width="320"
+                  height="400"
+                  alt="Portrait of Rasheed Farhat"
+                />
+              </div>
+              <figcaption class="hero-id__plate">R. Farhat</figcaption>
+            </figure>
+            <div class="id-ident">
+              <h1 id="hero-title">
+                <span class="id-name__given"
+                  >Rasheed<span class="id-name__proof" aria-hidden="true">Rasheed</span><span
+                    class="id-name__rule"
+                    aria-hidden="true"
+                  ></span></span
+                >
+                <span class="id-name__family"
+                  >Farhat<span class="id-name__proof" aria-hidden="true">Farhat</span><span
+                    class="id-name__rule"
+                    aria-hidden="true"
+                  ></span></span
+                >
+              </h1>
+              <p class="hero-lede">
+                Security engineering, <span class="hero-lede__sig">tested</span>
+                and <span class="hero-lede__bound">bounded</span>.
+              </p>
+              <p class="id-role">
+                Detection engineering, security operations, and assurance work
+                built around careful investigation, tested automation, and
+                clear documentation.
+              </p>
+              <ul class="id-lamps">
+                <li class="lamp lamp--sig lamp--pulse">Open to junior roles</li>
+                <li class="lamp lamp--sig">Security+ / CySA+ / CSAP</li>
+              </ul>
+              <p class="id-source">
+                Prefer to inspect the code?
+                <a
+                  class="text-link"
+                  href="https://github.com/RasheedFarhat"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  >Browse source on GitHub<span class="sr-only"> (opens in a new tab)</span></a
+                >
+              </p>
+            </div>
+            <div class="id-actions">
               <a
                 class="button button-secondary"
                 href="/assets/rasheed-farhat-resume.pdf?v=20260818b"
-                >Open one-page résumé</a
+                >Open one-page r&eacute;sum&eacute;</a
+              >
+              <a class="button button-primary" href="/projects/"
+                >Review selected work</a
               >
             </div>
-            <p class="hero-source">
-              Prefer to inspect the code?
-              <a
-                class="text-link"
-                href="https://github.com/RasheedFarhat"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Browse source on GitHub<span class="sr-only"> (opens in a new tab)</span></a
-              >
+          </div>
+        </section>
+
+        <!-- Bolted to the ID plate with no gap, because the two are one
+             assembly: the person, and the single hardest thing that can be
+             said about the work. Ten teal lamps are the rules deployed in
+             MCP Detect. Twelve amber strikes hang above them, one per
+             documented evasion class, and the three that carry no available
+             fix are marked as such rather than averaged away. The counts are
+             the argument and they are legible before a word is read. -->
+        <section
+          class="module module--flush module--amb module--readout"
+          aria-labelledby="readout-title"
+        >
+          <div class="module__face">
+            <h2 id="readout-title">
+              Ten rules I wrote.
+              <span class="method-heading__bound">Twelve attacks I built to
+              beat them.</span>
+            </h2>
+            <p class="module__meta">MCP Detect / Phase 5 red team</p>
+          </div>
+          <div class="readout">
+            <ol class="readout__strikes">
+            <li class="readout__strike">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E1</span>
+              <span class="readout__strike-state">Open</span>
+            </li>
+            <li class="readout__strike">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E2</span>
+              <span class="readout__strike-state">Open</span>
+            </li>
+            <li class="readout__strike">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E3</span>
+              <span class="readout__strike-state">Open</span>
+            </li>
+            <li class="readout__strike">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E4</span>
+              <span class="readout__strike-state">Open</span>
+            </li>
+            <li class="readout__strike readout__strike--hard">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E5</span>
+              <span class="readout__strike-state">No fix</span>
+            </li>
+            <li class="readout__strike">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E6</span>
+              <span class="readout__strike-state">Open</span>
+            </li>
+            <li class="readout__strike">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E7</span>
+              <span class="readout__strike-state">Open</span>
+            </li>
+            <li class="readout__strike readout__strike--hard">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E8</span>
+              <span class="readout__strike-state">No fix</span>
+            </li>
+            <li class="readout__strike">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E9</span>
+              <span class="readout__strike-state">Open</span>
+            </li>
+            <li class="readout__strike readout__strike--closed">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E10</span>
+              <span class="readout__strike-state">Held</span>
+            </li>
+            <li class="readout__strike readout__strike--hard">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E11</span>
+              <span class="readout__strike-state">No fix</span>
+            </li>
+            <li class="readout__strike readout__strike--closed">
+              <span class="readout__strike-mark" aria-hidden="true"></span>
+              <span class="readout__strike-id">E12</span>
+              <span class="readout__strike-state">Held</span>
+            </li>
+            </ol>
+            <p class="readout__note readout__note--amb">
+              Ten of the twelve still get through.
+              <strong>E5, E8 and E11 have no fix I can write</strong>, and each
+              says why in its own words on the bench below. E12 is closed by a
+              deployed rule and E10 is a false-positive probe the rules
+              correctly ignore.
             </p>
-            <ul class="hero-status">
-              <li class="lamp lamp--sig lamp--pulse">Open to junior roles</li>
-              <li class="lamp lamp--sig">Security+ / CySA+ / CSAP</li>
-            </ul>
+            <ol class="readout__lamps">
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100100</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100101</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100102</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100103</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100104</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100105</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100106</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100107</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100108</span>
+            </li>
+            <li class="readout__lamp">
+              <span class="readout__lamp-dot" aria-hidden="true"></span>
+              <span class="readout__lamp-id">100109</span>
+            </li>
+            </ol>
+            <p class="readout__note">
+              Ten rules deployed on a byte-transparent MCP proxy, quiet across
+              a 4,727-record benign corpus of 541 sessions.
+            </p>
           </div>
-          <figure class="hero-id">
-            <div class="hero-id__frame">
-              <img
-                src="/assets/rasheed-portrait.png"
-                width="320"
-                height="400"
-                alt="Portrait of Rasheed Farhat"
-              />
+        </section>
+
+        <!-- The rules in bench.js are the deployed Wazuh rules ported to
+             JavaScript, not a scripted animation, and replaying the real
+             evasion corpus through them reproduces every verdict in
+             PHASE5-REPORT.md. A visitor can pick any attack, watch the real
+             rules fail to catch it, and read what the repo already said
+             about why. The rail works before a single click: eleven of
+             fourteen chips are amber at rest. -->
+        <section class="module module--bench" aria-labelledby="bench-title" data-bench>
+          <div class="module__face">
+            <h2 id="bench-title">Pick one and watch it get through.</h2>
+            <p class="module__meta">14 records / rules running in this page</p>
+          </div>
+          <p class="bench-lede">
+            Every rule below is the one deployed in MCP Detect, ported to run in
+            this page. Pick an attack from the corpus, or edit the record and
+            run something of your own against it.
+          </p>
+          <div class="bench">
+            <div class="bench-rail" data-bench-rail>
+              <div class="bench-rail__group">
+                <h3 class="bench-rail__group-name">Baseline</h3>
+                <ul class="bench-rail__list">
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--sig"
+                      >Unmodified credential read</span
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="bench-rail__group">
+                <h3 class="bench-rail__group-name">Tool poisoning</h3>
+                <ul class="bench-rail__list">
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E1 keyword avoiding</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E2 no HTML comment</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--sig"
+                      >E3a zero-width insertion</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E3b homoglyph</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E4 distance bound</span
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="bench-rail__group">
+                <h3 class="bench-rail__group-name">Credential exfiltration</h3>
+                <ul class="bench-rail__list">
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E5 tool-name spoof</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E6 untested key</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E7 secret shape</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E8 encoded payload</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E9 read-path variant</span
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="bench-rail__group">
+                <h3 class="bench-rail__group-name">Rug pull</h3>
+                <ul class="bench-rail__list">
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E10 legitimate upgrade</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--amb"
+                      >E11 behavior only</span
+                    >
+                  </li>
+                  <li>
+                    <span class="bench-chip bench-chip--static lamp lamp--sig"
+                      >E12 session-conditional</span
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
-            <figcaption class="hero-id__plate">R. Farhat</figcaption>
-          </figure>
-          <div class="hero-exhibit">
-            <figure class="plate">
-              <div class="plate__bar">
-                <p class="plate__title">DaC-Pipeline / rule 200001 / T1105</p>
-                <span class="mono-note">58 Sigma rules in, 216 Wazuh rules out</span>
+
+            <div class="bench-device">
+              <div class="bench-device__bar">
+                <p class="bench-device__title">wazuh-logtest</p>
+                <p class="bench-device__file" data-bench-record-title>
+                  telemetry.jsonl / Unmodified credential read
+                </p>
               </div>
-              <div class="plate__grid">
-                <div class="plate__pane plate__pane--src">
-                  <span class="plate__pane-label"
-                    >SOURCE / <strong>rules/sigma/sysmon_certutil_download.yml</strong></span
+              <div class="bench-device__grid">
+                <div class="bench-pane">
+                  <label class="bench-pane__label" for="bench-record"
+                    >Record <strong>in</strong></label
                   >
-                  <pre><code><span class="tok-k">detection:</span>
-    <span class="tok-k">selection:</span>
-        <span class="tok-k">Image|endswith:</span> <span class="tok-s">'\certutil.exe'</span>
-        <span class="tok-k">CommandLine|contains|all:</span>
-            - <span class="tok-s">'urlcache'</span>
-            - <span class="tok-s">'split'</span>
-    <span class="tok-k">condition:</span> <span class="tok-t">selection</span></code></pre>
-                </div>
-                <div class="plate__stages">
-                  <span class="plate__stages-label">Transform</span>
-                  <ol>
-                    <li><strong>Parse</strong>pySigma AST</li>
-                    <li><strong>Distribute</strong>DNF, capped at 500</li>
-                    <li><strong>Merge</strong>PCRE2 lookaheads</li>
-                    <li><strong>Render</strong>Jinja2, stable ID</li>
-                  </ol>
-                </div>
-                <div class="plate__pane plate__pane--out">
-                  <span class="plate__pane-label"
-                    >ARTIFACT / <strong>build/wazuh/sysmon_certutil_download_200001.xml</strong></span
+                  <textarea
+                    class="bench-editor"
+                    id="bench-record"
+                    spellcheck="false"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    data-bench-editor
                   >
-                  <div class="plate__code-clip">
-                    <pre><code><span class="tok-k">&lt;group</span> name=<span class="tok-s">"windows, custom_sigma"</span><span class="tok-k">&gt;</span>
-  <span class="tok-k">&lt;rule</span> id=<span class="tok-s">"200001"</span> level=<span class="tok-s">"10"</span><span class="tok-k">&gt;</span>
-    <span class="tok-c">&lt;!-- sigma_uuid:c8d8b9e5... --&gt;</span>
-    <span class="tok-k">&lt;if_group&gt;</span>sysmon_event1<span class="tok-k">&lt;/if_group&gt;</span>
-    <span class="tok-k">&lt;field</span> name=<span class="tok-s">"win.eventdata.image"</span>
-           type=<span class="tok-s">"pcre2"</span><span class="tok-k">&gt;</span>
-      <span class="tok-t">(?i).*\\certutil\.exe$</span><span class="tok-k">&lt;/field&gt;</span>
-    <span class="tok-k">&lt;field</span> name=<span class="tok-s">"win.eventdata.commandLine"</span>
-           type=<span class="tok-s">"pcre2"</span><span class="tok-k">&gt;</span>
-      <span class="tok-t">(?=.*(?i).*urlcache.*)(?=.*(?i).*split.*)</span><span class="tok-k">&lt;/field&gt;</span>
-    <span class="tok-k">&lt;description&gt;</span>Suspicious Certutil Network
-      Connection<span class="tok-k">&lt;/description&gt;</span>
-    <span class="tok-k">&lt;mitre&gt;&lt;id&gt;</span>T1105<span class="tok-k">&lt;/id&gt;&lt;/mitre&gt;</span>
-  <span class="tok-k">&lt;/rule&gt;</span>
-<span class="tok-k">&lt;/group&gt;</span></code></pre>
+  {
+    "session_id": "9d462afe-ce7c-4e98-9a8f-fefa0386b7b4",
+    "method": "tools/call",
+    "server_command": "python3 attacks/servers/exfil_sink_server.py",
+    "tool_name": "read_text_file",
+    "tool_arguments": {
+      "path": ".env"
+    }
+  }</textarea
+                  >
+                </div>
+                <div class="bench-pane">
+                  <span class="bench-pane__label"
+                    >Rules <strong>evaluated</strong></span
+                  >
+                  <div class="bench-trace" data-bench-trace>
+                    <ul class="bench-trace__list">
+                      <li class="bench-trace__line is-hit">
+                        <span class="bench-trace__id">100100</span>
+                        <span class="bench-trace__field">session_id, server_command</span>
+                        <span class="bench-trace__result">matched, level 0, no alert</span>
+                      </li>
+                      <li class="bench-trace__line is-hit">
+                        <span class="bench-trace__id">100101</span>
+                        <span class="bench-trace__field">tool_arguments.path</span>
+                        <span class="bench-trace__result">MATCH, level 12, T1552.001</span>
+                      </li>
+                      <li class="bench-trace__line">
+                        <span class="bench-trace__id">100102</span>
+                        <span class="bench-trace__field">raw.result.tools</span>
+                        <span class="bench-trace__result">no match</span>
+                      </li>
+                      <li class="bench-trace__line">
+                        <span class="bench-trace__id">100103</span>
+                        <span class="bench-trace__field">tool_arguments.data</span>
+                        <span class="bench-trace__result">no match</span>
+                      </li>
+                      <li class="bench-trace__line">
+                        <span class="bench-trace__id">100104</span>
+                        <span class="bench-trace__field">tool_arguments.payload</span>
+                        <span class="bench-trace__result">no match</span>
+                      </li>
+                      <li class="bench-trace__line">
+                        <span class="bench-trace__id">100105</span>
+                        <span class="bench-trace__field">tool_arguments.content</span>
+                        <span class="bench-trace__result">no match</span>
+                      </li>
+                      <li class="bench-trace__line">
+                        <span class="bench-trace__id">100106</span>
+                        <span class="bench-trace__field">tool_arguments.body</span>
+                        <span class="bench-trace__result">no match</span>
+                      </li>
+                      <li class="bench-trace__line">
+                        <span class="bench-trace__id">100107</span>
+                        <span class="bench-trace__field">tool_arguments.message</span>
+                        <span class="bench-trace__result">no match</span>
+                      </li>
+                      <li class="bench-trace__line">
+                        <span class="bench-trace__id">100108</span>
+                        <span class="bench-trace__field">tool_arguments.path</span>
+                        <span class="bench-trace__result">no match</span>
+                      </li>
+                      <li class="bench-trace__line">
+                        <span class="bench-trace__id">100109</span>
+                        <span class="bench-trace__field">tool_arguments.path</span>
+                        <span class="bench-trace__result">no match</span>
+                      </li>
+                    </ul>
                   </div>
-                  <a
-                    class="text-link plate__more"
-                    href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >View full trace <span aria-hidden="true">&rarr;</span
-                    ><span class="sr-only"> (opens in a new tab)</span></a
-                  >
                 </div>
               </div>
-              <figcaption class="plate__caption">
-                <p>
-                  The pipeline parses Sigma logic, preserves stable rule IDs, and
-                  validates the generated XML before deployment.
-                  <a href="/projects/detection-as-code/">Read the full case study</a>.
-                </p>
-                <p class="plate__bound" data-load-step="bound">
-                  <span class="chip--bound">57 of 58 rules target Windows process creation</span>
-                </p>
-              </figcaption>
-            </figure>
+              <div class="bench-verdict" aria-live="polite" data-bench-verdict>
+                <div class="bench-verdict__panel bench-verdict__panel--sig">
+                  <p class="bench-verdict__headline lamp lamp--sig">Caught by 100101</p>
+                  <p class="bench-verdict__rule">rule 100101 level 12 T1552.001</p>
+                  <p class="bench-verdict__mechanism">
+                    No evasion applied. The attack as originally written.
+                  </p>
+                  <p class="bench-verdict__note">
+                    This is the shape every class below is trying to get past.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+          <p class="bench-source">
+            Verdicts and mechanisms come from the project&#8217;s own Phase 5
+            red-team report. The reasoning behind them is in
+            <a href="/writing/i-built-five-mcp-detections-then-broke-them/"
+              >Catching Your Own Attack Only Proves the Plumbing Works</a
+            >, and the rules themselves are on the
+            <a href="/projects/mcp-security/">MCP Security Review Framework</a>
+            page.
+          </p>
+        </section>
 
-      <!-- Replaced 2026-09-07. This slot previously held a seven-cell metric
-           grid. It was cut for two reasons. Every figure in it already
-           appeared, word for word, in the Selected work rows immediately
-           below, so it restated the page rather than adding to it. And a
-           wall of large numerals is the one section shape every generated
-           portfolio reaches for, which made the most scanned block on the
-           site read as the least considered.
+        <section class="module module--work" aria-labelledby="work-title">
+          <div class="module__face">
+            <h2 id="work-title">Security systems I built.</h2>
+            <p class="module__meta">5 systems / 2025 to 2026</p>
+          </div>
+          <div class="work-list">
+            <article class="work-row">
+              <div class="work-row__meta">
+                <span class="status lamp lamp--sig">Active open source</span>
+                <span class="work-row__year">2025 to present</span>
+                <span class="repo-live" data-repo="DaC-Pipeline" data-ci="true" hidden></span>
+              </div>
+              <div class="work-row__body">
+                <h3><a href="/projects/detection-as-code/">Detection-as-Code Pipeline</a></h3>
+                <p>
+                  A from-scratch Sigma-to-Wazuh compiler with validation gates,
+                  stable rule identity, and API deployment behind a dry run.
+                </p>
+              </div>
+              <p class="work-row__evidence">
+                <strong>58 Sigma &#8594; 216 Wazuh rules</strong><br />
+                119 ATT&amp;CK techniques, 14 tactics<br />
+                87 automated tests
+              </p>
+              <p class="work-row__bound"><span class="bound">57 of 58 rules target Windows process creation</span></p>
+              <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
+            </article>
+            <article class="work-row">
+              <div class="work-row__meta">
+                <span class="status lamp lamp--sig">Active open source</span>
+                <span class="work-row__year">2026</span>
+                <span class="repo-live" data-repo="control-plane" data-ci="true" hidden></span>
+              </div>
+              <div class="work-row__body">
+                <h3><a href="/projects/control-plane/">Control Plane</a></h3>
+                <p>
+                  An approval-gated environment where identity, endpoint state,
+                  ticketing, alerts, approvals, and audit evidence run as one
+                  executable chain. Every privileged action passes a recorded
+                  policy decision.
+                </p>
+              </div>
+              <p class="work-row__evidence">
+                <strong>2,092-case policy parity</strong><br />
+                90 of 108 privileged attempts denied<br />
+                1,631 audit records, chain valid
+              </p>
+              <p class="work-row__bound"><span class="bound">Synthetic environment, not a production platform</span></p>
+              <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
+            </article>
+            <article class="work-row">
+              <div class="work-row__meta">
+                <span class="status lamp lamp--amb">Research lab</span>
+                <span class="work-row__year">2026</span>
+                <span class="repo-live" data-repo="mcp-detect" data-ci="true" hidden></span>
+              </div>
+              <div class="work-row__body">
+                <h3><a href="/projects/mcp-security/">MCP Security Review Framework</a></h3>
+                <p>
+                  Captures MCP tool-call traffic and turns it into evidence a
+                  human reviewer can act on: bounded detections, trust-boundary
+                  inventory, and measured blind spots.
+                </p>
+              </div>
+              <p class="work-row__evidence">
+                <strong>10 rules, 5 abuse techniques</strong><br />
+                4,727-record benign corpus<br />
+                12 documented evasion classes
+              </p>
+              <p class="work-row__bound"><span class="bound">3 of 12 evasion classes are structurally undetectable</span></p>
+              <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
+            </article>
+            <article class="work-row">
+              <div class="work-row__meta">
+                <span class="status lamp lamp--amb">Lab proof of concept</span>
+                <span class="work-row__year">2026</span>
+                <span class="repo-live" data-repo="Deceptive-Identity-Architecture" data-ci="false" hidden></span>
+              </div>
+              <div class="work-row__body">
+                <h3><a href="/projects/identity-deception/">Deceptive Identity Architecture</a></h3>
+                <p>
+                  An Authentik SSO perimeter wired to Canarytokens and a Python
+                  enrichment service, built to study high-signal identity
+                  tripwires.
+                </p>
+              </div>
+              <p class="work-row__evidence">
+                <strong>Authentik + Canarytokens</strong><br />
+                Flask webhook processor<br />
+                AbuseIPDB enrichment, ARM64 lab
+              </p>
+              <p class="work-row__bound"><span class="bound">Proof of concept, not a production identity control</span></p>
+              <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
+            </article>
+            <article class="work-row">
+              <div class="work-row__meta">
+                <span class="status lamp lamp--sig">Active open source</span>
+                <span class="work-row__year">2026</span>
+                <span class="repo-live" data-repo="assertion-desk" data-ci="true" hidden></span>
+              </div>
+              <div class="work-row__body">
+                <h3><a href="/projects/assertion-desk/">Assertion Desk</a></h3>
+                <p>
+                  A SAML sign-in failure diagnosis pipeline where a
+                  deterministic verifier establishes the facts and a
+                  grounding gate rejects any model claim the facts do not
+                  support.
+                </p>
+              </div>
+              <p class="work-row__evidence">
+                <strong>55 SAML cases, 94.5% disposition accuracy</strong><br />
+                6 of 6 reachable injection payloads resisted<br />
+                0 secrets across 280 recorded prompts
+              </p>
+              <p class="work-row__bound"><span class="bound">Keycloak only, and the AI path still trails the deterministic path</span></p>
+              <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
+            </article>
+          </div>
+          <div class="action-row">
+            <a class="button button-secondary" href="/projects/"
+              >All projects and investigations</a
+            >
+          </div>
+        </section>
 
-           What replaced it is the thing the page could not get anywhere
-           else. The hero states the thesis, tested and bounded. Selected
-           work proves what got built. Nothing said how the claim is earned,
-           and the site's own boundary device did not appear on the homepage
-           at all, which left the one page a recruiter actually lands on as
-           the only page missing the argument the rest of the site makes.
+        <!-- Bolted flush to the work rows above: one of those five systems,
+             opened up. The compiler input, the four transform stages, and
+             the artifact it emits, with the same rule ID the repo ships. -->
+        <section class="module module--flush module--compile" aria-labelledby="compile-title">
+          <div class="module__face">
+            <h2 id="compile-title">One rule, compiled end to end.</h2>
+            <p class="module__meta">DaC-Pipeline / rule 200001 / T1105</p>
+          </div>
+              <figure class="plate">
+                <div class="plate__grid">
+                  <div class="plate__pane plate__pane--src">
+                    <span class="plate__pane-label"
+                      >SOURCE / <strong>rules/sigma/sysmon_certutil_download.yml</strong></span
+                    >
+                    <pre><code><span class="tok-k">detection:</span>
+      <span class="tok-k">selection:</span>
+          <span class="tok-k">Image|endswith:</span> <span class="tok-s">'\certutil.exe'</span>
+          <span class="tok-k">CommandLine|contains|all:</span>
+              - <span class="tok-s">'urlcache'</span>
+              - <span class="tok-s">'split'</span>
+      <span class="tok-k">condition:</span> <span class="tok-t">selection</span></code></pre>
+                  </div>
+                  <div class="plate__stages">
+                    <span class="plate__stages-label">Transform</span>
+                    <ol>
+                      <li><strong>Parse</strong>pySigma AST</li>
+                      <li><strong>Distribute</strong>DNF, capped at 500</li>
+                      <li><strong>Merge</strong>PCRE2 lookaheads</li>
+                      <li><strong>Render</strong>Jinja2, stable ID</li>
+                    </ol>
+                  </div>
+                  <div class="plate__pane plate__pane--out">
+                    <span class="plate__pane-label"
+                      >ARTIFACT / <strong>build/wazuh/sysmon_certutil_download_200001.xml</strong></span
+                    >
+                    <div class="plate__code-clip">
+                      <pre><code><span class="tok-k">&lt;group</span> name=<span class="tok-s">"windows, custom_sigma"</span><span class="tok-k">&gt;</span>
+    <span class="tok-k">&lt;rule</span> id=<span class="tok-s">"200001"</span> level=<span class="tok-s">"10"</span><span class="tok-k">&gt;</span>
+      <span class="tok-c">&lt;!-- sigma_uuid:c8d8b9e5... --&gt;</span>
+      <span class="tok-k">&lt;if_group&gt;</span>sysmon_event1<span class="tok-k">&lt;/if_group&gt;</span>
+      <span class="tok-k">&lt;field</span> name=<span class="tok-s">"win.eventdata.image"</span>
+             type=<span class="tok-s">"pcre2"</span><span class="tok-k">&gt;</span>
+        <span class="tok-t">(?i).*\\certutil\.exe$</span><span class="tok-k">&lt;/field&gt;</span>
+      <span class="tok-k">&lt;field</span> name=<span class="tok-s">"win.eventdata.commandLine"</span>
+             type=<span class="tok-s">"pcre2"</span><span class="tok-k">&gt;</span>
+        <span class="tok-t">(?=.*(?i).*urlcache.*)(?=.*(?i).*split.*)</span><span class="tok-k">&lt;/field&gt;</span>
+      <span class="tok-k">&lt;description&gt;</span>Suspicious Certutil Network
+        Connection<span class="tok-k">&lt;/description&gt;</span>
+      <span class="tok-k">&lt;mitre&gt;&lt;id&gt;</span>T1105<span class="tok-k">&lt;/id&gt;&lt;/mitre&gt;</span>
+    <span class="tok-k">&lt;/rule&gt;</span>
+  <span class="tok-k">&lt;/group&gt;</span></code></pre>
+                    </div>
+                    <a
+                      class="text-link plate__more"
+                      href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >View full trace <span aria-hidden="true">&rarr;</span
+                      ><span class="sr-only"> (opens in a new tab)</span></a
+                    >
+                  </div>
+                </div>
+                <figcaption class="plate__caption">
+                  <p>
+                    The pipeline parses Sigma logic, preserves stable rule IDs, and
+                    validates the generated XML before deployment.
+                    <a href="/projects/detection-as-code/">Read the full case study</a>.
+                  </p>
+                  <p class="plate__bound" data-load-step="bound">
+                    <span class="chip--bound">57 of 58 rules target Windows process creation</span>
+                  </p>
+                </figcaption>
+              </figure>
+        </section>
 
-           Every receipt here names an artifact that exists and is checkable,
-           and none of them repeats a figure from the rows below. Change a
-           claim in the source repos and change it here in the same edit. -->
-      <section class="section shell" aria-labelledby="method-title">
-        <div class="section-heading section-heading--split">
-          <div>
-            <p class="eyebrow">Method</p>
+        <section class="module module--method" aria-labelledby="method-title">
+          <div class="module__face">
             <h2 id="method-title">
               What <span class="method-heading__sig">tested</span> and
               <span class="method-heading__bound">bounded</span> actually
               costs.
             </h2>
+            <p class="module__meta">4 rules / applied to every system above</p>
           </div>
-          <p class="section-note">4 rules / applied to every system below</p>
-        </div>
-        <!-- Four rules, not four steps. Order carries no meaning, so the
-             rows are keyed by name rather than numbered and the markup is an
-             unordered list. Do not add 01 / 02 / 03 markers. -->
-        <ul class="method-list">
-          <li class="method-rule">
-            <span class="method-rule__key">Corpus</span>
-            <p class="method-rule__claim">A claim gets a corpus, not an example.</p>
-            <p class="method-rule__receipt">
-              Ten MCP detection rules were not called working until they ran
-              clean across 4,727 benign records and 541 sessions. A single
-              demo capture proves the plumbing works, not that the rule stays
-              quiet.
-            </p>
-          </li>
-          <!-- The boundary rule is the one the site's argument turns on, so
-               it gets a material change rather than a recolored word: the
-               same recessed well ground and 3px amber key as .scope-note,
-               the device every case study uses to name a limit. It sits
-               second on purpose. The limit arrives with the result, never
-               ahead of it. -->
-          <li class="method-rule method-rule--bound">
-            <span class="method-rule__key">Boundary</span>
-            <p class="method-rule__claim">The limit ships with the result.</p>
-            <p class="method-rule__receipt">
-              Three of twelve documented evasion classes have no signature I
-              can write against them. That count sits on the project page
-              beside the detections it qualifies, not in a footnote
-              underneath them.
-            </p>
-          </li>
-          <li class="method-rule">
-            <span class="method-rule__key">Retraction</span>
-            <p class="method-rule__claim">A wrong claim gets retracted, not quietly edited.</p>
-            <p class="method-rule__receipt">
-              Assertion Desk&#8217;s own limitations file claimed one
-              adversarial payload had a real path into a model prompt.
-              Reading the code found a second path the file never accounted
-              for. The corpus grew from four cases to nine, and
-              <a href="/writing/the-claim-i-published-was-wrong/"
-                >I published the correction</a
-              >
-              instead of editing the file quietly.
-            </p>
-          </li>
-          <li class="method-rule">
-            <span class="method-rule__key">Assurance</span>
-            <p class="method-rule__claim">Silence is not verification.</p>
-            <p class="method-rule__receipt">
-              The MCP review framework records control state on a six-value
-              model where an absence of telemetry indicators can never return
-              <code>verified</code>. Nothing alarmed is a fact about the
-              sensors, not about the control.
-            </p>
-          </li>
-        </ul>
-      </section>
-
-      <!-- Added 2026-09-09. The page had one rhythm before this: eyebrow,
-           headline, right-aligned meta, hairline rule, three-column rows,
-           repeated top to bottom. Scrolling stopped producing surprise
-           around the second section, and the whole site asserted rigor in
-           prose while showing it exactly once, in the static hero trace.
-
-           This is the section that shows it. The rules in bench.js are the
-           deployed Wazuh rules ported to JavaScript, not a scripted
-           animation, and replaying the real 196-record evasion corpus
-           through them reproduces every verdict in PHASE5-REPORT.md. So a
-           visitor can pick any attack, watch the real rules fail to catch
-           it, and read what the repo already said about why.
-
-           The rail is the argument, and it works before a single click:
-           eleven of fourteen chips are amber at rest. Deliberately no
-           count is restated here. The classes report their own verdicts in
-           the report's words, and the "three of twelve" figure stays where
-           it already lives, on the project page. -->
-      <section class="section shell" aria-labelledby="bench-title" data-bench>
-        <div class="section-heading section-heading--split">
-          <div>
-            <p class="eyebrow eyebrow--amb">Red team</p>
-            <h2 id="bench-title">
-              Ten rules.
-              <span class="method-heading__bound">Twelve ways past them.</span>
-            </h2>
-          </div>
-          <p class="section-note">12 classes / 10 still work</p>
-        </div>
-        <p class="bench-lede">
-          Every rule below is the one deployed in MCP Detect, ported to run in
-          this page. Pick an attack from the corpus, or edit the record and
-          run something of your own against it.
-        </p>
-        <div class="bench">
-          <div class="bench-rail" data-bench-rail>
-            <div class="bench-rail__group">
-              <h3 class="bench-rail__group-name">Baseline</h3>
-              <ul class="bench-rail__list">
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--sig"
-                    >Unmodified credential read</span
-                  >
-                </li>
-              </ul>
-            </div>
-            <div class="bench-rail__group">
-              <h3 class="bench-rail__group-name">Tool poisoning</h3>
-              <ul class="bench-rail__list">
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E1 keyword avoiding</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E2 no HTML comment</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--sig"
-                    >E3a zero-width insertion</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E3b homoglyph</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E4 distance bound</span
-                  >
-                </li>
-              </ul>
-            </div>
-            <div class="bench-rail__group">
-              <h3 class="bench-rail__group-name">Credential exfiltration</h3>
-              <ul class="bench-rail__list">
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E5 tool-name spoof</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E6 untested key</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E7 secret shape</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E8 encoded payload</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E9 read-path variant</span
-                  >
-                </li>
-              </ul>
-            </div>
-            <div class="bench-rail__group">
-              <h3 class="bench-rail__group-name">Rug pull</h3>
-              <ul class="bench-rail__list">
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E10 legitimate upgrade</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--amb"
-                    >E11 behavior only</span
-                  >
-                </li>
-                <li>
-                  <span class="bench-chip bench-chip--static lamp lamp--sig"
-                    >E12 session-conditional</span
-                  >
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="bench-device">
-            <div class="bench-device__bar">
-              <p class="bench-device__title">wazuh-logtest</p>
-              <p class="bench-device__file" data-bench-record-title>
-                telemetry.jsonl / Unmodified credential read
+          <!-- Four rules, not four steps. Order carries no meaning, so the
+               rows are keyed by name rather than numbered and the markup is an
+               unordered list. Do not add 01 / 02 / 03 markers. -->
+          <ul class="method-list">
+            <li class="method-rule">
+              <span class="method-rule__key">Corpus</span>
+              <p class="method-rule__claim">A claim gets a corpus, not an example.</p>
+              <p class="method-rule__receipt">
+                Ten MCP detection rules were not called working until they ran
+                clean across 4,727 benign records and 541 sessions. A single
+                demo capture proves the plumbing works, not that the rule stays
+                quiet.
               </p>
-            </div>
-            <div class="bench-device__grid">
-              <div class="bench-pane">
-                <label class="bench-pane__label" for="bench-record"
-                  >Record <strong>in</strong></label
+            </li>
+            <!-- The boundary rule is the one the site's argument turns on, so
+                 it gets a material change rather than a recolored word: the
+                 same recessed well ground and 3px amber key as .scope-note,
+                 the device every case study uses to name a limit. It sits
+                 second on purpose. The limit arrives with the result, never
+                 ahead of it. -->
+            <li class="method-rule method-rule--bound">
+              <span class="method-rule__key">Boundary</span>
+              <p class="method-rule__claim">The limit ships with the result.</p>
+              <p class="method-rule__receipt">
+                Three of twelve documented evasion classes have no signature I
+                can write against them. That count sits on the project page
+                beside the detections it qualifies, not in a footnote
+                underneath them.
+              </p>
+            </li>
+            <li class="method-rule">
+              <span class="method-rule__key">Retraction</span>
+              <p class="method-rule__claim">A wrong claim gets retracted, not quietly edited.</p>
+              <p class="method-rule__receipt">
+                Assertion Desk&#8217;s own limitations file claimed one
+                adversarial payload had a real path into a model prompt.
+                Reading the code found a second path the file never accounted
+                for. The corpus grew from four cases to nine, and
+                <a href="/writing/the-claim-i-published-was-wrong/"
+                  >I published the correction</a
                 >
-                <textarea
-                  class="bench-editor"
-                  id="bench-record"
-                  spellcheck="false"
-                  autocomplete="off"
-                  autocapitalize="off"
-                  data-bench-editor
-                >
-{
-  "session_id": "9d462afe-ce7c-4e98-9a8f-fefa0386b7b4",
-  "method": "tools/call",
-  "server_command": "python3 attacks/servers/exfil_sink_server.py",
-  "tool_name": "read_text_file",
-  "tool_arguments": {
-    "path": ".env"
-  }
-}</textarea
-                >
-              </div>
-              <div class="bench-pane">
-                <span class="bench-pane__label"
-                  >Rules <strong>evaluated</strong></span
-                >
-                <div class="bench-trace" data-bench-trace>
-                  <ul class="bench-trace__list">
-                    <li class="bench-trace__line is-hit">
-                      <span class="bench-trace__id">100100</span>
-                      <span class="bench-trace__field">session_id, server_command</span>
-                      <span class="bench-trace__result">matched, level 0, no alert</span>
-                    </li>
-                    <li class="bench-trace__line is-hit">
-                      <span class="bench-trace__id">100101</span>
-                      <span class="bench-trace__field">tool_arguments.path</span>
-                      <span class="bench-trace__result">MATCH, level 12, T1552.001</span>
-                    </li>
-                    <li class="bench-trace__line">
-                      <span class="bench-trace__id">100102</span>
-                      <span class="bench-trace__field">raw.result.tools</span>
-                      <span class="bench-trace__result">no match</span>
-                    </li>
-                    <li class="bench-trace__line">
-                      <span class="bench-trace__id">100103</span>
-                      <span class="bench-trace__field">tool_arguments.data</span>
-                      <span class="bench-trace__result">no match</span>
-                    </li>
-                    <li class="bench-trace__line">
-                      <span class="bench-trace__id">100104</span>
-                      <span class="bench-trace__field">tool_arguments.payload</span>
-                      <span class="bench-trace__result">no match</span>
-                    </li>
-                    <li class="bench-trace__line">
-                      <span class="bench-trace__id">100105</span>
-                      <span class="bench-trace__field">tool_arguments.content</span>
-                      <span class="bench-trace__result">no match</span>
-                    </li>
-                    <li class="bench-trace__line">
-                      <span class="bench-trace__id">100106</span>
-                      <span class="bench-trace__field">tool_arguments.body</span>
-                      <span class="bench-trace__result">no match</span>
-                    </li>
-                    <li class="bench-trace__line">
-                      <span class="bench-trace__id">100107</span>
-                      <span class="bench-trace__field">tool_arguments.message</span>
-                      <span class="bench-trace__result">no match</span>
-                    </li>
-                    <li class="bench-trace__line">
-                      <span class="bench-trace__id">100108</span>
-                      <span class="bench-trace__field">tool_arguments.path</span>
-                      <span class="bench-trace__result">no match</span>
-                    </li>
-                    <li class="bench-trace__line">
-                      <span class="bench-trace__id">100109</span>
-                      <span class="bench-trace__field">tool_arguments.path</span>
-                      <span class="bench-trace__result">no match</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="bench-verdict" aria-live="polite" data-bench-verdict>
-              <div class="bench-verdict__panel bench-verdict__panel--sig">
-                <p class="bench-verdict__headline lamp lamp--sig">Caught by 100101</p>
-                <p class="bench-verdict__rule">rule 100101 level 12 T1552.001</p>
-                <p class="bench-verdict__mechanism">
-                  No evasion applied. The attack as originally written.
-                </p>
-                <p class="bench-verdict__note">
-                  This is the shape every class below is trying to get past.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <p class="bench-source">
-          Verdicts and mechanisms come from the project&#8217;s own Phase 5
-          red-team report. The reasoning behind them is in
-          <a href="/writing/i-built-five-mcp-detections-then-broke-them/"
-            >Catching Your Own Attack Only Proves the Plumbing Works</a
-          >, and the rules themselves are on the
-          <a href="/projects/mcp-security/">MCP Security Review Framework</a>
-          page.
-        </p>
-      </section>
+                instead of editing the file quietly.
+              </p>
+            </li>
+            <li class="method-rule">
+              <span class="method-rule__key">Assurance</span>
+              <p class="method-rule__claim">Silence is not verification.</p>
+              <p class="method-rule__receipt">
+                The MCP review framework records control state on a six-value
+                model where an absence of telemetry indicators can never return
+                <code>verified</code>. Nothing alarmed is a fact about the
+                sensors, not about the control.
+              </p>
+            </li>
+          </ul>
+        </section>
 
-      <section class="section shell" aria-labelledby="work-title">
-        <div class="section-heading section-heading--split">
-          <div>
-            <p class="eyebrow">Selected work</p>
-            <h2 id="work-title">Security systems I built.</h2>
-          </div>
-          <p class="section-note">5 systems / 2025 to 2026</p>
-        </div>
-        <div class="work-list">
-          <article class="work-row">
-            <div class="work-row__meta">
-              <span class="status lamp lamp--sig">Active open source</span>
-              <span class="work-row__year">2025 to present</span>
-              <span class="repo-live" data-repo="DaC-Pipeline" data-ci="true" hidden></span>
-            </div>
-            <div class="work-row__body">
-              <h3><a href="/projects/detection-as-code/">Detection-as-Code Pipeline</a></h3>
-              <p>
-                A from-scratch Sigma-to-Wazuh compiler with validation gates,
-                stable rule identity, and API deployment behind a dry run.
-              </p>
-            </div>
-            <p class="work-row__evidence">
-              <strong>58 Sigma &#8594; 216 Wazuh rules</strong><br />
-              119 ATT&amp;CK techniques, 14 tactics<br />
-              87 automated tests
-              <span class="bound">57 of 58 rules target Windows process creation</span>
-            </p>
-            <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
-          </article>
-          <article class="work-row">
-            <div class="work-row__meta">
-              <span class="status lamp lamp--sig">Active open source</span>
-              <span class="work-row__year">2026</span>
-              <span class="repo-live" data-repo="control-plane" data-ci="true" hidden></span>
-            </div>
-            <div class="work-row__body">
-              <h3><a href="/projects/control-plane/">Control Plane</a></h3>
-              <p>
-                An approval-gated environment where identity, endpoint state,
-                ticketing, alerts, approvals, and audit evidence run as one
-                executable chain. Every privileged action passes a recorded
-                policy decision.
-              </p>
-            </div>
-            <p class="work-row__evidence">
-              <strong>2,092-case policy parity</strong><br />
-              90 of 108 privileged attempts denied<br />
-              1,631 audit records, chain valid
-              <span class="bound">Synthetic environment, not a production platform</span>
-            </p>
-            <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
-          </article>
-          <article class="work-row">
-            <div class="work-row__meta">
-              <span class="status lamp lamp--amb">Research lab</span>
-              <span class="work-row__year">2026</span>
-              <span class="repo-live" data-repo="mcp-detect" data-ci="true" hidden></span>
-            </div>
-            <div class="work-row__body">
-              <h3><a href="/projects/mcp-security/">MCP Security Review Framework</a></h3>
-              <p>
-                Captures MCP tool-call traffic and turns it into evidence a
-                human reviewer can act on: bounded detections, trust-boundary
-                inventory, and measured blind spots.
-              </p>
-            </div>
-            <p class="work-row__evidence">
-              <strong>10 rules, 5 abuse techniques</strong><br />
-              4,727-record benign corpus<br />
-              12 documented evasion classes
-              <span class="bound">3 of 12 evasion classes are structurally undetectable</span>
-            </p>
-            <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
-          </article>
-          <article class="work-row">
-            <div class="work-row__meta">
-              <span class="status lamp lamp--amb">Lab proof of concept</span>
-              <span class="work-row__year">2026</span>
-              <span class="repo-live" data-repo="Deceptive-Identity-Architecture" data-ci="false" hidden></span>
-            </div>
-            <div class="work-row__body">
-              <h3><a href="/projects/identity-deception/">Deceptive Identity Architecture</a></h3>
-              <p>
-                An Authentik SSO perimeter wired to Canarytokens and a Python
-                enrichment service, built to study high-signal identity
-                tripwires.
-              </p>
-            </div>
-            <p class="work-row__evidence">
-              <strong>Authentik + Canarytokens</strong><br />
-              Flask webhook processor<br />
-              AbuseIPDB enrichment, ARM64 lab
-              <span class="bound">Proof of concept, not a production identity control</span>
-            </p>
-            <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
-          </article>
-          <article class="work-row">
-            <div class="work-row__meta">
-              <span class="status lamp lamp--sig">Active open source</span>
-              <span class="work-row__year">2026</span>
-              <span class="repo-live" data-repo="assertion-desk" data-ci="true" hidden></span>
-            </div>
-            <div class="work-row__body">
-              <h3><a href="/projects/assertion-desk/">Assertion Desk</a></h3>
-              <p>
-                A SAML sign-in failure diagnosis pipeline where a
-                deterministic verifier establishes the facts and a
-                grounding gate rejects any model claim the facts do not
-                support.
-              </p>
-            </div>
-            <p class="work-row__evidence">
-              <strong>55 SAML cases, 94.5% disposition accuracy</strong><br />
-              6 of 6 reachable injection payloads resisted<br />
-              0 secrets across 280 recorded prompts
-              <span class="bound">Keycloak only, and the AI path still trails the deterministic path</span>
-            </p>
-            <span class="work-row__arrow" aria-hidden="true">&#8594;</span>
-          </article>
-        </div>
-        <div class="action-row">
-          <a class="button button-secondary" href="/projects/"
-            >All projects and investigations</a
-          >
-        </div>
-      </section>
-
-      <section class="section shell" aria-labelledby="writing-title">
-        <div class="section-heading section-heading--split">
-          <div>
-            <p class="eyebrow">Writing</p>
+        <section class="module module--writing" aria-labelledby="writing-title">
+          <div class="module__face">
             <h2 id="writing-title">Technical investigations.</h2>
+            <p class="module__meta">2 pieces / 2024 and 2026</p>
           </div>
-          <p class="section-note">3-part series / 2026</p>
-        </div>
-        <div class="writing-list">
-          <article class="writing-row">
-            <div class="writing-row__meta">
-              <span>2026-08-03</span>
-              <span class="venue">Inside MCP Detect 2/3</span>
-            </div>
-            <div>
-              <h3><a href="/writing/i-built-five-mcp-detections-then-broke-them/">Catching Your Own Attack Only Proves the Plumbing Works</a></h3>
-              <p>
-                Ten rules measured against a 4,727-record synthetic benign
-                corpus with zero alerts, and ten evasions that still defeat
-                them.
-              </p>
-            </div>
-          </article>
-          <article class="writing-row">
-            <div class="writing-row__meta">
-              <span>2024-08-06</span>
-              <span class="venue">Browser Forensics</span>
-            </div>
-            <div>
-              <h3>
-                <a
-                  href="https://medium.com/browser-forensics/chromium-based-browsers-an-analysis-on-simple-cache-c9f1b46c1d56"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  >Chromium-Based Browsers: An Analysis on Simple Cache<span
-                    class="sr-only"
+          <div class="writing-list">
+            <article class="writing-row">
+              <div class="writing-row__meta">
+                <span>2026-08-03</span>
+                <span class="venue">Inside MCP Detect 2/3</span>
+              </div>
+              <div>
+                <h3><a href="/writing/i-built-five-mcp-detections-then-broke-them/">Catching Your Own Attack Only Proves the Plumbing Works</a></h3>
+                <p>
+                  Ten rules measured against a 4,727-record synthetic benign
+                  corpus with zero alerts, and ten evasions that still defeat
+                  them.
+                </p>
+              </div>
+            </article>
+            <article class="writing-row">
+              <div class="writing-row__meta">
+                <span>2024-08-06</span>
+                <span class="venue">Browser Forensics</span>
+              </div>
+              <div>
+                <h3>
+                  <a
+                    href="https://medium.com/browser-forensics/chromium-based-browsers-an-analysis-on-simple-cache-c9f1b46c1d56"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Chromium-Based Browsers: An Analysis on Simple Cache<span
+                      class="sr-only"
+                    >
+                      (opens in a new tab)</span
+                    ></a
                   >
-                    (opens in a new tab)</span
-                  ></a
-                >
-              </h3>
-              <p>
-                What Simple Cache preserves after history is cleared, and a
-                Python workflow that extracts, hashes, and reports it.
-              </p>
-            </div>
-          </article>
-        </div>
-        <div class="action-row">
-          <a class="button button-secondary" href="/writing/">All writing</a>
-        </div>
-      </section>
+                </h3>
+                <p>
+                  What Simple Cache preserves after history is cleared, and a
+                  Python workflow that extracts, hashes, and reports it.
+                </p>
+              </div>
+            </article>
+          </div>
+          <div class="action-row">
+            <a class="button button-secondary" href="/writing/">All writing</a>
+          </div>
+        </section>
 
-      <section class="section shell" aria-labelledby="contact-title">
-        <div class="contact-panel">
-          <p class="eyebrow">Contact</p>
-          <h2 id="contact-title">Let&#8217;s talk security operations.</h2>
+        <section class="module module--contact" aria-labelledby="contact-title">
+          <div class="module__face">
+            <h2 id="contact-title">Let&#8217;s talk security operations.</h2>
+            <p class="module__meta">Rochester, MN / open to remote</p>
+          </div>
           <p>
-            I'm seeking junior security operations, detection automation,
+            I&#8217;m seeking junior security operations, detection automation,
             assurance, and IT roles. I am also open to scoped project
             conversations that need careful testing and documentation.
           </p>
@@ -824,8 +946,8 @@
               >Contact options</a
             >
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </main>
 
     <footer class="site-footer">
