@@ -120,7 +120,6 @@
           </nav>
           <div class="case-hero__grid">
             <div>
-              <p class="eyebrow">Identity security / Deception lab</p>
               <h1>Deceptive Identity Architecture</h1>
               <p class="case-hero__summary">
                 A self-hosted lab that connects an Authentik identity perimeter
@@ -147,6 +146,7 @@
               </div>
             </div>
             <dl class="case-meta">
+              <div><dt>Domain</dt><dd>Identity security, deception lab</dd></div>
               <div><dt>Status</dt><dd><span class="lamp lamp--amb">Lab proof of concept</span> <span class="repo-live" data-repo="Deceptive-Identity-Architecture" data-ci="false" hidden></span></dd></div>
               <div><dt>Role</dt><dd>Sole engineer, deployment through telemetry</dd></div>
               <div>
@@ -162,31 +162,35 @@
         </div>
 
         <section class="case-glance shell" aria-labelledby="case-glance-title">
-          <h2 id="case-glance-title">At a glance</h2>
-          <div class="assessment">
-            <div class="assessment__cell">
-              <p class="assessment__label">Claim</p>
-              <p>
-                A deliberately placed identity tripwire can connect SSO
-                activity to a structured, enriched audit record in a controlled
-                lab.
-              </p>
+          <div class="glance-plate">
+            <div class="glance-plate__face">
+              <h2 id="case-glance-title">At a glance</h2>
             </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Evidence</p>
-              <p>
-                Repository configuration, Authentik customization, a
-                self-hosted Canarytokens stack, the processing code, and
-                captured lab output.
-              </p>
-            </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Boundary</p>
-              <p>
-                The webhook receiver and IP heuristic are not production
-                hardened. Attribution, delivery integrity, and failure handling
-                need more work.
-              </p>
+            <div class="assessment">
+              <div class="assessment__cell">
+                <p class="assessment__label">Claim</p>
+                <p>
+                  A deliberately placed identity tripwire can connect SSO
+                  activity to a structured, enriched audit record in a controlled
+                  lab.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Evidence</p>
+                <p>
+                  Repository configuration, Authentik customization, a
+                  self-hosted Canarytokens stack, the processing code, and
+                  captured lab output.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Boundary</p>
+                <p>
+                  The webhook receiver and IP heuristic are not production
+                  hardened. Attribution, delivery integrity, and failure handling
+                  need more work.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -206,7 +210,6 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <p class="eyebrow">The problem</p>
               <h2 id="problem-title">Honeypots are noisy. Identity tripwires are not.</h2>
               <p>
                 A network honeypot collects broad activity, and with it noise
@@ -223,7 +226,6 @@
             </section>
 
             <section id="architecture" aria-labelledby="architecture-title">
-              <p class="eyebrow">Architecture</p>
               <h2 id="architecture-title">From identity boundary to enriched event.</h2>
               <div class="metric-list">
                 <div class="metric"><strong>5</strong><span>Pipeline stages, control to enrichment</span></div>
@@ -259,8 +261,7 @@
               </ol>
             </section>
 
-            <section id="constraints" aria-labelledby="constraints-title">
-              <p class="eyebrow eyebrow--amb">Constraints</p>
+            <section id="constraints" class="case-bound" aria-labelledby="constraints-title">
               <h2 id="constraints-title">The environment forced real systems work.</h2>
               <details class="disclosure">
                 <summary>No ARM64 images existed</summary>
@@ -304,8 +305,7 @@
               </details>
             </section>
 
-            <section id="gaps" aria-labelledby="gaps-title">
-              <p class="eyebrow eyebrow--amb">Security review of my own prototype</p>
+            <section id="gaps" class="case-bound" aria-labelledby="gaps-title">
               <h2 id="gaps-title">Where the current code falls short.</h2>
               <ul class="limit-list">
                 <li>
@@ -346,7 +346,6 @@
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <p class="eyebrow">Source</p>
               <h2 id="source-title">Inspect it yourself.</h2>
               <p>
                 The architecture, configuration, and processing code are

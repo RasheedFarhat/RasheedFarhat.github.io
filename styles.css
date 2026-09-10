@@ -2126,10 +2126,20 @@ html[data-loaded="true"] .plate__bound {
 }
 
 /* A capability that is itself about a boundary (what gets reviewed, what a
-   claim does not cover) takes the same amber left-key idiom as .scope-note. */
+   claim does not cover) takes the same amber tab as .scope-note. The cell keeps
+   the grid's own padding; the key rides the hairline above it. */
 .capability--amb {
-  border-left: 3px solid var(--amb);
-  padding-left: calc(1.5rem - 3px);
+  position: relative;
+}
+
+.capability--amb::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--amb);
 }
 
 .capability--amb h3 {
@@ -3174,10 +3184,24 @@ ul.tag-list {
   max-width: none;
 }
 
+/* The band the gate rejected on. Recessed like every other boundary surface on
+   the site, keyed by the same amber tab, which straddles the divider above it so
+   the mark reads as belonging to this band rather than to the one before it. The
+   parent clips its own border, so the tab starts at the band's own left edge. */
 .grounding-gate__band--gate {
+  position: relative;
   background: var(--well);
   box-shadow: inset 0 1px 3px var(--well-top);
-  border-left: 3px solid var(--amb);
+}
+
+.grounding-gate__band--gate::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--amb);
 }
 
 .grounding-gate__band--gate .plate-label {
@@ -3556,15 +3580,28 @@ ul.tag-list {
 
 /* Boundary panel (signature), inline form: every research-note in the
    articles is a scope/limitation statement (see its usage), so it takes
-   the same amber key as .scope-note and .limit-list rather than teal. */
+   the same amber tab and the same recessed ground as .scope-note and
+   .limit-list rather than a raised panel with a colored left rule. Set back
+   from the reading column is what an aside about limits should look like. */
 .research-note {
+  position: relative;
   margin: var(--s-7) 0;
   padding: var(--pad-tight);
   border: 1px solid var(--line);
-  border-left: 3px solid var(--amb);
   border-radius: var(--radius);
-  background: var(--panel);
+  background: var(--well);
+  box-shadow: inset 0 1px 3px var(--well-top), inset 0 -1px 0 var(--well-bottom);
   color: var(--text);
+}
+
+.research-note::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 2.5rem;
+  height: 2px;
+  background: var(--amb);
 }
 
 .research-note strong {

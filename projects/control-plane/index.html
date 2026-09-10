@@ -120,7 +120,6 @@
           </nav>
           <div class="case-hero__grid">
             <div>
-              <p class="eyebrow">IT and security operations / Approval-gated workflow</p>
               <h1>Control Plane</h1>
               <p class="case-hero__summary">
                 An operations environment where a request becomes identity, MFA,
@@ -149,6 +148,7 @@
               </div>
             </div>
             <dl class="case-meta">
+              <div><dt>Domain</dt><dd>IT and security operations, approval-gated workflow</dd></div>
               <div><dt>Status</dt><dd><span class="lamp lamp--sig">Active open source</span> <span class="tag tag--scope">Synthetic data</span> <span class="repo-live" data-repo="control-plane" data-ci="true" hidden></span></dd></div>
               <div><dt>Role</dt><dd>Sole engineer, data model through CI</dd></div>
               <div>
@@ -167,32 +167,36 @@
         </div>
 
         <section class="case-glance shell" aria-labelledby="case-glance-title">
-          <h2 id="case-glance-title">At a glance</h2>
-          <div class="assessment">
-            <div class="assessment__cell">
-              <p class="assessment__label">Claim</p>
-              <p>
-                An operations chain from request to closure can be made
-                executable, and every privileged action inside it can be forced
-                through a single recorded policy decision.
-              </p>
+          <div class="glance-plate">
+            <div class="glance-plate__face">
+              <h2 id="case-glance-title">At a glance</h2>
             </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Evidence</p>
-              <p>
-                A seeded 600-event corpus run through the real ingest and
-                authorization paths, a 2,092-case policy matrix evaluated
-                through two independent engines, 28 invariants across five
-                scenarios, and a verified audit hash chain.
-              </p>
-            </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Boundary</p>
-              <p>
-                The data is synthetic and written by the same person as the
-                code. The results show the controls behave as specified, not
-                that the system survives input nobody anticipated.
-              </p>
+            <div class="assessment">
+              <div class="assessment__cell">
+                <p class="assessment__label">Claim</p>
+                <p>
+                  An operations chain from request to closure can be made
+                  executable, and every privileged action inside it can be forced
+                  through a single recorded policy decision.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Evidence</p>
+                <p>
+                  A seeded 600-event corpus run through the real ingest and
+                  authorization paths, a 2,092-case policy matrix evaluated
+                  through two independent engines, 28 invariants across five
+                  scenarios, and a verified audit hash chain.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Boundary</p>
+                <p>
+                  The data is synthetic and written by the same person as the
+                  code. The results show the controls behave as specified, not
+                  that the system survives input nobody anticipated.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -215,7 +219,6 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <p class="eyebrow">The problem</p>
               <h2 id="problem-title">The tools are the easy&nbsp;part. The handoffs are not.</h2>
               <p>
                 Most IT and security work is not one product. It is a chain of
@@ -238,7 +241,6 @@
             </section>
 
             <section id="architecture" aria-labelledby="architecture-title">
-              <p class="eyebrow">Architecture</p>
               <h2 id="architecture-title">Six stages, one recorded decision each.</h2>
               <ol class="stage-list">
                 <li>
@@ -275,7 +277,6 @@
             </section>
 
             <section id="policy" aria-labelledby="policy-title">
-              <p class="eyebrow">Authorization</p>
               <h2 id="policy-title">One decision point, two implementations that must agree.</h2>
               <p>
                 Every privileged action routes through a single call. The
@@ -336,7 +337,6 @@
             </section>
 
             <section id="scenarios" aria-labelledby="scenarios-title">
-              <p class="eyebrow">Scenarios</p>
               <h2 id="scenarios-title">Three chains, each ending in evidence.</h2>
               <details class="disclosure">
                 <summary>Joiner, mover, leaver</summary>
@@ -380,7 +380,6 @@
             </section>
 
             <section id="measurement" aria-labelledby="measurement-title">
-              <p class="eyebrow">Measurement</p>
               <h2 id="measurement-title">A seeded corpus, pushed through the real paths.</h2>
               <p>
                 The published numbers come from one command. It generates a
@@ -424,7 +423,6 @@
             </section>
 
             <section id="evidence" aria-labelledby="evidence-title">
-              <p class="eyebrow">Evidence integrity</p>
               <h2 id="evidence-title">Nothing is trusted for being written by the system.</h2>
               <p>
                 Audit records chain by SHA-256 over the previous record hash,
@@ -448,8 +446,7 @@
               </p>
             </section>
 
-            <section id="limits" aria-labelledby="limits-title">
-              <p class="eyebrow eyebrow--amb">Known limits</p>
+            <section id="limits" class="case-bound" aria-labelledby="limits-title">
               <h2 id="limits-title">What this cannot show.</h2>
               <ul class="limit-list">
                 <li>
@@ -491,7 +488,6 @@
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <p class="eyebrow">Source</p>
               <h2 id="source-title">Run it in three minutes, offline.</h2>
               <p>
                 The offline path needs only Python. Docker Compose profiles add

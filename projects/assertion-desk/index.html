@@ -120,7 +120,6 @@
           </nav>
           <div class="case-hero__grid">
             <div>
-              <p class="eyebrow">SAML sign-in failure diagnosis / Evidence-gated AI pipeline</p>
               <h1>Assertion Desk</h1>
               <p class="case-hero__summary">
                 A model may draft the explanation for why a sign-in failed.
@@ -152,6 +151,7 @@
               </div>
             </div>
             <dl class="case-meta">
+              <div><dt>Domain</dt><dd>SAML sign-in failure diagnosis, evidence-gated AI pipeline</dd></div>
               <div><dt>Status</dt><dd><span class="lamp lamp--sig">Active open source</span> <span class="tag tag--scope">Synthetic data</span> <span class="repo-live" data-repo="assertion-desk" data-ci="true" hidden></span></dd></div>
               <div><dt>Role</dt><dd>Sole engineer, corpus generation through CI</dd></div>
               <div>
@@ -170,38 +170,42 @@
         </div>
 
         <section class="case-glance shell" aria-labelledby="case-glance-title">
-          <h2 id="case-glance-title">At a glance</h2>
-          <div class="assessment">
-            <div class="assessment__cell">
-              <p class="assessment__label">Claim</p>
-              <p>
-                A support-facing root-cause explanation can be drafted by a
-                model and still be trustworthy, if nothing it writes is
-                allowed to stand without a deterministic check behind it,
-                and every claim that fails that test is rejected before a
-                human ever sees it.
-              </p>
+          <div class="glance-plate">
+            <div class="glance-plate__face">
+              <h2 id="case-glance-title">At a glance</h2>
             </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Evidence</p>
-              <p>
-                55 executable SAML cases with fault labels from a live
-                Keycloak exchange, 94.5% disposition accuracy, a grounding
-                gate that rejected 25% of drafted explanations before a
-                2026-08-19 prompt fix and rejects 0% of 47 graded outputs
-                today, and 6 of 6 adversarial prompt-injection payloads with
-                a real path into a model prompt resisted.
-              </p>
-            </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Boundary</p>
-              <p>
-                87.5% AI-assisted root-cause accuracy still trails the
-                90.0% deterministic-only baseline. The injection sample is
-                9 payloads concentrated on one base fault. One published
-                claim about this project's own security properties was
-                wrong until the code was read closely enough to find why.
-              </p>
+            <div class="assessment">
+              <div class="assessment__cell">
+                <p class="assessment__label">Claim</p>
+                <p>
+                  A support-facing root-cause explanation can be drafted by a
+                  model and still be trustworthy, if nothing it writes is
+                  allowed to stand without a deterministic check behind it,
+                  and every claim that fails that test is rejected before a
+                  human ever sees it.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Evidence</p>
+                <p>
+                  55 executable SAML cases with fault labels from a live
+                  Keycloak exchange, 94.5% disposition accuracy, a grounding
+                  gate that rejected 25% of drafted explanations before a
+                  2026-08-19 prompt fix and rejects 0% of 47 graded outputs
+                  today, and 6 of 6 adversarial prompt-injection payloads with
+                  a real path into a model prompt resisted.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Boundary</p>
+                <p>
+                  87.5% AI-assisted root-cause accuracy still trails the
+                  90.0% deterministic-only baseline. The injection sample is
+                  9 payloads concentrated on one base fault. One published
+                  claim about this project's own security properties was
+                  wrong until the code was read closely enough to find why.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -224,7 +228,6 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <p class="eyebrow">The problem</p>
               <h2 id="problem-title">The evidence that diagnoses a sign-in failure is also the evidence an attacker would want.</h2>
               <p>
                 In 2023 an attacker accessed files in Okta's own customer
@@ -243,7 +246,6 @@
             </section>
 
             <section id="pipeline" aria-labelledby="pipeline-title">
-              <p class="eyebrow">Pipeline</p>
               <h2 id="pipeline-title">Eight stages, and a model only enters at the middle two.</h2>
               <ol class="stage-list">
                 <li>
@@ -289,8 +291,7 @@
               </ol>
             </section>
 
-            <section id="gate" aria-labelledby="gate-title">
-              <p class="eyebrow eyebrow--amb">The grounding gate</p>
+            <section id="gate" class="case-bound" aria-labelledby="gate-title">
               <h2 id="gate-title">A well-formed answer is not the same thing as a correct one.</h2>
               <p>
                 This is a real recorded case, <code>missing_nameid</code>,
@@ -341,7 +342,6 @@
             </section>
 
             <section id="numbers" aria-labelledby="numbers-title">
-              <p class="eyebrow">Measurement</p>
               <h2 id="numbers-title">One committed replay, checked in CI.</h2>
               <p>
                 The published numbers come from one command,
@@ -371,7 +371,6 @@
             </section>
 
             <section id="injection" aria-labelledby="injection-title">
-              <p class="eyebrow">Injection resistance</p>
               <h2 id="injection-title">Nine adversarial payloads, three different outcomes.</h2>
               <p>
                 Every one of these payloads was written to look like an
@@ -419,8 +418,7 @@
               </p>
             </section>
 
-            <section id="correction" aria-labelledby="correction-title">
-              <p class="eyebrow eyebrow--amb">A claim that was wrong</p>
+            <section id="correction" class="case-bound" aria-labelledby="correction-title">
               <h2 id="correction-title">The documentation said one path existed. Reading the code found two.</h2>
               <p>
                 This project's own limitations file used to say injection
@@ -461,8 +459,7 @@ prompt = build_job_c_prompt(check_rows, job_a_facts=<span class="tok-k">None</sp
               </p>
             </section>
 
-            <section id="limits" aria-labelledby="limits-title">
-              <p class="eyebrow eyebrow--amb">Known limits</p>
+            <section id="limits" class="case-bound" aria-labelledby="limits-title">
               <h2 id="limits-title">What this cannot show.</h2>
               <ul class="limit-list">
                 <li>
@@ -510,7 +507,6 @@ prompt = build_job_c_prompt(check_rows, job_a_facts=<span class="tok-k">None</sp
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <p class="eyebrow">Source</p>
               <h2 id="source-title">Reproduce the whole corpus, offline, in one command.</h2>
               <p>
                 The replay proof needs only Python and the committed

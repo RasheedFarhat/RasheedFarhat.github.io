@@ -120,7 +120,6 @@
           </nav>
           <div class="case-hero__grid">
             <div>
-              <p class="eyebrow">Detection engineering / Security automation</p>
               <h1>Detection-as-Code Pipeline</h1>
               <p class="case-hero__summary">
                 A from-scratch compiler and delivery path that turns supported
@@ -146,6 +145,7 @@
               </div>
             </div>
             <dl class="case-meta">
+              <div><dt>Domain</dt><dd>Detection engineering, security automation</dd></div>
               <div><dt>Status</dt><dd><span class="lamp lamp--sig">Active open source</span> <span class="repo-live" data-repo="DaC-Pipeline" data-ci="true" hidden></span></dd></div>
               <div><dt>Role</dt><dd>Sole engineer, architecture through deployment</dd></div>
               <div>
@@ -161,29 +161,33 @@
         </div>
 
         <section class="case-glance shell" aria-labelledby="case-glance-title">
-          <h2 id="case-glance-title">At a glance</h2>
-          <div class="assessment">
-            <div class="assessment__cell">
-              <p class="assessment__label">Claim</p>
-              <p>
-                Translates its supported Sigma subset into traceable Wazuh
-                rules and delivers them through a controlled workflow.
-              </p>
+          <div class="glance-plate">
+            <div class="glance-plate__face">
+              <h2 id="case-glance-title">At a glance</h2>
             </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Evidence</p>
-              <p>
-                58 Sigma rules compile to 216 Wazuh rules across 119 ATT&amp;CK
-                techniques, behind 87 automated tests.
-              </p>
-            </div>
-            <div class="assessment__cell">
-              <p class="assessment__label">Boundary</p>
-              <p>
-                Not a complete Sigma backend. Unsupported constructs and
-                oversized DNF expansions fail the build instead of emitting
-                uncertain rules.
-              </p>
+            <div class="assessment">
+              <div class="assessment__cell">
+                <p class="assessment__label">Claim</p>
+                <p>
+                  Translates its supported Sigma subset into traceable Wazuh
+                  rules and delivers them through a controlled workflow.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Evidence</p>
+                <p>
+                  58 Sigma rules compile to 216 Wazuh rules across 119 ATT&amp;CK
+                  techniques, behind 87 automated tests.
+                </p>
+              </div>
+              <div class="assessment__cell">
+                <p class="assessment__label">Boundary</p>
+                <p>
+                  Not a complete Sigma backend. Unsupported constructs and
+                  oversized DNF expansions fail the build instead of emitting
+                  uncertain rules.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -205,7 +209,6 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <p class="eyebrow">The problem</p>
               <h2 id="problem-title">Wazuh needed more than a format converter.</h2>
               <p>
                 There is no official pySigma backend for Wazuh 4.x, and Wazuh
@@ -222,7 +225,6 @@
             </section>
 
             <section id="architecture" aria-labelledby="architecture-title">
-              <p class="eyebrow">Architecture</p>
               <h2 id="architecture-title">Five stages, each able to stop the build.</h2>
               <ol class="stage-list">
                 <li>
@@ -254,7 +256,6 @@
             </section>
 
             <section id="compiler" aria-labelledby="compiler-title">
-              <p class="eyebrow">Inside the compiler</p>
               <h2 id="compiler-title">The walker moves logic, not strings.</h2>
               <p>
                 pySigma parses each rule into an expression tree. The walker
@@ -295,7 +296,6 @@
             </section>
 
             <section id="decisions" aria-labelledby="decisions-title">
-              <p class="eyebrow">Engineering decisions</p>
               <h2 id="decisions-title">Chosen around failure modes.</h2>
               <details class="disclosure">
                 <summary>Fail loud on unsupported Sigma</summary>
@@ -354,7 +354,6 @@
             </section>
 
             <section id="validation" aria-labelledby="validation-title">
-              <p class="eyebrow">Validation</p>
               <h2 id="validation-title">What has been checked.</h2>
               <div class="coverage">
                 <div class="coverage__head">
@@ -399,8 +398,7 @@
               </p>
             </section>
 
-            <section id="limits" aria-labelledby="limits-title">
-              <p class="eyebrow eyebrow--amb">Known limits</p>
+            <section id="limits" class="case-bound" aria-labelledby="limits-title">
               <h2 id="limits-title">What it does not solve.</h2>
               <ul class="limit-list">
                 <li>
@@ -431,7 +429,6 @@
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <p class="eyebrow">Source</p>
               <h2 id="source-title">Inspect it yourself.</h2>
               <p>
                 The compiler, templates, ID registry, tests, workflows,
