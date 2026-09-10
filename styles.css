@@ -1016,6 +1016,26 @@ li {
   max-width: 52ch;
 }
 
+/* The one section on the about page that is not a credential. It runs shorter
+   than its neighbours and pulls its paragraph up close under the heading,
+   because the record above it earns the page's full spacing and this does
+   not. */
+.section--personal {
+  padding-block: clamp(2.75rem, 6vw, 4.25rem);
+}
+
+.section--personal .section-heading {
+  margin-bottom: clamp(1.1rem, 2vw, 1.5rem);
+}
+
+/* Reads a little larger than body copy and at a shorter measure, so it lands
+   as a direct statement rather than as another entry in the record. */
+.personal-note {
+  max-width: 56ch;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
 .section-note {
   color: var(--text-dim);
   margin: 0.5rem 0 0;
@@ -5400,54 +5420,6 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
     align-self: center;
     padding-top: 0;
     border-top: 0;
-  }
-}
-
-/* Outside module --------------------------------------------------------- */
-
-/* No faceplate and no measurement line. Every other module on this rack opens
-   with an engraved plate because it is about to make a claim and name what
-   backs it; this one is not, so it drops the plate and runs at roughly half
-   the height of its neighbours. Being visibly the smallest module is the
-   point. */
-.module--outside {
-  padding-block: clamp(1.4rem, 3vw, 1.95rem);
-}
-
-.outside {
-  display: grid;
-  gap: 0.6rem 2.5rem;
-}
-
-/* The heading is a label rather than a sentence, so it takes the instrument
-   lettering the rest of the rack uses for labels and sits beside the line it
-   names instead of above it. */
-.outside__label {
-  margin: 0;
-  max-width: none;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  font-weight: 400;
-  line-height: 1.7;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  color: var(--text-dim);
-  font-variation-settings: normal;
-  text-wrap: wrap;
-}
-
-.outside__line {
-  margin: 0;
-  max-width: 54ch;
-  font-size: clamp(1.02rem, 1.9vw, 1.2rem);
-  line-height: 1.55;
-  color: var(--text-hi);
-}
-
-@media (min-width: 60rem) {
-  .outside {
-    grid-template-columns: 11rem minmax(0, 1fr);
-    align-items: baseline;
   }
 }
 
