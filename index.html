@@ -131,6 +131,7 @@
           <a href="/" aria-current="page">Home</a>
           <a href="/projects/">Projects</a>
           <a href="/writing/">Writing</a>
+          <a href="/support/">Support</a>
           <a href="/about/">About</a>
           <a href="/contact/">Contact</a>
           </div>
@@ -249,8 +250,9 @@
              said about the work. Ten teal lamps are the rules deployed in
              MCP Detect. Twelve amber strikes hang above them, one per
              documented evasion class, and the three that carry no available
-             fix are marked as such rather than averaged away. The counts are
-             the argument and they are legible before a word is read. -->
+             fix are marked as such rather than averaged away. Each bank is
+             introduced by the one sentence that decodes it, because a reader
+             who meets E5 NO FIX cold has no way to price it. -->
         <section
           class="module module--flush module--amb module--readout"
           aria-labelledby="readout-title"
@@ -261,29 +263,36 @@
               <span class="method-heading__bound">Twelve attacks I built to
               break them.</span>
             </h2>
-            <p class="module__meta">MCP Detect / Phase 5 red team</p>
+            <p class="module__meta">12 evasion attempts / MCP Detect red team</p>
           </div>
           <div class="readout">
+            <p class="readout__note readout__note--amb">
+              Ten of the twelve still get through.
+              <strong>E5, E8 and E11 have no fix I can write</strong>, and each
+              says why in its own words on the bench below. E12 is closed by a
+              deployed rule and E10 is a false-positive probe the rules
+              correctly ignore.
+            </p>
             <ol class="readout__strikes">
             <li class="readout__strike">
               <span class="readout__strike-mark" aria-hidden="true"></span>
               <span class="readout__strike-id">E1</span>
-              <span class="readout__strike-state">Open</span>
+              <span class="readout__strike-state">Got in</span>
             </li>
             <li class="readout__strike">
               <span class="readout__strike-mark" aria-hidden="true"></span>
               <span class="readout__strike-id">E2</span>
-              <span class="readout__strike-state">Open</span>
+              <span class="readout__strike-state">Got in</span>
             </li>
             <li class="readout__strike">
               <span class="readout__strike-mark" aria-hidden="true"></span>
               <span class="readout__strike-id">E3</span>
-              <span class="readout__strike-state">Open</span>
+              <span class="readout__strike-state">Got in</span>
             </li>
             <li class="readout__strike">
               <span class="readout__strike-mark" aria-hidden="true"></span>
               <span class="readout__strike-id">E4</span>
-              <span class="readout__strike-state">Open</span>
+              <span class="readout__strike-state">Got in</span>
             </li>
             <li class="readout__strike readout__strike--hard">
               <span class="readout__strike-mark" aria-hidden="true"></span>
@@ -293,12 +302,12 @@
             <li class="readout__strike">
               <span class="readout__strike-mark" aria-hidden="true"></span>
               <span class="readout__strike-id">E6</span>
-              <span class="readout__strike-state">Open</span>
+              <span class="readout__strike-state">Got in</span>
             </li>
             <li class="readout__strike">
               <span class="readout__strike-mark" aria-hidden="true"></span>
               <span class="readout__strike-id">E7</span>
-              <span class="readout__strike-state">Open</span>
+              <span class="readout__strike-state">Got in</span>
             </li>
             <li class="readout__strike readout__strike--hard">
               <span class="readout__strike-mark" aria-hidden="true"></span>
@@ -308,7 +317,7 @@
             <li class="readout__strike">
               <span class="readout__strike-mark" aria-hidden="true"></span>
               <span class="readout__strike-id">E9</span>
-              <span class="readout__strike-state">Open</span>
+              <span class="readout__strike-state">Got in</span>
             </li>
             <li class="readout__strike readout__strike--closed">
               <span class="readout__strike-mark" aria-hidden="true"></span>
@@ -326,12 +335,9 @@
               <span class="readout__strike-state">Held</span>
             </li>
             </ol>
-            <p class="readout__note readout__note--amb">
-              Ten of the twelve still get through.
-              <strong>E5, E8 and E11 have no fix I can write</strong>, and each
-              says why in its own words on the bench below. E12 is closed by a
-              deployed rule and E10 is a false-positive probe the rules
-              correctly ignore.
+            <p class="readout__note">
+              Ten rules deployed on a byte-transparent MCP proxy, quiet across
+              a 4,727-record benign corpus of 541 sessions.
             </p>
             <ol class="readout__lamps">
             <li class="readout__lamp">
@@ -375,10 +381,6 @@
               <span class="readout__lamp-id">100109</span>
             </li>
             </ol>
-            <p class="readout__note">
-              Ten rules deployed on a byte-transparent MCP proxy, quiet across
-              a 4,727-record benign corpus of 541 sessions.
-            </p>
           </div>
         </section>
 

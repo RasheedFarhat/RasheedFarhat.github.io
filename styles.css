@@ -55,7 +55,7 @@
 
   --text-hi: #e8edea;
   --text: #b3bfba;
-  --text-dim: #7c8a85;
+  --text-dim: #83918c;
 
   --sig: #26d9c0;
   --sig-hi: #63e9d6;
@@ -66,6 +66,7 @@
   --amb-hi: #fe915d;
   --amb-ink: #2a1a03;
   --amb-soft: rgb(254 101 27 / 0.12);
+  --amb-text: #fe651b;
 
   --code-a: var(--text-hi);
   --code-b: var(--sig);
@@ -105,7 +106,7 @@
   /* Type scale, 7 steps. Values match the sizes already in use across the
      site (micro mono labels through the largest case-page heading) rather
      than introducing new ones. */
-  --t-1: 0.625rem;
+  --t-1: 0.6875rem;
   --t-2: 0.78rem;
   --t-3: 0.92rem;
   --t-4: 1rem;
@@ -151,6 +152,7 @@
   --amb-hi: #842c01;
   --amb-ink: #fbf4e8;
   --amb-soft: rgb(162 54 1 / 0.1);
+  --amb-text: #8e2e01;
 
   --code-a: var(--text-hi);
   --code-b: var(--sig);
@@ -182,6 +184,7 @@
     --amb-hi: #842c01;
     --amb-ink: #fbf4e8;
     --amb-soft: rgb(162 54 1 / 0.1);
+    --amb-text: #8e2e01;
     --code-a: var(--text-hi);
     --code-b: var(--sig);
     --code-c: var(--amb);
@@ -424,6 +427,14 @@ pre {
   font-family: var(--mono);
 }
 
+/* Inline code in prose carries file paths and eval run ids with no break
+   opportunity of their own, and a 480px token in a 390px viewport takes the
+   whole page sideways with it. Fenced blocks own their scroll container, so
+   the rule is scoped away from them. */
+:not(pre) > code {
+  overflow-wrap: anywhere;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -607,7 +618,7 @@ li {
 
 .repo-live__time {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.06em;
   color: var(--text-dim);
   white-space: nowrap;
@@ -737,7 +748,11 @@ li {
   gap: 1.6rem;
 }
 
-@media (min-width: 55rem) {
+/* Six nav items need 980px before the centered three-column header stops
+   squeezing the actions into the links. The mobile menu carries everything
+   below that, and the two queries meet exactly so no width falls between
+   them. */
+@media (min-width: 64rem) {
   .site-header__inner {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
@@ -906,7 +921,7 @@ li {
   transform: translateY(-6px) rotate(-45deg);
 }
 
-@media (max-width: 54rem) {
+@media (max-width: 63.9375rem) {
   .site-header__inner {
     gap: 0.75rem;
   }
@@ -1072,7 +1087,7 @@ li {
   margin-bottom: clamp(2rem, 5vw, 3.25rem);
   border-bottom: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--text-dim);
@@ -1433,7 +1448,7 @@ html[data-loaded="true"] .id-name__rule {
 .plate__pane pre {
   margin: 0;
   overflow-x: auto;
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   line-height: 1.7;
   color: var(--text);
   -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 1.5rem), transparent);
@@ -1487,7 +1502,7 @@ html[data-loaded="true"] .id-name__rule {
 }
 
 .plate__stages .plate__stages-label {
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.16em;
   display: block;
   margin-bottom: 0.6rem;
@@ -1759,7 +1774,7 @@ html[data-loaded="true"] .plate__bound {
   gap: 0.4rem 1.25rem;
   margin-top: 0.6rem;
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.04em;
   color: var(--text-dim);
 }
@@ -1951,7 +1966,7 @@ html[data-loaded="true"] .plate__bound {
 
 .status {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2539,7 +2554,7 @@ html[data-loaded="true"] .plate__bound {
 
 .assessment__cell .assessment__label {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -2548,7 +2563,7 @@ html[data-loaded="true"] .plate__bound {
 }
 
 .assessment__cell:last-child .assessment__label {
-  color: var(--amb);
+  color: var(--amb-text);
 }
 
 .assessment__cell p {
@@ -2752,7 +2767,7 @@ ul.tag-list {
 
 .tag {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.06em;
   color: var(--text-dim);
   background: var(--panel);
@@ -2882,7 +2897,7 @@ ul.tag-list {
 
 .stage-list .stage-label {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3276,7 +3291,7 @@ ul.tag-list {
 
 .channel .channel-kind {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3284,9 +3299,39 @@ ul.tag-list {
   margin-bottom: 0.75rem;
 }
 
+/* Three co-equal cards made the page's only conversion read as one option of
+   three. Email takes the full row and the filled button the homepage already
+   gives this same action; the other two stay text links under it. */
 @media (min-width: 54rem) {
   .channel-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* The full row hands the primary card twice the width its copy needs, so the
+     action sits at the right edge and the card reads as one band rather than a
+     paragraph with a dead half beside it. */
+  .channel--primary {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto auto;
+    column-gap: 2.5rem;
+    align-items: center;
+  }
+
+  .channel--primary > .channel-kind,
+  .channel--primary > h3,
+  .channel--primary > p {
+    grid-column: 1;
+  }
+
+  .channel--primary > p {
+    margin-bottom: 0;
+  }
+
+  .channel--primary > .button {
+    grid-column: 2;
+    grid-row: 1 / -1;
   }
 }
 
@@ -3562,7 +3607,7 @@ ul.tag-list {
   border: 1px solid var(--amb);
   border-radius: var(--radius);
   font-family: var(--mono);
-  font-size: 0.67rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -3608,10 +3653,10 @@ ul.tag-list {
   display: block;
   margin-bottom: 0.35rem;
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--amb);
+  color: var(--amb-text);
 }
 
 .research-note p:last-child {
@@ -3683,7 +3728,7 @@ ul.tag-list {
   display: block;
   margin-bottom: 0.6rem;
   font-family: var(--mono);
-  font-size: 0.65rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3740,7 +3785,7 @@ ul.tag-list {
   display: block;
   margin-bottom: 0.45rem;
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3853,14 +3898,14 @@ ul.tag-list {
 
 .coverage-table th {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--sig);
 }
 
 .coverage-table th:last-child {
-  color: var(--amb);
+  color: var(--amb-text);
 }
 
 .coverage-table tr:last-child td {
@@ -3889,7 +3934,7 @@ ul.tag-list {
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--line);
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--sig);
@@ -3920,7 +3965,7 @@ ul.tag-list {
   display: block;
   margin-bottom: 0.6rem;
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--sig);
@@ -4077,7 +4122,7 @@ ul.tag-list {
 
 .case-desk__provenance {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   letter-spacing: 0.02em;
   color: var(--text-dim);
 }
@@ -4101,7 +4146,7 @@ ul.tag-list {
 
 .case-desk__facts dt {
   font-family: var(--mono);
-  font-size: 0.64rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4161,7 +4206,7 @@ ul.tag-list {
 .case-desk__stage-label {
   display: block;
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4248,7 +4293,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .comms-sample__pane h3 {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4271,7 +4316,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .comms-sample__pane dt {
   font-family: var(--mono);
-  font-size: 0.68rem;
+  font-size: 0.6875rem;
   color: var(--text-dim);
   display: inline;
 }
@@ -4375,7 +4420,7 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 
 .case-file__fields dt {
   font-family: var(--mono);
-  font-size: 0.66rem;
+  font-size: 0.6875rem;
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;

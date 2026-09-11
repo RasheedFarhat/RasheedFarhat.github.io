@@ -107,7 +107,7 @@ if (menuButton && menu) {
     }
   });
 
-  const desktopQuery = window.matchMedia("(min-width: 54.01rem)");
+  const desktopQuery = window.matchMedia("(min-width: 64rem)");
   desktopQuery.addEventListener("change", (event) => {
     if (event.matches) closeMenu();
   });

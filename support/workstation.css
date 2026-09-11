@@ -475,7 +475,7 @@
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #443c2c;
+    color: #352e20;
     text-shadow:
       0 1px 0 rgb(255 255 255 / 0.55),
       0 -1px 0 rgb(0 0 0 / 0.12);
@@ -725,7 +725,7 @@
     background: transparent;
     color: var(--ws-amb);
     font-family: var(--mono);
-    font-size: 0.66rem;
+    font-size: 0.6875rem;
     line-height: 1.3;
     text-align: center;
     text-decoration: none;
