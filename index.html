@@ -826,12 +826,11 @@
           <ul class="method-list">
             <li class="method-rule">
               <span class="method-rule__key">Corpus</span>
-              <p class="method-rule__claim">A claim gets a corpus, not an example.</p>
+              <p class="method-rule__claim">4,727 benign records before a rule counts as working.</p>
               <p class="method-rule__receipt">
-                Ten MCP detection rules were not called working until they ran
-                clean across 4,727 benign records and 541 sessions. A single
-                demo capture proves the plumbing works, not that the rule stays
-                quiet.
+                Ten MCP detection rules ran clean across that corpus and its
+                541 sessions first. A single demo capture only shows that the
+                rule fires on the attack it was written for.
               </p>
             </li>
             <!-- The boundary rule is the one the site's argument turns on, so
@@ -842,36 +841,34 @@
                  ahead of it. -->
             <li class="method-rule method-rule--bound">
               <span class="method-rule__key">Boundary</span>
-              <p class="method-rule__claim">The limit ships with the result.</p>
+              <p class="method-rule__claim">Three of twelve evasion classes have no signature I can write.</p>
               <p class="method-rule__receipt">
-                Three of twelve documented evasion classes have no signature I
-                can write against them. That count sits on the project page
-                beside the detections it qualifies, not in a footnote
-                underneath them.
+                That count sits on the project page in the same list as the
+                detections it qualifies, where a reader meets it while deciding
+                what the rules are worth.
               </p>
             </li>
             <li class="method-rule">
               <span class="method-rule__key">Retraction</span>
-              <p class="method-rule__claim">A wrong claim gets retracted, not quietly edited.</p>
+              <p class="method-rule__claim">The correction got its own headline.</p>
               <p class="method-rule__receipt">
                 Assertion Desk&#8217;s own limitations file claimed one
                 adversarial payload had a real path into a model prompt.
                 Reading the code found a second path the file never accounted
-                for. The corpus grew from four cases to nine, and
+                for. The corpus grew from four cases to nine, and the
                 <a href="/writing/the-claim-i-published-was-wrong/"
-                  >I published the correction</a
-                >
-                instead of editing the file quietly.
+                  >correction runs as its own article</a
+                >.
               </p>
             </li>
             <li class="method-rule">
               <span class="method-rule__key">Assurance</span>
-              <p class="method-rule__claim">Silence is not verification.</p>
+              <p class="method-rule__claim">An absence of indicators never returns verified.</p>
               <p class="method-rule__receipt">
                 The MCP review framework records control state on a six-value
-                model where an absence of telemetry indicators can never return
-                <code>verified</code>. Nothing alarmed is a fact about the
-                sensors, not about the control.
+                model, and <code>verified</code> is reachable only through a
+                test that ran. Nothing alarmed gets a value of its own there,
+                because it reports on the sensors and not on the control.
               </p>
             </li>
           </ul>
@@ -898,19 +895,17 @@
           <div class="tenure-body">
             <div class="tenure-body__prose">
               <p>
-                Butte College paid me to be the first person a problem
-                reached. Twenty to thirty requests a day from the STEM
+                I was the first point of contact for the STEM
                 department&#8217;s three hundred or so students, faculty, and
-                staff, arriving by walk-up, by phone, and by email. I logged,
-                routed, and tracked every one of them in TeamDynamix myself.
+                staff. Twenty to thirty requests a day, arriving by walk-up, by
+                phone, and by email, and I logged, routed, and tracked every one
+                of them in TeamDynamix myself.
               </p>
               <p>
-                The habit that runs through everything above started at that
-                desk. When the same failure came back a fourth time I stopped
-                solving it again and wrote it down instead, and by the end
-                there were ten or more of those guides. A detection rule is
-                that same move, pointed at an attacker rather than at a
-                dropped wireless connection. The
+                When the same failure came back a fourth time I stopped solving
+                it again and wrote it down, and by the end there were ten or
+                more of those guides. The projects above document themselves for
+                the same reason. The
                 <a href="/support/">full support record</a> is its own page.
               </p>
             </div>
