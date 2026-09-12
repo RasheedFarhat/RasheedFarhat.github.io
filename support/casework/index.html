@@ -123,11 +123,11 @@
           <a href="/support/">Support</a><span aria-hidden="true">/</span><span>Casework</span>
         </nav>
         <p class="eyebrow">Support casework</p>
-        <h1>Support casework.</h1>
+        <h1>Three real problems, two synthetic labs</h1>
         <p class="hero-lede">
-          Three documented problems, shown from report through resolution.
-          Each case names where the evidence came from and what it can
-          actually prove.
+          Every case here is shown from first report through resolution, and
+          names where its evidence came from. The two labs are labeled as labs
+          at the top of each one.
         </p>
       </div>
 
@@ -136,7 +136,7 @@
         <ul>
           <li><strong>Three documented cases</strong><span>Real problems with evidence, decisions, and outcomes.</span></li>
           <li><strong>Two synthetic workflow labs</strong><span>Safe environments for showing ticket, approval, and closure discipline, and for showing diagnosis held to evidence.</span></li>
-          <li><strong>What this demonstrates</strong><span>Patient troubleshooting, clear communication, and an honest handoff when ownership changes.</span></li>
+          <li><strong>Where the evidence came from</strong><span>ADB output and an APK teardown, an HTTP response body that contradicted its own status code, and container logs from hardware I run myself.</span></li>
         </ul>
       </section>
 
@@ -236,7 +236,7 @@
               </div>
               <div>
                 <dt>Initial questions</dt>
-                <dd>Whether the request was reaching the manager at all. Whether the response body carried more information than the status code. Whether the condition was consistent or intermittent.</dd>
+                <dd>Whether the request reached the manager at all, what the response body said beyond the status code, and whether the failure repeated on every attempt.</dd>
               </div>
               <div>
                 <dt>Investigation</dt>
@@ -294,7 +294,7 @@
               </div>
               <div>
                 <dt>Initial questions</dt>
-                <dd>Whether the failure was the container image, the volume mount, or the host filesystem. Whether it was architecture-specific. Whether a dependency's expected input format had changed.</dd>
+                <dd>The fault could be in the container image, the volume mount, or the host filesystem. Architecture was a separate question, and so was whether a dependency had changed the input format it expected.</dd>
               </div>
               <div>
                 <dt>Investigation</dt>
@@ -335,7 +335,7 @@
           <section class="case-file case-file--lab" id="workflow-lab" aria-labelledby="workflow-lab-title">
             <div class="case-file__head">
               <p class="eyebrow eyebrow--amb">Workflow lab</p>
-              <h2 id="workflow-lab-title">How I modeled a support workflow.</h2>
+              <h2 id="workflow-lab-title">How I modeled a support workflow</h2>
               <p class="scope-note">
                 <strong>Scope</strong>
                 <span>Synthetic workflow lab, not a production ITSM deployment. Every user, device, alert, ticket, and approval in it is fictional.</span>
@@ -401,10 +401,10 @@
           <section class="case-file case-file--lab" id="assertion-lab" aria-labelledby="assertion-lab-title">
             <div class="case-file__head">
               <p class="eyebrow eyebrow--amb">Workflow lab</p>
-              <h2 id="assertion-lab-title">How I modeled a diagnosis that has to prove itself.</h2>
+              <h2 id="assertion-lab-title">How I modeled a diagnosis that has to prove itself</h2>
               <p class="scope-note">
                 <strong>Scope</strong>
-                <span>Synthetic SAML corpus against a self-hosted Keycloak identity provider, not a production IdP. Customer narratives are authored text standing in for real tickets, not real conversations.</span>
+                <span>A self-hosted Keycloak instance, a corpus of deliberately injected SAML faults, and ticket text I wrote myself. No production identity provider and no real customer sits behind any of it.</span>
               </p>
             </div>
             <p>
@@ -430,7 +430,7 @@
               <li>
                 <span class="stage-label">Extract</span>
                 <strong>Read the report</strong>
-                <small>The customer's own description is turned into structured facts: onset, recent change, what they believe is wrong.</small>
+                <small>The customer's own description is turned into three structured facts, covering onset, recent change, and what they believe is wrong.</small>
               </li>
               <li>
                 <span class="stage-label">Draft</span>
@@ -455,7 +455,7 @@
               <li>
                 <span class="stage-label">Close</span>
                 <strong>Publish with evidence</strong>
-                <small>What ships names the specific check that failed and the artifact that proved it, not just that the case is resolved.</small>
+                <small>What ships names the specific check that failed and the artifact that proved it, which is what the next person needs when the same application breaks again.</small>
               </li>
             </ol>
             <p class="case-file__source">

@@ -210,7 +210,7 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <h2 id="problem-title">Wazuh needed more than a format converter.</h2>
+              <h2 id="problem-title">Wazuh needed more than a format converter</h2>
               <p>
                 There is no official pySigma backend for Wazuh 4.x, and Wazuh
                 cannot directly express every boolean structure Sigma allows. A
@@ -226,7 +226,7 @@
             </section>
 
             <section id="architecture" aria-labelledby="architecture-title">
-              <h2 id="architecture-title">Five stages, each able to stop the build.</h2>
+              <h2 id="architecture-title">Five stages, each able to stop the build</h2>
               <ol class="stage-list">
                 <li>
                   <span class="stage-label">Author</span>
@@ -257,7 +257,7 @@
             </section>
 
             <section id="compiler" aria-labelledby="compiler-title">
-              <h2 id="compiler-title">The walker moves logic, not strings.</h2>
+              <h2 id="compiler-title">The walker moves logic, not strings</h2>
               <p>
                 pySigma parses each rule into an expression tree. The walker
                 maps Sigma fields to Wazuh decoder fields, converts wildcards
@@ -297,7 +297,7 @@
             </section>
 
             <section id="decisions" aria-labelledby="decisions-title">
-              <h2 id="decisions-title">Chosen around failure modes.</h2>
+              <h2 id="decisions-title">Chosen around failure modes</h2>
               <details class="disclosure">
                 <summary>Fail loud on unsupported Sigma</summary>
                 <div class="disclosure__body">
@@ -355,7 +355,7 @@
             </section>
 
             <section id="validation" aria-labelledby="validation-title">
-              <h2 id="validation-title">What has been checked.</h2>
+              <h2 id="validation-title">What has been checked</h2>
               <div class="coverage">
                 <div class="coverage__head">
                   <span class="coverage__value">14<span>/14</span></span>
@@ -391,8 +391,8 @@
                 <div class="metric metric--amb"><strong>57 / 58</strong><span>Rules are Windows process creation</span></div>
               </div>
               <p>
-                Deploying against a live Wazuh 4.9 manager exposed a real bug:
-                the API reported rule files under relative_dirname where the
+                Deploying against a live Wazuh 4.9 manager exposed a real bug. The
+                API reported rule files under relative_dirname where the
                 parser expected path. The reconciliation logic and its
                 regression tests were fixed against observed behavior, not
                 assumptions.
@@ -400,7 +400,7 @@
             </section>
 
             <section id="limits" class="case-bound" aria-labelledby="limits-title">
-              <h2 id="limits-title">What it does not solve.</h2>
+              <h2 id="limits-title">What it does not solve</h2>
               <ul class="limit-list">
                 <li>
                   <strong>Partial Sigma coverage.</strong> Unsupported modifiers
@@ -430,7 +430,7 @@
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <h2 id="source-title">Inspect it yourself.</h2>
+              <h2 id="source-title">Inspect it yourself</h2>
               <p>
                 The compiler, templates, ID registry, tests, workflows,
                 coverage report, and threat model are all public.

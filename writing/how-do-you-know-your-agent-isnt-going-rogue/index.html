@@ -91,8 +91,8 @@
               <li><a href="#mistakes">Useful mistakes</a></li>
               <li><a href="#operations">What broke</a></li>
               <li><a href="#frozen">Frozen evidence</a></li>
-              <li><a href="#limits">Limitations</a></li>
               <li><a href="#run">Run it</a></li>
+              <li><a href="#limits">Limitations</a></li>
             </ol>
           </aside>
 
@@ -130,12 +130,12 @@
                 <figcaption>Figure 1. The trace that shaped the series. Wire telemetry can record identity, method, and arguments. It cannot automatically prove the handler used them safely.</figcaption>
               </figure>
               <p>A single <code>tools/call</code> record compresses several separate questions. Which identity initiated it? Which arguments crossed the protocol boundary? Which handler accepted them? What did that handler reach next?</p>
-              <p>For the first phase I narrowed the job to something measurable: capture the wire traffic without changing it, label it, and feed it to a real detection engine.</p>
+              <p>For the first phase I narrowed the job to something measurable. Capture the wire traffic without changing it, label it, and feed it to a real detection engine.</p>
             </section>
 
             <section id="phase-zero" aria-labelledby="phase-zero-title">
               <h2 id="phase-zero-title">Phase 0 was seven records and one real alert</h2>
-              <p>I built a byte-transparent stdio proxy in standard-library Python. It sits between the MCP client and server, forwards the original bytes, and writes one JSONL record for each JSON-RPC message. A deterministic client then drove a tiny session: <code>initialize</code>, <code>tools/list</code>, and one <code>tools/call</code> against a synthetic <code>.env</code> fixture.</p>
+              <p>I built a byte-transparent stdio proxy in standard-library Python. It sits between the MCP client and server, forwards the original bytes, and writes one JSONL record for each JSON-RPC message. A deterministic client then drove a tiny session of three calls, <code>initialize</code>, <code>tools/list</code>, and one <code>tools/call</code> against a synthetic <code>.env</code> fixture.</p>
               <p>The session produced exactly seven schema-valid records. I sent them through a real Wazuh manager using the normal <code>localfile</code>, <code>logcollector</code>, and <code>wazuh-analysisd</code> path. Six records stayed quiet. The sensitive file read produced rule <code>100101</code> at level 12.</p>
               <figure class="code-figure"><figcaption>First live alert from the synthetic lab</figcaption><pre tabindex="0"><code>rule.id 100101
 MCP sensitive file read via tool call:
@@ -201,7 +201,7 @@ tool=read_text_file path=/app/workspace/.env</code></pre></figure>
                 <figcaption>Figure 4. A failed task introduced two legitimate tool shapes that a tidy scripted baseline would never have shown me.</figcaption>
               </figure>
               <p>I kept guessed paths, malformed arguments, retries, and odd substitutions for the same reason. One near-boundary read task produced 14 calls across 12 sessions because two attempts used malformed paths. A Git task wandered into an unrelated configuration file before recovering. The pipeline only required complete, schema-valid telemetry. It did not require the model to look smart.</p>
-              <p>That is how I now think about the baseline: if I want to catch a system doing something bad, I first need to study the same system doing legitimate work, including the messy ways it gets there.</p>
+              <p>That is how I now think about the baseline. Catching a system doing something bad starts with studying the same system doing legitimate work, including the messy ways it gets there.</p>
             </section>
 
             <section id="operations" aria-labelledby="operations-title">
@@ -215,7 +215,7 @@ tool=read_text_file path=/app/workspace/.env</code></pre></figure>
               <p>I stopped the indexer and dashboard during generation and recovered about 2.1 GiB. Then my permanent keep-alive fix created a slower failure. The on-disk prompt cache accumulated one entry per distinct task, memory climbed from roughly 2.2 GiB to 2.9 GiB, and the process died again. A finite <code>OLLAMA_KEEP_ALIVE=10m</code> bounded the cache growth. The next run completed 238 of 240 sessions.</p>
               <h3>The full disk was not the generation job</h3>
               <p>Later, <code>docker cp</code> failed with no space left on a 40 GB VM disk. I suspected the memory changes. The actual cause was Wazuh's vulnerability feed. Its unused caches under <code>queue/vd_updater</code> and <code>queue/vd</code> had grown to 23 GB. I disabled the module because this lab does not use vulnerability-detection alerts.</p>
-              <p>Each correction came from a concrete signal: <code>signal: killed</code> instead of a timeout line, memory growth across time instead of one snapshot, and <code>queue/vd_updater</code> instead of the generation directory. The operational lesson matched the detection lesson. A plausible story is not evidence.</p>
+              <p>Each correction came from a concrete signal. <code>signal: killed</code> instead of a timeout line, memory growth across time instead of one snapshot, and <code>queue/vd_updater</code> instead of the generation directory. In all three my first explanation was the plausible one, and the log line said otherwise.</p>
             </section>
 
             <section id="frozen" aria-labelledby="frozen-title">
@@ -225,26 +225,25 @@ tool=read_text_file path=/app/workspace/.env</code></pre></figure>
               <p>If the corpus changed underneath a published measurement, the number would quietly describe different evidence. Freezing the file gives every later claim an exact input. Extending the corpus requires a new version. Partial telemetry from failed runs remains archived as recovery provenance and does not enter the measured dataset.</p>
             </section>
 
-            <section id="limits" aria-labelledby="limits-title">
-              <h2 id="limits-title">What this result does not establish</h2>
-              <div class="research-note"><strong>Research software boundary</strong><p>Everything in this article is synthetic and self-authored. The model selected the tools, but I designed the tasks, servers, fixtures, and environment.</p></div>
-              <ul class="limit-list">
-                <li><code>qwen3:1.7b</code> is one small model. Another model can produce a different normal distribution.</li>
-                <li>Zero alerts across 4,727 records is a regression result over project-authored traffic. It is not a field false-positive rate, a benchmark, or validated real-world accuracy.</li>
-                <li><code>git_show</code> has no benign denominator in this corpus.</li>
-                <li>The lab has no per-call timeout. A genuinely hung tool call can still wait forever.</li>
-                <li>The proxy records what reached a handler. It cannot prove what the handler did next.</li>
-              </ul>
-              <p>The final limitation becomes the center of part three. First I needed to find out how far structural detections could go, and how quickly an adversarial corpus could break them.</p>
-            </section>
-
             <section id="run" aria-labelledby="run-title">
-              <h2 id="run-title">Run the measurement</h2>
+              <h2 id="run-title">Reproduce the 0/4,727 result</h2>
               <p>Python 3.11 or newer. No credentials, Docker, Ollama, or Wazuh installation required.</p>
               <figure class="code-figure"><figcaption>Offline reproduction</figcaption><pre tabindex="0"><code>git clone https://github.com/RasheedFarhat/mcp-detect.git
 cd mcp-detect
 make measure</code></pre></figure>
               <p>The line to inspect is <code>Aggregate benign FP: 0/4727</code>. The <a href="https://github.com/RasheedFarhat/mcp-detect/blob/main/data/benign_corpus_v2.summary.md" target="_blank" rel="noopener noreferrer">corpus summary<span class="sr-only"> (opens in a new tab)</span></a> lists every per-tool denominator and the accepted <code>git_show</code> gap.</p>
+            </section>
+            <section id="limits" aria-labelledby="limits-title">
+              <h2 id="limits-title">The corpus is 4,727 records I wrote myself</h2>
+              <div class="research-note"><strong>Research software boundary</strong><p>Everything in this article is synthetic and self-authored. The model selected the tools, but I designed the tasks, servers, fixtures, and environment.</p></div>
+              <ul class="limit-list">
+                <li><code>qwen3:1.7b</code> is one small model. Another model can produce a different normal distribution.</li>
+                <li>Zero alerts across 4,727 records is a regression result over project-authored traffic. It holds the rules to a fixed baseline and says nothing about traffic I did not write.</li>
+                <li><code>git_show</code> has no benign denominator in this corpus.</li>
+                <li>The lab has no per-call timeout. A genuinely hung tool call can still wait forever.</li>
+                <li>The proxy records what reached a handler. It cannot prove what the handler did next.</li>
+              </ul>
+              <p>The final limitation becomes the center of part three. First I needed to find out how far structural detections could go, and how quickly an adversarial corpus could break them.</p>
             </section>
 
             <section id="references" class="references" aria-labelledby="references-title">

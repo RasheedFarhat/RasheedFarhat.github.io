@@ -153,7 +153,7 @@
                 </div>
                 <figcaption>Figure 2. Wazuh handles bounded fields on one event. Python handles state across sessions. The evidence layer proves which version produced each result.</figcaption>
               </figure>
-              <p>Wazuh works well when the signal exists on one decoded JSON event: a path suffix, a traversal token, a tool description, or secret-shaped text under a known key. It is a poor fit for questions such as whether the same server changed its schema between sessions. That requires memory.</p>
+              <p>Wazuh works well when the signal exists on one decoded JSON event, such as a path suffix, a traversal token, a tool description, or secret-shaped text under a known key. It is a poor fit for questions such as whether the same server changed its schema between sessions. That requires memory.</p>
               <p>I kept the drift detector outside the Wazuh rule language. It compares canonical hashes, emits a new marker event when a baseline changes, and lets Wazuh alert on that marker. Trying to force state into a stateless rule would have made the implementation harder to inspect and easier to misread.</p>
             </section>
 
@@ -173,7 +173,7 @@
                 </table>
               </div>
               <p>The two <code>6/8</code> numbers are deliberate. For sensitive absolute paths, <code>/root/.ssh/id_rsa</code> and <code>/home/agent/app/.env</code> belong to the existing sensitive-read rule. For traversal, <code>../../.env</code> and <code>../../.ssh/id_rsa</code> belong there too. I made the sibling rules disjoint and reported the owning rule instead of counting one attack twice.</p>
-              <div class="research-note"><strong>Measurement boundary</strong><p>Zero alerts across 4,727 records means the current rules stayed quiet on this frozen, synthetic, project-authored corpus. It is not a real-world false-positive rate. The rug-pull result is narrower still because the benign corpus contains no legitimate server version changes.</p></div>
+              <div class="research-note"><strong>Measurement boundary</strong><p>Zero alerts across 4,727 records means the current rules stayed quiet on one frozen corpus I wrote myself. The figure describes that corpus and the code that produced it, nothing outside either. The rug-pull result is narrower still, because the benign corpus contains no legitimate server version changes to confuse it with.</p></div>
             </section>
 
             <section id="worked-attack" aria-labelledby="worked-attack-title">
@@ -201,7 +201,7 @@
               <h3>Negation against a missing field</h3>
               <p>I tried to express an exfiltration rule that should fire unless a sensitive path field was present. The malicious event had no <code>path</code> field. Wazuh did not treat the absent field as a successful negation. The candidate fell through to parent rule <code>100100</code> and produced no alert. I found the same landmine again when testing a proposed fix for renamed exfiltration tools.</p>
               <h3>Sibling-rule shadowing</h3>
-              <p>When two sibling rules match one event, file order and engine behavior can leave only one final alert. A naive path-traversal rule matched <code>../../.env</code>, but rule <code>100101</code> won. I made ownership explicit: the traversal rule negates the credential suffixes, then compiler tests assert the expected owner for all overlaps.</p>
+              <p>When two sibling rules match one event, file order and engine behavior can leave only one final alert. A naive path-traversal rule matched <code>../../.env</code>, but rule <code>100101</code> won. I made ownership explicit. The traversal rule negates the credential suffixes, and compiler tests assert the expected owner for all overlaps.</p>
               <h3>XML entities changed the text I thought PCRE2 received</h3>
               <p>Rule expressions containing XML-sensitive characters have two parsers in front of them. The XML must first preserve the expression that PCRE2 is meant to compile. I stopped judging those rules by visual inspection and ran the actual loaded expression through <code>wazuh-logtest</code>.</p>
               <h3>A stock rule already occupied the surface</h3>
@@ -273,7 +273,7 @@
 
             <section id="limits" aria-labelledby="limits-title">
               <h2 id="limits-title">What the detections still miss</h2>
-              <div class="research-note"><strong>Research software boundary</strong><p>All attack, evasion, and benign data discussed here is synthetic and self-authored. The measurements prove reproducibility against published fixtures, not accuracy against independent attackers or production deployments.</p></div>
+              <p>All attack, evasion, and benign data discussed here is synthetic and self-authored, so the measurements above prove reproducibility against published fixtures rather than accuracy against independent attackers. Six specific gaps are already known and written down.</p>
               <ul class="limit-list">
                 <li>Meaning-preserving tool-poisoning text can avoid the fixed structural and keyword signal.</li>
                 <li>Renamed tools, unknown argument keys, new secret shapes, and encoded content can bypass individual Wazuh rules.</li>
@@ -286,7 +286,7 @@
             </section>
 
             <section id="run" aria-labelledby="run-title">
-              <h2 id="run-title">Run the complete replay</h2>
+              <h2 id="run-title">The whole corpus, from an ordinary clone</h2>
               <p>The full corpus is public under MIT and runs from an ordinary clone.</p>
               <figure class="code-figure"><figcaption>Full offline measurement</figcaption><pre tabindex="0"><code>git clone https://github.com/RasheedFarhat/mcp-detect.git
 cd mcp-detect

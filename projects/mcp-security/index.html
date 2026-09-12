@@ -216,7 +216,7 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <h2 id="problem-title">MCP tool calls need inspectable evidence.</h2>
+              <h2 id="problem-title">MCP tool calls need inspectable evidence</h2>
               <p>
                 MCP connects agents to filesystems, ticketing, memory stores,
                 and internal services. A configuration review can list declared
@@ -226,15 +226,15 @@
                 in live traffic.
               </p>
               <p>
-                So the project asks a narrower question: what evidence can be
-                extracted from MCP traffic, which abuse techniques are
+                So the project asks a narrower set of questions. What evidence can
+                be extracted from MCP traffic, which abuse techniques are
                 detectable from that evidence, and which classes need controls
                 outside telemetry?
               </p>
             </section>
 
             <section id="architecture" aria-labelledby="architecture-title">
-              <h2 id="architecture-title">Capture once, analyze through bounded paths.</h2>
+              <h2 id="architecture-title">Capture once, analyze through bounded paths</h2>
               <ol class="stage-list">
                 <li>
                   <span class="stage-label">Observe</span>
@@ -265,7 +265,7 @@
             </section>
 
             <section id="coverage" aria-labelledby="coverage-title">
-              <h2 id="coverage-title">Five techniques, each with a named evasion.</h2>
+              <h2 id="coverage-title">Five techniques, each with a named evasion</h2>
               <div class="coverage">
                 <div class="coverage__head">
                   <span class="coverage__value">9<span>/12</span></span>
@@ -344,7 +344,7 @@
             </section>
 
             <section id="measurement" aria-labelledby="measurement-title">
-              <h2 id="measurement-title">Gates tied to real historical bugs.</h2>
+              <h2 id="measurement-title">Gates tied to real historical bugs</h2>
               <p>
                 Each detection declares its backends, rules, session join,
                 fixtures, status, and known gaps in a detection.yaml. The
@@ -363,10 +363,7 @@
                 <div class="metric"><strong>5</strong><span>Write-side compiler gates</span></div>
               </div>
               <p class="measurement-explainer">
-                The five techniques are behaviors the rules implement. The 12
-                evasion classes are separate ways those detections can be
-                bypassed: nine leave a signal this sensor can test, while three
-                are structurally invisible at this layer.
+                The five techniques are behaviors the rules implement. The 12 evasion classes are separate ways those detections can be bypassed. Nine leave a signal this sensor can test, and three are structurally invisible at this layer.
               </p>
               <div class="scope-note">
                 <strong>Measurement boundary</strong>
@@ -379,7 +376,7 @@
             </section>
 
             <section id="abom" class="case-bound" aria-labelledby="abom-title">
-              <h2 id="abom-title">An AI Bill of Materials from observed traffic.</h2>
+              <h2 id="abom-title">An AI Bill of Materials from observed traffic</h2>
               <p>
                 The framework inventories observed MCP servers, tool names,
                 version hashes, session counts, filesystem access, and network
@@ -391,7 +388,7 @@
             </section>
 
             <section id="limits" class="case-bound" aria-labelledby="limits-title">
-              <h2 id="limits-title">What this cannot show.</h2>
+              <h2 id="limits-title">What this cannot show</h2>
               <ul class="limit-list">
                 <li>
                   <strong>Coverage breadth.</strong> Five of roughly 85 SAF-MCP
@@ -423,7 +420,7 @@
             </section>
 
             <section id="series" aria-labelledby="series-title">
-              <h2 id="series-title">Inside MCP Detect, from baseline to denied retest.</h2>
+              <h2 id="series-title">Inside MCP Detect, from baseline to denied retest</h2>
               <p>
                 I documented the project in three first-person articles. The
                 series starts with model-selected benign traffic, pressure-tests
@@ -450,7 +447,7 @@
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <h2 id="source-title">Inspect it yourself.</h2>
+              <h2 id="source-title">Inspect it yourself</h2>
               <p>
                 The proxy, schema, complete synthetic corpora, rules, drift
                 detector, compiler gates, coverage reports, and authorization

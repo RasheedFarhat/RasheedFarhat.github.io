@@ -133,12 +133,12 @@
               <div class="scope-note">
                 <strong>Scope</strong>
                 <p>
-                  The identity provider is Keycloak. The 56-case corpus
-                  comes from faults injected into a live SAML exchange, not
-                  hand-authored ground truth, but the customer narratives
-                  attached to each case are authored text standing in for
-                  real tickets. This is a synthetic lab, not a production
-                  support system or a claim of production SSO experience.
+                  The identity provider is Keycloak. Every fault is injected into a
+                  live SAML exchange, so the 56-case corpus records what the
+                  exchange actually returned rather than ground truth I typed
+                  in. The customer narrative attached to each case is mine,
+                  written to give the pipeline something to parse. This is a
+                  lab. I have not run SSO in production.
                 </p>
               </div>
               <div class="action-row">
@@ -229,25 +229,24 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <h2 id="problem-title">The evidence that diagnoses a sign-in failure is also the evidence an attacker would want.</h2>
+              <h2 id="problem-title">The evidence that diagnoses a sign-in failure is also the evidence an attacker would want</h2>
               <p>
                 In 2023 an attacker accessed files in Okta's own customer
                 support system, some of them HAR files containing session
                 tokens that could hijack a legitimate session. The same
                 artifacts that make a SAML failure diagnosable, a captured
                 assertion, a HAR trace, a support narrative, can carry live
-                credentials. Assertion Desk models a safer order of
-                operations: quarantine anything sensitive first, establish
-                the SAML facts with checks that never call a model,
-                let a model explain only the facts the checks already
-                found, validate what it wrote against those facts, and hold
-                everything for human approval before anything reaches a
-                customer.
+                credentials. Assertion Desk models a safer order of operations. Quarantine
+                anything sensitive first, establish the SAML facts with checks
+                that never call a model, let a model explain only the facts the
+                checks already found, validate what it wrote against those
+                facts, and hold everything for human approval before anything
+                reaches a customer.
               </p>
             </section>
 
             <section id="pipeline" aria-labelledby="pipeline-title">
-              <h2 id="pipeline-title">Eight stages, and a model only enters at the middle two.</h2>
+              <h2 id="pipeline-title">Eight stages, and a model only enters at the middle two</h2>
               <ol class="stage-list">
                 <li>
                   <span class="stage-label">Intake</span>
@@ -262,7 +261,7 @@
                 <li>
                   <span class="stage-label">Extract</span>
                   <strong>Job A</strong>
-                  <small>A model turns the customer's own narrative into structured facts: onset, recent change, and what the customer believes is wrong.</small>
+                  <small>A model turns the customer's own narrative into three structured facts, covering onset, recent change, and what the customer believes is wrong.</small>
                 </li>
                 <li>
                   <span class="stage-label">Draft</span>
@@ -293,7 +292,7 @@
             </section>
 
             <section id="gate" class="case-bound" aria-labelledby="gate-title">
-              <h2 id="gate-title">A confident draft, rejected for citing a check with no finding.</h2>
+              <h2 id="gate-title">A confident draft, rejected for citing a check with no finding</h2>
               <p>
                 This is a real recorded case, <code>missing_nameid</code>,
                 from the 2026-08-17 pre-fix baseline run, when the gate was
@@ -343,7 +342,7 @@
             </section>
 
             <section id="numbers" aria-labelledby="numbers-title">
-              <h2 id="numbers-title">One committed replay, checked in CI.</h2>
+              <h2 id="numbers-title">One committed replay, checked in CI</h2>
               <p>
                 The published numbers come from one command,
                 <code>make eval-replay</code>, run against a committed,
@@ -372,7 +371,7 @@
             </section>
 
             <section id="injection" aria-labelledby="injection-title">
-              <h2 id="injection-title">Nine adversarial payloads, three different outcomes.</h2>
+              <h2 id="injection-title">Nine adversarial payloads, three different outcomes</h2>
               <p>
                 Every one of these payloads was written to look like an
                 instruction to a model, hidden inside a customer artifact.
@@ -420,12 +419,12 @@
             </section>
 
             <section id="correction" class="case-bound" aria-labelledby="correction-title">
-              <h2 id="correction-title">The documentation said one path existed. Reading the code found two.</h2>
+              <h2 id="correction-title">The documentation said one path existed. Reading the code found two</h2>
               <p>
                 This project's own limitations file used to say injection
                 resistance rested on 4 adversarial cases, one of which had
                 a genuine live path into a model prompt. That was wrong,
-                and it was wrong for a specific, findable reason: two
+                and it was wrong for a specific, findable reason. Two
                 payloads sat inside XML comments, which the parser
                 genuinely never reads, and that true fact about comments
                 had been generalized into a false claim about every kind
@@ -445,23 +444,19 @@ prompt = build_job_c_prompt(check_rows, job_a_facts=<span class="tok-k">None</sp
                 from parsed attribute and element text, and Job C's prompt
                 interpolates that field directly. Nothing scanned it. The
                 fix scans <code>observed</code> for instruction-shaped text
-                before any model call, and a full offline test proves both
-                halves: the payload reaching the prompt, and the scanner
-                now recording that it was there.
+                before any model call, and a full offline test proves both halves, the payload reaching the prompt and the scanner now recording that it was there.
               </p>
               <p>
                 The corpus grew from 4 adversarial cases to 9 to measure
                 the corrected claim honestly, five new Job C fixtures were
-                recorded, and a real recording-order bug turned up while
-                doing it: recording with an environment variable CI never
-                sets produced a prompt CI could not reproduce. That bug is
+                recorded, and a real recording-order bug turned up while doing it. Recording with an environment variable CI never sets produced a prompt CI could not reproduce. That bug is
                 fixed and now guarded by a test. The corrected numbers are
                 in <a href="#injection">Injection resistance</a> above.
               </p>
             </section>
 
             <section id="limits" class="case-bound" aria-labelledby="limits-title">
-              <h2 id="limits-title">What this cannot show.</h2>
+              <h2 id="limits-title">What this cannot show</h2>
               <ul class="limit-list">
                 <li>
                   <strong>The identity provider is Keycloak.</strong> Any
@@ -482,9 +477,7 @@ prompt = build_job_c_prompt(check_rows, job_a_facts=<span class="tok-k">None</sp
                   the same as measuring disagreement across repeated runs.
                 </li>
                 <li>
-                  <strong>Roughly 30 of 56 cases share one baseline SAML
-                  response and certificate.</strong> They are not 56
-                  fully independent trials.
+                  <strong>Roughly 30 of the 56 manifest cases share one baseline SAML response and certificate.</strong> Fifty-five of those are executable; the fifty-sixth is a documented gap with no code behind it. Either way they are not independent trials.
                 </li>
                 <li>
                   <strong>No persistence for the pipeline result.</strong>
@@ -508,7 +501,7 @@ prompt = build_job_c_prompt(check_rows, job_a_facts=<span class="tok-k">None</sp
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <h2 id="source-title">Reproduce the whole corpus, offline, in one command.</h2>
+              <h2 id="source-title">Reproduce the whole corpus, offline, in one command</h2>
               <p>
                 The replay proof needs only Python and the committed
                 fixtures. Docker Compose adds Keycloak, Gemini, and Ollama

@@ -90,9 +90,10 @@
               <li><a href="#fix">The source-level fix</a></li>
               <li><a href="#retest">Four retests</a></li>
               <li><a href="#manifest">Evidence manifest</a></li>
+              <li><a href="#run">Run it</a></li>
               <li><a href="#open-source">Why I published it</a></li>
               <li><a href="#limits">Limitations</a></li>
-              <li><a href="#run">Run it</a></li>
+              <li><a href="#principles">Five decisions</a></li>
             </ol>
           </aside>
 
@@ -242,7 +243,7 @@
 
             <section id="manifest" aria-labelledby="manifest-title">
               <h2 id="manifest-title">The retest is bound to exact source</h2>
-              <p>The reference directory includes an evidence manifest with SHA-256 hashes for the vulnerable server, fixed server, authorization tests, and control-evidence record. It also states the expected result: four tests, zero failures, zero errors.</p>
+              <p>The reference directory includes an evidence manifest with SHA-256 hashes for the vulnerable server, fixed server, authorization tests, and control-evidence record. It also states the expected result, which is four tests with zero failures and zero errors.</p>
               <figure class="evidence-diagram">
                 <div class="trace-grid" role="img" tabindex="0" aria-label="Vulnerable source, fixed source, authorization tests, and evidence manifest form one reproducible chain.">
                   <div class="trace-node"><span>Reproduce</span><strong>Vulnerable source</strong><small>Cross-tenant access succeeds</small></div>
@@ -254,16 +255,26 @@
               </figure>
               <p>If any reviewed file changes, <code>verify_manifest.py</code> fails until the evidence is deliberately regenerated. That does not make the fixture a formal proof. It makes the evidence honest about which bytes were reviewed.</p>
             </section>
+            <section id="run" aria-labelledby="run-title">
+              <h2 id="run-title">Reproduce the cross-tenant denial</h2>
+              <p>The authorization tests use the Python standard library. From the repository root:</p>
+              <figure class="code-figure"><figcaption>Synthetic cross-tenant reproduction and retest</figcaption><pre tabindex="0"><code>.venv/bin/python3 -m unittest discover \
+  -s examples/reference-mcp-review/tests \
+  -p 'test_*.py' -v</code></pre></figure>
+              <p>Then verify that the evidence manifest still matches the reviewed files:</p>
+              <figure class="code-figure"><figcaption>Evidence manifest verification</figcaption><pre tabindex="0"><code>.venv/bin/python3 \
+  examples/reference-mcp-review/verify_manifest.py</code></pre></figure>
+            </section>
 
             <section id="open-source" aria-labelledby="open-source-title">
               <h2 id="open-source-title">I ended by publishing the entire evidence path</h2>
               <p>The authorization fixture changed how I described MCP Detect. The project began with telemetry and rules. By the end, the stronger story connected normal model behavior, attack fixtures, evasions, frozen verdicts, source review, and a denied authorization retest.</p>
               <p>I published the code, full synthetic corpus, Wazuh rules, stateful detector, compiler gates, reproduction tooling, reference review, and limitations under MIT. The repository runs its offline tests in CI and scans for secrets. Anyone can inspect the exact signals, rerun the measurements, or disagree with the boundaries using the same evidence.</p>
-              <p>That choice also keeps me honest. A public rule with a published evasion cannot hide behind a perfect recall table. A public synthetic defect cannot be mistaken for customer work. A checksum that anyone can verify is stronger than a screenshot of a passing command.</p>
+              <p>Publishing the evasions alongside the rules is what stopped me from reporting a recall table with no failure column. The defect is labeled synthetic in the repository itself, so it cannot be read as customer work. The manifest checksum means a reader can confirm the reviewed bytes rather than take a screenshot of a passing command on faith.</p>
             </section>
 
             <section id="limits" aria-labelledby="limits-title">
-              <h2 id="limits-title">What the reference does not prove</h2>
+              <h2 id="limits-title">One tool, one object type, one fixture</h2>
               <div class="research-note"><strong>Synthetic reference, not customer work</strong><p>The server uses fictional invoices and a simplified environment-variable host context. It demonstrates one authorization pattern. It does not claim to solve a real deployment's OAuth, identity, delegation, tenancy, or storage architecture.</p></div>
               <ul class="limit-list">
                 <li>The environment variable models trusted context for a local stdio fixture. A remote server must bind identity to an authenticated request and validate its token audience.</li>
@@ -274,27 +285,15 @@
               </ul>
             </section>
 
-            <section id="run" aria-labelledby="run-title">
-              <h2 id="run-title">Run the denied retest</h2>
-              <p>The authorization tests use the Python standard library. From the repository root:</p>
-              <figure class="code-figure"><figcaption>Synthetic cross-tenant reproduction and retest</figcaption><pre tabindex="0"><code>.venv/bin/python3 -m unittest discover \
-  -s examples/reference-mcp-review/tests \
-  -p 'test_*.py' -v</code></pre></figure>
-              <p>Then verify that the evidence manifest still matches the reviewed files:</p>
-              <figure class="code-figure"><figcaption>Evidence manifest verification</figcaption><pre tabindex="0"><code>.venv/bin/python3 \
-  examples/reference-mcp-review/verify_manifest.py</code></pre></figure>
-            </section>
-
             <section id="principles" aria-labelledby="principles-title">
-              <h2 id="principles-title">What I would carry into the next MCP system</h2>
+              <h2 id="principles-title">Five decisions this build already made</h2>
               <ol>
-                <li><strong>Observe legitimate behavior first.</strong> A rule needs a denominator shaped by real model choices, including mistakes.</li>
-                <li><strong>Connect a threat to an observable signal.</strong> If the signal is not in the telemetry, adding a technique name does not create it.</li>
-                <li><strong>Publish evasions with detections.</strong> The failure boundary tells another engineer where to add a control.</li>
-                <li><strong>Bind measurements to exact evidence.</strong> Corpora, verdicts, rules, source, and retests should identify the versions that produced the result.</li>
-                <li><strong>Follow identity past the wire.</strong> When telemetry stops, inspect the handler, trace the downstream lookup, and prove the denied path.</li>
+                <li><strong>The benign corpus came first.</strong> 4,727 records of legitimate model behavior, mistakes included, set the denominator before any rule was written.</li>
+                <li><strong>Every rule traces to a field in the telemetry.</strong> Where no field carried the signal, the technique went onto the undetectable list instead of into a rule with a technique name on it.</li>
+                <li><strong>The evasions are published next to the detections.</strong> Each one names the rule it defeats, so the failure boundary is readable by whoever adds the next control.</li>
+                <li><strong>Every measurement names its inputs.</strong> Corpus, verdicts, rules, source, and retests each identify the version that produced the result.</li>
+                <li><strong>The BOLA finding came from reading the handler after the wire went quiet.</strong> The proof is a negative cross-tenant test that fails on the vulnerable build and passes on the fixed one.</li>
               </ol>
-              <p>MCP was already moving quickly when I started this project. That was exactly why I wanted to slow one boundary down, instrument it, attack it, and leave enough evidence for someone else to reproduce every claim.</p>
             </section>
 
             <section id="references" class="references" aria-labelledby="references-title">

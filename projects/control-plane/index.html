@@ -220,7 +220,7 @@
           </details>
           <div class="case-content">
             <section id="problem" aria-labelledby="problem-title">
-              <h2 id="problem-title">The failures live between the&nbsp;systems.</h2>
+              <h2 id="problem-title">The failures live between the&nbsp;systems</h2>
               <p>
                 Most IT and security work is not one product. It is a chain of
                 handoffs between the person who asks, the identity that carries
@@ -242,7 +242,7 @@
             </section>
 
             <section id="architecture" aria-labelledby="architecture-title">
-              <h2 id="architecture-title">Six stages, one recorded decision each.</h2>
+              <h2 id="architecture-title">Six stages, one recorded decision each</h2>
               <ol class="stage-list">
                 <li>
                   <span class="stage-label">Intake</span>
@@ -278,7 +278,7 @@
             </section>
 
             <section id="policy" aria-labelledby="policy-title">
-              <h2 id="policy-title">One decision point, two implementations that must agree.</h2>
+              <h2 id="policy-title">One decision point, two implementations that must agree</h2>
               <p>
                 Every privileged action routes through a single call. The
                 default engine is a versioned Python evaluator, so offline
@@ -338,7 +338,7 @@
             </section>
 
             <section id="scenarios" aria-labelledby="scenarios-title">
-              <h2 id="scenarios-title">Three chains, each ending in evidence.</h2>
+              <h2 id="scenarios-title">Three chains, each ending in evidence</h2>
               <details class="disclosure">
                 <summary>Joiner, mover, leaver</summary>
                 <div class="disclosure__body">
@@ -381,7 +381,7 @@
             </section>
 
             <section id="measurement" aria-labelledby="measurement-title">
-              <h2 id="measurement-title">A seeded corpus, pushed through the real paths.</h2>
+              <h2 id="measurement-title">A seeded corpus, pushed through the real paths</h2>
               <p>
                 The published numbers come from one command. It generates a
                 deterministic synthetic corpus, pushes it through the same
@@ -401,7 +401,7 @@
                 <div class="metric"><strong>1,631</strong><span>Audit records, hash chain valid</span></div>
               </div>
               <p>
-                Each of the five denial reasons isolates one control: a missing
+                Each of the five denial reasons isolates one control. A missing
                 role, a self-approval, a containment with no valid approval, a
                 containment against an ineligible device posture, and a closure
                 without fresh verified evidence. Replayed envelopes never
@@ -424,7 +424,7 @@
             </section>
 
             <section id="evidence" aria-labelledby="evidence-title">
-              <h2 id="evidence-title">Every record chains, and every artifact enters marked for review.</h2>
+              <h2 id="evidence-title">Every record chains, and every artifact enters marked for review</h2>
               <p>
                 Audit records chain by SHA-256 over the previous record hash,
                 starting from a genesis value, and a verify command recomputes
@@ -448,7 +448,7 @@
             </section>
 
             <section id="limits" class="case-bound" aria-labelledby="limits-title">
-              <h2 id="limits-title">What this cannot show.</h2>
+              <h2 id="limits-title">What this cannot show</h2>
               <ul class="limit-list">
                 <li>
                   <strong>Synthetic throughout.</strong> The corpus was written
@@ -456,9 +456,7 @@
                   behavior on input nobody anticipated.
                 </li>
                 <li>
-                  <strong>Routing is not detection.</strong> Benign handling is
-                  a property of the corpus and the routing rule. It is not a
-                  false-positive rate.
+                  <strong>Routing is not detection.</strong> Benign handling here is a property of the corpus and the routing rule that reads it. Both were written by the same person, so the result measures agreement between them.
                 </li>
                 <li>
                   <strong>Containment is simulated.</strong> The adapter changes
@@ -489,7 +487,7 @@
             </section>
 
             <section id="source" aria-labelledby="source-title">
-              <h2 id="source-title">Run it in three minutes, offline.</h2>
+              <h2 id="source-title">Run it in three minutes, offline</h2>
               <p>
                 The offline path needs only Python. Docker Compose profiles add
                 PostgreSQL, Keycloak, the event worker, the endpoint simulator,

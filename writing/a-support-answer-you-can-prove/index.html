@@ -87,7 +87,7 @@
               <li><a href="#example">A confident, wrong answer</a></li>
               <li><a href="#human-loop">Why a person still signs off</a></li>
               <li><a href="#honest-close">What a closed ticket leaves behind</a></li>
-              <li><a href="#limits">What this lab does not claim</a></li>
+              <li><a href="#limits">Limitations</a></li>
               <li><a href="#run">Run it</a></li>
             </ol>
           </aside>
@@ -105,9 +105,9 @@
 
             <section id="eight-causes" aria-labelledby="eight-causes-title">
               <h2 id="eight-causes-title">Eight things "SSO is broken" can mean</h2>
-              <p>A user cannot sign in to one federated application. The ticket says "SSO is broken." That sentence is true and it tells you almost nothing, because a SAML sign-in has roughly eight different, independent ways to fail, and to the person typing the ticket, every one of them looks the same: a spinning wheel, then an error page.</p>
+              <p>A user cannot sign in to one federated application. The ticket says "SSO is broken." That sentence is true and it tells you almost nothing, because a SAML sign-in has roughly eight different, independent ways to fail, and to the person typing the ticket, every one of them looks the same, a spinning wheel and then an error page.</p>
               <p>An expired certificate on the identity provider looks like a broken sign-in. A signature that no longer validates because a certificate rotated on one side but not the other looks like a broken sign-in. An assertion that arrived a few seconds outside its validity window because two servers' clocks disagree looks like a broken sign-in. A missing or duplicated identity attribute, a mismatched audience restriction, a wrong destination URL after an application moved to a new address, all of it looks like a broken sign-in. Some of these are the identity provider's problem. Some are the application's. Several of them will resolve on their own in a few minutes and several will not resolve until someone finds and fixes the specific field that is wrong.</p>
-              <p>I spent real time in a help desk role learning that the fastest way to make a ticket like this worse is to guess at a category and start troubleshooting the wrong layer. I built Assertion Desk to see whether a deterministic verifier plus a supervised model could do what a careful analyst does: read the actual signed assertion, check it against the specific conditions that can fail, and say which one did, instead of restating that something, somewhere, is broken.</p>
+              <p>I spent real time in a help desk role learning that the fastest way to make a ticket like this worse is to guess at a category and start troubleshooting the wrong layer. I built Assertion Desk to see whether a deterministic verifier plus a supervised model could do what a careful analyst does, which is read the actual signed assertion, check it against the specific conditions that can fail, and say which one failed instead of restating that something somewhere is broken.</p>
             </section>
 
             <section id="worth" aria-labelledby="worth-title">
@@ -120,8 +120,8 @@
               <h2 id="example-title">A confident, wrong answer, and the gate that caught it</h2>
               <p>The clearest example I have is a recorded case named <code>missing_nameid</code>. The synthetic fault was a SAML assertion missing its <code>NameID</code> element, the field that identifies who is actually signing in. The verifier ran its full set of checks and correctly flagged the missing element, along with two related signature checks that failed as a downstream consequence of the same edit.</p>
               <p>The model's draft did not cite any of that. It wrote a fluent, well-formed explanation: "The customer is experiencing SSO login failures after a bulk user directory sync," and named the root cause as a check about whether the response was replying to a request the service provider had actually sent. That check had not failed. It had not been checked at all, because nothing in this case's flow required it, which is an ordinary, unremarkable state for that particular condition. The model's claim was confident, grammatically clean, schema-valid, and pointed at a check that had nothing wrong with it.</p>
-              <p>A gate sitting between the draft and anything a customer would see caught that on its own terms, without ever being told the right answer. Its one job is to check whether a claim's cited state actually matches what the verifier recorded, and here it did not: the model had pointed at an unverified gap and called it a finding. The gate rejected the draft outright. Nothing published. No answer went to the customer that week, in that recorded run, because no answer had actually been earned yet.</p>
-              <p>That is the version of this lab I want a support reader to sit with. It is not a story about a model getting the SAML details wrong, most of the draft's language was reasonable. It is a story about a system that refuses to let confidence substitute for evidence, even when the confidence is well written.</p>
+              <p>A gate sitting between the draft and anything a customer would see caught that on its own terms, without ever being told the right answer. Its one job is to check whether a claim's cited state actually matches what the verifier recorded, and here it did not. The model had pointed at an unverified gap and called it a finding. The gate rejected the draft outright. Nothing published. No answer went to the customer that week, in that recorded run, because no answer had actually been earned yet.</p>
+              <p>Most of the draft's language was reasonable. The gate does not grade language. It compares each cited check state against the verifier's record, and one mismatch is a rejection.</p>
             </section>
 
             <section id="human-loop" aria-labelledby="human-loop-title">
@@ -131,25 +131,21 @@
             </section>
 
             <section id="honest-close" aria-labelledby="honest-close-title">
-              <h2 id="honest-close-title">What a closed ticket has to leave behind.</h2>
+              <h2 id="honest-close-title">What a closed ticket has to leave behind</h2>
               <p>The habit I most wanted this lab to reinforce in myself is a documentation habit, not a modeling one. Closing a ticket with "SSO was broken, it's fixed now" is not traceable to anything. It gives the next person who touches this application, or the same person the next time it happens, nothing to go on. Closing it with the specific check identifier that failed, the artifact that proved it, and the change that resolved that exact condition means the next occurrence of "SSO is broken" for this application starts from a known list of what it was not, instead of starting from zero.</p>
-              <p>The rest of my support casework holds to the same discipline. It is also why this project belongs in a support portfolio and not only a security one. The identity provider here is a self-hosted Keycloak instance, not Entra, Okta, or Ping, and the customer narratives are authored text standing in for real tickets, not real conversations I have had. What is real is the standard: work the checks in order, cite the one that actually failed, and never publish a guess.</p>
+              <p>The rest of my support casework holds to the same standard, which is why this project sits in a support portfolio as well as a security one. The lab is synthetic, and the limits section below says exactly how far that goes. The discipline it enforces is not. A case cannot close here without naming the check that failed and the artifact that proved it.</p>
               <p>The full eight-stage pipeline behind this, intake through publish, is written up as a workflow lab on my <a href="/support/casework/#assertion-lab">casework page</a>, in the same register as the rest of that page's documented problems. The architecture, the numbers, and the code sit on the <a href="/projects/assertion-desk/">Assertion Desk project page</a>.</p>
             </section>
 
             <section id="limits" aria-labelledby="limits-title">
-              <h2 id="limits-title">What this lab does not claim</h2>
+              <h2 id="limits-title">Where the synthetic corpus stops</h2>
               <div class="research-note"><strong>Synthetic lab boundary</strong><p>Every case in this project runs against a self-hosted Keycloak identity provider with deliberately injected faults, not a production IdP, and every customer narrative is authored text, not a real support conversation.</p></div>
-              <ul class="limit-list">
-                <li>No claim of Entra, Okta, or Ping production experience is made anywhere in this project. Any vendor-specific behavior named in it is, at most, modeled from public documentation.</li>
-                <li>There is no live customer intake in this build. A demo endpoint wraps one of 55 frozen, pre-built cases; there is no path yet for a customer to upload a real artifact bundle or reply to a request for more evidence.</li>
-                <li>The published disposition accuracy is 94.5 percent across 55 cases, and 3 of the misses each have a specific, written structural reason rather than being unexplained noise. It is not a claim that every SAML failure resolves cleanly.</li>
-                <li>This is a demonstration of a method, careful verification before a model speaks, and a gate that can refuse a fluent answer, not a production help desk tool.</li>
-              </ul>
+              <p>No claim of Entra, Okta, or Ping production experience is made anywhere in this project. Any vendor-specific behavior named in it is modeled from public documentation at most. There is also no live customer intake in this build. A demo endpoint wraps one of 55 frozen, pre-built cases, and there is no path yet for a customer to upload a real artifact bundle or answer a request for more evidence.</p>
+              <p>The published disposition accuracy is 94.5 percent across those 55 cases, which is 52 right and 3 wrong. Each of the 3 has a written structural reason sitting next to it, and a written reason does not turn a wrong disposition into a right one. What runs here is a method, careful verification before a model speaks and a gate that can refuse a fluent answer. A production help desk would also need the intake, the escalation paths, and the vendor coverage this build does not have.</p>
             </section>
 
             <section id="run" aria-labelledby="run-title">
-              <h2 id="run-title">Run the recorded case yourself</h2>
+              <h2 id="run-title">Replay the recorded case</h2>
               <p>Python 3.11 or newer. No API key or live IdP needed to replay what was already recorded.</p>
               <figure class="code-figure">
                 <figcaption>Offline reproduction</figcaption>
