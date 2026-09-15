@@ -144,8 +144,21 @@ if (rack) {
       const box = rack.getBoundingClientRect();
 
       if (indicator) {
-        const offset = Math.min(Math.max(line - box.top, 0), Math.max(box.height - 28, 0));
-        indicator.style.transform = `translateY(${offset}px)`;
+        /* The ceiling is the rail's own height, but a page rarely scrolls far
+           enough for box.top to fall that low; whatever sits below the rack
+           (the footer, the last sliver of viewport under the read line) eats
+           into the scroll distance first. So the raw offset is rescaled
+           against the value it will actually reach at max scroll, and the
+           indicator lands exactly on the terminal bolt when the page does,
+           on any viewport or footer height. */
+        const doc = document.documentElement;
+        const maxScrollTop = Math.max(doc.scrollHeight - window.innerHeight, 0);
+        const railDocTop = box.top + window.scrollY;
+        const reachable = Math.max(line - railDocTop + maxScrollTop, 1);
+        const ceiling = Math.max(box.height - 28, 0);
+        const rawOffset = Math.max(line - box.top, 0);
+        const progress = Math.min(rawOffset / reachable, 1);
+        indicator.style.transform = `translateY(${progress * ceiling}px)`;
       }
 
       for (const module of modules) {
