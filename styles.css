@@ -5002,12 +5002,14 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   background: var(--sig);
 }
 
-/* Tick rail. One position marker per module, seated on the same rescaled
-   0-to-100% travel the indicator plate rides, so a lit tick and the
-   passing slider always agree on where a section sits. Unlike the
-   indicator, ticks are real navigation: they work with JS off (as plain
-   in-page anchors), under reduced motion (no travel script needed to
-   place them, see script.js layoutTicks), and via keyboard. */
+/* Tick rail. One position marker per module on each rail, seated on the
+   same rescaled 0-to-100% travel the indicator plate rides, so a lit tick
+   and the passing slider always agree on where a section sits. The left
+   mark is real navigation: it works with JS off (as a plain in-page
+   anchor), under reduced motion (no travel script needed to place it, see
+   script.js layoutTicks), and via keyboard. The right mark is its
+   decorative twin, aria-hidden, so the rail reads as a matched pair the
+   way the rail bars and terminal bolts already do. */
 .rack__ticks {
   position: absolute;
   inset: 0;
@@ -5016,18 +5018,32 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
 .rack__tick {
   position: absolute;
   top: 0;
-  left: calc(var(--pad) / 2 - 0.6rem);
   width: 1.2rem;
   height: 1.2rem;
   margin-top: -0.6rem;
   display: grid;
   place-items: center;
   border-radius: 50%;
+}
+
+.rack__tick--l {
+  left: calc(var(--pad) / 2 - 0.6rem);
   pointer-events: auto;
 }
 
+.rack__tick--r {
+  right: calc(var(--pad) / 2 - 0.6rem);
+  pointer-events: none;
+}
+
+/* The dot is a fixed-size ring that never changes footprint, seated or
+   not, hovered or not: its 1px edge sits at the same radius always. What
+   changes is only what is happening inside and around that fixed
+   boundary, so the mark never reads as being replaced by a different,
+   bigger one. */
 .rack__tick::before {
   content: "";
+  z-index: 1;
   width: 0.4rem;
   height: 0.4rem;
   border-radius: 50%;
@@ -5036,42 +5052,51 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   transition: background var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease);
 }
 
-.rack__tick:hover::before {
+.rack__tick--l:hover::before {
   background: var(--sig-soft);
   box-shadow: 0 0 0 1px var(--sig);
 }
 
-.rack__tick:focus-visible {
+.rack__tick--l:focus-visible {
   outline: 2px solid var(--sig);
   outline-offset: 2px;
   border-radius: 50%;
 }
 
-/* Seating a tick gets the same strike-and-settle the module bolts get: a
-   460ms pass that flares bright and wide-ringed at 30% (the bolt-seat
-   timing, see the "Seat and hold" block below) then relaxes to a resting
-   mark that is brighter than the dim state, still the same dot, same size,
-   same position on the rail. The flare is carried entirely by the ring and
-   fill color, never the dot's geometry, so it never reads as a second mark
-   appearing next to the first. */
 .rack__tick.is-seated::before {
-  animation: tick-seat 460ms var(--ease) both;
+  background: var(--sig);
+  box-shadow: 0 0 0 1px var(--sig);
 }
 
-@keyframes tick-seat {
-  0% {
-    background: var(--panel-hi);
-    box-shadow: 0 0 0 1px var(--line);
-  }
+/* A second, unpositioned layer sits behind the dot at the same fixed
+   size and centering (grid place-items does that for free). On seat it
+   briefly grows and fades, a ripple of light radiating out from the dot's
+   own center rather than the dot itself changing size, so the flash reads
+   as a glow the fixed mark gives off, not a second mark appearing next to
+   the first. */
+.rack__tick::after {
+  content: "";
+  z-index: 0;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--sig);
+  opacity: 0;
+}
 
-  30% {
-    background: var(--sig-hi);
-    box-shadow: 0 0 0 1px var(--sig), 0 0 0 5px var(--sig-soft);
+.rack__tick.is-seated::after {
+  animation: tick-halo 700ms var(--ease) both;
+}
+
+@keyframes tick-halo {
+  0% {
+    opacity: 0.6;
+    transform: scale(1);
   }
 
   100% {
-    background: var(--sig);
-    box-shadow: 0 0 0 1px var(--sig), 0 0 0 3px var(--sig-soft);
+    opacity: 0;
+    transform: scale(3.4);
   }
 }
 

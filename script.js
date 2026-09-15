@@ -128,7 +128,14 @@ if (rack) {
   const indicator = rack.querySelector("[data-rack-indicator]");
   const modules = Array.from(rack.querySelectorAll(".module"));
   const ticks = Array.from(rack.querySelectorAll("[data-rack-tick]"));
-  const tickByModuleId = new Map(ticks.map((tick) => [tick.dataset.rackTick, tick]));
+  /* Two marks per module now (one per rail), so a module id maps to a
+     list, not a single element. */
+  const tickByModuleId = new Map();
+  ticks.forEach((tick) => {
+    const id = tick.dataset.rackTick;
+    if (!tickByModuleId.has(id)) tickByModuleId.set(id, []);
+    tickByModuleId.get(id).push(tick);
+  });
   const stillQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   const seatAll = () => {
@@ -191,7 +198,7 @@ if (rack) {
         if (module.classList.contains("is-seated")) continue;
         if (module.getBoundingClientRect().top <= line) {
           module.classList.add("is-seated");
-          tickByModuleId.get(module.id)?.classList.add("is-seated");
+          tickByModuleId.get(module.id)?.forEach((tick) => tick.classList.add("is-seated"));
         }
       }
     };
