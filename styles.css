@@ -5002,6 +5002,56 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   background: var(--sig);
 }
 
+/* Tick rail. One position marker per module, seated on the same rescaled
+   0-to-100% travel the indicator plate rides, so a lit tick and the
+   passing slider always agree on where a section sits. Unlike the
+   indicator, ticks are real navigation: they work with JS off (as plain
+   in-page anchors), under reduced motion (no travel script needed to
+   place them, see script.js layoutTicks), and via keyboard. */
+.rack__ticks {
+  position: absolute;
+  inset: 0;
+}
+
+.rack__tick {
+  position: absolute;
+  top: 0;
+  left: calc(var(--pad) / 2 - 0.6rem);
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-top: -0.6rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  pointer-events: auto;
+}
+
+.rack__tick::before {
+  content: "";
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: var(--panel-hi);
+  box-shadow: 0 0 0 1px var(--line);
+  transition: background var(--dur-med) var(--ease), box-shadow var(--dur-med) var(--ease);
+}
+
+.rack__tick:hover::before {
+  background: var(--sig-soft);
+  box-shadow: 0 0 0 1px var(--sig);
+}
+
+.rack__tick:focus-visible {
+  outline: 2px solid var(--sig);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+.rack__tick.is-seated::before {
+  background: var(--sig);
+  box-shadow: 0 0 0 1px var(--sig), 0 0 0 3px var(--sig-soft);
+}
+
 .rack__stack {
   position: relative;
   z-index: 1;

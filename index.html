@@ -55,8 +55,8 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260911a" />
-    <script src="/script.js?v=20260915a" defer></script>
+    <link rel="stylesheet" href="/styles.css?v=20260915a" />
+    <script src="/script.js?v=20260915b" defer></script>
     <script src="/repo-status.js?v=20260905a" defer></script>
     <script src="/bench.js?v=20260909a" defer></script>
     <script type="application/ld+json">
@@ -168,14 +168,25 @@
          Every figure on this page traces to a repo. Change a claim in the
          source and change it here in the same edit. -->
     <main id="main" class="rack" data-rack>
-      <div class="rack__rails" aria-hidden="true">
-        <span class="rack__rail rack__rail--l"></span>
-        <span class="rack__rail rack__rail--r"></span>
-        <span class="rack__indicator" data-rack-indicator></span>
+      <div class="rack__rails">
+        <span class="rack__rail rack__rail--l" aria-hidden="true"></span>
+        <span class="rack__rail rack__rail--r" aria-hidden="true"></span>
+        <span class="rack__indicator" data-rack-indicator aria-hidden="true"></span>
+        <nav class="rack__ticks" aria-label="Jump to section" data-rack-ticks>
+          <a class="rack__tick" href="#hero" data-rack-tick="hero"><span class="sr-only">Intro</span></a>
+          <a class="rack__tick" href="#readout" data-rack-tick="readout"><span class="sr-only">Detection readout</span></a>
+          <a class="rack__tick" href="#bench" data-rack-tick="bench"><span class="sr-only">Live bench</span></a>
+          <a class="rack__tick" href="#work" data-rack-tick="work"><span class="sr-only">Security systems built</span></a>
+          <a class="rack__tick" href="#compile" data-rack-tick="compile"><span class="sr-only">Rule compiled end to end</span></a>
+          <a class="rack__tick" href="#method" data-rack-tick="method"><span class="sr-only">Method</span></a>
+          <a class="rack__tick" href="#tenure" data-rack-tick="tenure"><span class="sr-only">Help desk tenure</span></a>
+          <a class="rack__tick" href="#writing" data-rack-tick="writing"><span class="sr-only">Technical investigations</span></a>
+          <a class="rack__tick" href="#contact" data-rack-tick="contact"><span class="sr-only">Contact</span></a>
+        </nav>
       </div>
 
       <div class="rack__stack">
-        <section class="module module--id" aria-labelledby="hero-title">
+        <section id="hero" class="module module--id" aria-labelledby="hero-title">
           <p class="stamp">
             <span>Rochester, MN &middot; Security Engineering &amp; Operations &middot; Rev 2026.09</span>
             <span class="stamp__ticks" aria-hidden="true">
@@ -255,6 +266,7 @@
              introduced by the one sentence that decodes it, because a reader
              who meets E5 NO FIX cold has no way to price it. -->
         <section
+          id="readout"
           class="module module--flush module--amb module--readout"
           aria-labelledby="readout-title"
         >
@@ -392,7 +404,7 @@
              rules fail to catch it, and read what the repo already said
              about why. The rail works before a single click: eleven of
              fourteen chips are amber at rest. -->
-        <section class="module module--bench" aria-labelledby="bench-title" data-bench>
+        <section id="bench" class="module module--bench" aria-labelledby="bench-title" data-bench>
           <div class="module__face">
             <h2 id="bench-title">Pick one and watch it get through</h2>
             <p class="module__meta">14 records / rules running in this page</p>
@@ -612,7 +624,7 @@
           </p>
         </section>
 
-        <section class="module module--work" aria-labelledby="work-title">
+        <section id="work" class="module module--work" aria-labelledby="work-title">
           <div class="module__face">
             <h2 id="work-title">Security systems I built</h2>
             <p class="module__meta">5 systems / 2025 to 2026</p>
@@ -741,7 +753,7 @@
         <!-- Bolted flush to the work rows above: one of those five systems,
              opened up. The compiler input, the four transform stages, and
              the artifact it emits, with the same rule ID the repo ships. -->
-        <section class="module module--flush module--compile" aria-labelledby="compile-title">
+        <section id="compile" class="module module--flush module--compile" aria-labelledby="compile-title">
           <div class="module__face">
             <h2 id="compile-title">One rule, compiled end to end</h2>
             <p class="module__meta">DaC-Pipeline / rule 200001 / T1105</p>
@@ -814,7 +826,7 @@
               </figure>
         </section>
 
-        <section class="module module--method" aria-labelledby="method-title">
+        <section id="method" class="module module--method" aria-labelledby="method-title">
           <div class="module__face">
             <h2 id="method-title">
               What <span class="method-heading__sig">tested</span> and
@@ -883,7 +895,7 @@
              claim-and-limit shape. Seventeen ticks, one per month worked,
              countable rather than asserted, because seventeen months is the
              figure this record is never allowed to round up. -->
-        <section class="module module--tenure" aria-labelledby="tenure-title">
+        <section id="tenure" class="module module--tenure" aria-labelledby="tenure-title">
           <div class="module__face">
             <h2 id="tenure-title">17 months on the help desk</h2>
             <p class="module__meta">Butte College / Oroville, California</p>
@@ -921,7 +933,7 @@
           </div>
         </section>
 
-        <section class="module module--writing" aria-labelledby="writing-title">
+        <section id="writing" class="module module--writing" aria-labelledby="writing-title">
           <div class="module__face">
             <h2 id="writing-title">Technical investigations</h2>
             <p class="module__meta">2 pieces / 2024 and 2026</p>
@@ -971,7 +983,7 @@
           </div>
         </section>
 
-        <section class="module module--contact" aria-labelledby="contact-title">
+        <section id="contact" class="module module--contact" aria-labelledby="contact-title">
           <div class="module__face">
             <h2 id="contact-title">Let&#8217;s talk security operations</h2>
             <p class="module__meta">Rochester, MN / open to remote</p>
