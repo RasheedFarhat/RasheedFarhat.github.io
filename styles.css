@@ -1166,9 +1166,8 @@ html[data-loaded="true"] .stamp {
   object-fit: cover;
   border-radius: 1px;
   box-shadow: inset 0 0 0 1px var(--line);
-  /* The source PNG is baked to true 8-bit grayscale at the pixel level
-     (not just filtered), so dragging or viewing the raw file never
-     exposes a color version. This filter only tunes contrast/brightness. */
+  /* The source JPEG is already toned down (gamma, saturation) so it sits
+     in the dark plate without glare. This filter only tunes contrast/brightness. */
   filter: contrast(1.08) brightness(1.03);
 }
 
