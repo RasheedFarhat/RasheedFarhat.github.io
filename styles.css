@@ -980,14 +980,9 @@ li {
     padding-left: 0.9rem;
   }
 
-  /* The theme toggle moves from the menu to the header bar on small screens. */
-  :root[data-theme] .site-nav .theme-toggle {
-    display: none;
-  }
-
+  /* Keep the header focused on identity and navigation. */
   :root[data-theme] .theme-toggle--bar {
-    display: inline-flex;
-    min-height: 44px;
+    display: none;
   }
 
   html.nav-open,
@@ -1095,42 +1090,9 @@ li {
   transform-origin: left center;
 }
 
-.stamp__ticks {
-  display: flex;
-  gap: 3px;
-}
-
-.stamp__ticks span {
-  width: 1px;
-  height: 0.65rem;
-  background: var(--line-hi);
-}
-
-.stamp__ticks span:nth-child(4n) {
-  background: var(--sig);
-  height: 0.9rem;
-}
-
 html[data-loaded="true"] .stamp {
   transform: scaleX(1);
   transition: transform 520ms var(--ease);
-}
-
-.id-lamps {
-  font-family: var(--mono);
-  font-size: 0.76rem;
-  letter-spacing: 0.06em;
-  color: var(--text-dim);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem 1.5rem;
-  margin: 0 0 1.85rem;
-  padding: 0;
-  list-style: none;
-}
-
-.id-lamps li {
-  margin: 0;
 }
 
 /* Portrait, mounted like the rest of the hardware: a raised bezel (same
@@ -1310,22 +1272,14 @@ html[data-loaded="true"] .id-name__rule {
   margin: 0;
 }
 
-.id-source {
-  color: var(--text-dim);
-  font-size: 0.9rem;
-  margin: 0.9rem 0 0;
-  max-width: 52ch;
-}
-
 /* Homepage-only rhythm. These margins used to be deliberately loose: the
    copy column stood beside the compile plate, ran shorter than it, and the
    extra spacing kept it from reading as cut short next to a tall neighbour.
    Retuned 2026-09-07, when the plate moved to its own full-width row below.
    Nothing tall sits beside this column any more, so the same values now
    just stretch three short paragraphs down the page. Pulled back to a
-   normal reading rhythm instead. Scoped to .id-ident so the shared
-   .hero-lede / .action-row / .id-lamps components keep their defaults on
-   every other page's hero. */
+   normal reading rhythm instead. Scoped to .id-ident so shared components
+   keep their defaults on every other page's hero. */
 .id-ident .hero-lede {
   margin-bottom: 0.6rem;
 }
@@ -1336,11 +1290,6 @@ html[data-loaded="true"] .id-name__rule {
 
 .id-ident .action-row {
   margin-top: 1.75rem;
-}
-
-.id-ident .id-lamps {
-  margin-top: 1.1rem;
-  margin-bottom: 0;
 }
 
 @media (max-width: 47.999rem) {
@@ -5110,6 +5059,30 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   gap: var(--rack-gap);
 }
 
+/* Detailed instruments live with their case studies, without the homepage
+   rails or bolt markers. The module surfaces still give the evidence its
+   original reading structure. */
+.case-exhibit {
+  padding-block: clamp(1.5rem, 4vw, 3rem) clamp(3rem, 6vw, 4.5rem);
+}
+
+.case-exhibit .module::before,
+.case-exhibit .module::after {
+  display: none;
+}
+
+@media (max-width: 63.999rem) {
+  /* The source and generated rule now live on the detailed case page, so
+     both ends of the transform stay available on a phone. */
+  .case-exhibit .module--compile .plate__pane--out {
+    display: block;
+  }
+
+  .case-exhibit .module--compile .plate__stages {
+    border-bottom: 1px solid var(--line-hi);
+  }
+}
+
 /* Modules ---------------------------------------------------------------- */
 
 .module {
@@ -5231,15 +5204,6 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   border-bottom: 1px solid var(--line);
 }
 
-/* The tick strip is a measurement rule with nothing to measure once the
-   stamp wraps to three lines; on a phone it lands mid-sentence and reads as
-   damage. Dropped rather than shrunk. */
-@media (max-width: 47.999rem) {
-  .stamp__ticks {
-    display: none;
-  }
-}
-
 .id-plate {
   display: flex;
   flex-direction: column;
@@ -5261,18 +5225,72 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   gap: 0.9rem;
 }
 
-/* The source link rides the actions row rather than sitting above it. It is
-   an action, it was already the last thing read before the buttons, and its
-   own paragraph cost the plate a line the first viewport could not spare. */
-.id-actions .id-source {
-  margin: 0;
+/* On phones, keep the portrait and name together as one identity block.
+   The claim and actions then use the full width, so neither is buried by a
+   tall portrait-first stack. */
+@media (max-width: 47.999rem) {
+  .rack__rails,
+  .module::before,
+  .module::after {
+    display: none;
+  }
+
+  .module--flush {
+    margin-top: 0;
+    border-radius: var(--radius);
+  }
+
+  .module:has(+ .module--flush) {
+    border-radius: var(--radius);
+  }
+
+  .id-plate {
+    display: grid;
+    grid-template-columns: 7.25rem minmax(0, 1fr);
+    column-gap: 1rem;
+    row-gap: 0.9rem;
+    align-items: end;
+  }
+
+  .id-plate .hero-id {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0;
+  }
+
+  .id-plate .id-ident {
+    display: contents;
+  }
+
+  .id-plate .id-ident h1 {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    margin: 0 0 0.35rem;
+    font-size: clamp(2.5rem, 12vw, 3.4rem);
+  }
+
+  .id-plate .hero-lede,
+  .id-plate .id-role,
+  .id-plate .id-actions {
+    grid-column: 1 / -1;
+  }
+
+  .id-plate .id-actions {
+    gap: 0.65rem;
+    margin-top: 0.35rem;
+  }
+
+  .id-plate .id-actions .button {
+    flex: 1 1 auto;
+    padding-inline: 0.65rem;
+    font-size: 0.72rem;
+  }
 }
 
 /* Past 62rem the plate is a real plate: portrait spanning both rows at the
    left, name and claim beside it, actions seated on the plate's right edge.
-   The résumé button precedes the primary in the DOM so that visual order,
-   reading order, and tab order all agree while the primary still lands at
-   the outside edge. */
+   The résumé button precedes the primary in reading and tab order. */
 @media (min-width: 62rem) {
   .id-plate {
     display: grid;
@@ -5297,12 +5315,6 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   .id-plate .id-actions {
     grid-area: actions;
     justify-content: flex-end;
-  }
-
-  /* Pushed to the far left of the row so the plate's bottom edge reads as
-     one line: the quiet route on the left, the two buttons on the right. */
-  .id-plate .id-source {
-    margin-right: auto;
   }
 
   .id-plate .hero-id__frame,
@@ -5520,11 +5532,23 @@ html[data-loaded="true"] .case-desk__stage--resolve:last-child .case-desk__stage
   right: var(--mod-pad-i);
 }
 
+.module--work .work-row {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.module--work .work-row__evidence {
+  margin: 0;
+}
+
 @media (min-width: 60rem) {
   .module--work .work-row,
   .module--writing .writing-row,
   .module--method .method-rule {
     padding-inline: var(--mod-pad-i);
+  }
+
+  .module--work .work-row {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
   }
 }
 

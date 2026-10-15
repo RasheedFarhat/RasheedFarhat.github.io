@@ -37,7 +37,7 @@
       crossorigin
     />
     <script src="/theme-init.js?v=20260812a"></script>
-    <link rel="stylesheet" href="/styles.css?v=20260911a" />
+    <link rel="stylesheet" href="/styles.css?v=20261015c" />
     <script src="/script.js?v=20260911a" defer></script>
     <script src="/repo-status.js?v=20260905a" defer></script>
     <script type="application/ld+json">
@@ -201,6 +201,7 @@
                 <li><a href="#problem">Problem</a></li>
                 <li><a href="#architecture">Architecture</a></li>
                 <li><a href="#compiler">Inside the compiler</a></li>
+                <li><a href="#compile">Source to XML</a></li>
                 <li><a href="#decisions">Decisions</a></li>
                 <li><a href="#validation">Validation</a></li>
                 <li><a href="#limits">Known limits</a></li>
@@ -284,7 +285,7 @@
 ]</code></pre>
               </figure>
               <p>
-                The homepage shows this rule's full source and generated XML.
+                The source-to-XML exhibit below shows the compiled rule.
                 The
                 <a
                   href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
@@ -455,6 +456,7 @@
               <li><a href="#problem">Problem</a></li>
               <li><a href="#architecture">Architecture</a></li>
               <li><a href="#compiler">Inside the compiler</a></li>
+                <li><a href="#compile">Source to XML</a></li>
               <li><a href="#decisions">Decisions</a></li>
               <li><a href="#validation">Validation</a></li>
               <li><a href="#limits">Known limits</a></li>
@@ -470,6 +472,83 @@
             </ul>
           </aside>
         </div>
+      <div class="rack case-exhibit">
+        <div class="rack__stack">
+        <section id="compile" class="module module--compile" aria-labelledby="compile-title">
+          <div class="module__face">
+            <h2 id="compile-title">One rule, compiled end to end</h2>
+            <p class="module__meta">DaC-Pipeline / rule 200001 / T1105</p>
+          </div>
+              <figure class="plate">
+                <div class="plate__grid">
+                  <div class="plate__pane plate__pane--src">
+                    <span class="plate__pane-label"
+                      >SOURCE / <strong>rules/sigma/sysmon_certutil_download.yml</strong></span
+                    >
+                    <pre><code><span class="tok-k">detection:</span>
+      <span class="tok-k">selection:</span>
+          <span class="tok-k">Image|endswith:</span> <span class="tok-s">'\certutil.exe'</span>
+          <span class="tok-k">CommandLine|contains|all:</span>
+              - <span class="tok-s">'urlcache'</span>
+              - <span class="tok-s">'split'</span>
+      <span class="tok-k">condition:</span> <span class="tok-t">selection</span></code></pre>
+                  </div>
+                  <div class="plate__stages">
+                    <span class="plate__stages-label">Transform</span>
+                    <ol>
+                      <li><strong>Parse</strong>pySigma AST</li>
+                      <li><strong>Distribute</strong>DNF, capped at 500</li>
+                      <li><strong>Merge</strong>PCRE2 lookaheads</li>
+                      <li><strong>Render</strong>Jinja2, stable ID</li>
+                    </ol>
+                  </div>
+                  <div class="plate__pane plate__pane--out">
+                    <span class="plate__pane-label"
+                      >ARTIFACT / <strong>build/wazuh/sysmon_certutil_download_200001.xml</strong></span
+                    >
+                    <div class="plate__code-clip">
+                      <pre><code><span class="tok-k">&lt;group</span> name=<span class="tok-s">"windows, custom_sigma"</span><span class="tok-k">&gt;</span>
+    <span class="tok-k">&lt;rule</span> id=<span class="tok-s">"200001"</span> level=<span class="tok-s">"10"</span><span class="tok-k">&gt;</span>
+      <span class="tok-c">&lt;!-- sigma_uuid:c8d8b9e5... --&gt;</span>
+      <span class="tok-k">&lt;if_group&gt;</span>sysmon_event1<span class="tok-k">&lt;/if_group&gt;</span>
+      <span class="tok-k">&lt;field</span> name=<span class="tok-s">"win.eventdata.image"</span>
+             type=<span class="tok-s">"pcre2"</span><span class="tok-k">&gt;</span>
+        <span class="tok-t">(?i).*\\certutil\.exe$</span><span class="tok-k">&lt;/field&gt;</span>
+      <span class="tok-k">&lt;field</span> name=<span class="tok-s">"win.eventdata.commandLine"</span>
+             type=<span class="tok-s">"pcre2"</span><span class="tok-k">&gt;</span>
+        <span class="tok-t">(?=.*(?i).*urlcache.*)(?=.*(?i).*split.*)</span><span class="tok-k">&lt;/field&gt;</span>
+      <span class="tok-k">&lt;description&gt;</span>Suspicious Certutil Network
+        Connection<span class="tok-k">&lt;/description&gt;</span>
+      <span class="tok-k">&lt;mitre&gt;&lt;id&gt;</span>T1105<span class="tok-k">&lt;/id&gt;&lt;/mitre&gt;</span>
+    <span class="tok-k">&lt;/rule&gt;</span>
+  <span class="tok-k">&lt;/group&gt;</span></code></pre>
+                    </div>
+                    <a
+                      class="text-link plate__more"
+                      href="https://github.com/RasheedFarhat/DaC-Pipeline/blob/main/docs/COMPILER.md"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      >View full trace <span aria-hidden="true">&rarr;</span
+                      ><span class="sr-only"> (opens in a new tab)</span></a
+                    >
+                  </div>
+                </div>
+                <figcaption class="plate__caption">
+                  <p>
+                    Rule 200001 keeps that ID from source through deployment, so a
+                    later change to the same Sigma file lands on the same Wazuh
+                    rule instead of a new one.
+                    <a href="https://github.com/RasheedFarhat/DaC-Pipeline" target="_blank" rel="noopener noreferrer">Inspect the source<span class="sr-only"> (opens in a new tab)</span></a>.
+                  </p>
+                  <p class="plate__bound" data-load-step="bound">
+                    <span class="bound">The rule only fires where Sysmon event 1 is already collected</span>
+                  </p>
+                </figcaption>
+              </figure>
+        </section>
+
+        </div>
+      </div>
       </article>
     </main>
 
@@ -534,9 +613,9 @@
             <span class="title-block__label">Document</span>
             <p>rasheedfarhat.github.io</p>
             <span class="mono-note"
-              >Rev 2026.09 / &#169; <span data-year></span> Rasheed Farhat</span
+              >Rev 2026.10 / &#169; <span data-year></span> Rasheed Farhat</span
             >
-            <a class="mono-note" href="/support/">IT support and help desk resume</a>
+            <a class="mono-note" href="/support/">IT support portfolio</a>
           </div>
         </div>
       </div>
